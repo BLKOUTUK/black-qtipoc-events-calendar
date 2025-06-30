@@ -226,6 +226,7 @@ export const handler: Handler = async (event, context) => {
     let totalAdded = 0;
     const errors: string[] = [];
     const relevanceScores: number[] = [];
+    const relevantEvents: OutsavvyEvent[] = [];
 
     // Search using different strategies
     for (const strategy of SEARCH_STRATEGIES) {
@@ -277,9 +278,7 @@ export const handler: Handler = async (event, context) => {
 
             if (!isRelevantEvent(outsavvyEvent)) continue;
             totalRelevant++;
-            
-            // Would add to Google Sheets Events tab here
-            // For now just counting relevant events
+            relevantEvents.push(outsavvyEvent);
             totalAdded++;
           }
 
@@ -307,7 +306,7 @@ export const handler: Handler = async (event, context) => {
       error_message: errors.length > 0 ? errors.slice(0, 5).join('; ') : null
     };
 
-    await logToGoogleSheets(logData);
+    await appendToGoogleSheets(relevantEvents, logData);
 
     return {
       statusCode: 200,
