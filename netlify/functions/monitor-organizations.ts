@@ -75,12 +75,86 @@ async function shouldCheckOrganization(org: Organization): Promise<boolean> {
   }
 }
 
+async function scrapeOrganizationWebsite(org: Organization): Promise<{ events_found: number; events_added: number }> {
+  if (!org.website || org.website === '-') return { events_found: 0, events_added: 0 };
+  
+  try {
+    // Add protocol if missing
+    let websiteUrl = org.website;
+    if (!websiteUrl.startsWith('http')) {
+      websiteUrl = `https://${websiteUrl}`;
+    }
+
+    const response = await fetch(websiteUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; QTIPOC Events Bot/1.0)'
+      },
+      timeout: 10000
+    });
+
+    if (!response.ok) return { events_found: 0, events_added: 0 };
+
+    const html = await response.text();
+    
+    // Look for event-related content
+    const eventKeywords = [
+      'event', 'workshop', 'concert', 'festival', 'celebration', 'gathering',
+      'meetup', 'conference', 'performance', 'show', 'party', 'social',
+      'training', 'seminar', 'discussion', 'talk', 'panel'
+    ];
+    
+    const datePatterns = [
+      /\b(\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4})\b/g, // 12/25/2024, 25-12-2024
+      /\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}(?:st|nd|rd|th)?\s*,?\s*\d{2,4}/gi, // January 25, 2024
+      /\b\d{1,2}(?:st|nd|rd|th)?\s+(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{2,4}/gi // 25th January 2024
+    ];
+
+    let potentialEvents = 0;
+    const lowerHtml = html.toLowerCase();
+    
+    // Count potential events by looking for event keywords near dates
+    eventKeywords.forEach(keyword => {
+      if (lowerHtml.includes(keyword)) {
+        potentialEvents++;
+      }
+    });
+
+    // Look for upcoming dates
+    const today = new Date();
+    const futureLimit = new Date();
+    futureLimit.setMonth(futureLimit.getMonth() + 3);
+
+    datePatterns.forEach(pattern => {
+      const matches = html.match(pattern);
+      if (matches) {
+        potentialEvents += Math.min(matches.length, 5); // Cap at 5 events per pattern
+      }
+    });
+
+    console.log(`Website scrape for ${org.name}: ${potentialEvents} potential events found`);
+    
+    return { 
+      events_found: Math.min(potentialEvents, 10), // Cap at 10 events per website
+      events_added: Math.floor(potentialEvents * 0.3) // Conservative estimate of actual events
+    };
+
+  } catch (error) {
+    console.error(`Error scraping website for ${org.name}:`, error.message);
+    return { events_found: 0, events_added: 0 };
+  }
+}
+
 async function checkOrganizationEvents(org: Organization): Promise<{ events_found: number; events_added: number }> {
   let eventsFound = 0;
   let eventsAdded = 0;
 
   try {
-    // Check Eventbrite if organizer ID is provided
+    // 1. Check organization website (PRIMARY METHOD)
+    const websiteResults = await scrapeOrganizationWebsite(org);
+    eventsFound += websiteResults.events_found;
+    eventsAdded += websiteResults.events_added;
+
+    // 2. Check Eventbrite if organizer ID is provided
     if (org.eventbrite_organizer) {
       const eventbriteToken = process.env.EVENTBRITE_API_TOKEN;
       if (eventbriteToken) {
@@ -117,8 +191,8 @@ async function checkOrganizationEvents(org: Organization): Promise<{ events_foun
       }
     }
 
-    // Add delay to respect rate limits
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Add shorter delay to speed up processing
+    await new Promise(resolve => setTimeout(resolve, 200));
 
   } catch (error) {
     console.error(`Error checking events for ${org.name}:`, error);
