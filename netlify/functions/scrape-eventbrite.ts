@@ -36,18 +36,10 @@ const ALL_KEYWORDS = [
   ...EVENT_TYPE_KEYWORDS
 ];
 
-// UK-focused search strategies
-const SEARCH_STRATEGIES = [
-  { query: 'black queer', cities: ['London', 'Manchester', 'Birmingham', 'Bristol', 'Leeds'] },
-  { query: 'qtipoc', cities: ['London', 'Brighton', 'Manchester', 'Bristol'] },
-  { query: 'black trans', cities: ['London', 'Manchester', 'Birmingham', 'Leeds'] },
-  { query: 'black lgbtq', cities: ['London', 'Bristol', 'Manchester', 'Brighton'] },
-  { query: 'black liberation', cities: ['London', 'Manchester', 'Birmingham'] },
-  { query: 'racial justice queer', cities: ['London', 'Bristol', 'Manchester'] },
-  { query: 'intersectional community', cities: ['London', 'Brighton', 'Leeds'] },
-  { query: 'black community workshop', cities: ['London', 'Manchester', 'Birmingham'] },
-  { query: 'queer poc arts', cities: ['London', 'Bristol', 'Brighton'] },
-  { query: 'black wellness healing', cities: ['London', 'Manchester', 'Leeds'] }
+// Known QTIPOC+ organizations on Eventbrite (their organization IDs)
+const QTIPOC_ORGANIZATIONS = [
+  { id: '210048439247', name: 'BlackOutUK' }, // We know this one works
+  // Add more as we discover them
 ];
 
 interface EventbriteEvent {
@@ -216,30 +208,26 @@ export const handler: Handler = async (event, context) => {
     const relevanceScores: number[] = [];
     const discoveredEvents: any[] = [];
 
-    for (const strategy of SEARCH_STRATEGIES) {
-      for (const city of strategy.cities) {
-        try {
-          const url = `https://www.eventbriteapi.com/v3/events/search/?` +
-            `q=${encodeURIComponent(strategy.query)}&` +
-            `location.address=${encodeURIComponent(city)}&` +
-            `start_date.range_start=${new Date().toISOString()}&` +
-            `start_date.range_end=${new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()}&` +
-            `expand=organizer,venue,category,subcategory,ticket_availability&` +
-            `sort_by=relevance`;
-          
-          const response = await fetch(url, {
-            headers: {
-              'Authorization': `Bearer ${eventbriteToken}`,
-              'Content-Type': 'application/json'
-            }
-          });
+    for (const org of QTIPOC_ORGANIZATIONS) {
+      try {
+        const url = `https://www.eventbriteapi.com/v3/organizations/${org.id}/events/?` +
+          `status=live,started,ended&` +
+          `order_by=start_asc&` +
+          `expand=organizer,venue,category,subcategory,ticket_availability`;
+        
+        const response = await fetch(url, {
+          headers: {
+            'Authorization': `Bearer ${eventbriteToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
           if (!response.ok) {
             if (response.status === 429) {
               // Rate limited - wait and retry
               await new Promise(resolve => setTimeout(resolve, 5000));
               continue;
             }
-            throw new Error(`Eventbrite API error: ${response.status}`);
+            throw new Error(`Eventbrite API error: ${response.status} for ${org.name}`);
           }
 
           const data = await response.json();
@@ -284,11 +272,10 @@ export const handler: Handler = async (event, context) => {
             totalAdded++;
           }
 
-          // Rate limiting - be respectful to Eventbrite API
-          await new Promise(resolve => setTimeout(resolve, 1500));
-        } catch (error) {
-          errors.push(`Error searching ${city} for "${strategy.query}": ${error.message}`);
-        }
+        // Rate limiting - be respectful to Eventbrite API
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      } catch (error) {
+        errors.push(`Error fetching events from ${org.name}: ${error.message}`);
       }
     }
 
@@ -321,7 +308,7 @@ export const handler: Handler = async (event, context) => {
         events_added: totalAdded,
         relevance_rate: totalFound > 0 ? (totalRelevant / totalFound * 100).toFixed(1) + '%' : '0%',
         avg_relevance_score: avgRelevanceScore.toFixed(1),
-        search_strategies_used: SEARCH_STRATEGIES.length,
+        organizations_checked: QTIPOC_ORGANIZATIONS.length,
         errors: errors.length > 0 ? errors.slice(0, 3) : undefined
       })
     };

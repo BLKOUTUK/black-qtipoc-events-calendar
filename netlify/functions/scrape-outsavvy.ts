@@ -245,7 +245,7 @@ export const handler: Handler = async (event, context) => {
           const coords = cityCoords[city] || cityCoords['London'];
           
           // Correct Outsavvy API URL with proper base URL and parameters
-          const url = `https://www.api.outsavvy.com/v1/events/search?` +
+          const url = `https://api.outsavvy.com/v1/events/search?` +
             `q=${encodeURIComponent(strategy.query)}&` +
             `latitude=${coords.lat}&` +
             `longitude=${coords.lng}&` +
