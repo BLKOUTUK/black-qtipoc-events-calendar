@@ -200,15 +200,33 @@ export const handler: Handler = async (event, context) => {
     for (const strategy of SEARCH_STRATEGIES) {
       for (const city of strategy.cities) {
         try {
-          // Construct Outsavvy API URL (adjust based on actual API documentation)
-          const url = `https://api.outsavvy.com/events/search?` +
-            `q=${encodeURIComponent(strategy.query)}&` +
-            `location=${encodeURIComponent(city)}&` +
-            `start_date=${new Date().toISOString().split('T')[0]}&` +
-            `end_date=${new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&` +
-            `api_key=${outsavvyApiKey}`;
+          // Get coordinates for city (simplified mapping)
+          const cityCoords = {
+            'London': { lat: 51.5074, lng: -0.1278 },
+            'Manchester': { lat: 53.4808, lng: -2.2426 },
+            'Birmingham': { lat: 52.4862, lng: -1.8904 },
+            'Bristol': { lat: 51.4545, lng: -2.5879 },
+            'Leeds': { lat: 53.8008, lng: -1.5491 },
+            'Brighton': { lat: 50.8225, lng: -0.1372 }
+          };
           
-          const response = await fetch(url);
+          const coords = cityCoords[city] || cityCoords['London'];
+          
+          // Correct Outsavvy API URL with proper base URL and parameters
+          const url = `https://www.api.outsavvy.com/v1/events/search?` +
+            `q=${encodeURIComponent(strategy.query)}&` +
+            `latitude=${coords.lat}&` +
+            `longitude=${coords.lng}&` +
+            `range=10&` +
+            `start_date=${new Date().toISOString().split('T')[0]}&` +
+            `end_date=${new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}`;
+          
+          const response = await fetch(url, {
+            headers: {
+              'Authorization': `Partner ${outsavvyApiKey}`,
+              'Content-Type': 'application/json'
+            }
+          });
           if (!response.ok) {
             if (response.status === 429) {
               // Rate limited - wait and retry
