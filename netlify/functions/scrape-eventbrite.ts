@@ -130,9 +130,51 @@ async function appendToGoogleSheet(events: any[], logData: any) {
   }
 
   try {
-    // In a real implementation, this would use the Google Sheets API
-    // to append events to the Events sheet and log to ScrapingLogs sheet
-    console.log('Would append to Google Sheets:', {
+    // Append events to Events sheet
+    if (events.length > 0) {
+      const eventsUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Events:append?valueInputOption=RAW&key=${API_KEY}`;
+      const eventsValues = events.map(event => [
+        event.id,
+        event.name,
+        event.description,
+        event.start?.utc || event.event_date,
+        event.venue?.address?.address_1 + ', ' + event.venue?.address?.city || event.location,
+        'eventbrite',
+        event.url || event.source_url,
+        event.organizer?.name || event.organizer_name,
+        event.tags?.join(', ') || '',
+        'draft',
+        event.ticket_availability?.minimum_ticket_price?.display || event.price || '',
+        event.logo?.url || event.image_url || '',
+        new Date().toISOString()
+      ]);
+
+      await fetch(eventsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ values: eventsValues })
+      });
+    }
+
+    // Log to ScrapingLogs sheet
+    const logUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/ScrapingLogs:append?valueInputOption=RAW&key=${API_KEY}`;
+    const logValues = [[
+      logData.id,
+      logData.source,
+      logData.events_found,
+      logData.events_added,
+      logData.status,
+      logData.created_at,
+      logData.error_message || ''
+    ]];
+
+    await fetch(logUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ values: logValues })
+    });
+
+    console.log('Successfully wrote to Google Sheets:', {
       events: events.length,
       log: logData
     });

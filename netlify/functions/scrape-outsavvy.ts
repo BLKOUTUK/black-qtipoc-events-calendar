@@ -137,8 +137,8 @@ function isRelevantEvent(event: OutsavvyEvent): boolean {
   return score >= 10; // Minimum threshold for relevance
 }
 
-// Helper function to log to Google Sheets
-async function logToGoogleSheets(data: any) {
+// Helper function to append events and log to Google Sheets
+async function appendToGoogleSheets(events: any[], logData: any) {
   try {
     const googleApiKey = process.env.GOOGLE_API_KEY;
     const sheetId = process.env.GOOGLE_SHEET_ID;
@@ -148,22 +148,53 @@ async function logToGoogleSheets(data: any) {
       return;
     }
 
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/ScrapingLogs:append?valueInputOption=RAW&key=${googleApiKey}`;
-    
-    const values = [[
-      data.id,
-      data.source,
-      data.events_found,
-      data.events_added,
-      data.status,
-      data.created_at,
-      data.error_message
+    // Append events to Events sheet
+    if (events.length > 0) {
+      const eventsUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Events:append?valueInputOption=RAW&key=${googleApiKey}`;
+      const eventsValues = events.map(event => [
+        event.id,
+        event.title,
+        event.description,
+        event.start_date,
+        event.venue?.name + ', ' + event.venue?.city || event.location,
+        'outsavvy',
+        event.url || event.source_url,
+        event.organizer?.name || event.organizer_name,
+        event.tags?.join(', ') || event.categories?.join(', ') || '',
+        'draft',
+        event.price_info?.is_free ? 'Free' : `£${event.price_info?.min_price}` || '',
+        event.image_url || '',
+        new Date().toISOString()
+      ]);
+
+      await fetch(eventsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ values: eventsValues })
+      });
+    }
+
+    // Log to ScrapingLogs sheet
+    const logUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/ScrapingLogs:append?valueInputOption=RAW&key=${googleApiKey}`;
+    const logValues = [[
+      logData.id,
+      logData.source,
+      logData.events_found,
+      logData.events_added,
+      logData.status,
+      logData.created_at,
+      logData.error_message || ''
     ]];
 
-    await fetch(url, {
+    await fetch(logUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ values })
+      body: JSON.stringify({ values: logValues })
+    });
+
+    console.log('Successfully wrote to Google Sheets:', {
+      events: events.length,
+      log: logData
     });
   } catch (error) {
     console.warn('Failed to log to Google Sheets:', error.message);
