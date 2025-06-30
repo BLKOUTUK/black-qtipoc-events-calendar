@@ -1,0 +1,35 @@
+name: Automated Event Scraping
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scrape Events from All Sources
+        run: |
+          echo "🔍 Starting automated event discovery..."
+          
+          # Scrape from all sources
+          curl -X POST "${{ secrets.NETLIFY_SITE_URL }}/.netlify/functions/scrape-all-sources" \
+            -H "Content-Type: application/json" \
+            -w "Status: %{http_code}\n" \
+            --max-time 300
+          
+          echo "✅ Event scraping completed"
+      
+      - name: Monitor Organizations
+        run: |
+          echo "👥 Checking known organizations..."
+          
+          # Monitor known QTIPOC+ organizations
+          curl -X POST "${{ secrets.NETLIFY_SITE_URL }}/.netlify/functions/monitor-organizations" \
+            -H "Content-Type: application/json" \
+            -w "Status: %{http_code}\n" \
+            --max-time 300
+          
+          echo "✅ Organization monitoring completed"
