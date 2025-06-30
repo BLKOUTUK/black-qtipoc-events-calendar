@@ -183,10 +183,14 @@ export const handler: Handler = async (event, context) => {
             `start_date.range_start=${new Date().toISOString()}&` +
             `start_date.range_end=${new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()}&` +
             `expand=organizer,venue,category,subcategory,ticket_availability&` +
-            `sort_by=relevance&` +
-            `token=${eventbriteToken}`;
+            `sort_by=relevance`;
           
-          const response = await fetch(url);
+          const response = await fetch(url, {
+            headers: {
+              'Authorization': `Bearer ${eventbriteToken}`,
+              'Content-Type': 'application/json'
+            }
+          });
           if (!response.ok) {
             if (response.status === 429) {
               // Rate limited - wait and retry
