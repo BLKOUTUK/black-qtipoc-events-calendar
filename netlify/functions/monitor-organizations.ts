@@ -54,9 +54,11 @@ async function getOrganizationsFromSheet(): Promise<Organization[]> {
 
 async function shouldCheckOrganization(org: Organization): Promise<boolean> {
   if (org.status !== 'active') return false;
-  if (!org.last_checked) return true;
+  if (!org.last_checked || org.last_checked === '-') return true;
 
   const lastChecked = new Date(org.last_checked);
+  if (isNaN(lastChecked.getTime())) return true; // Invalid date, should check
+  
   const now = new Date();
   const daysSinceCheck = Math.floor((now.getTime() - lastChecked.getTime()) / (1000 * 60 * 60 * 24));
 
