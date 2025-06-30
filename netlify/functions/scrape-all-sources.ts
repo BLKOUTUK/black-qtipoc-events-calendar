@@ -15,6 +15,7 @@ export const handler: Handler = async (event, context) => {
     const results = {
       eventbrite: { success: false, events_added: 0, error: null },
       facebook: { success: false, events_added: 0, error: null },
+      outsavvy: { success: false, events_added: 0, error: null },
       total_events_added: 0
     };
 
@@ -58,6 +59,25 @@ export const handler: Handler = async (event, context) => {
       results.facebook.error = error.message;
     }
 
+    // Call Outsavvy scraper (if available)
+    try {
+      const outsavvyResponse = await fetch(`${baseUrl}/.netlify/functions/scrape-outsavvy`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (outsavvyResponse.ok) {
+        const outsavvyData = await outsavvyResponse.json();
+        results.outsavvy.success = outsavvyData.success;
+        results.outsavvy.events_added = outsavvyData.events_added || 0;
+        results.total_events_added += results.outsavvy.events_added;
+      } else {
+        results.outsavvy.error = `HTTP ${outsavvyResponse.status}`;
+      }
+    } catch (error) {
+      results.outsavvy.error = error.message;
+    }
+
     // Log the combined scraping session to Google Sheets
     const logData = {
       id: Date.now().toString(),
@@ -66,7 +86,7 @@ export const handler: Handler = async (event, context) => {
       events_added: results.total_events_added,
       status: results.total_events_added > 0 ? 'success' : 'partial',
       created_at: new Date().toISOString(),
-      error_message: [results.eventbrite.error, results.facebook.error].filter(Boolean).join('; ') || null
+      error_message: [results.eventbrite.error, results.facebook.error, results.outsavvy.error].filter(Boolean).join('; ') || null
     };
 
     console.log('Would log to Google Sheets:', logData);
