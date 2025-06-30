@@ -23,7 +23,7 @@ async function getOrganizationsFromSheet(): Promise<Organization[]> {
   }
 
   try {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/OrganizationsToMonitor!A:L?key=${API_KEY}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/OrganizationsToMonito!A:L?key=${API_KEY}`;
     const response = await fetch(url);
     
     if (!response.ok) {
