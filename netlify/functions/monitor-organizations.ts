@@ -34,17 +34,18 @@ async function getOrganizationsFromSheet(): Promise<Organization[]> {
     const rows = data.values || [];
     
     // Skip header row and convert to Organization objects
+    // Sheet columns: ID, Name, Type, Location, Website, FB/IG, FacebookPage, EventbriteOrganizer, OutsavvyPage, MonitoringFrequency, LastChecked, EventsFoundLastCheck
     return rows.slice(1).map((row: string[]) => ({
       id: row[0] || '',
       name: row[1] || '',
       type: row[2] || '',
       location: row[3] || '',
       website: row[4] || '',
-      facebook_page: row[5] || '',
-      eventbrite_organizer: row[6] || '',
-      monitoring_frequency: (row[7] as any) || 'monthly',
-      last_checked: row[8] || '',
-      status: (row[9] as any) || 'active'
+      facebook_page: row[6] || '', // FacebookPage column
+      eventbrite_organizer: row[7] || '', // EventbriteOrganizer column
+      monitoring_frequency: (row[9] as any) || 'monthly', // MonitoringFrequency column
+      last_checked: row[10] || '', // LastChecked column
+      status: 'active' // Default all to active since not in sheet
     }));
   } catch (error) {
     console.error('Error fetching organizations from sheet:', error);
