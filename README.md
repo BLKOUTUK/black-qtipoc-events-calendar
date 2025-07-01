@@ -12,11 +12,13 @@ This platform serves the Black QTIPOC+ community by:
 
 ## ✨ Features
 
-### 🔍 Automated Event Discovery
-- **Multi-platform scraping**: Eventbrite, Facebook, Outsavvy
-- **AI-powered relevance scoring**: Weighted keyword matching
-- **Smart filtering**: Identifies Black QTIPOC+ relevant content
-- **Quality control**: Automated filtering with human moderation
+### 🔍 Multi-Source Event Aggregation
+- **API Integration**: Eventbrite organizations, Outsavvy search strategies
+- **RSS Feed Monitoring**: Known QTIPOC+ organizations and cultural sources
+- **Web Scraping**: Broader LGBTQ+ and Black cultural event discovery
+- **AI-powered relevance scoring**: Weighted keyword matching for QTIPOC+ content
+- **Intelligent deduplication**: Fuzzy matching with quality-based merge recommendations
+- **Orchestrated collection**: Coordinated multi-source event discovery with priority-based execution
 
 ### 🏛️ Community Moderation
 - **Public submissions**: Anyone can submit events
@@ -53,9 +55,13 @@ This platform serves the Black QTIPOC+ community by:
 - [x] Advanced filtering and search
 - [x] Database schema with RLS policies
 - [x] Event moderation queue
-- [x] Automated scraping framework
-- [x] Enhanced keyword matching system
-- [x] Multi-platform integration (Eventbrite, Facebook, Outsavvy)
+- [x] Multi-source event aggregation system
+- [x] RSS feed monitoring for QTIPOC+ organizations
+- [x] Web scraping adapter for broader cultural sources
+- [x] Intelligent event deduplication with fuzzy matching
+- [x] Orchestrated collection coordination
+- [x] Enhanced keyword matching with weighted scoring
+- [x] API integration (Eventbrite organizations, Outsavvy search strategies)
 - [x] Quality metrics and monitoring
 - [x] Mobile-responsive design
 - [x] Calendar export functionality
@@ -135,27 +141,46 @@ OUTSAVVY_API_KEY=your_outsavvy_key
 **Outsavvy API:**
 - Contact Outsavvy for API access (may not be publicly available)
 
-## 🎯 Event Discovery Algorithm
+## 🎯 Multi-Source Event Aggregation System
 
-### Keyword System
-The system uses sophisticated keyword matching with weighted scoring:
+### 🔄 Collection Architecture
+The system employs a comprehensive multi-source approach with intelligent coordination:
 
-- **Identity Keywords** (10 points): `black`, `qtipoc`, `trans`, `queer`
-- **Community Keywords** (7 points): `poc`, `bipoc`, `intersectional`
-- **Values Keywords** (5 points): `liberation`, `justice`, `healing`
-- **Event Type Keywords** (2 points): `workshop`, `arts`, `music`
+**Priority-Based Sources:**
+1. **API Integration** (Priority 1): Known QTIPOC+ organizations on Eventbrite, targeted Outsavvy searches
+2. **RSS Feed Monitoring** (Priority 2): UK Black Pride, BLM UK, Stonewall UK, Gendered Intelligence, Black Cultural Archives
+3. **Web Scraping** (Priority 3): Time Out London LGBT, Resident Advisor, Southbank Centre, Rich Mix, Black History Month events
 
-### Quality Thresholds
-- Minimum relevance score: 10 points
-- Bonus for multiple keyword matches
-- Category and organizer analysis
-- Community feedback integration
+### 🧠 Relevance Scoring Algorithm
+Sophisticated keyword matching with weighted scoring across multiple dimensions:
 
-### Search Strategies
-- **Geographic targeting**: Major cities with QTIPOC+ communities
-- **Temporal filtering**: Events within 90 days
-- **Source diversification**: Multiple platforms and approaches
-- **Continuous optimization**: Algorithm improvements based on feedback
+- **Identity Keywords** (10 points): `black`, `qtipoc`, `trans`, `queer`, `lgbtq`, `genderqueer`
+- **Community Keywords** (7 points): `poc`, `bipoc`, `intersectional`, `community`, `solidarity`
+- **Values Keywords** (5 points): `liberation`, `justice`, `healing`, `safe space`, `activism`
+- **Cultural Keywords** (4 points): `afrobeats`, `caribbean`, `spoken word`, `heritage`
+- **Event Type Keywords** (2-3 points): `workshop`, `celebration`, `arts`, `music`, `support group`
+
+### 🔍 Quality Control System
+**Multi-layered filtering approach:**
+- Minimum relevance threshold: 10-15 points depending on source
+- Event likelihood detection using date/time/location patterns
+- Source credibility weighting
+- Content completeness scoring
+- Fuzzy deduplication with 70% similarity threshold
+
+### 🎛️ Orchestration Strategies
+**Collection modes:**
+- **Comprehensive**: All sources (4+ minute runtime, maximum coverage)
+- **Priority Only**: API sources only (1-2 minute runtime, high-quality events)  
+- **Fast**: APIs + RSS feeds (2-3 minute runtime, balanced approach)
+
+### 🔧 Deduplication Engine
+**Intelligent merge system:**
+- Levenshtein distance calculation for fuzzy string matching
+- Multi-factor similarity: title (35%), description (20%), date (25%), location (15%), organizer (5%)
+- Quality-based event selection with information merging
+- Confidence scoring for merge suggestions
+- Comprehensive tag combination from all sources
 
 ## 🏛️ Database Schema
 
