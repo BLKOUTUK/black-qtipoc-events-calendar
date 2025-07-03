@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss } from 'lucide-react';
+import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss, BarChart3 } from 'lucide-react';
 import { Event, FilterOptions } from './types';
 import { googleSheetsService } from './services/googleSheetsService';
 import { EventList } from './components/EventList';
@@ -7,6 +7,7 @@ import { EventForm } from './components/EventForm';
 import { ModerationQueue } from './components/ModerationQueue';
 import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
+import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -15,6 +16,7 @@ function App() {
   const [showEventForm, setShowEventForm] = useState(false);
   const [showModerationQueue, setShowModerationQueue] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showIntelligenceDashboard, setShowIntelligenceDashboard] = useState(false);
   const [isScrapingEvents, setIsScrapingEvents] = useState(false);
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
@@ -114,6 +116,14 @@ function App() {
     setShowModerationQueue(true);
   };
 
+  const handleIntelligenceClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+    setShowIntelligenceDashboard(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-50">
       {/* Header */}
@@ -158,6 +168,14 @@ function App() {
                         {stats.pending}
                       </span>
                     )}
+                  </button>
+
+                  <button
+                    onClick={handleIntelligenceClick}
+                    className="flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors duration-200"
+                  >
+                    <BarChart3 className="w-4 h-4 mr-2" />
+                    Intelligence
                   </button>
 
                   <div className="flex items-center space-x-2">
@@ -472,7 +490,7 @@ function App() {
         </div>
       </main>
 
-      {/* Modals */}
+      {/* Modals and Dashboards */}
       {showEventForm && (
         <EventForm
           onSubmit={handleEventSubmit}
@@ -484,6 +502,20 @@ function App() {
         <ModerationQueue
           onClose={() => setShowModerationQueue(false)}
         />
+      )}
+
+      {showIntelligenceDashboard && user && (
+        <div className="fixed inset-0 z-50 bg-white">
+          <div className="absolute top-4 right-4">
+            <button
+              onClick={() => setShowIntelligenceDashboard(false)}
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Close Dashboard
+            </button>
+          </div>
+          <CommunityIntelligenceDashboard />
+        </div>
       )}
 
       {showAuthModal && (

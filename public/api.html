@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IVOR Calendar API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .endpoint { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>IVOR Events Calendar API</h1>
+    <p>Simple API endpoints for accessing Black QTIPOC+ community events</p>
+    
+    <div class="endpoint">
+        <h3>GET /api/events/featured</h3>
+        <p>Returns up to 6 upcoming featured events for widgets</p>
+        <button onclick="fetchFeaturedEvents()">Test Endpoint</button>
+    </div>
+    
+    <div class="endpoint">
+        <h3>GET /api/events/published</h3>
+        <p>Returns all published upcoming events</p>
+        <button onclick="fetchAllEvents()">Test Endpoint</button>
+    </div>
+    
+    <h3>Response Data:</h3>
+    <pre id="response">Click a button above to test the API</pre>
+    
+    <script>
+        // Import the events API
+        async function loadEventsAPI() {
+            const { eventsAPI } = await import('/src/api/events.ts');
+            return eventsAPI;
+        }
+        
+        async function fetchFeaturedEvents() {
+            try {
+                const api = await loadEventsAPI();
+                const events = await api.getFeaturedEvents(6);
+                const widgetData = events.map(event => api.transformForWidget(event));
+                
+                document.getElementById('response').textContent = JSON.stringify(widgetData, null, 2);
+                
+                // Also log to console for debugging
+                console.log('Featured events for widget:', widgetData);
+            } catch (error) {
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function fetchAllEvents() {
+            try {
+                const api = await loadEventsAPI();
+                const events = await api.getPublishedEvents();
+                
+                document.getElementById('response').textContent = JSON.stringify(events, null, 2);
+                
+                // Also log to console for debugging
+                console.log('All published events:', events);
+            } catch (error) {
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        // Auto-expose API endpoints to window for external access
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const api = await loadEventsAPI();
+                
+                // Expose API methods globally for CORS access
+                window.IVOR_API = {
+                    getFeaturedEvents: async (count = 6) => {
+                        const events = await api.getFeaturedEvents(count);
+                        return events.map(event => api.transformForWidget(event));
+                    },
+                    getPublishedEvents: async (maxEvents) => {
+                        const events = await api.getPublishedEvents(maxEvents);
+                        return events.map(event => api.transformForWidget(event));
+                    }
+                };
+                
+                console.log('IVOR API ready for external access at window.IVOR_API');
+            } catch (error) {
+                console.error('Error initializing IVOR API:', error);
+            }
+        });
+        
+        // Handle CORS requests
+        window.addEventListener('message', async (event) => {
+            if (event.data.type === 'IVOR_API_REQUEST') {
+                try {
+                    const { method, params } = event.data;
+                    let result;
+                    
+                    if (method === 'getFeaturedEvents') {
+                        result = await window.IVOR_API.getFeaturedEvents(params?.count);
+                    } else if (method === 'getPublishedEvents') {
+                        result = await window.IVOR_API.getPublishedEvents(params?.maxEvents);
+                    }
+                    
+                    // Send response back
+                    event.source.postMessage({
+                        type: 'IVOR_API_RESPONSE',
+                        requestId: event.data.requestId,
+                        success: true,
+                        data: result
+                    }, event.origin);
+                } catch (error) {
+                    event.source.postMessage({
+                        type: 'IVOR_API_RESPONSE',
+                        requestId: event.data.requestId,
+                        success: false,
+                        error: error.message
+                    }, event.origin);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

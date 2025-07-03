@@ -20,6 +20,7 @@ export interface Event {
   target_audience?: string[];
   listed_date?: string;
   attendee_count?: number;
+  relevance_score?: number; // AI-generated relevance score for QTIPOC+ community
 }
 
 export interface FilterOptions {
@@ -41,7 +42,15 @@ export interface ScrapingLog {
   source: string;
   events_found: number;
   events_added: number;
-  status: 'success' | 'error' | 'partial';
+  status: 'success' | 'error' | 'partial' | 'fallback';
   error_message?: string;
   created_at: string;
+  error?: string;
+  metadata?: {
+    averageQualityScore?: number;
+    totalRuns?: number;
+    knownOrganizations?: number;
+    costEstimate?: number;
+    discoveryMode?: 'quick' | 'deep' | 'intelligent';
+  };
 }

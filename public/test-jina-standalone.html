@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jina AI Event Discovery Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .results {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #d32f2f;
+        }
+        .success {
+            color: #388e3c;
+        }
+        .api-key-input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Jina AI Event Discovery Test</h1>
+        <p>Test the enhanced QTIPOC+ event discovery capabilities powered by Jina AI.</p>
+        
+        <div class="test-section">
+            <h3>🔑 API Configuration</h3>
+            <p>Enter your Jina AI API key to test with real data (optional):</p>
+            <input type="password" id="apiKey" class="api-key-input" placeholder="Enter Jina AI API key (optional)">
+            <button onclick="setApiKey()">Set API Key</button>
+            <button onclick="clearApiKey()">Clear & Use Mock Data</button>
+            <div id="apiStatus" class="results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔍 Test 1: Search for Black QTIPOC+ Events</h3>
+            <p>Search the web for relevant community events:</p>
+            <button onclick="testEventSearch()">Search Events</button>
+            <div id="searchResults" class="results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📄 Test 2: Extract Event Details</h3>
+            <p>Extract structured data from event pages:</p>
+            <button onclick="testContentExtraction()">Extract Content</button>
+            <div id="extractResults" class="results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🧠 Test 3: Community Intelligence</h3>
+            <p>Analyze events for community insights:</p>
+            <button onclick="testCommunityIntelligence()">Generate Intelligence</button>
+            <div id="intelligenceResults" class="results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🤝 Test 4: Partnership Opportunities</h3>
+            <p>Identify potential community partnerships:</p>
+            <button onclick="testPartnershipAnalysis()">Analyze Partnerships</button>
+            <div id="partnershipResults" class="results"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentApiKey = localStorage.getItem('JINA_AI_TEST_KEY') || '';
+        
+        // Update API status display
+        function updateApiStatus() {
+            const status = document.getElementById('apiStatus');
+            if (currentApiKey) {
+                status.innerHTML = `<span class="success">✅ API Key configured (${currentApiKey.substring(0, 8)}...)</span>`;
+            } else {
+                status.innerHTML = `<span class="loading">⚠️ No API key - will use mock data</span>`;
+            }
+        }
+        
+        function setApiKey() {
+            const key = document.getElementById('apiKey').value.trim();
+            if (key) {
+                currentApiKey = key;
+                localStorage.setItem('JINA_AI_TEST_KEY', key);
+                document.getElementById('apiKey').value = '';
+            }
+            updateApiStatus();
+        }
+        
+        function clearApiKey() {
+            currentApiKey = '';
+            localStorage.removeItem('JINA_AI_TEST_KEY');
+            updateApiStatus();
+        }
+        
+        // Mock data for testing without API key
+        const mockSearchResults = [
+            {
+                url: 'https://www.eventbrite.com/e/black-trans-joy-workshop-tickets',
+                title: 'Black Trans Joy Workshop - London',
+                description: 'A celebration of Black trans experiences and community healing',
+                content: 'Join us for an empowering workshop celebrating Black trans joy and resilience in South London'
+            },
+            {
+                url: 'https://www.facebook.com/events/qtipoc-poetry-night',
+                title: 'QTIPOC Poetry Night - Manchester',
+                description: 'Evening of powerful words and community connection',
+                content: 'Share your voice at our monthly QTIPOC poetry and spoken word event'
+            }
+        ];
+        
+        const mockEvents = [
+            {
+                id: '1',
+                name: 'Black Trans Joy Workshop',
+                description: 'A celebration of Black trans experiences and community healing',
+                event_date: '2025-01-20T19:00:00Z',
+                location: 'South London Community Centre',
+                organizer_name: 'QTIPOC London',
+                tags: ['black', 'trans', 'workshop', 'healing', 'community'],
+                source: 'eventbrite',
+                relevance_score: 0.95
+            },
+            {
+                id: '2',
+                name: 'Queer People of Colour Arts Festival',
+                description: 'Celebrating creativity and culture in the QTIPOC+ community',
+                event_date: '2025-02-01T18:00:00Z',
+                location: 'Manchester Arts Centre',
+                organizer_name: 'Black Queer Arts Collective',
+                tags: ['qtipoc', 'arts', 'festival', 'culture', 'creativity'],
+                source: 'community',
+                relevance_score: 0.88
+            }
+        ];
+        
+        async function testEventSearch() {
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '<div class="loading">🔍 Searching for Black QTIPOC+ events...</div>';
+            
+            if (currentApiKey) {
+                try {
+                    const response = await fetch('https://s.jina.ai/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Locale': 'UK',
+                            'X-Return-Format': 'json'
+                        },
+                        body: JSON.stringify({
+                            q: 'Black QTIPOC+ events London Manchester UK 2025'
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.data && data.data.length > 0) {
+                        resultsDiv.innerHTML = `
+                            <div class="success">✅ Found ${data.data.length} potential event sources</div>
+                            <h4>Sample Results:</h4>
+                            ${data.data.slice(0, 3).map(item => `
+                                <div style="margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 4px;">
+                                    <strong>${item.title}</strong><br>
+                                    <small>${item.url}</small><br>
+                                    ${item.description || item.content?.substring(0, 100) + '...' || 'No description'}
+                                </div>
+                            `).join('')}
+                        `;
+                    } else {
+                        resultsDiv.innerHTML = '<div class="error">❌ No results found</div>';
+                    }
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div class="error">❌ API Error: ${error.message}</div>`;
+                }
+            } else {
+                // Use mock data
+                resultsDiv.innerHTML = `
+                    <div class="success">✅ Using mock data - Found ${mockSearchResults.length} potential sources</div>
+                    <h4>Sample Results:</h4>
+                    ${mockSearchResults.map(item => `
+                        <div style="margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 4px;">
+                            <strong>${item.title}</strong><br>
+                            <small>${item.url}</small><br>
+                            ${item.description}
+                        </div>
+                    `).join('')}
+                `;
+            }
+        }
+        
+        async function testContentExtraction() {
+            const resultsDiv = document.getElementById('extractResults');
+            resultsDiv.innerHTML = '<div class="loading">📄 Extracting event content...</div>';
+            
+            const testUrl = 'https://www.eventbrite.com';
+            
+            if (currentApiKey) {
+                try {
+                    const response = await fetch(`https://r.jina.ai/${encodeURIComponent(testUrl)}`, {
+                        headers: {
+                            'X-Target-Selector': '.event-details, .event-info',
+                            'X-Return-Format': 'markdown',
+                            'X-Remove-Selector': 'nav, footer, .ads'
+                        }
+                    });
+                    
+                    const content = await response.text();
+                    
+                    resultsDiv.innerHTML = `
+                        <div class="success">✅ Content extracted successfully</div>
+                        <h4>Extracted Content Preview:</h4>
+                        <div style="background: #f0f0f0; padding: 10px; border-radius: 4px; white-space: pre-wrap;">
+                            ${content.substring(0, 500)}${content.length > 500 ? '...' : ''}
+                        </div>
+                    `;
+                } catch (error) {
+                    resultsDiv.innerHTML = `<div class="error">❌ Extraction Error: ${error.message}</div>`;
+                }
+            } else {
+                resultsDiv.innerHTML = `
+                    <div class="success">✅ Using mock extracted content</div>
+                    <h4>Mock Event Content:</h4>
+                    <div style="background: #f0f0f0; padding: 10px; border-radius: 4px;">
+                        <strong>Black Trans Joy Workshop</strong><br><br>
+                        Join us for an empowering workshop celebrating Black trans joy and resilience.<br>
+                        Date: January 20, 2025 at 7:00 PM<br>
+                        Location: South London Community Centre<br>
+                        Organizer: QTIPOC London<br>
+                        Price: Free with donations welcome
+                    </div>
+                `;
+            }
+        }
+        
+        function testCommunityIntelligence() {
+            const resultsDiv = document.getElementById('intelligenceResults');
+            resultsDiv.innerHTML = '<div class="loading">🧠 Analyzing community data...</div>';
+            
+            // Simulate processing time
+            setTimeout(() => {
+                const intelligence = {
+                    trendingTopics: ['healing', 'community', 'arts', 'workshop', 'celebration'],
+                    emergingOrganizers: ['QTIPOC London', 'Black Queer Arts Collective', 'Manchester Pride'],
+                    locationHotspots: [
+                        { location: 'London', count: 12 },
+                        { location: 'Manchester', count: 8 },
+                        { location: 'Birmingham', count: 5 }
+                    ],
+                    accessibilityScore: 75
+                };
+                
+                resultsDiv.innerHTML = `
+                    <div class="success">✅ Community intelligence generated</div>
+                    <h4>Key Insights:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <strong>📈 Trending Topics:</strong><br>
+                            ${intelligence.trendingTopics.map(topic => `<span style="background: #e3f2fd; padding: 2px 6px; border-radius: 3px; margin: 2px; display: inline-block;">${topic}</span>`).join('')}
+                        </div>
+                        <div>
+                            <strong>🏢 Active Organizers:</strong><br>
+                            ${intelligence.emergingOrganizers.map(org => `<div>• ${org}</div>`).join('')}
+                        </div>
+                        <div>
+                            <strong>📍 Location Hotspots:</strong><br>
+                            ${intelligence.locationHotspots.map(loc => `<div>• ${loc.location} (${loc.count} events)</div>`).join('')}
+                        </div>
+                        <div>
+                            <strong>♿ Accessibility Score:</strong><br>
+                            <div style="background: #4caf50; color: white; padding: 10px; border-radius: 4px; text-align: center;">
+                                ${intelligence.accessibilityScore}%
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }, 1500);
+        }
+        
+        function testPartnershipAnalysis() {
+            const resultsDiv = document.getElementById('partnershipResults');
+            resultsDiv.innerHTML = '<div class="loading">🤝 Analyzing partnership opportunities...</div>';
+            
+            setTimeout(() => {
+                const partnerships = [
+                    {
+                        organizer: 'QTIPOC London',
+                        eventCount: 8,
+                        themes: ['healing', 'community', 'workshop'],
+                        potentialValue: 'high',
+                        contactStatus: 'identified'
+                    },
+                    {
+                        organizer: 'Black Queer Arts Collective',
+                        eventCount: 5,
+                        themes: ['arts', 'creativity', 'performance'],
+                        potentialValue: 'medium',
+                        contactStatus: 'identified'
+                    }
+                ];
+                
+                resultsDiv.innerHTML = `
+                    <div class="success">✅ Partnership opportunities identified</div>
+                    <h4>Top Opportunities:</h4>
+                    ${partnerships.map(p => `
+                        <div style="margin: 10px 0; padding: 15px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid ${p.potentialValue === 'high' ? '#4caf50' : '#ff9800'};">
+                            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 8px;">
+                                <strong>${p.organizer}</strong>
+                                <span style="background: ${p.potentialValue === 'high' ? '#4caf50' : '#ff9800'}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px;">
+                                    ${p.potentialValue} potential
+                                </span>
+                            </div>
+                            <div>📊 ${p.eventCount} events organized</div>
+                            <div>🏷️ Themes: ${p.themes.join(', ')}</div>
+                            <div>📞 Status: ${p.contactStatus}</div>
+                        </div>
+                    `).join('')}
+                `;
+            }, 1000);
+        }
+        
+        // Initialize
+        updateApiStatus();
+    </script>
+</body>
+</html>
