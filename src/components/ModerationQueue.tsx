@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Event, ModerationStats } from '../types';
-import { googleSheetsService } from '../services/googleSheetsService';
+import { eventService } from '../services/eventService';
 import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
@@ -26,9 +26,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const loadData = async () => {
     setLoading(true);
     try {
+      // Load events from API first
+      await eventService.scrapeEvents();
+      
       const [events, moderationStats] = await Promise.all([
-        googleSheetsService.getPendingEvents(),
-        googleSheetsService.getModerationStats()
+        Promise.resolve(eventService.getEventsForModeration()),
+        Promise.resolve(eventService.getModerationStats())
       ]);
       setPendingEvents(events);
       setStats(moderationStats);

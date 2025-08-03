@@ -1,60 +1,34 @@
 import { Event, FilterOptions } from '../types';
 
-// Mock data for demonstration
-const mockEvents: Event[] = [
-  {
-    id: '1',
-    title: 'Black Trans Joy Celebration',
-    description: 'A celebration of Black trans joy, resilience, and community. Join us for an evening of music, poetry, and connection.',
-    startDate: '2024-02-15T19:00:00Z',
-    endDate: '2024-02-15T22:00:00Z',
-    location: 'Brooklyn Community Center, NY',
-    source: 'eventbrite',
-    sourceUrl: 'https://eventbrite.com/example',
-    organizer: 'Black Trans Collective',
-    tags: ['trans', 'celebration', 'community', 'music'],
-    status: 'approved',
-    scrapedDate: '2024-02-01T10:00:00Z',
-    imageUrl: 'https://images.pexels.com/photos/3182792/pexels-photo-3182792.jpeg?auto=compress&cs=tinysrgb&w=800',
-    price: 'Free'
-  },
-  {
-    id: '2',
-    title: 'Queer POC Mental Health Workshop',
-    description: 'A safe space workshop focusing on mental health resources and community support for QTIPOC+ individuals.',
-    startDate: '2024-02-20T14:00:00Z',
-    endDate: '2024-02-20T16:00:00Z',
-    location: 'Oakland Wellness Center, CA',
-    source: 'community',
-    sourceUrl: 'https://community.example.com',
-    organizer: 'Healing Justice Collective',
-    tags: ['mental health', 'workshop', 'wellness', 'support'],
-    status: 'approved',
-    scrapedDate: '2024-02-02T10:00:00Z',
-    price: 'Sliding scale $10-30'
-  },
-  {
-    id: '3',
-    title: 'Black Queer Artists Showcase',
-    description: 'An evening showcasing the incredible talent of Black queer artists across multiple mediums.',
-    startDate: '2024-02-25T18:00:00Z',
-    endDate: '2024-02-25T21:00:00Z',
-    location: 'Harlem Arts Center, NY',
-    source: 'outsavvy',
-    sourceUrl: 'https://outsavvy.com/example',
-    organizer: 'Queer Arts Network',
-    tags: ['art', 'showcase', 'creativity', 'performance'],
-    status: 'pending',
-    scrapedDate: '2024-02-03T10:00:00Z',
-    imageUrl: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=800',
-    price: '$15'
-  }
-];
+// API configuration
+const API_BASE = 'http://localhost:9000/api';
 
-// Keywords for filtering Black QTIPOC+ relevant events
-const relevantKeywords = [
-  'black', 'african american', 'afro', 'qtipoc', 'queer', 'trans', 'transgender', 
-  'lgbtq', 'pride', 'intersectional', 'poc', 'bipoc', 'melanin', 'community',
+// Convert API response to Event format
+const convertApiEvent = (apiEvent: any): Event => ({
+  id: apiEvent.id,
+  title: apiEvent.title,
+  description: apiEvent.description,
+  startDate: apiEvent.start_time,
+  endDate: apiEvent.end_time,
+  location: apiEvent.location,
+  source: 'api',
+  sourceUrl: apiEvent.registration_url,
+  organizer: apiEvent.organizer,
+  tags: apiEvent.tags || [],
+  status: 'approved',
+  scrapedDate: new Date().toISOString(),
+  imageUrl: 'https://images.pexels.com/photos/3182792/pexels-photo-3182792.jpeg?auto=compress&cs=tinysrgb&w=800',
+  price: apiEvent.is_free ? 'Free' : (apiEvent.price || 'Paid'),
+  relevanceScore: apiEvent.relevance_score || 0.5
+});
+
+// Common QTIPOC+ event keywords for filtering
+const qtipocKeywords = [
+  'black', 'african', 'caribbean', 'afro', 'poc', 'people of color',
+  'queer', 'lgbt', 'lgbtq', 'lgbtqia', 'trans', 'transgender', 'non-binary',
+  'gay', 'lesbian', 'bisexual', 'pansexual', 'asexual',
+  'qtipoc', 'qpoc', 'bpoc', 'bipoc',
+  'community', 'collective', 'support', 'meetup', 'gathering',
   'liberation', 'justice', 'healing', 'wellness', 'safe space', 'inclusive'
 ];
 
@@ -71,8 +45,7 @@ class EventService {
     if (stored) {
       this.events = JSON.parse(stored);
     } else {
-      this.events = mockEvents;
-      this.saveEvents();
+      this.events = [];
     }
   }
 
@@ -80,68 +53,62 @@ class EventService {
     localStorage.setItem(this.storageKey, JSON.stringify(this.events));
   }
 
-  // Simulate automated event scraping
+  // Fetch events from API
   async scrapeEvents(): Promise<Event[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Mock scraped events
-    const scrapedEvents: Event[] = [
-      {
-        id: Date.now().toString(),
-        title: 'Black Love Poetry Night',
-        description: 'An intimate evening of poetry celebrating Black love in all its forms.',
-        startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-        location: 'Atlanta Poetry Lounge, GA',
-        source: 'eventbrite',
-        sourceUrl: 'https://eventbrite.com/scraped',
-        organizer: 'Poetry & Love Collective',
-        tags: ['poetry', 'love', 'intimate', 'arts'],
-        status: 'pending',
-        scrapedDate: new Date().toISOString(),
-        price: '$12'
+    try {
+      const response = await fetch(`${API_BASE}/events/upcoming`);
+      const data = await response.json();
+      
+      if (data.events) {
+        const apiEvents = data.events.map(convertApiEvent);
+        this.events = apiEvents;
+        this.saveEvents();
+        return this.events;
       }
-    ];
-
-    // Add scraped events to existing events
-    const newEvents = scrapedEvents.filter(scraped => 
-      !this.events.some(existing => existing.title === scraped.title)
-    );
-
-    this.events.push(...newEvents);
-    this.saveEvents();
-    return newEvents;
-  }
-
-  getAllEvents(): Event[] {
+    } catch (error) {
+      console.error('Failed to fetch events from API:', error);
+      throw new Error('Unable to fetch events from API');
+    }
+    
     return this.events;
   }
 
-  getApprovedEvents(): Event[] {
-    return this.events.filter(event => event.status === 'approved');
+  getEvents(): Event[] {
+    return this.events;
   }
 
-  getPendingEvents(): Event[] {
-    return this.events.filter(event => event.status === 'pending');
+  getEvent(id: string): Event | undefined {
+    return this.events.find(event => event.id === id);
   }
 
-  addEvent(event: Omit<Event, 'id' | 'scrapedDate'>): Event {
+  async addEvent(event: Omit<Event, 'id' | 'scrapedDate'>): Promise<Event> {
     const newEvent: Event = {
       ...event,
       id: Date.now().toString(),
       scrapedDate: new Date().toISOString()
     };
+    
     this.events.push(newEvent);
     this.saveEvents();
     return newEvent;
   }
 
-  updateEventStatus(id: string, status: 'approved' | 'rejected'): void {
-    const event = this.events.find(e => e.id === id);
-    if (event) {
-      event.status = status;
-      this.saveEvents();
-    }
+  async updateEvent(id: string, updates: Partial<Event>): Promise<Event | null> {
+    const index = this.events.findIndex(event => event.id === id);
+    if (index === -1) return null;
+
+    this.events[index] = { ...this.events[index], ...updates };
+    this.saveEvents();
+    return this.events[index];
+  }
+
+  async deleteEvent(id: string): Promise<boolean> {
+    const index = this.events.findIndex(event => event.id === id);
+    if (index === -1) return false;
+
+    this.events.splice(index, 1);
+    this.saveEvents();
+    return true;
   }
 
   filterEvents(events: Event[], filters: FilterOptions): Event[] {
@@ -186,6 +153,48 @@ class EventService {
       rejected,
       total: this.events.length
     };
+  }
+
+  // Moderation methods
+  async approveEvent(id: string): Promise<boolean> {
+    const event = await this.updateEvent(id, { status: 'approved' });
+    return event !== null;
+  }
+
+  async rejectEvent(id: string): Promise<boolean> {
+    const event = await this.updateEvent(id, { status: 'rejected' });
+    return event !== null;
+  }
+
+  async flagEvent(id: string, reason: string): Promise<boolean> {
+    const event = await this.updateEvent(id, { 
+      status: 'flagged',
+      flagReason: reason 
+    });
+    return event !== null;
+  }
+
+  getEventsForModeration(): Event[] {
+    return this.events.filter(event => 
+      event.status === 'pending' || 
+      event.status === 'flagged'
+    );
+  }
+
+  // Search events
+  async searchEvents(query: string, limit: number = 10): Promise<Event[]> {
+    try {
+      const response = await fetch(`${API_BASE}/events/search?q=${encodeURIComponent(query)}&limit=${limit}`);
+      const data = await response.json();
+      
+      if (data.events) {
+        return data.events.map(convertApiEvent);
+      }
+    } catch (error) {
+      console.error('Failed to search events:', error);
+    }
+    
+    return [];
   }
 }
 

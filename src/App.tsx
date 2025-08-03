@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss, BarChart3 } from 'lucide-react';
 import { Event, FilterOptions } from './types';
-import { googleSheetsService } from './services/googleSheetsService';
+import { eventService } from './services/eventService';
 import { EventList } from './components/EventList';
 import { EventForm } from './components/EventForm';
 import { ModerationQueue } from './components/ModerationQueue';
@@ -34,7 +34,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const filtered = googleSheetsService.filterEvents(events, filters);
+    const filtered = eventService.filterEvents(events, filters);
     setFilteredEvents(filtered);
   }, [events, filters]);
 
@@ -46,8 +46,8 @@ function App() {
   const loadEvents = async () => {
     setLoading(true);
     try {
-      // Always load published events for public view
-      const allEvents = await googleSheetsService.getPublishedEvents();
+      // Load events from API
+      const allEvents = await eventService.scrapeEvents();
       setEvents(allEvents);
     } catch (error) {
       console.error('Error loading events:', error);
@@ -58,10 +58,8 @@ function App() {
 
   const loadStats = async () => {
     try {
-      if (user) {
-        const moderationStats = await googleSheetsService.getModerationStats();
-        setStats(moderationStats);
-      }
+      const moderationStats = eventService.getModerationStats();
+      setStats(moderationStats);
     } catch (error) {
       console.error('Error loading stats:', error);
     }

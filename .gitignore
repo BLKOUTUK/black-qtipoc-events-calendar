@@ -100,3 +100,4 @@ jspm_packages/
 # Supabase
 .branches
 .temp
+.vercel
