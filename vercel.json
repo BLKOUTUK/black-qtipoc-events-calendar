@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "simple_events_api.cjs",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/simple_events_api.cjs"
+    },
+    {
+      "src": "/health",
+      "dest": "/simple_events_api.cjs"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/simple_events_api.cjs"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
