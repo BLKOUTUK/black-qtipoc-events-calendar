@@ -99,23 +99,23 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-gray-500">
-            <Calendar className="w-4 h-4 mr-2 text-purple-600" />
+            <Calendar className="w-4 h-4 mr-2 text-blkout-primary" />
             <span>{formatDate(event.event_date)} at {formatTime(event.event_date)}</span>
           </div>
           
           <div className="flex items-center text-sm text-gray-500">
-            <MapPin className="w-4 h-4 mr-2 text-teal-600" />
+            <MapPin className="w-4 h-4 mr-2 text-blkout-accent" />
             <span>{locationStr}</span>
           </div>
 
           <div className="flex items-center text-sm text-gray-500">
-            <User className="w-4 h-4 mr-2 text-orange-600" />
+            <User className="w-4 h-4 mr-2 text-blkout-warm" />
             <span>{event.organizer_name || 'Unknown Organizer'}</span>
           </div>
 
           {event.price && (
             <div className="flex items-center text-sm text-gray-500">
-              <DollarSign className="w-4 h-4 mr-2 text-green-600" />
+              <DollarSign className="w-4 h-4 mr-2 text-blkout-secondary" />
               <span>{event.price}</span>
             </div>
           )}
@@ -140,7 +140,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           <div className="flex space-x-2">
             <button
               onClick={addToCalendar}
-              className="flex items-center px-3 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700 transition-colors duration-200"
+              className="flex items-center px-3 py-2 bg-blkout-primary text-white text-sm rounded-lg hover:bg-blkout-warm transition-colors duration-200"
               aria-label="Add to calendar"
             >
               <Calendar className="w-4 h-4 mr-1" />
@@ -165,13 +165,13 @@ export const EventCard: React.FC<EventCardProps> = ({
             <div className="flex space-x-2">
               <button
                 onClick={() => onApprove?.(event.id)}
-                className="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors duration-200"
+                className="px-3 py-1 bg-blkout-accent text-white text-sm rounded hover:bg-blkout-accent/80 transition-colors duration-200"
               >
                 Approve
               </button>
               <button
                 onClick={() => onReject?.(event.id)}
-                className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700 transition-colors duration-200"
+                className="px-3 py-1 bg-blkout-primary text-white text-sm rounded hover:bg-blkout-warm transition-colors duration-200"
               >
                 Reject
               </button>

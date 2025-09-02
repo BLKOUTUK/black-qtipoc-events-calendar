@@ -8,6 +8,7 @@ import { ModerationQueue } from './components/ModerationQueue';
 import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
 import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
+import CrossModuleNav from './components/CrossModuleNav';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -123,21 +124,23 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-blkout-deep via-blkout-deep to-black">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-black/90 backdrop-blur-md border-b border-blkout-primary/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Zap className="w-8 h-8 text-yellow-600" />
+                <div className="w-8 h-8 bg-gradient-to-br from-blkout-primary to-blkout-warm rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">B</span>
+                </div>
               </div>
               <div className="ml-3">
-                <h1 className="text-xl font-bold text-gray-900">
-                  IVOR Events Calendar
+                <h1 className="text-xl font-bold text-white">
+                  BLKOUT Events Calendar
                 </h1>
-                <p className="text-sm text-gray-500">
-                  Powered by BLKOUT • Community-driven event discovery
+                <p className="text-sm text-gray-300">
+                  Black QTIPOC+ Community Events • Cooperative Ownership
                 </p>
               </div>
             </div>
@@ -146,7 +149,7 @@ function App() {
               {/* Public: Add Event Button */}
               <button
                 onClick={() => setShowEventForm(true)}
-                className="flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors duration-200"
+                className="flex items-center px-4 py-2 bg-blkout-primary text-white rounded-lg hover:bg-blkout-warm transition-colors duration-200"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Submit Event
@@ -203,25 +206,28 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Cross-Module Navigation */}
+        <CrossModuleNav />
+        
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4">
             Discover Black QTIPOC+ Events
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-            Automatically curated from trusted sources across the web. Find workshops, celebrations, 
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-6">
+            Community-owned event discovery platform. Find workshops, celebrations, 
             and spaces where Black QTIPOC+ voices are centered and celebrated.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 text-yellow-800">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-blkout-primary/20 border border-blkout-primary text-blkout-secondary backdrop-blur-sm">
               <Rss className="w-4 h-4 mr-1" />
               Multi-source discovery
             </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-blkout-accent/20 border border-blkout-accent text-gray-100 backdrop-blur-sm">
               <Globe className="w-4 h-4 mr-1" />
               Updated daily
             </span>
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-blkout-warm/20 border border-blkout-warm text-gray-100 backdrop-blur-sm">
               <Users className="w-4 h-4 mr-1" />
               Community verified
             </span>
@@ -243,15 +249,15 @@ function App() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-yellow-600">{events.length}</p>
+                  <p className="text-2xl font-bold text-blkout-primary">{events.length}</p>
                   <p className="text-sm text-gray-600">Published Events</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-orange-600">{stats.pending}</p>
+                  <p className="text-2xl font-bold text-blkout-warm">{stats.pending}</p>
                   <p className="text-sm text-gray-600">Pending Review</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-amber-600">
+                  <p className="text-2xl font-bold text-blkout-secondary">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
                   <p className="text-sm text-gray-600">Community Organizers</p>
@@ -267,11 +273,11 @@ function App() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-yellow-600">{events.length}</p>
+                  <p className="text-2xl font-bold text-blkout-primary">{events.length}</p>
                   <p className="text-sm text-gray-600">Community Events</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-amber-600">
+                  <p className="text-2xl font-bold text-blkout-secondary">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
                   <p className="text-sm text-gray-600">Partner Organizations</p>
@@ -284,18 +290,18 @@ function App() {
         {/* Data Sources & Partnership Info */}
         <div className="mb-8 space-y-6">
           {/* Data Sources */}
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+          <div className="bg-blkout-secondary/10 border border-blkout-secondary/30 rounded-lg p-6 backdrop-blur-sm">
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <Globe className="w-6 h-6 text-yellow-600" />
+                <Globe className="w-6 h-6 text-blkout-secondary" />
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-lg font-medium text-yellow-900">
+                <h3 className="text-lg font-medium text-white">
                   How We Find Events
                 </h3>
-                <div className="mt-2 text-sm text-yellow-800">
+                <div className="mt-2 text-sm text-gray-200">
                   <p className="mb-3">
-                    IVOR automatically discovers events from trusted sources across the web, 
+                    BLKOUT automatically discovers events from trusted sources across the web, 
                     filtering for Black QTIPOC+ relevance and community value.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -326,16 +332,16 @@ function App() {
           </div>
 
           {/* Featured Partner Organizations */}
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-6">
+          <div className="bg-gradient-to-r from-blkout-primary/10 to-blkout-warm/10 border border-blkout-primary/30 rounded-lg p-6 backdrop-blur-sm">
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <Heart className="w-6 h-6 text-purple-600" />
+                <Heart className="w-6 h-6 text-blkout-primary" />
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-lg font-medium text-purple-900">
+                <h3 className="text-lg font-medium text-white">
                   Community Partners
                 </h3>
-                <p className="mt-2 text-sm text-purple-800 mb-4">
+                <p className="mt-2 text-sm text-gray-200 mb-4">
                   Organizations creating safe spaces and celebrating Black QTIPOC+ voices
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -343,12 +349,12 @@ function App() {
                     <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-3">
                       <span className="text-white font-bold text-lg">BP</span>
                     </div>
-                    <h4 className="font-semibold text-purple-900 mb-1">UK Black Pride</h4>
-                    <p className="text-xs text-purple-700 mb-2">
+                    <h4 className="font-semibold text-white mb-1">UK Black Pride</h4>
+                    <p className="text-xs text-gray-200 mb-2">
                       Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent.
                     </p>
-                    <div className="text-xs text-purple-600">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full">Pride Events</span>
+                    <div className="text-xs text-blkout-secondary">
+                      <span className="bg-blkout-primary/20 border border-blkout-primary px-2 py-1 rounded-full">Pride Events</span>
                     </div>
                   </div>
                   
@@ -388,19 +394,19 @@ function App() {
           </div>
 
           {/* Partnership Call */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <div className="bg-blkout-accent/10 border border-blkout-accent/30 rounded-lg p-6 backdrop-blur-sm">
             <div className="flex items-start">
               <div className="flex-shrink-0">
-                <Users className="w-6 h-6 text-blue-600" />
+                <Users className="w-6 h-6 text-blkout-accent" />
               </div>
               <div className="ml-3 flex-1">
-                <h3 className="text-lg font-medium text-blue-900">
+                <h3 className="text-lg font-medium text-white">
                   Partner With Us
                 </h3>
-                <div className="mt-2 text-sm text-blue-800">
+                <div className="mt-2 text-sm text-gray-200">
                   <p className="mb-3">
                     We're building the most comprehensive Black QTIPOC+ events calendar. 
-                    Partner with IVOR to amplify your events to our growing community.
+                    Partner with BLKOUT to amplify your events to our growing community.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -424,9 +430,9 @@ function App() {
                       </ul>
                     </div>
                   </div>
-                  <div className="mt-4 p-3 bg-blue-100 rounded-lg">
-                    <p className="text-xs font-medium text-blue-900">
-                      💡 Pro tip: Use <strong>#tellivor</strong> when posting events on social media 
+                  <div className="mt-4 p-3 bg-blkout-accent/20 border border-blkout-accent/50 rounded-lg backdrop-blur-sm">
+                    <p className="text-xs font-medium text-white">
+                      💡 Pro tip: Use <strong>#blkoutevents</strong> when posting events on social media 
                       to help our system discover them automatically!
                     </p>
                   </div>
@@ -444,9 +450,9 @@ function App() {
         />
 
         {/* Community Guidelines */}
-        <div className="mt-12 bg-white rounded-lg shadow-md p-6">
+        <div className="mt-12 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-6 border border-white/20">
           <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            <Shield className="w-5 h-5 mr-2 text-purple-600" />
+            <Shield className="w-5 h-5 mr-2 text-blkout-primary" />
             Community Guidelines
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -479,10 +485,10 @@ function App() {
               </p>
             </div>
           </div>
-          <div className="mt-6 p-4 bg-purple-50 rounded-lg">
-            <p className="text-sm text-purple-800 flex items-center">
+          <div className="mt-6 p-4 bg-blkout-primary/10 border border-blkout-primary/30 rounded-lg">
+            <p className="text-sm text-gray-800 flex items-center">
               <Mail className="w-4 h-4 mr-2" />
-              Questions or concerns? Contact us at community@qtipocevents.org
+              Questions or concerns? Contact us at community@blkoutuk.com
             </p>
           </div>
         </div>
@@ -524,12 +530,22 @@ function App() {
       )}
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-16">
+      <footer className="bg-blkout-deep text-white mt-16 border-t border-blkout-primary/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
-            <p className="text-sm text-gray-400">
-              Built with love for the Black QTIPOC+ community. 
-              Powered by Google Sheets for transparency and community collaboration.
+            <div className="mb-4">
+              <div className="inline-flex items-center space-x-2">
+                <div className="w-6 h-6 bg-gradient-to-br from-blkout-primary to-blkout-warm rounded-md flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">B</span>
+                </div>
+                <span className="font-semibold text-lg">BLKOUT Events Calendar</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-300 mb-2">
+              Built with love for the Black QTIPOC+ community.
+            </p>
+            <p className="text-xs text-gray-400">
+              Community-owned platform • Cooperative ownership • Digital sovereignty
             </p>
           </div>
         </div>
