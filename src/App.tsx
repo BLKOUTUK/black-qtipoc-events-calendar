@@ -346,41 +346,41 @@ function App() {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-white/70 rounded-lg p-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mb-3">
-                      <span className="text-white font-bold text-lg">BP</span>
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-3">
+                      <span className="text-white font-bold text-lg">RN</span>
                     </div>
-                    <h4 className="font-semibold text-white mb-1">UK Black Pride</h4>
-                    <p className="text-xs text-gray-200 mb-2">
-                      Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent.
+                    <h4 className="font-semibold text-purple-900 mb-1">Rainbow Noir</h4>
+                    <p className="text-xs text-purple-700 mb-2">
+                      Manchester-based collective creating safe spaces for QTIPOC+ community through regular social events and peer support networks.
                     </p>
-                    <div className="text-xs text-blkout-secondary">
-                      <span className="bg-blkout-primary/20 border border-blkout-primary px-2 py-1 rounded-full">Pride Events</span>
+                    <div className="text-xs text-purple-600">
+                      <span className="bg-purple-100 px-2 py-1 rounded-full">Community Events</span>
                     </div>
                   </div>
                   
                   <div className="bg-white/70 rounded-lg p-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center mb-3">
-                      <span className="text-white font-bold text-lg">RM</span>
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-3">
+                      <span className="text-white font-bold text-lg">RR</span>
                     </div>
-                    <h4 className="font-semibold text-purple-900 mb-1">Rich Mix</h4>
+                    <h4 className="font-semibold text-purple-900 mb-1">Radical Rhizomes</h4>
                     <p className="text-xs text-purple-700 mb-2">
-                      Cultural venue in Bethnal Green showcasing diverse arts, music, and community events.
+                      Grassroots collective fostering community connection and social justice through creative workshops, discussions, and collaborative projects.
                     </p>
                     <div className="text-xs text-purple-600">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full">Arts & Culture</span>
+                      <span className="bg-purple-100 px-2 py-1 rounded-full">Workshops</span>
                     </div>
                   </div>
 
                   <div className="bg-white/70 rounded-lg p-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-500 rounded-lg flex items-center justify-center mb-3">
-                      <span className="text-white font-bold text-lg">SC</span>
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-3">
+                      <span className="text-white font-bold text-lg">BQ</span>
                     </div>
-                    <h4 className="font-semibold text-purple-900 mb-1">Southbank Centre</h4>
+                    <h4 className="font-semibold text-purple-900 mb-1">Black Queer and Thriving at Black Thrive Lambeth</h4>
                     <p className="text-xs text-purple-700 mb-2">
-                      Leading arts center hosting inclusive events, festivals, and community programs.
+                      Supporting Black QTIPOC+ individuals in Lambeth through wellness programs, community building, and advocacy for mental health and wellbeing.
                     </p>
                     <div className="text-xs text-purple-600">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full">Festivals</span>
+                      <span className="bg-purple-100 px-2 py-1 rounded-full">Wellness</span>
                     </div>
                   </div>
                 </div>
