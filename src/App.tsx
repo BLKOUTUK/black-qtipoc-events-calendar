@@ -9,6 +9,7 @@ import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
 import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
 import CrossModuleNav from './components/CrossModuleNav';
+import { FaceSquareOverlay } from './components/FaceSquareOverlay';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -125,6 +126,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blkout-deep via-blkout-deep to-black">
+      {/* Face-cycling gif overlay */}
+      <FaceSquareOverlay size="xl" position="center" enableLazyLoad={true} />
+      
       {/* Header */}
       <header className="bg-black/90 backdrop-blur-md border-b border-blkout-primary/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

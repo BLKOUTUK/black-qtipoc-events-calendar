@@ -1,6 +1,7 @@
 import { Event, FilterOptions } from '../types';
+import { supabaseApiService } from './supabaseApiService';
 
-// API configuration
+// Legacy API configuration (fallback)
 const API_BASE = 'http://localhost:9000/api';
 
 // Convert API response to Event format
@@ -53,9 +54,29 @@ class EventService {
     localStorage.setItem(this.storageKey, JSON.stringify(this.events));
   }
 
-  // Fetch events from API
+  // Fetch events from Supabase API (primary) with fallback to legacy API
   async scrapeEvents(): Promise<Event[]> {
     try {
+      console.log('🔄 Fetching events from Supabase API...');
+      
+      // Try Supabase API first
+      const supabaseEvents = await supabaseApiService.getEvents({
+        dateRange: 'all',
+        source: 'all',
+        location: '',
+        searchTerm: ''
+      });
+      
+      if (supabaseEvents.length > 0) {
+        console.log('✅ Supabase events loaded:', supabaseEvents.length);
+        this.events = supabaseEvents;
+        this.saveEvents();
+        return this.events;
+      }
+      
+      console.log('⚠️ No events from Supabase, trying legacy API...');
+      
+      // Fallback to legacy API
       const response = await fetch(`${API_BASE}/events/upcoming`);
       const data = await response.json();
       
@@ -66,8 +87,15 @@ class EventService {
         return this.events;
       }
     } catch (error) {
-      console.error('Failed to fetch events from API:', error);
-      throw new Error('Unable to fetch events from API');
+      console.error('Failed to fetch events from both APIs:', error);
+      console.log('📋 Using local storage events as fallback');
+      
+      // Return existing events from local storage if API fails
+      if (this.events.length > 0) {
+        return this.events;
+      }
+      
+      throw new Error('Unable to fetch events from any source');
     }
     
     return this.events;
@@ -81,11 +109,35 @@ class EventService {
     return this.events.find(event => event.id === id);
   }
 
-  async addEvent(event: Omit<Event, 'id' | 'scrapedDate'>): Promise<Event> {
+  async addEvent(event: Omit<Event, 'id' | 'created_at'>): Promise<Event> {
+    try {
+      // Try to create event via Supabase API first
+      const createdEvent = await supabaseApiService.createEvent(event);
+      
+      if (createdEvent) {
+        console.log('✅ Event created via Supabase API:', createdEvent.id);
+        this.events.push(createdEvent);
+        this.saveEvents();
+        return createdEvent;
+      }
+      
+      console.log('⚠️ Supabase creation failed, creating locally');
+    } catch (error) {
+      console.warn('Failed to create event via API, creating locally:', error);
+    }
+    
+    // Fallback to local creation
     const newEvent: Event = {
       ...event,
       id: Date.now().toString(),
-      scrapedDate: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      // Add required fields for new API structure
+      organizer_id: event.organizer_id || 'local-organizer',
+      registration_required: event.registration_required || false,
+      cost: event.cost || 0,
+      tags: event.tags || [],
+      status: event.status || 'draft'
     };
     
     this.events.push(newEvent);
@@ -94,15 +146,59 @@ class EventService {
   }
 
   async updateEvent(id: string, updates: Partial<Event>): Promise<Event | null> {
+    try {
+      // Try to update via Supabase API first
+      const updatedEvent = await supabaseApiService.updateEvent(id, updates);
+      
+      if (updatedEvent) {
+        console.log('✅ Event updated via Supabase API:', updatedEvent.id);
+        const index = this.events.findIndex(event => event.id === id);
+        if (index !== -1) {
+          this.events[index] = updatedEvent;
+          this.saveEvents();
+        }
+        return updatedEvent;
+      }
+      
+      console.log('⚠️ Supabase update failed, updating locally');
+    } catch (error) {
+      console.warn('Failed to update event via API, updating locally:', error);
+    }
+    
+    // Fallback to local update
     const index = this.events.findIndex(event => event.id === id);
     if (index === -1) return null;
 
-    this.events[index] = { ...this.events[index], ...updates };
+    this.events[index] = { 
+      ...this.events[index], 
+      ...updates,
+      updated_at: new Date().toISOString()
+    };
     this.saveEvents();
     return this.events[index];
   }
 
   async deleteEvent(id: string): Promise<boolean> {
+    try {
+      // Try to delete via Supabase API first
+      const deleted = await supabaseApiService.deleteEvent(id);
+      
+      if (deleted) {
+        console.log('✅ Event deleted via Supabase API:', id);
+        const index = this.events.findIndex(event => event.id === id);
+        if (index !== -1) {
+          this.events.splice(index, 1);
+          this.saveEvents();
+        }
+        return true;
+      }
+      
+      console.log('⚠️ Supabase deletion failed, deleting locally');
+    } catch (error) {
+      console.warn('Failed to delete event via API, deleting locally:', error);
+    }
+    
+    // Fallback to local deletion
     const index = this.events.findIndex(event => event.id === id);
     if (index === -1) return false;
 
@@ -112,72 +208,58 @@ class EventService {
   }
 
   filterEvents(events: Event[], filters: FilterOptions): Event[] {
-    return events.filter(event => {
-      // Date filter
-      if (filters.dateRange !== 'all') {
-        const eventDate = new Date(event.startDate);
-        const now = new Date();
-        const daysDiff = Math.ceil((eventDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-        
-        if (filters.dateRange === 'today' && daysDiff !== 0) return false;
-        if (filters.dateRange === 'week' && daysDiff > 7) return false;
-        if (filters.dateRange === 'month' && daysDiff > 30) return false;
-      }
-
-      // Source filter
-      if (filters.source !== 'all' && event.source !== filters.source) return false;
-
-      // Location filter
-      if (filters.location && !event.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
-
-      // Search term filter
-      if (filters.searchTerm) {
-        const searchLower = filters.searchTerm.toLowerCase();
-        return event.title.toLowerCase().includes(searchLower) ||
-               event.description.toLowerCase().includes(searchLower) ||
-               event.tags.some(tag => tag.toLowerCase().includes(searchLower));
-      }
-
-      return true;
-    });
+    // Use Supabase API service's filtering logic for consistency
+    return supabaseApiService.filterEvents(events, filters);
   }
 
-  getModerationStats() {
-    const pending = this.events.filter(e => e.status === 'pending').length;
-    const approved = this.events.filter(e => e.status === 'approved').length;
-    const rejected = this.events.filter(e => e.status === 'rejected').length;
-    
-    return {
-      pending,
-      approved,
-      rejected,
-      total: this.events.length
-    };
+  async getModerationStats() {
+    try {
+      // Try to get stats from Supabase API
+      const stats = await supabaseApiService.getModerationStats();
+      console.log('📊 Moderation stats from API:', stats);
+      return stats;
+    } catch (error) {
+      console.warn('Failed to get stats from API, calculating locally:', error);
+      
+      // Fallback to local calculation
+      const pending = this.events.filter(e => e.status === 'draft').length;
+      const approved = this.events.filter(e => e.status === 'published').length;
+      const rejected = this.events.filter(e => e.status === 'cancelled').length;
+      
+      return {
+        pending,
+        approved,
+        rejected,
+        total: this.events.length
+      };
+    }
   }
 
-  // Moderation methods
+  // Moderation methods (updated for new API status values)
   async approveEvent(id: string): Promise<boolean> {
-    const event = await this.updateEvent(id, { status: 'approved' });
+    const event = await this.updateEvent(id, { status: 'published' });
     return event !== null;
   }
 
   async rejectEvent(id: string): Promise<boolean> {
-    const event = await this.updateEvent(id, { status: 'rejected' });
+    const event = await this.updateEvent(id, { status: 'cancelled' });
     return event !== null;
   }
 
   async flagEvent(id: string, reason: string): Promise<boolean> {
+    // For now, flagged events go to draft status for review
     const event = await this.updateEvent(id, { 
-      status: 'flagged',
-      flagReason: reason 
+      status: 'draft',
+      // Note: flagReason is not in the new API schema, could be added to tags
+      tags: [...(this.getEvent(id)?.tags || []), `flagged:${reason}`]
     });
     return event !== null;
   }
 
   getEventsForModeration(): Event[] {
     return this.events.filter(event => 
-      event.status === 'pending' || 
-      event.status === 'flagged'
+      event.status === 'draft' || 
+      event.tags?.some(tag => tag.startsWith('flagged:'))
     );
   }
 
