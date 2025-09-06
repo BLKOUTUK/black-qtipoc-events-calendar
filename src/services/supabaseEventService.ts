@@ -42,7 +42,7 @@ class SupabaseEventService {
           *,
           organizer:contacts(name)
         `)
-        .eq('status', 'published')
+        .eq('status', 'approved')
         .order('event_date', { ascending: true });
 
       if (error) throw error;
