@@ -111,13 +111,16 @@ class GoogleSheetsService {
   }
 
   async signIn(email: string, password: string) {
-    // Simple mock authentication for demo
-    if (email === 'admin@example.com' && password === 'admin123') {
+    // Use environment variables for consistent admin credentials across platform
+    const adminEmail = 'admin@blkout.org';
+    const adminPasswordBase = import.meta.env.VITE_ADMIN_PASSWORD_BASE || 'BLKOUT2025!';
+    
+    if (email === adminEmail && password === adminPasswordBase) {
       this.currentUser = { id: '1', email, role: 'admin' };
       this.saveUser();
       return this.currentUser;
     }
-    throw new Error('Invalid credentials. Use admin@example.com / admin123');
+    throw new Error(`Invalid credentials. Use ${adminEmail} with the standard BLKOUT admin password`);
   }
 
   async signOut() {

@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss, BarChart3 } from 'lucide-react';
+import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss, BarChart3, Calendar, Newspaper } from 'lucide-react';
 import { Event, FilterOptions } from './types';
-import { eventService } from './services/eventService';
+import { supabaseEventService } from './services/supabaseEventService';
+import { googleSheetsService } from './services/googleSheetsService';
+import { useArticles } from './hooks/useSupabase';
 import { EventList } from './components/EventList';
+import { ArticleList } from './components/ArticleList';
 import { EventForm } from './components/EventForm';
 import { ModerationQueue } from './components/ModerationQueue';
 import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
 import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
 import CrossModuleNav from './components/CrossModuleNav';
-import { FaceSquareOverlay } from './components/FaceSquareOverlay';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'events' | 'newsroom'>('events');
   const [showEventForm, setShowEventForm] = useState(false);
   const [showModerationQueue, setShowModerationQueue] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -29,6 +32,12 @@ function App() {
     searchTerm: ''
   });
 
+  // Use the articles hook for newsroom functionality
+  const { articles, loading: articlesLoading, error: articlesError } = useArticles({
+    status: 'published',
+    limit: 50
+  });
+
   useEffect(() => {
     loadEvents();
     loadStats();
@@ -36,7 +45,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const filtered = eventService.filterEvents(events, filters);
+    const filtered = supabaseEventService.filterEvents(events, filters);
     setFilteredEvents(filtered);
   }, [events, filters]);
 
@@ -48,8 +57,8 @@ function App() {
   const loadEvents = async () => {
     setLoading(true);
     try {
-      // Load events from API
-      const allEvents = await eventService.scrapeEvents();
+      // Load published events from Supabase
+      const allEvents = await supabaseEventService.getPublishedEvents();
       setEvents(allEvents);
     } catch (error) {
       console.error('Error loading events:', error);
@@ -60,7 +69,7 @@ function App() {
 
   const loadStats = async () => {
     try {
-      const moderationStats = eventService.getModerationStats();
+      const moderationStats = await supabaseEventService.getModerationStats();
       setStats(moderationStats);
     } catch (error) {
       console.error('Error loading stats:', error);
@@ -127,7 +136,6 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blkout-deep via-blkout-deep to-black">
       {/* Face-cycling gif overlay */}
-      <FaceSquareOverlay size="xl" position="center" enableLazyLoad={true} />
       
       {/* Header */}
       <header className="bg-black/90 backdrop-blur-md border-b border-blkout-primary/20">
@@ -215,9 +223,21 @@ function App() {
         
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Discover Black QTIPOC+ Events
-          </h2>
+          <div className="flex items-center justify-center gap-6 mb-4">
+            <img 
+              src="/images/face-square/face-cycling.gif" 
+              alt="Community members cycling" 
+              className="w-20 h-20 rounded-lg shadow-lg"
+            />
+            <h2 className="text-4xl font-bold text-white">
+              Discover Black QTIPOC+ Events
+            </h2>
+            <img 
+              src="/images/face-square/face-cycling.gif" 
+              alt="Community members cycling" 
+              className="w-20 h-20 rounded-lg shadow-lg"
+            />
+          </div>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-6">
             Community-owned event discovery platform. Find workshops, celebrations, 
             and spaces where Black QTIPOC+ voices are centered and celebrated.
@@ -349,7 +369,12 @@ function App() {
                   Organizations creating safe spaces and celebrating Black QTIPOC+ voices
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-white/70 rounded-lg p-4">
+                  <a 
+                    href="https://www.rainbownoirmcr.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white/70 rounded-lg p-4 hover:bg-white/80 transition-colors duration-200 hover:shadow-lg"
+                  >
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-3">
                       <span className="text-white font-bold text-lg">RN</span>
                     </div>
@@ -357,12 +382,18 @@ function App() {
                     <p className="text-xs text-purple-700 mb-2">
                       Manchester-based collective creating safe spaces for QTIPOC+ community through regular social events and peer support networks.
                     </p>
-                    <div className="text-xs text-purple-600">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full">Community Events</span>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Community Events</span>
+                      <span className="text-xs text-purple-500 hover:text-purple-700">Visit website →</span>
                     </div>
-                  </div>
+                  </a>
                   
-                  <div className="bg-white/70 rounded-lg p-4">
+                  <a 
+                    href="https://marlboroughproductions.org.uk/project/radical-rhizomes/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white/70 rounded-lg p-4 hover:bg-white/80 transition-colors duration-200 hover:shadow-lg"
+                  >
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-3">
                       <span className="text-white font-bold text-lg">RR</span>
                     </div>
@@ -370,12 +401,18 @@ function App() {
                     <p className="text-xs text-purple-700 mb-2">
                       Grassroots collective fostering community connection and social justice through creative workshops, discussions, and collaborative projects.
                     </p>
-                    <div className="text-xs text-purple-600">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full">Workshops</span>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Workshops</span>
+                      <span className="text-xs text-purple-500 hover:text-purple-700">Visit website →</span>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="bg-white/70 rounded-lg p-4">
+                  <a 
+                    href="https://lambeth.blackthrive.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-white/70 rounded-lg p-4 hover:bg-white/80 transition-colors duration-200 hover:shadow-lg"
+                  >
                     <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-3">
                       <span className="text-white font-bold text-lg">BQ</span>
                     </div>
@@ -383,10 +420,11 @@ function App() {
                     <p className="text-xs text-purple-700 mb-2">
                       Supporting Black QTIPOC+ individuals in Lambeth through wellness programs, community building, and advocacy for mental health and wellbeing.
                     </p>
-                    <div className="text-xs text-purple-600">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full">Wellness</span>
+                    <div className="flex justify-between items-center">
+                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Wellness</span>
+                      <span className="text-xs text-purple-500 hover:text-purple-700">Visit website →</span>
                     </div>
-                  </div>
+                  </a>
                 </div>
                 <div className="mt-4 text-center">
                   <p className="text-xs text-purple-700">

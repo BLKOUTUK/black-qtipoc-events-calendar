@@ -155,32 +155,72 @@ export const supabaseHelpers = {
     limit?: number
     offset?: number
   } = {}) {
-    let query = supabase
-      .from('newsroom_articles')
-      .select('*')
-      .order('published_at', { ascending: false })
+    // Query both newsroom_articles and published_articles to get all content
+    const [newsroomResults, publishedResults] = await Promise.all([
+      // Original newsroom articles
+      this.safeQuery(() => {
+        let query = supabase
+          .from('newsroom_articles')
+          .select('*')
+          .order('published_at', { ascending: false })
 
-    if (filters.status) {
-      query = query.eq('status', filters.status)
-    }
-    
-    if (filters.category) {
-      query = query.eq('category', filters.category)
-    }
-    
-    if (filters.featured !== undefined) {
-      query = query.eq('featured', filters.featured)
+        if (filters.status) {
+          query = query.eq('status', filters.status)
+        }
+        
+        if (filters.category) {
+          query = query.eq('category', filters.category)
+        }
+        
+        if (filters.featured !== undefined) {
+          query = query.eq('featured', filters.featured)
+        }
+
+        return query
+      }),
+      
+      // Published articles from moderation queue
+      this.safeQuery(() => {
+        let query = supabase
+          .from('published_articles')
+          .select('*')
+          .order('published_at', { ascending: false })
+
+        // Only get published status from published_articles
+        if (filters.status && filters.status !== 'published') {
+          // If looking for non-published status, skip this table
+          return Promise.resolve({ data: [], error: null })
+        }
+
+        return query
+      })
+    ])
+
+    // Combine results from both tables
+    const combinedData = [
+      ...(newsroomResults.data || []),
+      ...(publishedResults.data || [])
+    ]
+
+    // Sort combined results by published_at
+    combinedData.sort((a, b) => 
+      new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+    )
+
+    // Apply limit and offset to combined results
+    let finalData = combinedData
+    if (filters.offset || filters.limit) {
+      const offset = filters.offset || 0
+      const limit = filters.limit || 20
+      finalData = combinedData.slice(offset, offset + limit)
+    } else if (filters.limit) {
+      finalData = combinedData.slice(0, filters.limit)
     }
 
-    if (filters.limit) {
-      query = query.limit(filters.limit)
+    return {
+      data: finalData,
+      error: newsroomResults.error || publishedResults.error
     }
-
-    if (filters.offset) {
-      query = query.range(filters.offset, filters.offset + (filters.limit || 20) - 1)
-    }
-
-    return this.safeQuery(() => query)
   },
 
   async createArticle(articleData: any) {

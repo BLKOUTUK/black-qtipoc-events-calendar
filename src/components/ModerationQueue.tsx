@@ -44,21 +44,74 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
+      // 1. Call the moderation API to publish to database
+      const response = await fetch('/api/moderate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'approve',
+          contentId: id,
+          moderatorId: 'community-moderator' // TODO: Get actual user ID
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to approve content');
+      }
+
+      const result = await response.json();
+      console.log('✅ Content approved and published:', result);
+
+      // 2. Also update Google Sheets for transparency
       await googleSheetsService.updateEventStatus(id, 'published');
+      
+      // 3. Reload the moderation queue
       loadData();
     } catch (error) {
-      console.error('Error approving event:', error);
+      console.error('❌ Error approving event:', error);
+      alert('Failed to approve event: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
-  };
+  };;
 
   const handleReject = async (id: string) => {
+    const reason = prompt('Please provide a reason for rejection (required for transparency):');
+    if (!reason || reason.trim().length === 0) {
+      alert('Rejection reason is required for community transparency');
+      return;
+    }
+
     try {
+      // 1. Call the moderation API to reject in database
+      const response = await fetch('/api/moderate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reject',
+          contentId: id,
+          moderatorId: 'community-moderator', // TODO: Get actual user ID
+          reason: reason
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to reject content');
+      }
+
+      const result = await response.json();
+      console.log('✅ Content rejected with transparency:', result);
+
+      // 2. Also update Google Sheets for transparency
       await googleSheetsService.updateEventStatus(id, 'archived');
+      
+      // 3. Reload the moderation queue
       loadData();
     } catch (error) {
-      console.error('Error rejecting event:', error);
+      console.error('❌ Error rejecting event:', error);
+      alert('Failed to reject event: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
-  };
+  };;
 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {

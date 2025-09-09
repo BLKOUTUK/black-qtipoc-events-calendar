@@ -1,23 +1,23 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "simple_events_api.cjs",
-      "use": "@vercel/node"
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/simple_events_api.cjs"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
-      "src": "/health",
-      "dest": "/simple_events_api.cjs"
+      "src": "/images/(.*)",
+      "dest": "/images/$1"
+    },
+    {
+      "src": "/(.*\\.(gif|png|jpg|jpeg|svg|ico|css|js|json|txt|xml))",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/simple_events_api.cjs"
+      "dest": "/index.html"
     }
   ],
   "env": {

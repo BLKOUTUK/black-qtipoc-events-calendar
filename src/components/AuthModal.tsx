@@ -7,7 +7,6 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ onSignIn, onClose }) => {
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -18,7 +17,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSignIn, onClose }) => {
     setError('');
 
     try {
-      await onSignIn(email, password);
+      await onSignIn('admin@blkout.org', password); // Use standard admin email, user only enters password
     } catch (error: any) {
       setError(error.message || 'Failed to sign in');
     } finally {
@@ -51,23 +50,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSignIn, onClose }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="admin@example.com"
-            />
-          </div>
-
-          <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
+              Admin Password
             </label>
             <input
               type="password"
@@ -76,7 +60,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSignIn, onClose }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="••••••••"
+              placeholder="Enter admin password"
             />
           </div>
 
@@ -102,6 +86,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSignIn, onClose }) => {
         <div className="mt-6 p-4 bg-gray-50 rounded-lg">
           <p className="text-sm text-gray-600">
             <strong>Admin access required</strong> for event moderation, scraping controls, and backend management.
+            <br />
+            <span className="text-xs text-gray-500 mt-1 block">Use the same password as the BLKOUT Platform admin.</span>
           </p>
         </div>
       </div>
