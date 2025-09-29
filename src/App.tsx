@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss, BarChart3, Calendar, Newspaper } from 'lucide-react';
+import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User, Zap, Users, Globe, Rss, BarChart3, Calendar, Newspaper, Menu, X, Home, Brain, Play, Vote, Info } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Event, FilterOptions } from './types';
 import { supabaseEventService } from './services/supabaseEventService';
 import { googleSheetsService } from './services/googleSheetsService';
@@ -12,6 +13,9 @@ import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
 import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
 import CrossModuleNav from './components/CrossModuleNav';
+import VideoHero from './components/VideoHero';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -134,90 +138,96 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blkout-deep via-blkout-deep to-black">
-      {/* Header */}
-      <header className="bg-black/90 backdrop-blur-md border-b border-blkout-primary/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-gradient-to-br from-blkout-primary to-blkout-warm rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">B</span>
-                </div>
+    <div className="min-h-screen bg-liberation-black-power">
+      {/* Navigation Header */}
+      <Header />
+
+      {/* Video Hero Section */}
+      <VideoHero
+        title="Liberation Events Calendar"
+        subtitle="Black Queer Community Sovereignty"
+        description="Discover spaces where Black queer voices lead revolutionary change, build economic sovereignty, and create collective power."
+        videos={[
+          '/videos/hero/PLATFORM HERO 1.mp4',
+          '/videos/hero/PLATFORM HERO 2.mp4',
+          '/videos/hero/PLATFORM HERO 3.mp4'
+        ]}
+        height="lg"
+        textColor="light"
+        overlayOpacity={0.7}
+        className="mb-8"
+      />
+
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Admin Controls - Only show if authenticated */}
+        {user && (
+          <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 mb-8 border border-liberation-sovereignty-gold/20">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="text-liberation-sovereignty-gold">
+                <h3 className="text-lg font-bold">Admin Controls</h3>
+                <p className="text-sm text-liberation-silver">Manage liberation events and community content</p>
               </div>
-              <div className="ml-3">
-                <h1 className="text-xl font-bold text-white">
-                  BLKOUT Liberation Calendar
-                </h1>
-                <p className="text-sm text-gray-300">
-                  Black Queer Liberation Events • Community Sovereignty • Creator Economy
-                </p>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={handleModerationClick}
+                  className="relative flex items-center px-4 py-2 bg-liberation-sovereignty-gold text-liberation-black-power rounded-lg hover:bg-liberation-sovereignty-gold/90 transition-colors duration-200 font-medium"
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  Moderation
+                  {stats.pending > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-liberation-red-liberation text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {stats.pending}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={handleIntelligenceClick}
+                  className="flex items-center px-4 py-2 bg-liberation-green-africa text-white rounded-lg hover:bg-liberation-green-africa/90 transition-colors duration-200 font-medium"
+                >
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  Intelligence
+                </button>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center px-4 py-2 border border-liberation-silver/30 text-liberation-silver rounded-lg hover:bg-liberation-silver/10 transition-colors duration-200"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </button>
               </div>
             </div>
+          </div>
+        )}
 
+        {/* Community Action Bar */}
+        <div className="bg-gradient-to-r from-liberation-sovereignty-gold to-liberation-gold-divine text-liberation-black-power rounded-xl p-6 mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold mb-2">Build Liberation Together</h2>
+              <p className="text-liberation-black-power/80">Share community events and amplify revolutionary organizing</p>
+            </div>
             <div className="flex items-center space-x-3">
-              {/* Public: Add Event Button */}
               <button
                 onClick={() => setShowEventForm(true)}
-                className="flex items-center px-4 py-2 bg-blkout-primary text-white rounded-lg hover:bg-blkout-warm transition-colors duration-200"
+                className="flex items-center px-6 py-3 bg-liberation-black-power text-liberation-sovereignty-gold rounded-lg hover:bg-liberation-black-power/90 transition-colors duration-200 font-bold"
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Share Event
+                <Plus className="w-5 h-5 mr-2" />
+                Share Liberation Event
               </button>
-
-              {user ? (
-                <>
-                  {/* Authenticated: Admin Controls */}
-                  <button
-                    onClick={handleModerationClick}
-                    className="relative flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                  >
-                    <Settings className="w-4 h-4 mr-2" />
-                    Moderation
-                    {stats.pending > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {stats.pending}
-                      </span>
-                    )}
-                  </button>
-
-                  <button
-                    onClick={handleIntelligenceClick}
-                    className="flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors duration-200"
-                  >
-                    <BarChart3 className="w-4 h-4 mr-2" />
-                    Intelligence
-                  </button>
-
-                  <div className="flex items-center space-x-2">
-                    <User className="w-4 h-4 text-gray-600" />
-                    <span className="text-sm text-gray-600">{user.email}</span>
-                    <button
-                      onClick={handleSignOut}
-                      className="flex items-center px-3 py-1 text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200"
-                    >
-                      <LogOut className="w-4 h-4 ml-1" />
-                    </button>
-                  </div>
-                </>
-              ) : (
+              {!user && (
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                  className="flex items-center px-4 py-3 border-2 border-liberation-black-power text-liberation-black-power rounded-lg hover:bg-liberation-black-power/10 transition-colors duration-200 font-medium"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
-                  Admin Login
+                  Admin Access
                 </button>
               )}
             </div>
           </div>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Cross-Module Navigation */}
-        <CrossModuleNav />
         
         {/* Hero Section */}
         <div className="text-center mb-12">
@@ -509,50 +519,10 @@ function App() {
           itemsPerPage={9}
         />
 
-        {/* Liberation Community Guidelines */}
-        <div className="mt-12 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-6 border border-white/20">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            <Shield className="w-5 h-5 mr-2 text-blkout-primary" />
-            Liberation Community Principles
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Revolutionary Spaces</h4>
-              <p className="text-sm text-gray-600">
-                All events must center Black queer liberation and revolutionary organizing. 
-                We prioritize spaces building collective power and challenging oppressive systems.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Community Sovereignty</h4>
-              <p className="text-sm text-gray-600">
-                Events should advance Black queer self-determination, economic sovereignty, and community ownership. 
-                We amplify grassroots liberation organizing and creator economy initiatives.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Liberation-Accessible</h4>
-              <p className="text-sm text-gray-600">
-                We prioritize events accessible to working-class Black queer communities in terms of cost, location, 
-                and physical accessibility. Liberation must be accessible to all.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Anti-Oppressive</h4>
-              <p className="text-sm text-gray-600">
-                All content must actively challenge racism, queerphobia, capitalism, and other forms of oppression. 
-                Harmful or discriminatory content undermines our liberation goals.
-              </p>
-            </div>
-          </div>
-          <div className="mt-6 p-4 bg-blkout-primary/10 border border-blkout-primary/30 rounded-lg">
-            <p className="text-sm text-gray-800 flex items-center">
-              <Mail className="w-4 h-4 mr-2" />
-              Liberation questions? Reach our community at liberation@blkoutuk.com
-            </p>
-          </div>
-        </div>
       </main>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Modals and Dashboards */}
       {showEventForm && (
@@ -589,27 +559,6 @@ function App() {
         />
       )}
 
-      {/* Footer */}
-      <footer className="bg-blkout-deep text-white mt-16 border-t border-blkout-primary/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
-            <div className="mb-4">
-              <div className="inline-flex items-center space-x-2">
-                <div className="w-6 h-6 bg-gradient-to-br from-blkout-primary to-blkout-warm rounded-md flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">B</span>
-                </div>
-                <span className="font-semibold text-lg">BLKOUT Liberation Calendar</span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-300 mb-2">
-              Built with revolutionary love for Black queer liberation.
-            </p>
-            <p className="text-xs text-gray-400">
-              Community sovereignty • Creator economy • Digital liberation
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
