@@ -69,7 +69,7 @@ export const EventCard: React.FC<EventCardProps> = ({
     : JSON.stringify(event.location);
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-100">
+    <div className="bg-liberation-black-power border border-liberation-sovereignty-gold/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-liberation-sovereignty-gold/40 transition-all duration-300">
       {event.image_url && (
         <div className="relative h-48 overflow-hidden">
           <img 
@@ -87,7 +87,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       
       <div className="p-6">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="text-xl font-bold text-gray-900 leading-tight">{event.name}</h3>
+          <h3 className="text-xl font-bold text-liberation-sovereignty-gold leading-tight">{event.name}</h3>
           {!event.image_url && (
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSourceColor(event.source)} ml-2`}>
               {event.source}
@@ -95,26 +95,26 @@ export const EventCard: React.FC<EventCardProps> = ({
           )}
         </div>
 
-        <p className="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
+        <p className="text-liberation-silver mb-4 line-clamp-2">{event.description}</p>
 
         <div className="space-y-2 mb-4">
-          <div className="flex items-center text-sm text-gray-500">
+          <div className="flex items-center text-sm text-liberation-silver/80">
             <Calendar className="w-4 h-4 mr-2 text-blkout-primary" />
             <span>{formatDate(event.event_date)} at {formatTime(event.event_date)}</span>
           </div>
           
-          <div className="flex items-center text-sm text-gray-500">
+          <div className="flex items-center text-sm text-liberation-silver/80">
             <MapPin className="w-4 h-4 mr-2 text-blkout-accent" />
             <span>{locationStr}</span>
           </div>
 
-          <div className="flex items-center text-sm text-gray-500">
+          <div className="flex items-center text-sm text-liberation-silver/80">
             <User className="w-4 h-4 mr-2 text-blkout-warm" />
             <span>{event.organizer_name || 'Unknown Organizer'}</span>
           </div>
 
           {event.price && (
-            <div className="flex items-center text-sm text-gray-500">
+            <div className="flex items-center text-sm text-liberation-silver/80">
               <DollarSign className="w-4 h-4 mr-2 text-blkout-secondary" />
               <span>{event.price}</span>
             </div>

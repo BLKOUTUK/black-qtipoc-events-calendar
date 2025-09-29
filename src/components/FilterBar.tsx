@@ -22,7 +22,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div className="bg-liberation-black-power/50 backdrop-blur-sm border border-liberation-sovereignty-gold/20 rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div className="flex flex-col sm:flex-row gap-4 flex-1">
           {/* Search */}

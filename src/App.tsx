@@ -158,7 +158,7 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <div className="mb-6 md:mb-8">
               <img
-                src="/favicon-blkout.svg"
+                src="/images/blkoutlogo_blk_transparent.png"
                 alt="BLKOUT Logo"
                 className="h-16 md:h-20 lg:h-24 w-auto mx-auto filter drop-shadow-lg"
                 loading="eager"
