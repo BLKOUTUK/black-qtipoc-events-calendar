@@ -166,7 +166,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
             {/* Event cards skeleton */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(2)].map((_, cardIndex) => (
-                <div key={cardIndex} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
+                <div key={cardIndex} className="bg-liberation-black-power/80 border border-liberation-sovereignty-gold/20 rounded-lg shadow-md overflow-hidden animate-pulse">
                   <div className="h-48 bg-gray-200"></div>
                   <div className="p-6">
                     <div className="h-6 bg-gray-200 rounded mb-3"></div>
@@ -194,7 +194,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No Liberation Events Found</h3>
+        <h3 className="text-lg font-medium text-liberation-sovereignty-gold mb-2">No Events Found</h3>
         <p className="text-gray-500">{emptyMessage}</p>
       </div>
     );
@@ -205,7 +205,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       {/* Page Info */}
       <div className="flex justify-between items-center mb-8">
         <div className="text-liberation-silver text-sm">
-          Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, events.length)} of {events.length} liberation events
+          Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, events.length)} of {events.length} events
         </div>
         <div className="text-liberation-sovereignty-gold text-sm font-medium">
           Page {currentPage} of {totalPages}
@@ -233,7 +233,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
                       {title}
                     </h2>
                     <p className="text-sm text-gray-300 mt-1">
-                      {weekEvents.length} liberation event{weekEvents.length !== 1 ? 's' : ''} this week
+                      {weekEvents.length} event{weekEvents.length !== 1 ? 's' : ''} this week
                     </p>
                   </div>
 

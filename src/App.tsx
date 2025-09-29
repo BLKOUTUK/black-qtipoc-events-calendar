@@ -158,7 +158,7 @@ function App() {
           <div className="max-w-4xl mx-auto">
             <div className="mb-6 md:mb-8">
               <img
-                src="/Branding and logos/BLKOUT25INV.png"
+                src="/favicon-blkout.svg"
                 alt="BLKOUT Logo"
                 className="h-16 md:h-20 lg:h-24 w-auto mx-auto filter drop-shadow-lg"
                 loading="eager"
@@ -167,7 +167,7 @@ function App() {
                 }}
               />
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-tight tracking-tight text-blkout-primary drop-shadow-2xl">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-liberation-sovereignty-gold to-blkout-primary drop-shadow-2xl" style={{WebkitTextStroke: '2px #FFD700'}}>
               CONNECT
             </h1>
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 uppercase tracking-wider text-liberation-sovereignty-gold drop-shadow-lg">

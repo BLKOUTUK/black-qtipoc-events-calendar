@@ -41,12 +41,12 @@ export const getWeekTitle = (weekNumber: number, start: Date, end: Date): string
 
   if (today >= weekStart && today <= weekEnd) {
     return `This Week • ${formatWeekRange(start, end)}`;
-  } else if (weekNumber === 0) {
-    return `Liberation Week 1 • ${formatWeekRange(start, end)}`;
   } else if (weekNumber === 1) {
     return `Next Week • ${formatWeekRange(start, end)}`;
+  } else if (weekNumber === 2) {
+    return `Week of ${formatWeekRange(start, end)}`;
   } else {
-    return `Liberation Week ${weekNumber + 1} • ${formatWeekRange(start, end)}`;
+    return `Week of ${formatWeekRange(start, end)}`;
   }
 };
 
