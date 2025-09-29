@@ -168,13 +168,13 @@ function App() {
               />
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-tight tracking-tight text-blkout-primary drop-shadow-2xl">
-              Liberation Events Calendar
+              Your Liberation Starts Here
             </h1>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 uppercase tracking-wider text-liberation-silver drop-shadow-lg">
-              Black Queer Community Sovereignty
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 uppercase tracking-wider text-liberation-sovereignty-gold drop-shadow-lg">
+              Join the Movement • Build Power • Create Change
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 leading-relaxed max-w-3xl mx-auto text-liberation-silver drop-shadow-md">
-              Discover spaces where Black queer voices lead revolutionary change, build economic sovereignty, and create collective power.
+              Connect with thousands of Black queer revolutionaries transforming communities worldwide. Every event is a step toward collective liberation.
             </p>
           </div>
         </div>
@@ -226,24 +226,31 @@ function App() {
         <div className="bg-gradient-to-r from-liberation-sovereignty-gold to-liberation-gold-divine text-liberation-black-power rounded-xl p-6 mb-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-bold mb-2">Build Liberation Together</h2>
-              <p className="text-liberation-black-power/80">Share community events and amplify revolutionary organizing</p>
+              <h2 className="text-xl font-bold mb-2">Ready to Join the Revolution?</h2>
+              <p className="text-liberation-black-power/80">Share your events • Connect with organizers • Build the movement together</p>
             </div>
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => setShowEventForm(true)}
-                className="flex items-center px-6 py-3 bg-liberation-black-power text-liberation-sovereignty-gold rounded-lg hover:bg-liberation-black-power/90 transition-colors duration-200 font-bold"
+                className="flex items-center px-6 py-3 bg-liberation-black-power text-liberation-sovereignty-gold rounded-lg hover:bg-liberation-black-power/90 transition-all duration-300 hover:scale-105 font-bold shadow-lg"
               >
                 <Plus className="w-5 h-5 mr-2" />
-                Share Liberation Event
+                Add Your Event
+              </button>
+              <button
+                onClick={() => window.open('https://blkout.vercel.app', '_blank')}
+                className="flex items-center px-6 py-3 bg-transparent border-2 border-liberation-black-power text-liberation-black-power rounded-lg hover:bg-liberation-black-power hover:text-liberation-sovereignty-gold transition-all duration-300 font-bold"
+              >
+                <Users className="w-5 h-5 mr-2" />
+                Join BLKOUT Platform
               </button>
               {!user && (
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="flex items-center px-4 py-3 border-2 border-liberation-black-power text-liberation-black-power rounded-lg hover:bg-liberation-black-power/10 transition-colors duration-200 font-medium"
+                  className="flex items-center px-4 py-3 text-liberation-black-power/70 hover:text-liberation-black-power transition-colors duration-200 font-medium"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
-                  Admin Access
+                  Organizer Login
                 </button>
               )}
             </div>
@@ -259,31 +266,51 @@ function App() {
           showScrapeButton={!!user}
         />
 
-        {/* Stats */}
-        {!user && (
-          <div className="mb-8">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                <div>
-                  <p className="text-2xl font-bold text-blkout-primary">{events.length}</p>
-                  <p className="text-sm text-gray-600">Liberation Events</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-blkout-secondary">
-                    {new Set(events.map(e => e.organizer_name)).size}
-                  </p>
-                  <p className="text-sm text-gray-600">Liberation Organizations</p>
-                </div>
+        {/* Movement Impact Stats */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-blkout-primary/10 to-blkout-secondary/10 border border-blkout-primary/20 rounded-xl p-6 backdrop-blur-sm">
+            <div className="text-center mb-4">
+              <h3 className="text-lg font-bold text-liberation-sovereignty-gold mb-2">
+                🔥 The Movement is Growing
+              </h3>
+              <p className="text-sm text-liberation-silver">
+                Join thousands of revolutionaries building power together
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div className="group">
+                <p className="text-3xl font-black text-blkout-primary group-hover:scale-110 transition-transform duration-300">
+                  {events.length}+
+                </p>
+                <p className="text-sm font-medium text-liberation-silver">
+                  Liberation Events This Month
+                </p>
+              </div>
+              <div className="group">
+                <p className="text-3xl font-black text-liberation-sovereignty-gold group-hover:scale-110 transition-transform duration-300">
+                  {new Set(events.map(e => e.organizer_name)).size}+
+                </p>
+                <p className="text-sm font-medium text-liberation-silver">
+                  Revolutionary Organizations
+                </p>
+              </div>
+              <div className="group">
+                <p className="text-3xl font-black text-blkout-secondary group-hover:scale-110 transition-transform duration-300">
+                  50K+
+                </p>
+                <p className="text-sm font-medium text-liberation-silver">
+                  Community Members Connected
+                </p>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Events List */}
         <PaginatedEventList
           events={filteredEvents}
           loading={loading}
-          emptyMessage="No liberation events found. Keep building the movement - check back for new revolutionary organizing opportunities."
+          emptyMessage="🚀 Be the first to share an event! Every revolution starts with someone taking action. Add your event and watch the movement grow."
           showActions={user?.user_role === 'admin'}
           onApprove={async (id) => {
             try {
