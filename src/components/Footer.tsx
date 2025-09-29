@@ -1,0 +1,143 @@
+import React from 'react';
+import { Home, Heart, Brain, Vote, Users, Info, Play, Calendar, Instagram, Twitter, Facebook, Youtube, Mail } from 'lucide-react';
+
+const Footer: React.FC = () => {
+  const footerLinks = [
+    { id: 'platform', label: 'Platform', icon: Home, href: 'https://blkout.vercel.app' },
+    { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://blkout.vercel.app' },
+    { id: 'news', label: 'Newsroom', icon: Play, href: 'https://blkout.vercel.app' },
+    { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkout.vercel.app' },
+    { id: 'events', label: 'Events', icon: Calendar, href: '#', active: true },
+    { id: 'community', label: 'Community', icon: Users, href: 'https://blkout.vercel.app' },
+    { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkout.vercel.app' },
+    { id: 'about', label: 'About', icon: Info, href: 'https://blkout.vercel.app' }
+  ];
+
+  const handleNavigation = (link: any) => {
+    if (link.href === '#') return;
+    if (link.href.startsWith('https://')) {
+      window.open(link.href, '_blank', 'noopener noreferrer');
+    }
+  };
+
+  return (
+    <footer className="bg-liberation-black-power border-t border-liberation-sovereignty-gold/20 mt-16">
+      {/* Navigation Links */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {footerLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => handleNavigation(link)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                link.active
+                  ? 'bg-liberation-sovereignty-gold text-black font-bold'
+                  : 'text-liberation-silver hover:text-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/10'
+              }`}
+            >
+              <link.icon className="h-4 w-4" />
+              <span className="text-sm font-medium">{link.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Platform Button */}
+        <div className="flex justify-center mb-8">
+          <button
+            onClick={() => window.open('https://blkout.vercel.app', '_blank')}
+            className="bg-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/90 text-black px-6 py-3 rounded-2xl font-bold transition-all duration-300 hover:scale-105 flex items-center gap-2"
+          >
+            <Home className="h-5 w-5" />
+            Back to Platform Home
+          </button>
+        </div>
+
+        {/* Liberation Values */}
+        <div className="border-t border-liberation-sovereignty-gold/10 pt-8">
+          <div className="text-center mb-6">
+            <h3 className="text-liberation-sovereignty-gold font-bold text-lg mb-3">
+              LIBERATION VALUES
+            </h3>
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-liberation-silver">
+              <div className="flex items-center gap-2">
+                <span>✊🏾</span>
+                <span>Fair Creator Compensation</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>🗳️</span>
+                <span>Democratic Governance</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>💜</span>
+                <span>Trauma-Informed Design</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>💰</span>
+                <span>Economic Justice</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Social Media Links */}
+          <div className="flex justify-center gap-6 mb-6">
+            <a
+              href="https://instagram.com/blkoutuk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-liberation-sovereignty-gold transition-colors duration-200"
+              aria-label="BLKOUT Instagram"
+            >
+              <Instagram className="h-6 w-6" />
+            </a>
+            <a
+              href="https://twitter.com/blkoutuk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-liberation-sovereignty-gold transition-colors duration-200"
+              aria-label="BLKOUT Twitter"
+            >
+              <Twitter className="h-6 w-6" />
+            </a>
+            <a
+              href="https://facebook.com/blkoutuk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-liberation-sovereignty-gold transition-colors duration-200"
+              aria-label="BLKOUT Facebook"
+            >
+              <Facebook className="h-6 w-6" />
+            </a>
+            <a
+              href="https://youtube.com/@blkoutuk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-liberation-sovereignty-gold transition-colors duration-200"
+              aria-label="BLKOUT YouTube"
+            >
+              <Youtube className="h-6 w-6" />
+            </a>
+            <a
+              href="mailto:info@blkout.org"
+              className="text-white hover:text-liberation-sovereignty-gold transition-colors duration-200"
+              aria-label="Contact BLKOUT"
+            >
+              <Mail className="h-6 w-6" />
+            </a>
+          </div>
+
+          {/* Copyright and Info */}
+          <div className="text-center text-sm text-liberation-silver/60">
+            <p className="mb-2">
+              © 2025 BLKOUT Liberation Platform - Community-Owned Technology
+            </p>
+            <p>
+              Built by and for Black queer communities with love, rage, and liberation
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

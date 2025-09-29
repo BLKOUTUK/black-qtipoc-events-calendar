@@ -1,0 +1,292 @@
+/**
+ * BLKOUT Content Curator - Content Script Styles
+ * Floating button and notification styles for content detection
+ */
+
+/* Floating action button container */
+.blkout-curator-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999999;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  pointer-events: none;
+}
+
+.blkout-curator-float.blkout-curator-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Main floating button */
+.blkout-curator-button {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 240px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.blkout-curator-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 48px rgba(255, 215, 0, 0.4),
+    0 6px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #FFE55C 0%, #FF8C00 100%);
+}
+
+.blkout-curator-button:active {
+  transform: translateY(0);
+  box-shadow:
+    0 4px 16px rgba(255, 215, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading state */
+.blkout-curator-float.blkout-curator-loading .blkout-curator-button {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.blkout-curator-float.blkout-curator-loading .blkout-curator-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Icon container */
+.blkout-curator-icon {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.blkout-curator-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #000;
+}
+
+/* Text content */
+.blkout-curator-label {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.blkout-curator-score {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* Success notification */
+.blkout-curator-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+  background: #10B981;
+  color: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow:
+    0 8px 32px rgba(16, 185, 129, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 320px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blkout-curator-notification.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.blkout-curator-notification.success {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.blkout-curator-notification.error {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notification-icon {
+  font-size: 18px;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.notification-text {
+  line-height: 1.4;
+}
+
+.notification-text small {
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .blkout-curator-float {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .blkout-curator-button {
+    min-width: 200px;
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+
+  .blkout-curator-label {
+    font-size: 14px;
+  }
+
+  .blkout-curator-notification {
+    top: 16px;
+    right: 16px;
+    max-width: calc(100vw - 32px);
+    font-size: 13px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .blkout-curator-button {
+    border: 3px solid #000;
+    background: #FFD700;
+    color: #000;
+  }
+
+  .blkout-curator-icon {
+    background: #000;
+  }
+
+  .blkout-curator-icon svg {
+    fill: #FFD700;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .blkout-curator-float,
+  .blkout-curator-button,
+  .blkout-curator-notification {
+    transition: opacity 0.2s ease;
+  }
+
+  .blkout-curator-float {
+    transform: none;
+  }
+
+  .blkout-curator-float.blkout-curator-visible {
+    transform: none;
+  }
+
+  .blkout-curator-notification {
+    transform: none;
+  }
+
+  .blkout-curator-notification.visible {
+    transform: none;
+  }
+
+  .blkout-curator-button:hover {
+    transform: none;
+  }
+
+  @keyframes loading-shimmer {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .blkout-curator-button {
+    background: linear-gradient(135deg, #B45309 0%, #92400E 100%);
+    color: #FFF;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .blkout-curator-button:hover {
+    background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+  }
+
+  .blkout-curator-icon {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .blkout-curator-icon svg {
+    fill: #FFF;
+  }
+}
+
+/* Focus styles for accessibility */
+.blkout-curator-button:focus {
+  outline: 3px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+.blkout-curator-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Print styles - hide extension elements */
+@media print {
+  .blkout-curator-float,
+  .blkout-curator-notification {
+    display: none !important;
+  }
+}

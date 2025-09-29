@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Event, ModerationStats } from '../types';
 import { eventService } from '../services/eventService';
+import { supabaseEventService } from '../services/supabaseEventService';
+import { googleSheetsService } from '../services/googleSheetsService';
 import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
@@ -26,17 +28,30 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const loadData = async () => {
     setLoading(true);
     try {
-      // Load events from API first
-      await eventService.scrapeEvents();
-      
+      // Load events from Supabase (primary)
       const [events, moderationStats] = await Promise.all([
-        Promise.resolve(eventService.getEventsForModeration()),
-        Promise.resolve(eventService.getModerationStats())
+        supabaseEventService.getPendingEvents(),
+        supabaseEventService.getModerationStats()
       ]);
       setPendingEvents(events);
       setStats(moderationStats);
+      console.log('📊 Moderation data loaded from Supabase:', events.length, 'pending events');
     } catch (error) {
-      console.error('Error loading moderation data:', error);
+      console.error('Error loading moderation data from Supabase:', error);
+
+      // Fallback to eventService
+      try {
+        console.log('⚠️ Falling back to eventService for moderation data...');
+        await eventService.scrapeEvents();
+        const [events, moderationStats] = await Promise.all([
+          Promise.resolve(eventService.getEventsForModeration()),
+          Promise.resolve(eventService.getModerationStats())
+        ]);
+        setPendingEvents(events);
+        setStats(moderationStats);
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     } finally {
       setLoading(false);
     }
@@ -44,35 +59,33 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
-      // 1. Call the moderation API to publish to database
-      const response = await fetch('/api/moderate-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'approve',
-          contentId: id,
-          moderatorId: 'community-moderator' // TODO: Get actual user ID
-        })
-      });
+      console.log('✅ PRIMARY: Approving event via Supabase:', id);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to approve content');
+      // 1. Primary: Update status in Supabase database
+      const success = await supabaseEventService.updateEventStatus(id, 'published');
+
+      if (!success) {
+        throw new Error('Failed to approve event in Supabase database');
       }
 
-      const result = await response.json();
-      console.log('✅ Content approved and published:', result);
+      console.log('✅ PRIMARY: Event approved in Supabase database');
 
-      // 2. Also update Google Sheets for transparency
-      await googleSheetsService.updateEventStatus(id, 'published');
-      
+      // 2. Secondary: Also update Google Sheets for transparency and N8N bridge
+      try {
+        console.log('📊 BACKUP: Updating Google Sheets for transparency...');
+        await googleSheetsService.updateEventStatus(id, 'published');
+        console.log('✅ BACKUP: Google Sheets updated successfully');
+      } catch (sheetsError) {
+        console.warn('⚠️ BACKUP: Google Sheets update failed (non-critical):', sheetsError);
+      }
+
       // 3. Reload the moderation queue
       loadData();
     } catch (error) {
       console.error('❌ Error approving event:', error);
       alert('Failed to approve event: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
-  };;
+  };
 
   const handleReject = async (id: string) => {
     const reason = prompt('Please provide a reason for rejection (required for transparency):');
@@ -82,45 +95,61 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     }
 
     try {
-      // 1. Call the moderation API to reject in database
-      const response = await fetch('/api/moderate-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'reject',
-          contentId: id,
-          moderatorId: 'community-moderator', // TODO: Get actual user ID
-          reason: reason
-        })
-      });
+      console.log('❌ PRIMARY: Rejecting event via Supabase:', id, 'Reason:', reason);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to reject content');
+      // 1. Primary: Update status in Supabase database
+      const success = await supabaseEventService.updateEventStatus(id, 'archived');
+
+      if (!success) {
+        throw new Error('Failed to reject event in Supabase database');
       }
 
-      const result = await response.json();
-      console.log('✅ Content rejected with transparency:', result);
+      console.log('✅ PRIMARY: Event rejected in Supabase database');
 
-      // 2. Also update Google Sheets for transparency
-      await googleSheetsService.updateEventStatus(id, 'archived');
-      
+      // 2. Secondary: Also update Google Sheets for transparency and N8N bridge
+      try {
+        console.log('📊 BACKUP: Updating Google Sheets for transparency...');
+        await googleSheetsService.updateEventStatus(id, 'archived');
+        console.log('✅ BACKUP: Google Sheets updated successfully');
+      } catch (sheetsError) {
+        console.warn('⚠️ BACKUP: Google Sheets update failed (non-critical):', sheetsError);
+      }
+
       // 3. Reload the moderation queue
       loadData();
     } catch (error) {
       console.error('❌ Error rejecting event:', error);
       alert('Failed to reject event: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
-  };;
+  };
 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
       const status = action === 'approve' ? 'published' : 'archived';
-      await Promise.all(
-        pendingEvents.map(event => 
-          googleSheetsService.updateEventStatus(event.id, status)
+      console.log(`🔄 BULK ${action.toUpperCase()}: Processing ${pendingEvents.length} events`);
+
+      // Primary: Update all events in Supabase
+      const supabaseResults = await Promise.allSettled(
+        pendingEvents.map(event =>
+          supabaseEventService.updateEventStatus(event.id, status)
         )
       );
+
+      const supabaseSuccesses = supabaseResults.filter(r => r.status === 'fulfilled').length;
+      console.log(`✅ PRIMARY: ${supabaseSuccesses}/${pendingEvents.length} events ${action}ed in Supabase`);
+
+      // Secondary: Update Google Sheets for transparency
+      try {
+        await Promise.all(
+          pendingEvents.map(event =>
+            googleSheetsService.updateEventStatus(event.id, status)
+          )
+        );
+        console.log('✅ BACKUP: All events also updated in Google Sheets');
+      } catch (sheetsError) {
+        console.warn('⚠️ BACKUP: Some Google Sheets updates failed (non-critical):', sheetsError);
+      }
+
       loadData();
     } catch (error) {
       console.error(`Error ${action}ing events:`, error);

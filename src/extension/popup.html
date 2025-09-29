@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLKOUT Content Curator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="popup-header">
+        <div class="header-logo">
+            <img src="icons/icon32.png" alt="BLKOUT Logo" class="logo-icon">
+            <div class="header-text">
+                <h1 class="header-title">BLKOUT Curator</h1>
+                <p class="header-subtitle">Community Content Platform</p>
+            </div>
+        </div>
+        <div class="header-status">
+            <div id="connectionStatus" class="status-indicator">
+                <span class="status-dot"></span>
+                <span class="status-text">Connecting...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Section -->
+    <div id="userProfile" class="user-profile hidden">
+        <div class="profile-info">
+            <img id="userAvatar" src="" alt="User Avatar" class="profile-avatar">
+            <div class="profile-details">
+                <div id="userName" class="profile-name"></div>
+                <div id="userEmail" class="profile-email"></div>
+                <div id="userTeam" class="profile-team"></div>
+            </div>
+        </div>
+        <button id="signOutBtn" class="btn btn-ghost btn-small">Sign Out</button>
+    </div>
+
+    <!-- Authentication Section -->
+    <div id="authSection" class="auth-section">
+        <div class="auth-content">
+            <div class="auth-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h2 class="auth-title">Join the BLKOUT Community</h2>
+            <p class="auth-description">
+                Sign in to start curating events and news for Black queer liberation communities worldwide.
+            </p>
+            <button id="signInBtn" class="btn btn-primary btn-large">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Sign in with Google
+            </button>
+            <p class="auth-disclaimer">
+                <small>Your data is used only for content curation and team coordination.
+                <a href="#" class="link">Privacy Policy</a></small>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content hidden">
+        <!-- Page Analysis Section -->
+        <div id="analysisSection" class="analysis-section">
+            <div class="section-header">
+                <h3 class="section-title">Page Analysis</h3>
+                <button id="reanalyzeBtn" class="btn btn-ghost btn-small">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                    Reanalyze
+                </button>
+            </div>
+
+            <div id="analysisResults" class="analysis-results">
+                <div class="analysis-placeholder">
+                    <div class="placeholder-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-5H17V4.5C17 3.12 15.88 2 14.5 2h-5C8.12 2 7 3.12 7 4.5V6H4.5C3.12 6 2 7.12 2 8.5v11C2 20.88 3.12 22 4.5 22h15c1.38 0 2.5-1.12 2.5-2.5v-11C22 7.12 20.88 6 19.5 6zM9 4.5c0-.28.22-.5.5-.5h5c.28 0 .5.22.5.5V6H9V4.5z"/>
+                        </svg>
+                    </div>
+                    <p class="placeholder-text">Analyzing current page...</p>
+                </div>
+            </div>
+
+            <!-- Content Type Detection -->
+            <div id="contentTypeResult" class="content-type-result hidden">
+                <div class="result-item">
+                    <div class="result-label">Content Type</div>
+                    <div id="contentType" class="result-value"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Confidence</div>
+                    <div id="confidence" class="result-value"></div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Liberation Score</div>
+                    <div id="liberationScore" class="result-value"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button id="submitEventBtn" class="btn btn-primary btn-action hidden">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                Submit as Event
+            </button>
+
+            <button id="submitNewsBtn" class="btn btn-primary btn-action hidden">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/>
+                </svg>
+                Submit as News
+            </button>
+        </div>
+
+        <!-- Manual Submission Form -->
+        <div id="manualForm" class="manual-form hidden">
+            <div class="form-header">
+                <h3 class="form-title">Manual Submission</h3>
+                <button id="closeFormBtn" class="btn btn-ghost btn-small">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="submissionForm">
+                <!-- Content Type Selection -->
+                <div class="form-group">
+                    <label class="form-label">Content Type</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="contentType" value="event" checked>
+                            <span class="radio-label">Event</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="contentType" value="news">
+                            <span class="radio-label">News/Article</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Event Fields -->
+                <div id="eventFields" class="form-section">
+                    <div class="form-group">
+                        <label for="eventTitle" class="form-label">Event Title *</label>
+                        <input type="text" id="eventTitle" name="eventTitle" class="form-input" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDate" class="form-label">Date *</label>
+                            <input type="date" id="eventDate" name="eventDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventTime" class="form-label">Time</label>
+                            <input type="time" id="eventTime" name="eventTime" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventLocation" class="form-label">Location</label>
+                        <input type="text" id="eventLocation" name="eventLocation" class="form-input" placeholder="Address or venue name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventOrganizer" class="form-label">Organizer</label>
+                        <input type="text" id="eventOrganizer" name="eventOrganizer" class="form-input">
+                    </div>
+                </div>
+
+                <!-- News Fields -->
+                <div id="newsFields" class="form-section hidden">
+                    <div class="form-group">
+                        <label for="articleTitle" class="form-label">Article Title *</label>
+                        <input type="text" id="articleTitle" name="articleTitle" class="form-input" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="articleAuthor" class="form-label">Author</label>
+                            <input type="text" id="articleAuthor" name="articleAuthor" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="publication" class="form-label">Publication</label>
+                            <input type="text" id="publication" name="publication" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="articleCategory" class="form-label">Category</label>
+                        <select id="articleCategory" name="articleCategory" class="form-select">
+                            <option value="community">Community News</option>
+                            <option value="politics">Politics & Policy</option>
+                            <option value="culture">Arts & Culture</option>
+                            <option value="health">Health & Wellness</option>
+                            <option value="business">Business & Economy</option>
+                            <option value="education">Education</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Common Fields -->
+                <div class="form-group">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" name="description" class="form-textarea" rows="3" placeholder="Brief description or summary..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="sourceUrl" class="form-label">Source URL</label>
+                    <input type="url" id="sourceUrl" name="sourceUrl" class="form-input" placeholder="https://">
+                </div>
+
+                <!-- Team Assignment -->
+                <div class="form-group">
+                    <label class="form-label">Assign to Team</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="teamAssignment" value="events" checked>
+                            <span class="radio-label">Events Team</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="teamAssignment" value="news">
+                            <span class="radio-label">News Team</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="button" id="cancelSubmissionBtn" class="btn btn-ghost">Cancel</button>
+                    <button type="submit" id="submitContentBtn" class="btn btn-primary">
+                        <span class="btn-text">Submit Content</span>
+                        <div class="btn-spinner hidden">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+                                <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-section">
+            <div class="stats-header">
+                <h4 class="stats-title">Your Activity</h4>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div id="todaySubmissions" class="stat-value">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+                <div class="stat-item">
+                    <div id="weekSubmissions" class="stat-value">0</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+                <div class="stat-item">
+                    <div id="totalSubmissions" class="stat-value">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="popup-footer">
+        <div class="footer-links">
+            <a href="#" id="openOptionsBtn" class="footer-link">Settings</a>
+            <a href="#" id="helpBtn" class="footer-link">Help</a>
+            <a href="#" id="feedbackBtn" class="footer-link">Feedback</a>
+        </div>
+        <div class="footer-version">
+            v1.0.0
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" opacity="0.25"/>
+                <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+            </svg>
+        </div>
+        <div class="loading-text">Processing...</div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

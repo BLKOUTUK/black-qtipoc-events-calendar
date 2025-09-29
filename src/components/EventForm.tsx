@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Home } from 'lucide-react';
 import { Event } from '../types';
+import { supabaseEventService } from '../services/supabaseEventService';
 import { googleSheetsService } from '../services/googleSheetsService';
 
 interface EventFormProps {
@@ -50,8 +51,9 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
     setIsSubmitting(true);
     try {
       const tags = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
-      
-      const newEvent = await googleSheetsService.addEvent({
+
+      // Primary: Submit to Supabase database
+      const newEvent = await supabaseEventService.addEvent({
         name: formData.name,
         description: formData.description,
         event_date: formData.event_date,
@@ -67,6 +69,28 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
       });
 
       if (newEvent) {
+        // Secondary: Also save to Google Sheets for N8N bridge and transparency
+        try {
+          console.log('📊 BACKUP: Saving to Google Sheets for N8N bridge...');
+          await googleSheetsService.addEvent({
+            name: formData.name,
+            description: formData.description,
+            event_date: formData.event_date,
+            location: formData.location,
+            source: 'community' as const,
+            source_url: formData.source_url,
+            organizer_name: formData.organizer_name,
+            tags,
+            status: 'draft' as const,
+            price: formData.price || undefined,
+            contact_email: formData.contact_email || undefined,
+            image_url: formData.image_url || undefined
+          });
+          console.log('✅ BACKUP: Event also saved to Google Sheets');
+        } catch (sheetsError) {
+          console.warn('⚠️ BACKUP: Google Sheets backup failed (non-critical):', sheetsError);
+        }
+
         onSubmit(newEvent);
       } else {
         throw new Error('Failed to create event');

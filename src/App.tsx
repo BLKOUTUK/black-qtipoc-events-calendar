@@ -4,7 +4,7 @@ import { Event, FilterOptions } from './types';
 import { supabaseEventService } from './services/supabaseEventService';
 import { googleSheetsService } from './services/googleSheetsService';
 import { useArticles } from './hooks/useSupabase';
-import { EventList } from './components/EventList';
+import { PaginatedEventList } from './components/PaginatedEventList';
 import { ArticleList } from './components/ArticleList';
 import { EventForm } from './components/EventForm';
 import { ModerationQueue } from './components/ModerationQueue';
@@ -135,8 +135,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blkout-deep via-blkout-deep to-black">
-      {/* Face-cycling gif overlay */}
-      
       {/* Header */}
       <header className="bg-black/90 backdrop-blur-md border-b border-blkout-primary/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,10 +147,10 @@ function App() {
               </div>
               <div className="ml-3">
                 <h1 className="text-xl font-bold text-white">
-                  BLKOUT Events Calendar
+                  BLKOUT Liberation Calendar
                 </h1>
                 <p className="text-sm text-gray-300">
-                  Black QTIPOC+ Community Events • Cooperative Ownership
+                  Black Queer Liberation Events • Community Sovereignty • Creator Economy
                 </p>
               </div>
             </div>
@@ -164,7 +162,7 @@ function App() {
                 className="flex items-center px-4 py-2 bg-blkout-primary text-white rounded-lg hover:bg-blkout-warm transition-colors duration-200"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Submit Event
+                Share Event
               </button>
 
               {user ? (
@@ -230,7 +228,7 @@ function App() {
               className="w-20 h-20 rounded-lg shadow-lg"
             />
             <h2 className="text-4xl font-bold text-white">
-              Discover Black QTIPOC+ Events
+              Black Queer Liberation Events
             </h2>
             <img 
               src="/images/face-square/face-cycling.gif" 
@@ -239,21 +237,21 @@ function App() {
             />
           </div>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-6">
-            Community-owned event discovery platform. Find workshops, celebrations, 
-            and spaces where Black QTIPOC+ voices are centered and celebrated.
+            Community-owned liberation platform. Discover spaces where Black queer voices 
+            lead revolutionary change, build economic sovereignty, and create collective power.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm">
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-blkout-primary/20 border border-blkout-primary text-blkout-secondary backdrop-blur-sm">
               <Rss className="w-4 h-4 mr-1" />
-              Multi-source discovery
+              Liberation-centered
             </span>
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-blkout-accent/20 border border-blkout-accent text-gray-100 backdrop-blur-sm">
               <Globe className="w-4 h-4 mr-1" />
-              Updated daily
+              Community sovereignty
             </span>
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-blkout-warm/20 border border-blkout-warm text-gray-100 backdrop-blur-sm">
               <Users className="w-4 h-4 mr-1" />
-              Community verified
+              Creator economy
             </span>
           </div>
         </div>
@@ -274,17 +272,17 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div>
                   <p className="text-2xl font-bold text-blkout-primary">{events.length}</p>
-                  <p className="text-sm text-gray-600">Published Events</p>
+                  <p className="text-sm text-gray-600">Liberation Events</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-blkout-warm">{stats.pending}</p>
-                  <p className="text-sm text-gray-600">Pending Review</p>
+                  <p className="text-sm text-gray-600">Awaiting Review</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-blkout-secondary">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
-                  <p className="text-sm text-gray-600">Community Organizers</p>
+                  <p className="text-sm text-gray-600">Liberation Organizers</p>
                 </div>
               </div>
             </div>
@@ -298,20 +296,20 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                 <div>
                   <p className="text-2xl font-bold text-blkout-primary">{events.length}</p>
-                  <p className="text-sm text-gray-600">Community Events</p>
+                  <p className="text-sm text-gray-600">Liberation Events</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-blkout-secondary">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
-                  <p className="text-sm text-gray-600">Partner Organizations</p>
+                  <p className="text-sm text-gray-600">Liberation Organizations</p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Data Sources & Partnership Info */}
+        {/* Data Sources & Liberation Movement Info */}
         <div className="mb-8 space-y-6">
           {/* Data Sources */}
           <div className="bg-blkout-secondary/10 border border-blkout-secondary/30 rounded-lg p-6 backdrop-blur-sm">
@@ -321,32 +319,32 @@ function App() {
               </div>
               <div className="ml-3 flex-1">
                 <h3 className="text-lg font-medium text-white">
-                  How We Find Events
+                  Liberation Event Discovery
                 </h3>
                 <div className="mt-2 text-sm text-gray-200">
                   <p className="mb-3">
-                    BLKOUT automatically discovers events from trusted sources across the web, 
-                    filtering for Black QTIPOC+ relevance and community value.
+                    BLKOUT autonomously discovers Black queer liberation events across the web, 
+                    centering community sovereignty and revolutionary organizing.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium mb-2">📡 Data Sources:</h4>
+                      <h4 className="font-medium mb-2">🏴 Liberation Sources:</h4>
                       <ul className="text-xs space-y-1">
-                        <li>• QTIPOC+ organization websites</li>
-                        <li>• Eventbrite & community platforms</li>
-                        <li>• Cultural venues & arts centers</li>
-                        <li>• RSS feeds from partner orgs</li>
-                        <li>• Community submissions</li>
+                        <li>• Black queer liberation organizations</li>
+                        <li>• Community-owned event platforms</li>
+                        <li>• Revolutionary arts & cultural spaces</li>
+                        <li>• Mutual aid & organizing networks</li>
+                        <li>• Creator economy initiatives</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-2">🔄 Updates:</h4>
+                      <h4 className="font-medium mb-2">🔄 Community Control:</h4>
                       <ul className="text-xs space-y-1">
-                        <li>• Automated daily collection</li>
-                        <li>• Smart duplicate removal</li>
-                        <li>• Community moderation</li>
-                        <li>• Quality scoring & filtering</li>
-                        <li>• Real-time synchronization</li>
+                        <li>• Community-owned moderation</li>
+                        <li>• Democratic content governance</li>
+                        <li>• Liberation-centered filtering</li>
+                        <li>• Anti-oppressive quality control</li>
+                        <li>• Sovereign data management</li>
                       </ul>
                     </div>
                   </div>
@@ -355,7 +353,7 @@ function App() {
             </div>
           </div>
 
-          {/* Featured Partner Organizations */}
+          {/* Featured Liberation Organizations */}
           <div className="bg-gradient-to-r from-blkout-primary/10 to-blkout-warm/10 border border-blkout-primary/30 rounded-lg p-6 backdrop-blur-sm">
             <div className="flex items-start">
               <div className="flex-shrink-0">
@@ -363,10 +361,10 @@ function App() {
               </div>
               <div className="ml-3 flex-1">
                 <h3 className="text-lg font-medium text-white">
-                  Community Partners
+                  Liberation Movement Partners
                 </h3>
                 <p className="mt-2 text-sm text-gray-200 mb-4">
-                  Organizations creating safe spaces and celebrating Black QTIPOC+ voices
+                  Revolutionary organizations building Black queer liberation through community power
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <a 
@@ -380,11 +378,11 @@ function App() {
                     </div>
                     <h4 className="font-semibold text-purple-900 mb-1">Rainbow Noir</h4>
                     <p className="text-xs text-purple-700 mb-2">
-                      Manchester-based collective creating safe spaces for QTIPOC+ community through regular social events and peer support networks.
+                      Manchester collective creating liberated spaces for Black queer community through revolutionary organizing and mutual support.
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Community Events</span>
-                      <span className="text-xs text-purple-500 hover:text-purple-700">Visit website →</span>
+                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Liberation Organizing</span>
+                      <span className="text-xs text-purple-500 hover:text-purple-700">Join movement →</span>
                     </div>
                   </a>
                   
@@ -399,11 +397,11 @@ function App() {
                     </div>
                     <h4 className="font-semibold text-purple-900 mb-1">Radical Rhizomes</h4>
                     <p className="text-xs text-purple-700 mb-2">
-                      Grassroots collective fostering community connection and social justice through creative workshops, discussions, and collaborative projects.
+                      Revolutionary collective fostering community power through creative resistance, educational organizing, and collective liberation projects.
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Workshops</span>
-                      <span className="text-xs text-purple-500 hover:text-purple-700">Visit website →</span>
+                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Revolutionary Education</span>
+                      <span className="text-xs text-purple-500 hover:text-purple-700">Join movement →</span>
                     </div>
                   </a>
 
@@ -416,26 +414,26 @@ function App() {
                     <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-3">
                       <span className="text-white font-bold text-lg">BQ</span>
                     </div>
-                    <h4 className="font-semibold text-purple-900 mb-1">Black Queer and Thriving at Black Thrive Lambeth</h4>
+                    <h4 className="font-semibold text-purple-900 mb-1">Black Queer & Thriving</h4>
                     <p className="text-xs text-purple-700 mb-2">
-                      Supporting Black QTIPOC+ individuals in Lambeth through wellness programs, community building, and advocacy for mental health and wellbeing.
+                      Building Black queer liberation through community healing, revolutionary wellness practices, and collective mental health sovereignty.
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Wellness</span>
-                      <span className="text-xs text-purple-500 hover:text-purple-700">Visit website →</span>
+                      <span className="bg-purple-100 px-2 py-1 rounded-full text-xs text-purple-600">Liberation Healing</span>
+                      <span className="text-xs text-purple-500 hover:text-purple-700">Join movement →</span>
                     </div>
                   </a>
                 </div>
                 <div className="mt-4 text-center">
                   <p className="text-xs text-purple-700">
-                    Want to see your organization featured? Get in touch via <strong>#tellivor</strong>
+                    Building liberation movements? Connect with us via <strong>#tellivor</strong>
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Partnership Call */}
+          {/* Revolutionary Partnership Call */}
           <div className="bg-blkout-accent/10 border border-blkout-accent/30 rounded-lg p-6 backdrop-blur-sm">
             <div className="flex items-start">
               <div className="flex-shrink-0">
@@ -443,39 +441,39 @@ function App() {
               </div>
               <div className="ml-3 flex-1">
                 <h3 className="text-lg font-medium text-white">
-                  Partner With Us
+                  Build Liberation Together
                 </h3>
                 <div className="mt-2 text-sm text-gray-200">
                   <p className="mb-3">
-                    We're building the most comprehensive Black QTIPOC+ events calendar. 
-                    Partner with BLKOUT to amplify your events to our growing community.
+                    We're creating the most powerful Black queer liberation event network. 
+                    Join BLKOUT's revolutionary platform to amplify liberation organizing.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium mb-2">🤝 For Organizations:</h4>
+                      <h4 className="font-medium mb-2">🏴 For Liberation Organizations:</h4>
                       <ul className="text-xs space-y-1">
-                        <li>• Direct RSS feed integration</li>
-                        <li>• Guaranteed event visibility</li>
-                        <li>• Organization profile page</li>
-                        <li>• Priority event featuring</li>
-                        <li>• Analytics & reach reports</li>
+                        <li>• Community-owned platform access</li>
+                        <li>• Liberation-centered visibility</li>
+                        <li>• Revolutionary organizing support</li>
+                        <li>• Creator economy participation</li>
+                        <li>• Movement analytics & insights</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-2">📱 Spread the Word:</h4>
+                      <h4 className="font-medium mb-2">✊ Build the Movement:</h4>
                       <ul className="text-xs space-y-1">
-                        <li>• Tag us: <strong>#tellivor</strong> (B2B partnerships)</li>
-                        <li>• Community: <strong>#askivor</strong> (general inquiries)</li>
-                        <li>• Email: partnerships@blkout.co.uk</li>
-                        <li>• Share your events on social</li>
-                        <li>• Tell other organizers about us</li>
+                        <li>• Liberation organizing: <strong>#tellivor</strong></li>
+                        <li>• Community building: <strong>#askivor</strong></li>
+                        <li>• Revolutionary partnerships: liberation@blkoutuk.com</li>
+                        <li>• Share liberation events everywhere</li>
+                        <li>• Build collective power together</li>
                       </ul>
                     </div>
                   </div>
                   <div className="mt-4 p-3 bg-blkout-accent/20 border border-blkout-accent/50 rounded-lg backdrop-blur-sm">
                     <p className="text-xs font-medium text-white">
-                      💡 Pro tip: Use <strong>#blkoutevents</strong> when posting events on social media 
-                      to help our system discover them automatically!
+                      ✊ Revolution tip: Use <strong>#blkoutliberation</strong> when sharing liberation events 
+                      to help our AI discover and amplify your revolutionary work!
                     </p>
                   </div>
                 </div>
@@ -485,52 +483,72 @@ function App() {
         </div>
 
         {/* Events List */}
-        <EventList 
-          events={filteredEvents} 
+        <PaginatedEventList
+          events={filteredEvents}
           loading={loading}
-          emptyMessage="No events found. Try adjusting your filters or check back later for new events."
+          emptyMessage="No liberation events found. Keep building the movement - check back for new revolutionary organizing opportunities."
+          showActions={user?.user_role === 'admin'}
+          onApprove={async (id) => {
+            try {
+              await supabaseEventService.updateEventStatus(id, 'approved');
+              await loadEvents();
+              await loadStats();
+            } catch (error) {
+              console.error('Error approving event:', error);
+            }
+          }}
+          onReject={async (id) => {
+            try {
+              await supabaseEventService.updateEventStatus(id, 'rejected');
+              await loadEvents();
+              await loadStats();
+            } catch (error) {
+              console.error('Error rejecting event:', error);
+            }
+          }}
+          itemsPerPage={9}
         />
 
-        {/* Community Guidelines */}
+        {/* Liberation Community Guidelines */}
         <div className="mt-12 bg-white/95 backdrop-blur-sm rounded-lg shadow-md p-6 border border-white/20">
           <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
             <Shield className="w-5 h-5 mr-2 text-blkout-primary" />
-            Community Guidelines
+            Liberation Community Principles
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">Safe Spaces</h4>
+              <h4 className="font-medium text-gray-900 mb-2">Revolutionary Spaces</h4>
               <p className="text-sm text-gray-600">
-                All events must be affirming and inclusive of Black QTIPOC+ identities. 
-                We prioritize spaces where our community can feel safe and celebrated.
+                All events must center Black queer liberation and revolutionary organizing. 
+                We prioritize spaces building collective power and challenging oppressive systems.
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">Community-Centered</h4>
+              <h4 className="font-medium text-gray-900 mb-2">Community Sovereignty</h4>
               <p className="text-sm text-gray-600">
-                Events should center Black QTIPOC+ voices, experiences, and leadership. 
-                We amplify grassroots organizing and community-led initiatives.
+                Events should advance Black queer self-determination, economic sovereignty, and community ownership. 
+                We amplify grassroots liberation organizing and creator economy initiatives.
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">Accessible</h4>
+              <h4 className="font-medium text-gray-900 mb-2">Liberation-Accessible</h4>
               <p className="text-sm text-gray-600">
-                We encourage events that are accessible in terms of location, cost, 
-                and physical accessibility. Include accessibility information when possible.
+                We prioritize events accessible to working-class Black queer communities in terms of cost, location, 
+                and physical accessibility. Liberation must be accessible to all.
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900 mb-2">Respectful</h4>
+              <h4 className="font-medium text-gray-900 mb-2">Anti-Oppressive</h4>
               <p className="text-sm text-gray-600">
-                All submissions must be respectful and appropriate. Discriminatory or 
-                harmful content will not be tolerated.
+                All content must actively challenge racism, queerphobia, capitalism, and other forms of oppression. 
+                Harmful or discriminatory content undermines our liberation goals.
               </p>
             </div>
           </div>
           <div className="mt-6 p-4 bg-blkout-primary/10 border border-blkout-primary/30 rounded-lg">
             <p className="text-sm text-gray-800 flex items-center">
               <Mail className="w-4 h-4 mr-2" />
-              Questions or concerns? Contact us at community@blkoutuk.com
+              Liberation questions? Reach our community at liberation@blkoutuk.com
             </p>
           </div>
         </div>
@@ -580,14 +598,14 @@ function App() {
                 <div className="w-6 h-6 bg-gradient-to-br from-blkout-primary to-blkout-warm rounded-md flex items-center justify-center">
                   <span className="text-white font-bold text-sm">B</span>
                 </div>
-                <span className="font-semibold text-lg">BLKOUT Events Calendar</span>
+                <span className="font-semibold text-lg">BLKOUT Liberation Calendar</span>
               </div>
             </div>
             <p className="text-sm text-gray-300 mb-2">
-              Built with love for the Black QTIPOC+ community.
+              Built with revolutionary love for Black queer liberation.
             </p>
             <p className="text-xs text-gray-400">
-              Community-owned platform • Cooperative ownership • Digital sovereignty
+              Community sovereignty • Creator economy • Digital liberation
             </p>
           </div>
         </div>

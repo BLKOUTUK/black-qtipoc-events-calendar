@@ -1,0 +1,48 @@
+{
+  "name": "blkout-content-curator",
+  "version": "1.0.0",
+  "description": "Community-driven content curation for BLKOUT Liberation Platform - Events and news discovery for Black queer communities",
+  "main": "background.js",
+  "scripts": {
+    "build": "npm run lint && npm run test",
+    "lint": "eslint *.js",
+    "test": "jest",
+    "package": "zip -r blkout-content-curator-v1.0.0.zip . -x node_modules/\\* \\*.git\\* package\\*.json \\*.test.js jest.config.js",
+    "dev": "echo 'Load extension in Chrome at chrome://extensions/ with Developer Mode enabled'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "community",
+    "curation",
+    "events",
+    "news",
+    "black",
+    "queer",
+    "liberation",
+    "blkout",
+    "activism"
+  ],
+  "author": "BLKOUT Liberation Platform",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blkout/content-curator-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/blkout/content-curator-extension/issues"
+  },
+  "homepage": "https://blkout.org/tools/content-curator",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "@types/chrome": "^0.0.268"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 88"
+  ]
+}
