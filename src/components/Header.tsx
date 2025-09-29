@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
     { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://blkout.vercel.app' },
     { id: 'news', label: 'Newsroom', icon: Play, href: 'https://blkout.vercel.app' },
     { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkout.vercel.app' },
-    { id: 'events', label: 'Events', icon: Calendar, href: '#', active: true },
+    { id: 'events', label: 'Connect', icon: Calendar, href: '#', active: true },
     { id: 'community', label: 'Community', icon: Users, href: 'https://blkout.vercel.app' },
     { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkout.vercel.app' },
     { id: 'about', label: 'About', icon: Info, href: 'https://blkout.vercel.app' }
@@ -44,10 +44,10 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
             />
             <div>
               <h1 className="text-xl font-bold text-liberation-sovereignty-gold">
-                BLKOUT Liberation Calendar
+                BLKOUT Connect
               </h1>
               <p className="text-xs text-liberation-silver hidden sm:block">
-                Black Queer Liberation Events • Community Sovereignty
+                Where Black Queer Magic Happens • Parties • Workshops • Revolution
               </p>
             </div>
           </div>

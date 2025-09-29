@@ -171,10 +171,10 @@ function App() {
               Your Liberation Starts Here
             </h1>
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 uppercase tracking-wider text-liberation-sovereignty-gold drop-shadow-lg">
-              Join the Movement • Build Power • Create Change
+              Where the Culture Lives • Where Change Happens
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 leading-relaxed max-w-3xl mx-auto text-liberation-silver drop-shadow-md">
-              Connect with thousands of Black queer revolutionaries transforming communities worldwide. Every event is a step toward collective liberation.
+              From legendary parties to game-changing workshops - discover where Black queer excellence is happening in your city and beyond.
             </p>
           </div>
         </div>
@@ -226,8 +226,8 @@ function App() {
         <div className="bg-gradient-to-r from-liberation-sovereignty-gold to-liberation-gold-divine text-liberation-black-power rounded-xl p-6 mb-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-bold mb-2">Ready to Join the Revolution?</h2>
-              <p className="text-liberation-black-power/80">Share your events • Connect with organizers • Build the movement together</p>
+              <h2 className="text-xl font-bold mb-2">Got Something Legendary Happening?</h2>
+              <p className="text-liberation-black-power/80">Share your parties, workshops, protests, or celebrations • Let the community find you</p>
             </div>
             <div className="flex items-center space-x-3">
               <button
@@ -283,7 +283,7 @@ function App() {
                   {events.length}+
                 </p>
                 <p className="text-sm font-medium text-liberation-silver">
-                  Liberation Events This Month
+                  Things Happening This Month
                 </p>
               </div>
               <div className="group">

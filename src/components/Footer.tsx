@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://blkout.vercel.app' },
     { id: 'news', label: 'Newsroom', icon: Play, href: 'https://blkout.vercel.app' },
     { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkout.vercel.app' },
-    { id: 'events', label: 'Events', icon: Calendar, href: '#', active: true },
+    { id: 'events', label: 'Connect', icon: Calendar, href: '#', active: true },
     { id: 'community', label: 'Community', icon: Users, href: 'https://blkout.vercel.app' },
     { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkout.vercel.app' },
     { id: 'about', label: 'About', icon: Info, href: 'https://blkout.vercel.app' }
