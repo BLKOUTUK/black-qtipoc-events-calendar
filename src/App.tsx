@@ -174,7 +174,7 @@ function App() {
               Where the Culture Lives • Where Change Happens
             </h2>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 leading-relaxed max-w-3xl mx-auto text-liberation-silver drop-shadow-md">
-              From legendary parties to game-changing workshops - discover where Black queer excellence is happening in your city and beyond.
+              From legendary parties to game-changing workshops - discover where Black queer folk are connecting in your city and beyond.
             </p>
           </div>
         </div>
