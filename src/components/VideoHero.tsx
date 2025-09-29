@@ -97,31 +97,39 @@ const VideoHero: React.FC<VideoHeroProps> = ({
 
   return (
     <div className={`relative overflow-hidden rounded-xl ${heightClasses[height]} ${className}`}>
-      {/* Video Background */}
-      <div className="absolute inset-0">
-        {videos.map((video, index) => (
-          <video
-            key={video}
-            ref={setVideoRef(index)}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            autoPlay
-            muted={isMuted}
-            loop
-            playsInline
-            onLoadedData={() => {
-              const video = videoRefs[index];
-              if (video && index === currentVideoIndex && isPlaying) {
-                video.play();
-              }
-            }}
-            aria-label={`Background video ${index + 1} of ${videos.length}`}
-          >
-            <source src={video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        ))}
+      {/* Fallback Background Image */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blkout-primary via-blkout-deep to-black">
+        {/* Video Background */}
+        <div className="absolute inset-0">
+          {videos.map((video, index) => (
+            <video
+              key={video}
+              ref={setVideoRef(index)}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+              onError={(e) => {
+                console.log('Video failed to load:', video);
+                // Hide failed video
+                (e.target as HTMLVideoElement).style.display = 'none';
+              }}
+              onLoadedData={() => {
+                const video = videoRefs[index];
+                if (video && index === currentVideoIndex && isPlaying) {
+                  video.play();
+                }
+              }}
+              aria-label={`Background video ${index + 1} of ${videos.length}`}
+            >
+              <source src={video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ))}
+        </div>
       </div>
 
       {/* Dark Overlay */}
