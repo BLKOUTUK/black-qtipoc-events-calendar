@@ -42,14 +42,9 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
-            <div>
-              <h1 className="text-xl font-bold text-yellow-500">
-                BLKOUT Connect
-              </h1>
-              <p className="text-xs text-gray-300 hidden sm:block">
-                Where Black Queer Magic Happens • Parties • Workshops • Revolution
-              </p>
-            </div>
+            <h1 className="text-xl font-bold text-yellow-500">
+              BLKOUT Connect
+            </h1>
           </div>
 
           {/* Desktop Navigation */}
