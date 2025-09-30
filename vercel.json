@@ -16,8 +16,12 @@
       "dest": "/images/$1"
     },
     {
-      "src": "/(.*\\.(gif|png|jpg|jpeg|svg|ico|css|js|json|txt|xml))",
-      "dest": "/$1"
+      "src": "/(.*\\.(gif|png|jpg|jpeg|svg|ico|css|js|json|txt|xml|zip))",
+      "dest": "/$1",
+      "headers": {
+        "Content-Type": "application/zip",
+        "Content-Disposition": "attachment"
+      }
     },
     {
       "src": "/(.*)",
