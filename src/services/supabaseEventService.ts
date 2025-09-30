@@ -91,8 +91,12 @@ class SupabaseEventService {
 
       console.log(`🔍 Found ${data.length} approved events via direct API`);
 
+      // Remove duplicates based on event ID
+      const uniqueData = Array.from(new Map(data.map((event: any) => [event.id, event])).values());
+      console.log(`🔍 After deduplication: ${uniqueData.length} unique events`);
+
       // Map database fields to frontend format
-      const mappedEvents = data.map((event: any) => ({
+      const mappedEvents = uniqueData.map((event: any) => ({
         id: event.id,
         name: event.title || 'Untitled Event',
         title: event.title || 'Untitled Event',
