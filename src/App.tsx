@@ -133,47 +133,55 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-teal-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-emerald-950">
       {/* Navigation Header */}
       <Header />
 
       {/* Hero Section with BLKOUT Branding */}
-      <div className="relative overflow-hidden h-96 md:h-[32rem] mb-8 bg-white">
+      <div className="relative overflow-hidden h-auto py-16 md:py-24 mb-8">
         {/* Background Image */}
         <img
           src="/images/imagine.png"
           alt="Liberation Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
           onError={(e) => {
-            // Hide image if it fails to load, keep white background
             (e.target as HTMLImageElement).style.display = 'none';
           }}
         />
 
-        {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 md:px-8 z-10">
-          <div className="max-w-4xl mx-auto">
-            {/* BLKOUT Logo */}
-            <div className="mb-8 md:mb-12">
-              <img
-                src="/images/blkoutlogo_blk_transparent.png"
-                alt="BLKOUT Logo"
-                className="h-24 md:h-32 lg:h-40 w-auto mx-auto"
-                loading="eager"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            </div>
+        {/* Dark overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/50 to-gray-900/80"></div>
 
-            {/* CONNECT Title in outline style */}
-            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-8 md:mb-12 leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600" style={{
-              WebkitTextStroke: '2px black',
-              paintOrder: 'stroke fill'
-            }}>
-              CONNECT
-            </h1>
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* BLKOUT Logo - using white version for dark background */}
+          <div className="mb-8 md:mb-12">
+            <img
+              src="/images/blkoutlogo_wht_transparent.png"
+              alt="BLKOUT Logo"
+              className="h-24 md:h-32 lg:h-40 w-auto mx-auto filter drop-shadow-2xl"
+              loading="eager"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
           </div>
+
+          {/* CONNECT Title with gold highlight */}
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-6 leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-600 drop-shadow-2xl">
+            CONNECT
+          </h1>
+
+          {/* Subtitle */}
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-yellow-500 drop-shadow-lg">
+            Join the Movement • Build Power • Create Change
+          </h2>
+
+          {/* Description */}
+          <p className="text-base sm:text-lg md:text-xl mb-8 text-gray-300 max-w-3xl mx-auto">
+            Connect with thousands of Black queer revolutionaries transforming communities worldwide.
+            Every event is a step toward collective liberation.
+          </p>
         </div>
       </div>
 
@@ -181,35 +189,35 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Admin Controls - Only show if authenticated */}
         {user && (
-          <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 mb-8 border border-liberation-sovereignty-gold/20">
+          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-yellow-500/30">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="text-liberation-sovereignty-gold">
+              <div className="text-yellow-500">
                 <h3 className="text-lg font-bold">Admin Controls</h3>
-                <p className="text-sm text-liberation-silver">Manage liberation events and community content</p>
+                <p className="text-sm text-gray-300">Manage liberation events and community content</p>
               </div>
               <div className="flex items-center space-x-3">
                 <button
                   onClick={handleModerationClick}
-                  className="relative flex items-center px-4 py-2 bg-liberation-sovereignty-gold text-liberation-black-power rounded-lg hover:bg-liberation-sovereignty-gold/90 transition-colors duration-200 font-medium"
+                  className="relative flex items-center px-4 py-2 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
                 >
                   <Settings className="w-4 h-4 mr-2" />
                   Moderation
                   {stats.pending > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-liberation-red-liberation text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                       {stats.pending}
                     </span>
                   )}
                 </button>
                 <button
                   onClick={handleIntelligenceClick}
-                  className="flex items-center px-4 py-2 bg-liberation-green-africa text-white rounded-lg hover:bg-liberation-green-africa/90 transition-colors duration-200 font-medium"
+                  className="flex items-center px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 font-medium"
                 >
                   <BarChart3 className="w-4 h-4 mr-2" />
                   Intelligence
                 </button>
                 <button
                   onClick={handleSignOut}
-                  className="flex items-center px-4 py-2 border border-liberation-silver/30 text-liberation-silver rounded-lg hover:bg-liberation-silver/10 transition-colors duration-200"
+                  className="flex items-center px-4 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -220,23 +228,23 @@ function App() {
         )}
 
         {/* Community Action Bar */}
-        <div className="bg-gradient-to-r from-liberation-sovereignty-gold to-liberation-gold-divine text-liberation-black-power rounded-xl p-6 mb-8">
+        <div className="bg-gradient-to-r from-yellow-600 to-amber-500 text-gray-900 rounded-xl p-6 mb-8 shadow-xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
               <h2 className="text-xl font-bold mb-2">Ready to Join the Revolution?</h2>
-              <p className="text-liberation-black-power/80">Share your events • Connect with organizers • Build the movement together</p>
+              <p className="text-gray-800">Share your events • Connect with organizers • Build the movement together</p>
             </div>
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => setShowEventForm(true)}
-                className="flex items-center px-6 py-3 bg-liberation-black-power text-liberation-sovereignty-gold rounded-lg hover:bg-liberation-black-power/90 transition-all duration-300 hover:scale-105 font-bold shadow-lg"
+                className="flex items-center px-6 py-3 bg-gray-900 text-yellow-500 rounded-lg hover:bg-gray-800 transition-all duration-300 hover:scale-105 font-bold shadow-lg"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Add Your Event
               </button>
               <button
                 onClick={() => window.open('https://blkout.vercel.app', '_blank')}
-                className="flex items-center px-6 py-3 bg-transparent border-2 border-liberation-black-power text-liberation-black-power rounded-lg hover:bg-liberation-black-power hover:text-liberation-sovereignty-gold transition-all duration-300 font-bold"
+                className="flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 font-bold shadow-lg"
               >
                 <Users className="w-5 h-5 mr-2" />
                 Join BLKOUT Platform
@@ -244,7 +252,7 @@ function App() {
               {!user && (
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="flex items-center px-4 py-3 text-liberation-black-power/70 hover:text-liberation-black-power transition-colors duration-200 font-medium"
+                  className="flex items-center px-4 py-3 text-gray-800 hover:text-gray-900 transition-colors duration-200 font-medium"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
                   Admin Login
@@ -266,21 +274,21 @@ function App() {
         {/* Stats - Only show if authenticated */}
         {user && (
           <div className="mb-8">
-            <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 border border-liberation-sovereignty-gold/20">
+            <div className="bg-gray-800 rounded-xl p-6 border border-yellow-500/30 shadow-xl">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-3xl font-bold text-liberation-sovereignty-gold">{events.length}</p>
-                  <p className="text-sm text-liberation-silver">Liberation Events</p>
+                  <p className="text-3xl font-bold text-yellow-500">{events.length}</p>
+                  <p className="text-sm text-gray-300">Liberation Events</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-liberation-red-liberation">{stats.pending}</p>
-                  <p className="text-sm text-liberation-silver">Awaiting Review</p>
+                  <p className="text-3xl font-bold text-red-500">{stats.pending}</p>
+                  <p className="text-sm text-gray-300">Awaiting Review</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-liberation-green-africa">
+                  <p className="text-3xl font-bold text-emerald-500">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
-                  <p className="text-sm text-liberation-silver">Community Organizers</p>
+                  <p className="text-sm text-gray-300">Community Organizers</p>
                 </div>
               </div>
             </div>
@@ -290,19 +298,19 @@ function App() {
         {/* Public Stats */}
         {!user && (
           <div className="mb-8">
-            <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 border border-liberation-sovereignty-gold/20">
+            <div className="bg-gray-800 rounded-xl p-6 border border-yellow-500/30 shadow-xl">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                 <div>
-                  <p className="text-4xl font-bold text-liberation-sovereignty-gold mb-2">{events.length}</p>
-                  <p className="text-lg text-liberation-silver">Liberation Events</p>
-                  <p className="text-xs text-liberation-silver/60 mt-1">Parties, workshops & community gatherings</p>
+                  <p className="text-4xl font-bold text-yellow-500 mb-2">{events.length}</p>
+                  <p className="text-lg text-gray-300">Liberation Events</p>
+                  <p className="text-xs text-gray-400 mt-1">Parties, workshops & community gatherings</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold text-liberation-green-africa mb-2">
+                  <p className="text-4xl font-bold text-emerald-500 mb-2">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
-                  <p className="text-lg text-liberation-silver">Community Organizers</p>
-                  <p className="text-xs text-liberation-silver/60 mt-1">Folk are connecting, organizing, liberating</p>
+                  <p className="text-lg text-gray-300">Community Organizers</p>
+                  <p className="text-xs text-gray-400 mt-1">Folk are connecting, organizing, liberating</p>
                 </div>
               </div>
             </div>
