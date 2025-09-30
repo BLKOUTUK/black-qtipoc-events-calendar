@@ -327,17 +327,17 @@ function App() {
 
         {/* Newsroom Integration - Show latest articles */}
         {!articlesLoading && articles && articles.length > 0 && (
-          <div className="mt-12 bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 border border-liberation-sovereignty-gold/20">
+          <div className="mt-12 bg-gray-800 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
-                <Rss className="w-6 h-6 text-liberation-sovereignty-gold mr-3" />
-                <h3 className="text-xl font-bold text-liberation-sovereignty-gold">
+                <Rss className="w-6 h-6 text-yellow-500 mr-3" />
+                <h3 className="text-xl font-bold text-yellow-500">
                   Liberation Newsroom
                 </h3>
               </div>
               <button
                 onClick={() => window.open('https://blkout.vercel.app/newsroom', '_blank')}
-                className="flex items-center px-4 py-2 bg-liberation-sovereignty-gold text-liberation-black-power rounded-lg hover:bg-liberation-sovereignty-gold/90 transition-colors duration-200 font-medium"
+                className="flex items-center px-4 py-2 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
               >
                 <Globe className="w-4 h-4 mr-2" />
                 View All Stories
@@ -350,7 +350,7 @@ function App() {
                   href={`https://blkout.vercel.app/newsroom/${article.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-4 bg-liberation-black-power border border-liberation-silver/20 rounded-lg hover:border-liberation-sovereignty-gold/40 transition-colors duration-200"
+                  className="block p-4 bg-gray-700 border border-gray-600 rounded-lg hover:border-yellow-500/50 transition-colors duration-200"
                 >
                   {article.cover_image && (
                     <img
@@ -359,13 +359,13 @@ function App() {
                       className="w-full h-32 object-cover rounded-lg mb-3"
                     />
                   )}
-                  <h4 className="text-liberation-sovereignty-gold font-bold mb-2 line-clamp-2">
+                  <h4 className="text-yellow-500 font-bold mb-2 line-clamp-2">
                     {article.title}
                   </h4>
-                  <p className="text-liberation-silver text-sm line-clamp-2">
+                  <p className="text-gray-200 text-sm line-clamp-2">
                     {article.excerpt}
                   </p>
-                  <p className="text-liberation-silver/60 text-xs mt-2">
+                  <p className="text-gray-400 text-xs mt-2">
                     {new Date(article.published_at).toLocaleDateString()}
                   </p>
                 </a>
