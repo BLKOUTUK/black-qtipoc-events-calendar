@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Event, ModerationStats } from '../types';
-import { eventService } from '../services/eventService';
-import { supabaseEventService } from '../services/supabaseEventService';
 import { googleSheetsService } from '../services/googleSheetsService';
 import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
-import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download } from 'lucide-react';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -28,30 +26,14 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const loadData = async () => {
     setLoading(true);
     try {
-      // Load events from Supabase (primary)
       const [events, moderationStats] = await Promise.all([
-        supabaseEventService.getPendingEvents(),
-        supabaseEventService.getModerationStats()
+        googleSheetsService.getPendingEvents(),
+        googleSheetsService.getModerationStats()
       ]);
       setPendingEvents(events);
       setStats(moderationStats);
-      console.log('📊 Moderation data loaded from Supabase:', events.length, 'pending events');
     } catch (error) {
-      console.error('Error loading moderation data from Supabase:', error);
-
-      // Fallback to eventService
-      try {
-        console.log('⚠️ Falling back to eventService for moderation data...');
-        await eventService.scrapeEvents();
-        const [events, moderationStats] = await Promise.all([
-          Promise.resolve(eventService.getEventsForModeration()),
-          Promise.resolve(eventService.getModerationStats())
-        ]);
-        setPendingEvents(events);
-        setStats(moderationStats);
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-      }
+      console.error('Error loading moderation data:', error);
     } finally {
       setLoading(false);
     }
@@ -59,97 +41,30 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
-      console.log('✅ PRIMARY: Approving event via Supabase:', id);
-
-      // 1. Primary: Update status in Supabase database
-      const success = await supabaseEventService.updateEventStatus(id, 'published');
-
-      if (!success) {
-        throw new Error('Failed to approve event in Supabase database');
-      }
-
-      console.log('✅ PRIMARY: Event approved in Supabase database');
-
-      // 2. Secondary: Also update Google Sheets for transparency and N8N bridge
-      try {
-        console.log('📊 BACKUP: Updating Google Sheets for transparency...');
-        await googleSheetsService.updateEventStatus(id, 'published');
-        console.log('✅ BACKUP: Google Sheets updated successfully');
-      } catch (sheetsError) {
-        console.warn('⚠️ BACKUP: Google Sheets update failed (non-critical):', sheetsError);
-      }
-
-      // 3. Reload the moderation queue
+      await googleSheetsService.updateEventStatus(id, 'published');
       loadData();
     } catch (error) {
-      console.error('❌ Error approving event:', error);
-      alert('Failed to approve event: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      console.error('Error approving event:', error);
     }
   };
 
   const handleReject = async (id: string) => {
-    const reason = prompt('Please provide a reason for rejection (required for transparency):');
-    if (!reason || reason.trim().length === 0) {
-      alert('Rejection reason is required for community transparency');
-      return;
-    }
-
     try {
-      console.log('❌ PRIMARY: Rejecting event via Supabase:', id, 'Reason:', reason);
-
-      // 1. Primary: Update status in Supabase database
-      const success = await supabaseEventService.updateEventStatus(id, 'archived');
-
-      if (!success) {
-        throw new Error('Failed to reject event in Supabase database');
-      }
-
-      console.log('✅ PRIMARY: Event rejected in Supabase database');
-
-      // 2. Secondary: Also update Google Sheets for transparency and N8N bridge
-      try {
-        console.log('📊 BACKUP: Updating Google Sheets for transparency...');
-        await googleSheetsService.updateEventStatus(id, 'archived');
-        console.log('✅ BACKUP: Google Sheets updated successfully');
-      } catch (sheetsError) {
-        console.warn('⚠️ BACKUP: Google Sheets update failed (non-critical):', sheetsError);
-      }
-
-      // 3. Reload the moderation queue
+      await googleSheetsService.updateEventStatus(id, 'archived');
       loadData();
     } catch (error) {
-      console.error('❌ Error rejecting event:', error);
-      alert('Failed to reject event: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      console.error('Error rejecting event:', error);
     }
   };
 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
       const status = action === 'approve' ? 'published' : 'archived';
-      console.log(`🔄 BULK ${action.toUpperCase()}: Processing ${pendingEvents.length} events`);
-
-      // Primary: Update all events in Supabase
-      const supabaseResults = await Promise.allSettled(
-        pendingEvents.map(event =>
-          supabaseEventService.updateEventStatus(event.id, status)
+      await Promise.all(
+        pendingEvents.map(event => 
+          googleSheetsService.updateEventStatus(event.id, status)
         )
       );
-
-      const supabaseSuccesses = supabaseResults.filter(r => r.status === 'fulfilled').length;
-      console.log(`✅ PRIMARY: ${supabaseSuccesses}/${pendingEvents.length} events ${action}ed in Supabase`);
-
-      // Secondary: Update Google Sheets for transparency
-      try {
-        await Promise.all(
-          pendingEvents.map(event =>
-            googleSheetsService.updateEventStatus(event.id, status)
-          )
-        );
-        console.log('✅ BACKUP: All events also updated in Google Sheets');
-      } catch (sheetsError) {
-        console.warn('⚠️ BACKUP: Some Google Sheets updates failed (non-critical):', sheetsError);
-      }
-
       loadData();
     } catch (error) {
       console.error(`Error ${action}ing events:`, error);
@@ -212,7 +127,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
               <div className="flex-1">
                 <h4 className="font-medium text-green-900">Google Sheets Integration Active</h4>
                 <p className="text-sm text-green-800 mt-1">
-                  All moderation actions update the community Google Sheet in real-time. 
+                  All moderation actions update the community Google Sheet in real-time.
                   Changes are transparent and collaborative.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -235,6 +150,41 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                     👥 Contacts
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Chrome Extension Download */}
+          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start">
+              <Download className="w-5 h-5 text-blue-600 mr-2 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="font-medium text-blue-900">Chrome Extension for Content Submission</h4>
+                <p className="text-sm text-blue-800 mt-1">
+                  Install the BLKOUT Chrome extension to submit events and articles directly from any webpage.
+                  Features intelligent content scraping and auto-fill forms.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2 items-center">
+                  <a
+                    href="/chrome-extension.zip"
+                    download
+                    className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Extension v1.1.4
+                  </a>
+                  <a
+                    href="https://github.com/BLKOUTUK/black-qtipoc-events-calendar#chrome-extension"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-700 hover:text-blue-900 underline"
+                  >
+                    📖 Installation Guide
+                  </a>
+                </div>
+                <p className="text-xs text-blue-700 mt-2">
+                  💡 After download: Extract ZIP → Chrome Extensions → Developer Mode → Load Unpacked
+                </p>
               </div>
             </div>
           </div>
