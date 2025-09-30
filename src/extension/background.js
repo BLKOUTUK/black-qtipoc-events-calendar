@@ -5,8 +5,8 @@
 
 // Configuration constants
 const CONFIG = {
-  GOOGLE_SHEETS_API: 'https://sheets.googleapis.com/v4/spreadsheets',
-  BLKOUT_API_BASE: 'https://api.blkout.org', // Update with actual API endpoint
+  SUPABASE_URL: 'https://bgjengudzfickgomjqmz.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
   TEAMS: {
     EVENTS: 'events',
     NEWS: 'news',
@@ -167,36 +167,27 @@ async function handleAuthentication() {
 }
 
 /**
- * Submit content to appropriate team's Google Sheet
+ * Submit content to Supabase database
  */
 async function handleContentSubmission(contentData) {
-  if (!authToken) {
-    throw new Error('User not authenticated');
-  }
-
   try {
-    console.log('Submitting content:', contentData);
+    console.log('Submitting content to Supabase:', contentData);
 
     // Get team configuration
     const { teamAssignment } = await chrome.storage.sync.get(['teamAssignment']);
-    const sheetId = await getTeamSheetId(teamAssignment);
-
-    if (!sheetId) {
-      throw new Error(`No sheet configured for team: ${teamAssignment}`);
-    }
 
     // Prepare submission data based on content type
     const submissionData = prepareSubmissionData(contentData, teamAssignment);
 
-    // Submit to Google Sheets
-    const response = await submitToGoogleSheets(sheetId, submissionData);
+    // Submit to Supabase
+    const response = await submitToSupabase(submissionData, teamAssignment);
 
     // Log submission for tracking
     await logSubmission(contentData, response);
 
     return {
       success: true,
-      submissionId: response.spreadsheetId,
+      submissionId: response.id,
       teamAssignment: teamAssignment,
       timestamp: Date.now()
     };
@@ -431,19 +422,6 @@ function findRelevantElements(pageData) {
   return elements;
 }
 
-/**
- * Get Google Sheet ID for team
- */
-async function getTeamSheetId(teamId) {
-  const { teamSheets } = await chrome.storage.sync.get(['teamSheets']);
-
-  if (!teamSheets || !teamSheets[teamId]) {
-    console.warn(`No sheet configured for team: ${teamId}`);
-    return null;
-  }
-
-  return teamSheets[teamId];
-}
 
 /**
  * Prepare submission data based on team and content type
@@ -487,36 +465,70 @@ function prepareSubmissionData(contentData, teamId) {
 }
 
 /**
- * Submit data to Google Sheets
+ * Submit data to Supabase
  */
-async function submitToGoogleSheets(sheetId, data) {
-  if (!authToken) {
-    throw new Error('No authentication token available');
-  }
+async function submitToSupabase(data, teamId) {
+  try {
+    let endpoint;
+    let payload;
 
-  const values = [Object.values(data)];
-  const body = {
-    values: values
-  };
+    if (teamId === CONFIG.TEAMS.EVENTS) {
+      // Submit event to events table
+      endpoint = `${CONFIG.SUPABASE_URL}/rest/v1/events`;
+      payload = {
+        title: data.eventTitle || '',
+        date: data.eventDate || new Date().toISOString().split('T')[0],
+        description: data.eventDescription || '',
+        location: data.eventLocation || '',
+        organizer: data.eventOrganizer || data.submittedBy || '',
+        source: 'chrome-extension',
+        url: data.sourceUrl || '',
+        cost: data.eventCost || 'Free',
+        tags: [],
+        status: 'draft',
+        submitted_by: data.submittedBy || 'chrome-extension'
+      };
+    } else if (teamId === CONFIG.TEAMS.NEWS) {
+      // Submit article to articles table
+      endpoint = `${CONFIG.SUPABASE_URL}/rest/v1/articles`;
+      payload = {
+        title: data.articleTitle || '',
+        content: data.excerpt || '',
+        author: data.articleAuthor || data.submittedBy || '',
+        source_url: data.sourceUrl || '',
+        status: 'draft',
+        submitted_by: data.submittedBy || 'chrome-extension',
+        published_at: data.publishDate || new Date().toISOString()
+      };
+    } else {
+      throw new Error(`Unsupported team: ${teamId}`);
+    }
 
-  const response = await fetch(
-    `${CONFIG.GOOGLE_SHEETS_API}/${sheetId}/values/A1:append?valueInputOption=RAW`,
-    {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${authToken}`,
-        'Content-Type': 'application/json'
+        'apikey': CONFIG.SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Supabase API error: ${response.status} - ${error}`);
     }
-  );
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Google Sheets API error: ${error}`);
+    const result = await response.json();
+    console.log('Supabase submission successful:', result);
+
+    return Array.isArray(result) ? result[0] : result;
+
+  } catch (error) {
+    console.error('Supabase submission failed:', error);
+    throw error;
   }
-
-  return await response.json();
 }
 
 /**
