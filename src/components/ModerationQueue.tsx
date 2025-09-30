@@ -60,11 +60,20 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const handleApprove = async (id: string) => {
     try {
       // Try both services - one will succeed based on where the event came from
-      await Promise.allSettled([
+      const results = await Promise.allSettled([
         googleSheetsService.updateEventStatus(id, 'published'),
         supabaseEventService.updateEventStatus(id, 'approved')
       ]);
-      loadData();
+
+      // Check if at least one succeeded
+      const anySucceeded = results.some(r => r.status === 'fulfilled' && r.value === true);
+      if (!anySucceeded) {
+        console.error('Failed to approve event in both systems');
+      }
+
+      // Wait a moment for database to update
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await loadData();
     } catch (error) {
       console.error('Error approving event:', error);
     }
@@ -73,11 +82,20 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const handleReject = async (id: string) => {
     try {
       // Try both services - one will succeed based on where the event came from
-      await Promise.allSettled([
+      const results = await Promise.allSettled([
         googleSheetsService.updateEventStatus(id, 'archived'),
         supabaseEventService.updateEventStatus(id, 'archived')
       ]);
-      loadData();
+
+      // Check if at least one succeeded
+      const anySucceeded = results.some(r => r.status === 'fulfilled' && r.value === true);
+      if (!anySucceeded) {
+        console.error('Failed to reject event in both systems');
+      }
+
+      // Wait a moment for database to update
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await loadData();
     } catch (error) {
       console.error('Error rejecting event:', error);
     }
@@ -97,7 +115,10 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
           ])
         )
       );
-      loadData();
+
+      // Wait a moment for database to update
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await loadData();
     } catch (error) {
       console.error(`Error ${action}ing events:`, error);
     }
