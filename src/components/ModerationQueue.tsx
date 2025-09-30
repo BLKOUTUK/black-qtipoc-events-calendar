@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Event, ModerationStats } from '../types';
 import { googleSheetsService } from '../services/googleSheetsService';
+import { supabaseEventService } from '../services/supabaseEventService';
 import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
@@ -26,12 +27,29 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const loadData = async () => {
     setLoading(true);
     try {
-      const [events, moderationStats] = await Promise.all([
+      // Load from both Google Sheets and Supabase
+      const [sheetsEvents, supabaseEvents, sheetsStats] = await Promise.all([
         googleSheetsService.getPendingEvents(),
+        supabaseEventService.getPendingEvents(),
         googleSheetsService.getModerationStats()
       ]);
-      setPendingEvents(events);
-      setStats(moderationStats);
+
+      // Merge events from both sources
+      const allEvents = [...sheetsEvents, ...supabaseEvents];
+
+      // Get Supabase stats
+      const supabaseStats = await supabaseEventService.getModerationStats();
+
+      // Merge stats
+      const mergedStats = {
+        pending: sheetsStats.pending + supabaseStats.pending,
+        approved: sheetsStats.approved + supabaseStats.approved,
+        rejected: sheetsStats.rejected + supabaseStats.rejected,
+        total: sheetsStats.total + supabaseStats.total
+      };
+
+      setPendingEvents(allEvents);
+      setStats(mergedStats);
     } catch (error) {
       console.error('Error loading moderation data:', error);
     } finally {
@@ -41,7 +59,11 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
-      await googleSheetsService.updateEventStatus(id, 'published');
+      // Try both services - one will succeed based on where the event came from
+      await Promise.allSettled([
+        googleSheetsService.updateEventStatus(id, 'published'),
+        supabaseEventService.updateEventStatus(id, 'approved')
+      ]);
       loadData();
     } catch (error) {
       console.error('Error approving event:', error);
@@ -50,7 +72,11 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleReject = async (id: string) => {
     try {
-      await googleSheetsService.updateEventStatus(id, 'archived');
+      // Try both services - one will succeed based on where the event came from
+      await Promise.allSettled([
+        googleSheetsService.updateEventStatus(id, 'archived'),
+        supabaseEventService.updateEventStatus(id, 'archived')
+      ]);
       loadData();
     } catch (error) {
       console.error('Error rejecting event:', error);
@@ -59,10 +85,16 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
-      const status = action === 'approve' ? 'published' : 'archived';
+      const sheetsStatus = action === 'approve' ? 'published' : 'archived';
+      const supabaseStatus = action === 'approve' ? 'approved' : 'archived';
+
+      // Try updating in both services for each event
       await Promise.all(
-        pendingEvents.map(event => 
-          googleSheetsService.updateEventStatus(event.id, status)
+        pendingEvents.map(event =>
+          Promise.allSettled([
+            googleSheetsService.updateEventStatus(event.id, sheetsStatus),
+            supabaseEventService.updateEventStatus(event.id, supabaseStatus)
+          ])
         )
       );
       loadData();
@@ -118,17 +150,17 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
             </div>
           </div>
 
-          {/* Google Sheets Integration Notice */}
+          {/* Dual Integration Notice */}
           <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
             <div className="flex items-start">
               <svg className="w-5 h-5 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <div className="flex-1">
-                <h4 className="font-medium text-green-900">Google Sheets Integration Active</h4>
+                <h4 className="font-medium text-green-900">Dual Integration: Google Sheets + Supabase</h4>
                 <p className="text-sm text-green-800 mt-1">
-                  All moderation actions update the community Google Sheet in real-time.
-                  Changes are transparent and collaborative.
+                  Events from both Google Sheets and Chrome extension submissions (Supabase) appear here.
+                  All moderation actions update both systems in real-time.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <button
