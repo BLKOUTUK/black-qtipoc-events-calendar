@@ -124,12 +124,12 @@ export const EventCard: React.FC<EventCardProps> = ({
         {event.tags && event.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {event.tags.slice(0, 3).map((tag, index) => (
-              <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+              <span key={index} className="px-2 py-1 bg-yellow-500/20 text-yellow-500 text-xs rounded-full border border-yellow-500/30">
                 #{tag}
               </span>
             ))}
             {event.tags.length > 3 && (
-              <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+              <span className="px-2 py-1 bg-yellow-500/20 text-yellow-500 text-xs rounded-full border border-yellow-500/30">
                 +{event.tags.length - 3} more
               </span>
             )}
@@ -152,7 +152,7 @@ export const EventCard: React.FC<EventCardProps> = ({
                 href={event.source_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                className="flex items-center px-3 py-2 border border-gray-600 text-gray-200 text-sm rounded-lg hover:bg-gray-700 transition-colors duration-200"
                 aria-label="View original event"
               >
                 <ExternalLink className="w-4 h-4 mr-1" />
