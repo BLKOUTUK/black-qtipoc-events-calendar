@@ -137,20 +137,23 @@ function App() {
       {/* Navigation Header */}
       <Header />
 
+      {/* Spacer for fixed header */}
+      <div className="h-16"></div>
+
       {/* Hero Section with BLKOUT Branding */}
       <div className="relative overflow-hidden h-auto py-16 md:py-24 mb-8">
-        {/* Background Image */}
+        {/* Background Image - more visible */}
         <img
           src="/images/imagine.png"
           alt="Liberation Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = 'none';
           }}
         />
 
-        {/* Dark overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/50 to-gray-900/80"></div>
+        {/* Lighter overlay so image shows through */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/30 to-gray-900/50"></div>
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -167,20 +170,18 @@ function App() {
             />
           </div>
 
-          {/* CONNECT Title with gold highlight */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-6 leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-600 drop-shadow-2xl">
+          {/* CONNECT Title with outline style */}
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-8 leading-none tracking-tighter text-yellow-500 drop-shadow-2xl" style={{
+            WebkitTextStroke: '2px currentColor',
+            WebkitTextFillColor: 'transparent',
+            paintOrder: 'stroke fill'
+          }}>
             CONNECT
           </h1>
 
           {/* Subtitle */}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-yellow-500 drop-shadow-lg">
-            Join the Movement • Build Power • Create Change
-          </h2>
-
-          {/* Description */}
-          <p className="text-base sm:text-lg md:text-xl mb-8 text-gray-300 max-w-3xl mx-auto">
-            Connect with thousands of Black queer revolutionaries transforming communities worldwide.
-            Every event is a step toward collective liberation.
+          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-lg max-w-3xl mx-auto">
+            Where Black Queer Magic Happens • Parties • Workshops • Revolution
           </p>
         </div>
       </div>
@@ -189,11 +190,11 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Admin Controls - Only show if authenticated */}
         {user && (
-          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-yellow-500/30">
+          <div className="bg-gray-800 rounded-xl p-6 mb-8 border border-yellow-500/30">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="text-yellow-500">
                 <h3 className="text-lg font-bold">Admin Controls</h3>
-                <p className="text-sm text-gray-300">Manage liberation events and community content</p>
+                <p className="text-sm text-gray-200">Manage liberation events and community content</p>
               </div>
               <div className="flex items-center space-x-3">
                 <button
@@ -231,8 +232,8 @@ function App() {
         <div className="bg-gradient-to-r from-yellow-600 to-amber-500 text-gray-900 rounded-xl p-6 mb-8 shadow-xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-bold mb-2">Ready to Join the Revolution?</h2>
-              <p className="text-gray-800">Share your events • Connect with organizers • Build the movement together</p>
+              <h2 className="text-xl font-bold mb-2 text-gray-900">Ready to Join the Revolution?</h2>
+              <p className="text-gray-900">Share your events • Connect with organizers • Build the movement together</p>
             </div>
             <div className="flex items-center space-x-3">
               <button

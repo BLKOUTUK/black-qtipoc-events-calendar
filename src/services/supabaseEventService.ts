@@ -32,10 +32,11 @@ class SupabaseEventService {
   // Public methods - no authentication required
   async getPublishedEvents(): Promise<Event[]> {
     console.log('🔍 getPublishedEvents called - using direct fetch API');
-    
+
     try {
-      // Use direct REST API call to bypass Supabase client issues
-      const url = 'https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&select=id,title,date,description,location,organizer,source,tags,url,cost';
+      // Filter for events on or after 2025-09-30 (today)
+      const todayDate = '2025-09-30';
+      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,organizer,source,tags,url,cost&order=date.asc`;
       const response = await fetch(url, {
         method: 'GET',
         headers: {
