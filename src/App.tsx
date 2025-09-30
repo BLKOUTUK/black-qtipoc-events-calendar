@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Settings, Heart, Shield, Mail, LogIn, LogOut, User } from 'lucide-react';
+import { Plus, Settings, LogIn, LogOut, BarChart3, Globe, Rss, Users } from 'lucide-react';
 import { Event, FilterOptions } from './types';
+import { supabaseEventService } from './services/supabaseEventService';
 import { googleSheetsService } from './services/googleSheetsService';
-import { EventList } from './components/EventList';
+import { useArticles } from './hooks/useSupabase';
+import { PaginatedEventList } from './components/PaginatedEventList';
 import { EventForm } from './components/EventForm';
 import { ModerationQueue } from './components/ModerationQueue';
 import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
+import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -15,6 +20,7 @@ function App() {
   const [showEventForm, setShowEventForm] = useState(false);
   const [showModerationQueue, setShowModerationQueue] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showIntelligenceDashboard, setShowIntelligenceDashboard] = useState(false);
   const [isScrapingEvents, setIsScrapingEvents] = useState(false);
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
@@ -25,6 +31,12 @@ function App() {
     searchTerm: ''
   });
 
+  // Use the articles hook for newsroom functionality
+  const { articles, loading: articlesLoading, error: articlesError } = useArticles({
+    status: 'published',
+    limit: 50
+  });
+
   useEffect(() => {
     loadEvents();
     loadStats();
@@ -32,7 +44,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const filtered = googleSheetsService.filterEvents(events, filters);
+    const filtered = supabaseEventService.filterEvents(events, filters);
     setFilteredEvents(filtered);
   }, [events, filters]);
 
@@ -44,8 +56,8 @@ function App() {
   const loadEvents = async () => {
     setLoading(true);
     try {
-      // Always load published events for public view
-      const allEvents = await googleSheetsService.getPublishedEvents();
+      // Load published events from Supabase
+      const allEvents = await supabaseEventService.getPublishedEvents();
       setEvents(allEvents);
     } catch (error) {
       console.error('Error loading events:', error);
@@ -56,10 +68,8 @@ function App() {
 
   const loadStats = async () => {
     try {
-      if (user) {
-        const moderationStats = await googleSheetsService.getModerationStats();
-        setStats(moderationStats);
-      }
+      const moderationStats = await supabaseEventService.getModerationStats();
+      setStats(moderationStats);
     } catch (error) {
       console.error('Error loading stats:', error);
     }
@@ -114,67 +124,130 @@ function App() {
     setShowModerationQueue(true);
   };
 
+  const handleIntelligenceClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+    setShowIntelligenceDashboard(true);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-teal-900">
-      {/* Header */}
-      <header className="bg-gray-900 shadow-lg border-b border-purple-700 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <Heart className="w-8 h-8 text-purple-400" />
+    <div className="min-h-screen bg-liberation-black-power">
+      {/* Navigation Header */}
+      <Header />
+
+      {/* Hero Section with Image */}
+      <div className="relative overflow-hidden rounded-xl h-96 md:h-[32rem] mb-8 bg-gradient-to-br from-blkout-primary via-blkout-deep to-black">
+        {/* Background Image */}
+        <img
+          src="/images/imagine.png"
+          alt="Liberation Background"
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => {
+            // Hide image if it fails to load, keep gradient background
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+        />
+
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-liberation-black-power bg-opacity-60"></div>
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 md:px-8 z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-6 md:mb-8">
+              <img
+                src="/Branding and logos/BLKOUT25INV.png"
+                alt="BLKOUT Logo"
+                className="h-16 md:h-20 lg:h-24 w-auto mx-auto filter drop-shadow-lg"
+                loading="eager"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-tight tracking-tight text-blkout-primary drop-shadow-2xl">
+              Your Liberation Starts Here
+            </h1>
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 uppercase tracking-wider text-liberation-sovereignty-gold drop-shadow-lg">
+              Join the Movement • Build Power • Create Change
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 leading-relaxed max-w-3xl mx-auto text-liberation-silver drop-shadow-md">
+              Connect with thousands of Black queer revolutionaries transforming communities worldwide. Every event is a step toward collective liberation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Admin Controls - Only show if authenticated */}
+        {user && (
+          <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 mb-8 border border-liberation-sovereignty-gold/20">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="text-liberation-sovereignty-gold">
+                <h3 className="text-lg font-bold">Admin Controls</h3>
+                <p className="text-sm text-liberation-silver">Manage liberation events and community content</p>
               </div>
-              <div className="ml-3">
-                <h1 className="text-xl font-bold text-white">
-                  Black QTIPOC+ Events
-                </h1>
-                <p className="text-sm text-purple-300">
-                  Community-curated events for our people
-                </p>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={handleModerationClick}
+                  className="relative flex items-center px-4 py-2 bg-liberation-sovereignty-gold text-liberation-black-power rounded-lg hover:bg-liberation-sovereignty-gold/90 transition-colors duration-200 font-medium"
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  Moderation
+                  {stats.pending > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-liberation-red-liberation text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {stats.pending}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={handleIntelligenceClick}
+                  className="flex items-center px-4 py-2 bg-liberation-green-africa text-white rounded-lg hover:bg-liberation-green-africa/90 transition-colors duration-200 font-medium"
+                >
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  Intelligence
+                </button>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center px-4 py-2 border border-liberation-silver/30 text-liberation-silver rounded-lg hover:bg-liberation-silver/10 transition-colors duration-200"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </button>
               </div>
             </div>
+          </div>
+        )}
 
+        {/* Community Action Bar */}
+        <div className="bg-gradient-to-r from-liberation-sovereignty-gold to-liberation-gold-divine text-liberation-black-power rounded-xl p-6 mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold mb-2">Ready to Join the Revolution?</h2>
+              <p className="text-liberation-black-power/80">Share your events • Connect with organizers • Build the movement together</p>
+            </div>
             <div className="flex items-center space-x-3">
-              {/* Public: Add Event Button */}
               <button
                 onClick={() => setShowEventForm(true)}
-                className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200"
+                className="flex items-center px-6 py-3 bg-liberation-black-power text-liberation-sovereignty-gold rounded-lg hover:bg-liberation-black-power/90 transition-all duration-300 hover:scale-105 font-bold shadow-lg"
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Submit Event
+                <Plus className="w-5 h-5 mr-2" />
+                Add Your Event
               </button>
-
-              {user ? (
-                <>
-                  {/* Authenticated: Admin Controls */}
-                  <button
-                    onClick={handleModerationClick}
-                    className="relative flex items-center px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-600 transition-colors duration-200"
-                  >
-                    <Settings className="w-4 h-4 mr-2" />
-                    Moderation
-                    {stats.pending > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {stats.pending}
-                      </span>
-                    )}
-                  </button>
-
-                  <div className="flex items-center space-x-2">
-                    <User className="w-4 h-4 text-purple-300" />
-                    <span className="text-sm text-purple-300">{user.email}</span>
-                    <button
-                      onClick={handleSignOut}
-                      className="flex items-center px-3 py-1 text-sm text-purple-300 hover:text-white transition-colors duration-200"
-                    >
-                      <LogOut className="w-4 h-4 ml-1" />
-                    </button>
-                  </div>
-                </>
-              ) : (
+              <button
+                onClick={() => window.open('https://blkout.vercel.app', '_blank')}
+                className="flex items-center px-6 py-3 bg-transparent border-2 border-liberation-black-power text-liberation-black-power rounded-lg hover:bg-liberation-black-power hover:text-liberation-sovereignty-gold transition-all duration-300 font-bold"
+              >
+                <Users className="w-5 h-5 mr-2" />
+                Join BLKOUT Platform
+              </button>
+              {!user && (
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="flex items-center px-4 py-2 border border-purple-500 text-purple-300 rounded-lg hover:bg-purple-800 transition-colors duration-200"
+                  className="flex items-center px-4 py-3 text-liberation-black-power/70 hover:text-liberation-black-power transition-colors duration-200 font-medium"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
                   Admin Login
@@ -182,20 +255,6 @@ function App() {
               )}
             </div>
           </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-12 bg-white/90 backdrop-blur-sm rounded-lg p-8 shadow-xl">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Discover Our Community
-          </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Find events that celebrate Black QTIPOC+ voices, experiences, and joy.
-            From workshops to celebrations, discover spaces where you belong.
-          </p>
         </div>
 
         {/* Filter Bar */}
@@ -210,21 +269,21 @@ function App() {
         {/* Stats - Only show if authenticated */}
         {user && (
           <div className="mb-8">
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 border border-liberation-sovereignty-gold/20">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-purple-600">{events.length}</p>
-                  <p className="text-sm text-gray-600">Published Events</p>
+                  <p className="text-3xl font-bold text-liberation-sovereignty-gold">{events.length}</p>
+                  <p className="text-sm text-liberation-silver">Liberation Events</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-orange-600">{stats.pending}</p>
-                  <p className="text-sm text-gray-600">Pending Review</p>
+                  <p className="text-3xl font-bold text-liberation-red-liberation">{stats.pending}</p>
+                  <p className="text-sm text-liberation-silver">Awaiting Review</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-teal-600">
+                  <p className="text-3xl font-bold text-liberation-green-africa">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
-                  <p className="text-sm text-gray-600">Community Organizers</p>
+                  <p className="text-sm text-liberation-silver">Community Organizers</p>
                 </div>
               </div>
             </div>
@@ -234,116 +293,80 @@ function App() {
         {/* Public Stats */}
         {!user && (
           <div className="mb-8">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+            <div className="bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 border border-liberation-sovereignty-gold/20">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                 <div>
-                  <p className="text-2xl font-bold text-purple-600">{events.length}</p>
-                  <p className="text-sm text-gray-600">Community Events</p>
+                  <p className="text-4xl font-bold text-liberation-sovereignty-gold mb-2">{events.length}</p>
+                  <p className="text-lg text-liberation-silver">Liberation Events</p>
+                  <p className="text-xs text-liberation-silver/60 mt-1">Parties, workshops & community gatherings</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-teal-600">
+                  <p className="text-4xl font-bold text-liberation-green-africa mb-2">
                     {new Set(events.map(e => e.organizer_name)).size}
                   </p>
-                  <p className="text-sm text-gray-600">Community Organizers</p>
+                  <p className="text-lg text-liberation-silver">Community Organizers</p>
+                  <p className="text-xs text-liberation-silver/60 mt-1">Folk are connecting, organizing, liberating</p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Google Sheets Integration Notice */}
-        <div className="mb-8 bg-green-50 border border-green-200 rounded-lg p-6">
-          <div className="flex items-start">
-            <div className="flex-shrink-0">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <h3 className="text-lg font-medium text-green-900">
-                Powered by Google Sheets
-              </h3>
-              <div className="mt-2 text-sm text-green-800">
-                <p className="mb-2">
-                  This platform uses Google Sheets as its database - simple, transparent, and community-friendly!
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-medium mb-1">✅ Benefits:</h4>
-                    <ul className="text-xs space-y-1">
-                      <li>• No complex database setup</li>
-                      <li>• Community can see all data</li>
-                      <li>• Easy to backup and export</li>
-                      <li>• Multiple admins can collaborate</li>
-                      <li>• Free and reliable</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-1">🔧 Setup Required:</h4>
-                    <ul className="text-xs space-y-1">
-                      <li>• Create Google Sheet with proper columns</li>
-                      <li>• Get Google Sheets API key</li>
-                      <li>• Set VITE_GOOGLE_SHEET_ID</li>
-                      <li>• Set VITE_GOOGLE_API_KEY</li>
-                      <li>• Configure OAuth for write access</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Events List */}
-        <EventList 
-          events={filteredEvents} 
+        <PaginatedEventList
+          events={filteredEvents}
           loading={loading}
-          emptyMessage="No events found. Try adjusting your filters or check back later for new events."
+          emptyMessage="No liberation events found. Add yours to the movement!"
         />
 
-        {/* Community Guidelines */}
-        <div className="mt-12 bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            <Shield className="w-5 h-5 mr-2 text-purple-600" />
-            Community Guidelines
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Safe Spaces</h4>
-              <p className="text-sm text-gray-600">
-                All events must be affirming and inclusive of Black QTIPOC+ identities. 
-                We prioritize spaces where our community can feel safe and celebrated.
-              </p>
+        {/* Newsroom Integration - Show latest articles */}
+        {!articlesLoading && articles && articles.length > 0 && (
+          <div className="mt-12 bg-liberation-black-power/50 backdrop-blur-sm rounded-xl p-6 border border-liberation-sovereignty-gold/20">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center">
+                <Rss className="w-6 h-6 text-liberation-sovereignty-gold mr-3" />
+                <h3 className="text-xl font-bold text-liberation-sovereignty-gold">
+                  Liberation Newsroom
+                </h3>
+              </div>
+              <button
+                onClick={() => window.open('https://blkout.vercel.app/newsroom', '_blank')}
+                className="flex items-center px-4 py-2 bg-liberation-sovereignty-gold text-liberation-black-power rounded-lg hover:bg-liberation-sovereignty-gold/90 transition-colors duration-200 font-medium"
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                View All Stories
+              </button>
             </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Community-Centered</h4>
-              <p className="text-sm text-gray-600">
-                Events should center Black QTIPOC+ voices, experiences, and leadership. 
-                We amplify grassroots organizing and community-led initiatives.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Accessible</h4>
-              <p className="text-sm text-gray-600">
-                We encourage events that are accessible in terms of location, cost, 
-                and physical accessibility. Include accessibility information when possible.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">Respectful</h4>
-              <p className="text-sm text-gray-600">
-                All submissions must be respectful and appropriate. Discriminatory or 
-                harmful content will not be tolerated.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {articles.slice(0, 3).map((article) => (
+                <a
+                  key={article.id}
+                  href={`https://blkout.vercel.app/newsroom/${article.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-4 bg-liberation-black-power border border-liberation-silver/20 rounded-lg hover:border-liberation-sovereignty-gold/40 transition-colors duration-200"
+                >
+                  {article.cover_image && (
+                    <img
+                      src={article.cover_image}
+                      alt={article.title}
+                      className="w-full h-32 object-cover rounded-lg mb-3"
+                    />
+                  )}
+                  <h4 className="text-liberation-sovereignty-gold font-bold mb-2 line-clamp-2">
+                    {article.title}
+                  </h4>
+                  <p className="text-liberation-silver text-sm line-clamp-2">
+                    {article.excerpt}
+                  </p>
+                  <p className="text-liberation-silver/60 text-xs mt-2">
+                    {new Date(article.published_at).toLocaleDateString()}
+                  </p>
+                </a>
+              ))}
             </div>
           </div>
-          <div className="mt-6 p-4 bg-purple-50 rounded-lg">
-            <p className="text-sm text-purple-800 flex items-center">
-              <Mail className="w-4 h-4 mr-2" />
-              Questions or concerns? Contact us at community@qtipocevents.org
-            </p>
-          </div>
-        </div>
+        )}
       </main>
 
       {/* Modals */}
@@ -360,6 +383,12 @@ function App() {
         />
       )}
 
+      {showIntelligenceDashboard && user && (
+        <CommunityIntelligenceDashboard
+          onClose={() => setShowIntelligenceDashboard(false)}
+        />
+      )}
+
       {showAuthModal && (
         <AuthModal
           onSignIn={handleSignIn}
@@ -368,16 +397,7 @@ function App() {
       )}
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
-            <p className="text-sm text-gray-400">
-              Built with love for the Black QTIPOC+ community. 
-              Powered by Google Sheets for transparency and community collaboration.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
