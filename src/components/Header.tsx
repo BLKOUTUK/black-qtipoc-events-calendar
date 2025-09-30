@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
   };
 
   return (
-    <header className="bg-liberation-black-power border-b border-liberation-sovereignty-gold/20 sticky top-0 z-50">
+    <header className="bg-gray-900 border-b border-yellow-500/30 sticky top-0 z-50 shadow-xl backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Title */}
@@ -43,10 +43,10 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
               }}
             />
             <div>
-              <h1 className="text-xl font-bold text-liberation-sovereignty-gold">
+              <h1 className="text-xl font-bold text-yellow-500">
                 BLKOUT Connect
               </h1>
-              <p className="text-xs text-liberation-silver hidden sm:block">
+              <p className="text-xs text-gray-300 hidden sm:block">
                 Where Black Queer Magic Happens • Parties • Workshops • Revolution
               </p>
             </div>
@@ -60,8 +60,8 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
                 onClick={() => handleNavigation(item)}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   item.active
-                    ? 'bg-liberation-sovereignty-gold text-black'
-                    : 'text-liberation-silver hover:text-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/10'
+                    ? 'bg-yellow-500 text-gray-900'
+                    : 'text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10'
                 }`}
               >
                 <item.icon className="h-4 w-4" />
@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
           <div className="hidden lg:block">
             <button
               onClick={() => window.open('https://blkout.vercel.app', '_blank')}
-              className="bg-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/90 text-black px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
+              className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
             >
               <Home className="h-4 w-4" />
               Platform
@@ -85,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-liberation-silver hover:text-liberation-sovereignty-gold transition-colors"
+              className="p-2 text-gray-300 hover:text-yellow-500 transition-colors"
               aria-label="Toggle navigation menu"
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -95,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-liberation-sovereignty-gold/20 bg-liberation-black-power">
+          <div className="lg:hidden border-t border-yellow-500/30 bg-gray-900">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigationItems.map((item) => (
                 <button
@@ -103,8 +103,8 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
                   onClick={() => handleNavigation(item)}
                   className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 ${
                     item.active
-                      ? 'bg-liberation-sovereignty-gold text-black font-semibold'
-                      : 'text-liberation-silver hover:text-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/10'
+                      ? 'bg-yellow-500 text-gray-900 font-semibold'
+                      : 'text-gray-300 hover:text-yellow-500 hover:bg-yellow-500/10'
                   }`}
                 >
                   <item.icon className="h-5 w-5" />
@@ -113,13 +113,13 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
               ))}
 
               {/* Back to Platform - Mobile */}
-              <div className="pt-4 border-t border-liberation-sovereignty-gold/10">
+              <div className="pt-4 border-t border-yellow-500/30">
                 <button
                   onClick={() => {
                     window.open('https://blkout.vercel.app', '_blank');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full bg-liberation-sovereignty-gold text-black px-3 py-3 rounded-lg font-semibold hover:bg-liberation-sovereignty-gold/90 transition-colors flex items-center gap-2"
+                  className="w-full bg-yellow-500 text-gray-900 px-3 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors flex items-center gap-2"
                 >
                   <Home className="h-5 w-5" />
                   Back to Platform Home

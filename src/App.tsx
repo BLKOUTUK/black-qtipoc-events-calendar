@@ -252,7 +252,7 @@ function App() {
               {!user && (
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="flex items-center px-4 py-3 text-gray-800 hover:text-gray-900 transition-colors duration-200 font-medium"
+                  className="flex items-center px-4 py-3 text-gray-900 hover:text-gray-800 transition-colors duration-200 font-medium"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
                   Admin Login
