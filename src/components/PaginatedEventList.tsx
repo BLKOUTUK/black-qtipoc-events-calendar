@@ -21,7 +21,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
   showActions = false,
   onApprove,
   onReject,
-  itemsPerPage = 6
+  itemsPerPage = 12
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -203,11 +203,11 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
   return (
     <div id="events-container">
       {/* Page Info */}
-      <div className="flex justify-between items-center mb-8">
-        <div className="text-liberation-silver text-sm">
+      <div className="flex justify-between items-center mb-8 bg-gray-800/50 rounded-lg p-4">
+        <div className="text-white text-sm font-medium">
           Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, events.length)} of {events.length} events
         </div>
-        <div className="text-liberation-sovereignty-gold text-sm font-medium">
+        <div className="text-yellow-500 text-sm font-bold">
           Page {currentPage} of {totalPages}
         </div>
       </div>
