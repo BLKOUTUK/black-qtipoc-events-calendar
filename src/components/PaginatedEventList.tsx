@@ -166,7 +166,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
             {/* Event cards skeleton */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(2)].map((_, cardIndex) => (
-                <div key={cardIndex} className="bg-liberation-black-power/80 border border-liberation-sovereignty-gold/20 rounded-lg shadow-md overflow-hidden animate-pulse">
+                <div key={cardIndex} className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-md overflow-hidden animate-pulse">
                   <div className="h-48 bg-gray-200"></div>
                   <div className="p-6">
                     <div className="h-6 bg-gray-200 rounded mb-3"></div>

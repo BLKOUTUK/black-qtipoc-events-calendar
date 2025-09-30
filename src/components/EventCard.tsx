@@ -69,7 +69,7 @@ export const EventCard: React.FC<EventCardProps> = ({
     : JSON.stringify(event.location);
 
   return (
-    <div className="bg-liberation-black-power border border-liberation-sovereignty-gold/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-liberation-sovereignty-gold/40 transition-all duration-300">
+    <div className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-yellow-500/50 transition-all duration-300">
       {event.image_url && (
         <div className="relative h-48 overflow-hidden">
           <img 
@@ -87,7 +87,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       
       <div className="p-6">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="text-xl font-bold text-liberation-sovereignty-gold leading-tight">{event.name}</h3>
+          <h3 className="text-xl font-bold text-yellow-500 leading-tight">{event.name}</h3>
           {!event.image_url && (
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSourceColor(event.source)} ml-2`}>
               {event.source}
@@ -95,27 +95,27 @@ export const EventCard: React.FC<EventCardProps> = ({
           )}
         </div>
 
-        <p className="text-liberation-silver mb-4 line-clamp-2">{event.description}</p>
+        <p className="text-gray-200 mb-4 line-clamp-2">{event.description}</p>
 
         <div className="space-y-2 mb-4">
-          <div className="flex items-center text-sm text-liberation-silver/80">
-            <Calendar className="w-4 h-4 mr-2 text-blkout-primary" />
+          <div className="flex items-center text-sm text-gray-300">
+            <Calendar className="w-4 h-4 mr-2 text-yellow-500" />
             <span>{formatDate(event.event_date)} at {formatTime(event.event_date)}</span>
           </div>
-          
-          <div className="flex items-center text-sm text-liberation-silver/80">
-            <MapPin className="w-4 h-4 mr-2 text-blkout-accent" />
+
+          <div className="flex items-center text-sm text-gray-300">
+            <MapPin className="w-4 h-4 mr-2 text-yellow-500" />
             <span>{locationStr}</span>
           </div>
 
-          <div className="flex items-center text-sm text-liberation-silver/80">
-            <User className="w-4 h-4 mr-2 text-blkout-warm" />
+          <div className="flex items-center text-sm text-gray-300">
+            <User className="w-4 h-4 mr-2 text-yellow-500" />
             <span>{event.organizer_name || 'Unknown Organizer'}</span>
           </div>
 
           {event.price && (
-            <div className="flex items-center text-sm text-liberation-silver/80">
-              <DollarSign className="w-4 h-4 mr-2 text-blkout-secondary" />
+            <div className="flex items-center text-sm text-gray-300">
+              <DollarSign className="w-4 h-4 mr-2 text-yellow-500" />
               <span>{event.price}</span>
             </div>
           )}
@@ -140,7 +140,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           <div className="flex space-x-2">
             <button
               onClick={addToCalendar}
-              className="flex items-center px-3 py-2 bg-blkout-primary text-white text-sm rounded-lg hover:bg-blkout-warm transition-colors duration-200"
+              className="flex items-center px-3 py-2 bg-yellow-500 text-gray-900 text-sm rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
               aria-label="Add to calendar"
             >
               <Calendar className="w-4 h-4 mr-1" />
@@ -165,13 +165,13 @@ export const EventCard: React.FC<EventCardProps> = ({
             <div className="flex space-x-2">
               <button
                 onClick={() => onApprove?.(event.id)}
-                className="px-3 py-1 bg-blkout-accent text-white text-sm rounded hover:bg-blkout-accent/80 transition-colors duration-200"
+                className="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-500 transition-colors duration-200"
               >
                 Approve
               </button>
               <button
                 onClick={() => onReject?.(event.id)}
-                className="px-3 py-1 bg-blkout-primary text-white text-sm rounded hover:bg-blkout-warm transition-colors duration-200"
+                className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-500 transition-colors duration-200"
               >
                 Reject
               </button>
