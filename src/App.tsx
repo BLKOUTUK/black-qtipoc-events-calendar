@@ -133,49 +133,46 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-liberation-black-power">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-teal-900">
       {/* Navigation Header */}
       <Header />
 
-      {/* Hero Section with Image */}
-      <div className="relative overflow-hidden rounded-xl h-96 md:h-[32rem] mb-8 bg-gradient-to-br from-blkout-primary via-blkout-deep to-black">
+      {/* Hero Section with BLKOUT Branding */}
+      <div className="relative overflow-hidden h-96 md:h-[32rem] mb-8 bg-white">
         {/* Background Image */}
         <img
           src="/images/imagine.png"
           alt="Liberation Background"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
           onError={(e) => {
-            // Hide image if it fails to load, keep gradient background
+            // Hide image if it fails to load, keep white background
             (e.target as HTMLImageElement).style.display = 'none';
           }}
         />
 
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-liberation-black-power bg-opacity-60"></div>
-
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 md:px-8 z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-6 md:mb-8">
+            {/* BLKOUT Logo */}
+            <div className="mb-8 md:mb-12">
               <img
-                src="/Branding and logos/BLKOUT25INV.png"
+                src="/images/blkoutlogo_blk_transparent.png"
                 alt="BLKOUT Logo"
-                className="h-16 md:h-20 lg:h-24 w-auto mx-auto filter drop-shadow-lg"
+                className="h-24 md:h-32 lg:h-40 w-auto mx-auto"
                 loading="eager"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-tight tracking-tight text-blkout-primary drop-shadow-2xl">
-              Your Liberation Starts Here
+
+            {/* CONNECT Title in outline style */}
+            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-8 md:mb-12 leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-600" style={{
+              WebkitTextStroke: '2px black',
+              paintOrder: 'stroke fill'
+            }}>
+              CONNECT
             </h1>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 uppercase tracking-wider text-liberation-sovereignty-gold drop-shadow-lg">
-              Join the Movement • Build Power • Create Change
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 leading-relaxed max-w-3xl mx-auto text-liberation-silver drop-shadow-md">
-              Connect with thousands of Black queer revolutionaries transforming communities worldwide. Every event is a step toward collective liberation.
-            </p>
           </div>
         </div>
       </div>
