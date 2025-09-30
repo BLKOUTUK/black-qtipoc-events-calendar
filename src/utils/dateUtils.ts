@@ -50,7 +50,7 @@ export const getWeekTitle = (weekNumber: number, start: Date, end: Date): string
   }
 };
 
-export const groupEventsByWeek = (events: Event[], startDate: Date = new Date('2025-09-28')): { [week: number]: { events: Event[]; title: string; range: { start: Date; end: Date } } } => {
+export const groupEventsByWeek = (events: Event[], startDate: Date = new Date('2025-09-30')): { [week: number]: { events: Event[]; title: string; range: { start: Date; end: Date } } } => {
   const grouped: { [week: number]: { events: Event[]; title: string; range: { start: Date; end: Date } } } = {};
 
   events.forEach(event => {

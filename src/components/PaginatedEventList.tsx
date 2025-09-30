@@ -31,8 +31,8 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       return { paginatedEvents: [], totalPages: 0 };
     }
 
-    // Group events by week
-    const weeklyEvents = groupEventsByWeek(events, new Date('2025-09-28'));
+    // Group events by week - using September 30, 2025 as the start date
+    const weeklyEvents = groupEventsByWeek(events, new Date('2025-09-30'));
     const weekNumbers = Object.keys(weeklyEvents).map(Number).sort((a, b) => a - b);
 
     // Calculate pagination
@@ -41,7 +41,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
     const eventsSlice = events.slice(startIndex, endIndex);
 
     // Re-group the paginated slice by weeks for display
-    const paginatedWeeklyEvents = groupEventsByWeek(eventsSlice, new Date('2025-09-28'));
+    const paginatedWeeklyEvents = groupEventsByWeek(eventsSlice, new Date('2025-09-30'));
     const paginatedWeekNumbers = Object.keys(paginatedWeeklyEvents).map(Number).sort((a, b) => a - b);
 
     return {

@@ -33,12 +33,12 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   const getSourceColor = (source: string) => {
     const colors = {
-      eventbrite: 'bg-orange-100 text-orange-800',
-      community: 'bg-purple-100 text-purple-800',
-      outsavvy: 'bg-teal-100 text-teal-800',
-      facebook: 'bg-blue-100 text-blue-800'
+      eventbrite: 'bg-orange-500/20 text-orange-300 border border-orange-500/30',
+      community: 'bg-purple-500/20 text-purple-300 border border-purple-500/30',
+      outsavvy: 'bg-teal-500/20 text-teal-300 border border-teal-500/30',
+      facebook: 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
     };
-    return colors[source as keyof typeof colors] || 'bg-gray-100 text-gray-800';
+    return colors[source as keyof typeof colors] || 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
   };
 
   const addToCalendar = () => {
