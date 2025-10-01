@@ -7,6 +7,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization'
 };
 
+// Supabase configuration (same database as community platform)
+const SUPABASE_URL = 'https://bgjengudzfickgomjqmz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0';
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
   Object.entries(corsHeaders).forEach(([key, value]) => {
@@ -37,11 +41,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       url,
       tags = [],
       organizer,
-      capacity,
-      cost,
-      registrationRequired = false,
-      virtualLink,
-      submittedBy = 'chrome-extension'
+      source = 'chrome-extension',
+      sourceUrl,
+      submittedBy = 'chrome-extension',
+      moreInfoUrl
     } = req.body;
 
     // Validation
@@ -53,61 +56,54 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    // Submit to Google Sheets (events calendar uses Google Sheets backend)
-    const sheetUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL || process.env.EVENTS_SUBMISSION_WEBHOOK;
-
-    if (!sheetUrl) {
-      console.error('Google Sheets webhook URL not configured');
-      return res.status(500).json({
-        success: false,
-        error: 'Server configuration error',
-        message: 'Event submission endpoint not configured'
-      });
-    }
-
-    // Format data for Google Sheets
+    // Format data for Supabase events table
     const eventData = {
-      timestamp: new Date().toISOString(),
       title,
       date,
-      time: time || '',
+      time: time || null,
       location: location || 'TBD',
       description: description || '',
-      url: url || '',
-      tags: Array.isArray(tags) ? tags.join(', ') : tags,
+      url: url || moreInfoUrl || sourceUrl || '',
+      tags: Array.isArray(tags) ? tags : [tags],
       organizer: organizer || 'Community Member',
-      capacity: capacity || '',
-      cost: cost || 'Free',
-      registrationRequired: registrationRequired ? 'Yes' : 'No',
-      virtualLink: virtualLink || '',
-      submittedBy,
-      status: 'pending' // Events need approval
+      source: source,
+      status: 'pending', // Events need approval
+      created_at: new Date().toISOString()
     };
 
-    // Submit to Google Sheets via webhook
-    const response = await fetch(sheetUrl, {
+    console.log('📤 Submitting event to Supabase:', eventData);
+
+    // Submit to Supabase directly
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/events`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
       },
       body: JSON.stringify(eventData)
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      console.error('Google Sheets submission failed:', response.status);
-      return res.status(500).json({
+      console.error('❌ Supabase submission failed:', response.status, responseData);
+      return res.status(response.status).json({
         success: false,
         error: 'Submission failed',
-        message: 'Failed to submit event to Google Sheets'
+        message: responseData.message || 'Failed to submit event to database',
+        details: responseData
       });
     }
 
-    console.log('✅ Event submitted successfully:', { title, date });
+    console.log('✅ Event submitted successfully:', responseData);
 
     return res.status(201).json({
       success: true,
       message: 'Event submitted successfully and is pending approval',
       data: {
+        id: responseData[0]?.id,
         title,
         date,
         status: 'pending'
