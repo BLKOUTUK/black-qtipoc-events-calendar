@@ -219,20 +219,20 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2 items-center">
                   <a
-                    href="/chrome-extension.zip"
-                    download
+                    href="https://blkout.vercel.app/blkout-extension-v1.0.2-clean.zip"
+                    download="blkout-extension-v1.0.2-clean.zip"
                     className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Extension v1.1.5
+                    Download Extension v1.0.2
                   </a>
                   <a
-                    href="https://github.com/BLKOUTUK/black-qtipoc-events-calendar#chrome-extension"
+                    href="https://blkout.vercel.app/admin"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-blue-700 hover:text-blue-900 underline"
                   >
-                    📖 Installation Guide
+                    📖 Full Admin Dashboard
                   </a>
                 </div>
                 <p className="text-xs text-blue-700 mt-2">
