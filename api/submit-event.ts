@@ -56,16 +56,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    // Format data for Supabase events table
+    // Format data for Supabase events table (match schema)
     const eventData = {
       title,
       date,
-      time: time || null,
+      start_time: time || null,
       location: location || 'TBD',
       description: description || '',
       url: url || moreInfoUrl || sourceUrl || '',
       tags: Array.isArray(tags) ? tags : [tags],
-      organizer: organizer || 'Community Member',
+      organizer: organizer || null,
       source: source,
       status: 'pending', // Events need approval
       created_at: new Date().toISOString()
