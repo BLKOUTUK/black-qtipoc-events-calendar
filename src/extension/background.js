@@ -337,6 +337,33 @@ function extractEventData(pageData) {
     }
   }
 
+  // Extract cost/price information
+  const costPatterns = [
+    /price:?\s*([^,\n]+)/i,
+    /cost:?\s*([^,\n]+)/i,
+    /tickets?:?\s*([£$€]\d+(?:\.\d{2})?(?:\s*-\s*[£$€]\d+(?:\.\d{2})?)?)/i,
+    /([£$€]\d+(?:\.\d{2})?(?:\s*-\s*[£$€]\d+(?:\.\d{2})?)?)/,
+    /pay what you can/i,
+    /donation/i,
+    /free entry/i,
+    /free admission/i
+  ];
+
+  for (const pattern of costPatterns) {
+    const match = content.match(pattern);
+    if (match) {
+      const matchText = match[1] || match[0];
+      if (/free/i.test(matchText)) {
+        data.cost = 'Free';
+      } else if (/pay what you can|donation/i.test(matchText)) {
+        data.cost = 'Pay What You Can';
+      } else {
+        data.cost = matchText.trim();
+      }
+      break;
+    }
+  }
+
   return data;
 }
 

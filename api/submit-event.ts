@@ -1,4 +1,4 @@
-import type { Request, Response } from '@netlify/functions';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // CORS headers for Chrome extension
 const corsHeaders = {
@@ -7,31 +7,27 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization'
 };
 
-export const handler = async (req: Request): Promise<Response> => {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Set CORS headers
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+
   // Handle CORS preflight
-  if (req.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: corsHeaders,
-      body: ''
-    };
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
   // Only allow POST
-  if (req.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: corsHeaders,
-      body: JSON.stringify({
-        success: false,
-        error: 'Method not allowed',
-        message: 'This endpoint only supports POST requests'
-      })
-    };
+  if (req.method !== 'POST') {
+    return res.status(405).json({
+      success: false,
+      error: 'Method not allowed',
+      message: 'This endpoint only supports POST requests'
+    });
   }
 
   try {
-    const body = JSON.parse(req.body || '{}');
     const {
       title,
       date,
@@ -46,19 +42,15 @@ export const handler = async (req: Request): Promise<Response> => {
       registrationRequired = false,
       virtualLink,
       submittedBy = 'chrome-extension'
-    } = body;
+    } = req.body;
 
     // Validation
     if (!title || !date) {
-      return {
-        statusCode: 400,
-        headers: corsHeaders,
-        body: JSON.stringify({
-          success: false,
-          error: 'Validation failed',
-          message: 'Title and date are required fields'
-        })
-      };
+      return res.status(400).json({
+        success: false,
+        error: 'Validation failed',
+        message: 'Title and date are required fields'
+      });
     }
 
     // Submit to Google Sheets (events calendar uses Google Sheets backend)
@@ -66,15 +58,11 @@ export const handler = async (req: Request): Promise<Response> => {
 
     if (!sheetUrl) {
       console.error('Google Sheets webhook URL not configured');
-      return {
-        statusCode: 500,
-        headers: corsHeaders,
-        body: JSON.stringify({
-          success: false,
-          error: 'Server configuration error',
-          message: 'Event submission endpoint not configured'
-        })
-      };
+      return res.status(500).json({
+        success: false,
+        error: 'Server configuration error',
+        message: 'Event submission endpoint not configured'
+      });
     }
 
     // Format data for Google Sheets
@@ -107,43 +95,31 @@ export const handler = async (req: Request): Promise<Response> => {
 
     if (!response.ok) {
       console.error('Google Sheets submission failed:', response.status);
-      return {
-        statusCode: 500,
-        headers: corsHeaders,
-        body: JSON.stringify({
-          success: false,
-          error: 'Submission failed',
-          message: 'Failed to submit event to Google Sheets'
-        })
-      };
+      return res.status(500).json({
+        success: false,
+        error: 'Submission failed',
+        message: 'Failed to submit event to Google Sheets'
+      });
     }
 
     console.log('✅ Event submitted successfully:', { title, date });
 
-    return {
-      statusCode: 201,
-      headers: corsHeaders,
-      body: JSON.stringify({
-        success: true,
-        message: 'Event submitted successfully and is pending approval',
-        data: {
-          title,
-          date,
-          status: 'pending'
-        }
-      })
-    };
+    return res.status(201).json({
+      success: true,
+      message: 'Event submitted successfully and is pending approval',
+      data: {
+        title,
+        date,
+        status: 'pending'
+      }
+    });
 
   } catch (error: any) {
     console.error('Event submission error:', error);
-    return {
-      statusCode: 500,
-      headers: corsHeaders,
-      body: JSON.stringify({
-        success: false,
-        error: 'Internal server error',
-        message: error.message || 'An unexpected error occurred'
-      })
-    };
+    return res.status(500).json({
+      success: false,
+      error: 'Internal server error',
+      message: error.message || 'An unexpected error occurred'
+    });
   }
-};
+}

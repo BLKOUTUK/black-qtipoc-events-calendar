@@ -69,10 +69,10 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       disabled={disabled}
       className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
         isActive
-          ? 'bg-liberation-sovereignty-gold text-black'
+          ? 'bg-yellow-500 text-black'
           : disabled
-          ? 'text-liberation-silver/50 cursor-not-allowed'
-          : 'text-liberation-silver hover:text-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/10'
+          ? 'text-gray-500 cursor-not-allowed'
+          : 'text-white hover:text-yellow-500 hover:bg-yellow-500/10'
       }`}
     >
       {page}
@@ -96,7 +96,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 
       if (currentPage > 3) {
         pages.push(
-          <span key="ellipsis-start" className="px-2 py-2 text-liberation-silver/50">
+          <span key="ellipsis-start" className="px-2 py-2 text-gray-500">
             <MoreHorizontal className="h-4 w-4" />
           </span>
         );
@@ -108,7 +108,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 
       if (currentPage < totalPages - 2) {
         pages.push(
-          <span key="ellipsis-end" className="px-2 py-2 text-liberation-silver/50">
+          <span key="ellipsis-end" className="px-2 py-2 text-gray-500">
             <MoreHorizontal className="h-4 w-4" />
           </span>
         );
@@ -126,8 +126,8 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
           disabled={currentPage === 1}
           className={`p-2 rounded-lg transition-all duration-200 ${
             currentPage === 1
-              ? 'text-liberation-silver/50 cursor-not-allowed'
-              : 'text-liberation-silver hover:text-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/10'
+              ? 'text-gray-500 cursor-not-allowed'
+              : 'text-white hover:text-yellow-500 hover:bg-yellow-500/10'
           }`}
           aria-label="Previous page"
         >
@@ -141,8 +141,8 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
           disabled={currentPage === totalPages}
           className={`p-2 rounded-lg transition-all duration-200 ${
             currentPage === totalPages
-              ? 'text-liberation-silver/50 cursor-not-allowed'
-              : 'text-liberation-silver hover:text-liberation-sovereignty-gold hover:bg-liberation-sovereignty-gold/10'
+              ? 'text-gray-500 cursor-not-allowed'
+              : 'text-white hover:text-yellow-500 hover:bg-yellow-500/10'
           }`}
           aria-label="Next page"
         >

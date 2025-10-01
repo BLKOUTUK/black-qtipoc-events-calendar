@@ -224,7 +224,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                     className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Extension v1.1.4
+                    Download Extension v1.1.5
                   </a>
                   <a
                     href="https://github.com/BLKOUTUK/black-qtipoc-events-calendar#chrome-extension"

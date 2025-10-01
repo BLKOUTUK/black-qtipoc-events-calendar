@@ -147,9 +147,9 @@ export const EventCard: React.FC<EventCardProps> = ({
               Add to Calendar
             </button>
             
-            {event.source_url && (
+            {event.url && (
               <a
-                href={event.source_url}
+                href={event.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center px-3 py-2 border border-gray-600 text-gray-200 text-sm rounded-lg hover:bg-gray-700 transition-colors duration-200"
