@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, MapPin, ExternalLink, Clock, DollarSign, User } from 'lucide-react';
+import { Calendar, MapPin, ExternalLink, Clock, User } from 'lucide-react';
 import { Event } from '../types';
 
 interface EventCardProps {
@@ -24,8 +24,15 @@ export const EventCard: React.FC<EventCardProps> = ({
     });
   };
 
-  const formatTime = (dateString: string) => {
-    return new Date(dateString).toLocaleTimeString('en-US', {
+  const formatTime = (timeString?: string | null) => {
+    if (!timeString) return 'Time TBA';
+
+    // Parse time string (format: HH:MM:SS)
+    const [hours, minutes] = timeString.split(':');
+    const date = new Date();
+    date.setHours(parseInt(hours), parseInt(minutes), 0);
+
+    return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit'
     });
@@ -100,7 +107,7 @@ export const EventCard: React.FC<EventCardProps> = ({
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-gray-300">
             <Calendar className="w-4 h-4 mr-2 text-yellow-500" />
-            <span>{formatDate(event.event_date)} at {formatTime(event.event_date)}</span>
+            <span>{formatDate(event.event_date)} at {formatTime(event.start_time)}</span>
           </div>
 
           <div className="flex items-center text-sm text-gray-300">
@@ -112,13 +119,6 @@ export const EventCard: React.FC<EventCardProps> = ({
             <User className="w-4 h-4 mr-2 text-yellow-500" />
             <span>{event.organizer_name || 'Unknown Organizer'}</span>
           </div>
-
-          {event.price && (
-            <div className="flex items-center text-sm text-gray-300">
-              <DollarSign className="w-4 h-4 mr-2 text-yellow-500" />
-              <span>{event.price}</span>
-            </div>
-          )}
         </div>
 
         {event.tags && event.tags.length > 0 && (
