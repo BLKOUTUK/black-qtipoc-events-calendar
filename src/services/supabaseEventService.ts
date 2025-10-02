@@ -263,9 +263,14 @@ class SupabaseEventService {
   async updateEventStatus(id: string, status: 'draft' | 'reviewing' | 'published' | 'archived'): Promise<boolean> {
     try {
       console.log('🔍 Updating event status via direct API:', id, status);
-      
+
       // Map status to what the database expects
-      const dbStatus = status === 'published' ? 'approved' : status;
+      let dbStatus = status;
+      if (status === 'published') {
+        dbStatus = 'approved';
+      } else if (status === 'archived') {
+        dbStatus = 'rejected';  // Map archived to rejected for consistency
+      }
       
       const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
       const response = await fetch(url, {
