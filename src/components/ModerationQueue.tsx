@@ -219,12 +219,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2 items-center">
                   <a
-                    href="https://blkout.vercel.app/extensions/blkout-events-curator-v1.0.0.zip"
-                    download="blkout-events-curator-v1.0.0.zip"
+                    href="https://blkout.vercel.app/extensions/blkout-events-curator-v1.0.1.zip"
+                    download="blkout-events-curator-v1.0.1.zip"
                     className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Events Curator v1.0.0
+                    Download Events Curator v1.0.1
                   </a>
                   <a
                     href="https://events-blkout.vercel.app/admin"
