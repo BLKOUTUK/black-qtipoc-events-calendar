@@ -1,5 +1,5 @@
-import React from 'react';
-import { Calendar, MapPin, ExternalLink, Clock, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X } from 'lucide-react';
 import { Event } from '../types';
 
 interface EventCardProps {
@@ -7,14 +7,18 @@ interface EventCardProps {
   showActions?: boolean;
   onApprove?: (id: string) => void;
   onReject?: (id: string) => void;
+  onEdit?: (id: string, edits: Partial<Event>) => void;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ 
-  event, 
-  showActions = false, 
-  onApprove, 
-  onReject 
+export const EventCard: React.FC<EventCardProps> = ({
+  event,
+  showActions = false,
+  onApprove,
+  onReject,
+  onEdit
 }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState<Partial<Event>>({});
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       weekday: 'short',
@@ -71,9 +75,145 @@ export const EventCard: React.FC<EventCardProps> = ({
     window.open(calendarUrl, '_blank');
   };
 
-  const locationStr = typeof event.location === 'string' 
-    ? event.location 
+  const locationStr = typeof event.location === 'string'
+    ? event.location
     : JSON.stringify(event.location);
+
+  const startEdit = () => {
+    setIsEditing(true);
+    setEditForm({
+      name: event.name,
+      description: event.description,
+      event_date: event.event_date,
+      start_time: event.start_time,
+      location: locationStr,
+      organizer_name: event.organizer_name,
+      url: event.url,
+      image_url: event.image_url
+    });
+  };
+
+  const cancelEdit = () => {
+    setIsEditing(false);
+    setEditForm({});
+  };
+
+  const saveEdit = () => {
+    if (onEdit) {
+      onEdit(event.id, editForm);
+      setIsEditing(false);
+      setEditForm({});
+    }
+  };
+
+  if (isEditing) {
+    return (
+      <div className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-lg overflow-hidden p-6">
+        <h3 className="text-lg font-bold text-yellow-500 mb-4">Edit Event</h3>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Event Name</label>
+            <input
+              type="text"
+              value={editForm.name || ''}
+              onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+            <textarea
+              value={editForm.description || ''}
+              onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+              rows={3}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Date</label>
+              <input
+                type="date"
+                value={editForm.event_date || ''}
+                onChange={(e) => setEditForm({ ...editForm, event_date: e.target.value })}
+                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Start Time</label>
+              <input
+                type="time"
+                value={editForm.start_time || ''}
+                onChange={(e) => setEditForm({ ...editForm, start_time: e.target.value })}
+                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Location</label>
+            <input
+              type="text"
+              value={editForm.location as string || ''}
+              onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Organizer</label>
+            <input
+              type="text"
+              value={editForm.organizer_name || ''}
+              onChange={(e) => setEditForm({ ...editForm, organizer_name: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Event URL</label>
+            <input
+              type="url"
+              value={editForm.url || ''}
+              onChange={(e) => setEditForm({ ...editForm, url: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Image URL</label>
+            <input
+              type="url"
+              value={editForm.image_url || ''}
+              onChange={(e) => setEditForm({ ...editForm, image_url: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div className="flex gap-2 justify-end pt-2">
+            <button
+              onClick={cancelEdit}
+              className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors inline-flex items-center gap-2"
+            >
+              <X className="w-4 h-4" />
+              Cancel
+            </button>
+            <button
+              onClick={saveEdit}
+              className="px-4 py-2 bg-yellow-500 text-gray-900 rounded-md hover:bg-yellow-400 transition-colors inline-flex items-center gap-2 font-medium"
+            >
+              <Save className="w-4 h-4" />
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-yellow-500/50 transition-all duration-300">
@@ -163,6 +303,13 @@ export const EventCard: React.FC<EventCardProps> = ({
 
           {showActions && (
             <div className="flex space-x-2">
+              <button
+                onClick={startEdit}
+                className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-500 transition-colors duration-200"
+                title="Edit"
+              >
+                <Edit2 className="w-4 h-4" />
+              </button>
               <button
                 onClick={() => onApprove?.(event.id)}
                 className="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-500 transition-colors duration-200"

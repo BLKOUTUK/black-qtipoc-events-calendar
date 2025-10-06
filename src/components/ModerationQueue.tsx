@@ -101,6 +101,30 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     }
   };
 
+  const handleEdit = async (id: string, edits: Partial<Event>) => {
+    try {
+      console.log('🔍 Editing event:', id, edits);
+
+      // Update in Supabase
+      const success = await supabaseEventService.updateEvent(id, edits);
+
+      if (!success) {
+        console.error('Failed to update event');
+        alert('Failed to update event. Please try again.');
+        return;
+      }
+
+      alert('Event updated successfully');
+
+      // Reload data
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await loadData();
+    } catch (error) {
+      console.error('Error editing event:', error);
+      alert('Failed to update event. Please try again.');
+    }
+  };
+
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
       const sheetsStatus = action === 'approve' ? 'published' : 'archived';
@@ -362,6 +386,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                   showActions={true}
                   onApprove={handleApprove}
                   onReject={handleReject}
+                  onEdit={handleEdit}
                 />
               </div>
             </>

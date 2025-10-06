@@ -260,6 +260,41 @@ class SupabaseEventService {
     }
   }
 
+  async updateEvent(id: string, edits: Partial<Event>): Promise<boolean> {
+    try {
+      console.log('🔍 Updating event via direct API:', id, edits);
+
+      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          ...edits,
+          updated_at: new Date().toISOString()
+        })
+      });
+
+      console.log('🔍 Update response status:', response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('🔍 Update failed:', response.status, response.statusText, errorText);
+        return false;
+      }
+
+      console.log('🔍 Event updated successfully');
+      return true;
+    } catch (error) {
+      console.error('🔍 Error updating event via direct API:', error);
+      return false;
+    }
+  }
+
   async updateEventStatus(id: string, status: 'draft' | 'reviewing' | 'published' | 'archived'): Promise<boolean> {
     try {
       console.log('🔍 Updating event status via direct API:', id, status);
@@ -271,7 +306,7 @@ class SupabaseEventService {
       } else if (status === 'archived') {
         dbStatus = 'rejected';  // Map archived to rejected for consistency
       }
-      
+
       const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
       const response = await fetch(url, {
         method: 'PATCH',
@@ -289,7 +324,7 @@ class SupabaseEventService {
       });
 
       console.log('🔍 Update response status:', response.status);
-      
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error('🔍 Update failed:', response.status, response.statusText, errorText);
