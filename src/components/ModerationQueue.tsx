@@ -212,27 +212,27 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
             <div className="flex items-start">
               <Download className="w-5 h-5 text-blue-600 mr-2 mt-0.5" />
               <div className="flex-1">
-                <h4 className="font-medium text-blue-900">Chrome Extension for Content Submission</h4>
+                <h4 className="font-medium text-blue-900">Events Curator Chrome Extension</h4>
                 <p className="text-sm text-blue-800 mt-1">
-                  Install the BLKOUT Chrome extension to submit events and articles directly from any webpage.
-                  Features intelligent content scraping and auto-fill forms.
+                  Install the BLKOUT Events Curator extension to submit events directly from Eventbrite, Meetup, Facebook Events, and other event platforms.
+                  Features intelligent content extraction and auto-fill forms.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2 items-center">
                   <a
-                    href="https://blkout.vercel.app/blkout-extension-v1.0.2-clean.zip"
-                    download="blkout-extension-v1.0.2-clean.zip"
+                    href="https://blkout.vercel.app/extensions/blkout-events-curator-v1.0.0.zip"
+                    download="blkout-events-curator-v1.0.0.zip"
                     className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Extension v1.0.2
+                    Download Events Curator v1.0.0
                   </a>
                   <a
-                    href="https://blkout.vercel.app/admin"
+                    href="https://events-blkout.vercel.app/admin"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-blue-700 hover:text-blue-900 underline"
                   >
-                    📖 Full Admin Dashboard
+                    📖 Events Admin Dashboard
                   </a>
                 </div>
                 <p className="text-xs text-blue-700 mt-2">
