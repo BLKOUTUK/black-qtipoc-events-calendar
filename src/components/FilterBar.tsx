@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, RefreshCw } from 'lucide-react';
+import { Search, Filter, RefreshCw, Calendar } from 'lucide-react';
 import { FilterOptions } from '../types';
 
 interface FilterBarProps {
@@ -72,19 +72,32 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           />
         </div>
 
-        {/* Scrape Events Button - Only show for authenticated users */}
-        {showScrapeButton && (
-          <button
-            onClick={onScrapeEvents}
-            disabled={isScrapingEvents}
-            className={`flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors duration-200 ${
-              isScrapingEvents ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+        <div className="flex gap-3">
+          {/* Google Calendar Subscribe Button */}
+          <a
+            href="/api/calendar"
+            download="blkout-events.ics"
+            className="flex items-center px-4 py-2 bg-liberation-sovereignty-gold text-gray-900 rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
+            title="Subscribe to BLKOUT Events in your calendar"
           >
-            <RefreshCw className={`w-4 h-4 mr-2 ${isScrapingEvents ? 'animate-spin' : ''}`} />
-            {isScrapingEvents ? 'Discovering...' : 'Discover Events'}
-          </button>
-        )}
+            <Calendar className="w-4 h-4 mr-2" />
+            Add to Calendar
+          </a>
+
+          {/* Scrape Events Button - Only show for authenticated users */}
+          {showScrapeButton && (
+            <button
+              onClick={onScrapeEvents}
+              disabled={isScrapingEvents}
+              className={`flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors duration-200 ${
+                isScrapingEvents ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${isScrapingEvents ? 'animate-spin' : ''}`} />
+              {isScrapingEvents ? 'Discovering...' : 'Discover Events'}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
