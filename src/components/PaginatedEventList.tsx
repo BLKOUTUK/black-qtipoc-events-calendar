@@ -226,85 +226,116 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 
       {/* Events by Week */}
       <div className="space-y-12">
-        {paginatedEvents.map(({ weekNumber, events: weekEvents, title, range }) => {
-          const isCurrentWeek = title.includes('This Week');
+        {(() => {
+          // Interleave featured content across ALL events on this page, not per week
+          const allPageEvents = paginatedEvents.flatMap(week => week.events);
+          const interleavedItems = featuredContentService.interleaveWithEvents(allPageEvents, featuredContent, 6);
 
-          return (
-            <div key={weekNumber} className="space-y-6">
-              {/* Week Header */}
-              <div className={`border-l-4 pl-6 py-4 ${
-                isCurrentWeek
-                  ? 'border-blkout-primary bg-gradient-to-r from-blkout-primary/5 to-transparent'
-                  : 'border-blkout-accent/50 bg-gradient-to-r from-blkout-accent/5 to-transparent'
-              }`}>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className={`text-2xl font-bold ${
-                      isCurrentWeek ? 'text-blkout-primary' : 'text-white'
-                    }`}>
-                      {title}
-                    </h2>
-                    <p className="text-sm text-gray-300 mt-1">
-                      {weekEvents.length} event{weekEvents.length !== 1 ? 's' : ''} this week
-                    </p>
-                  </div>
+          // Track which interleaved item we're at across all weeks
+          let interleavedIndex = 0;
 
-                  {isCurrentWeek && (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-blkout-primary rounded-full animate-pulse"></div>
-                      <span className="text-sm font-medium text-blkout-primary">Happening Now</span>
+          return paginatedEvents.map(({ weekNumber, events: weekEvents, title, range }) => {
+            const isCurrentWeek = title.includes('This Week');
+
+            // Get the slice of interleaved items for this week
+            const weekItemsCount = weekEvents.length;
+            const weekItems: (Event | FeaturedContent)[] = [];
+
+            for (let i = 0; i < weekItemsCount && interleavedIndex < interleavedItems.length; i++) {
+              const item = interleavedItems[interleavedIndex];
+              // Only include if it's an event from this week OR a featured item
+              if ('caption' in item && 'image_url' in item) {
+                // It's featured content, include it
+                weekItems.push(item);
+                interleavedIndex++;
+              } else if (weekEvents.some(e => e.id === (item as Event).id)) {
+                // It's an event from this week, include it
+                weekItems.push(item);
+                interleavedIndex++;
+              } else {
+                // Event from different week, skip
+                interleavedIndex++;
+                i--; // Don't count this iteration
+              }
+            }
+
+            return (
+              <div key={weekNumber} className="space-y-6">
+                {/* Week Header */}
+                <div className={`border-l-4 pl-6 py-4 ${
+                  isCurrentWeek
+                    ? 'border-blkout-primary bg-gradient-to-r from-blkout-primary/5 to-transparent'
+                    : 'border-blkout-accent/50 bg-gradient-to-r from-blkout-accent/5 to-transparent'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className={`text-2xl font-bold ${
+                        isCurrentWeek ? 'text-blkout-primary' : 'text-white'
+                      }`}>
+                        {title}
+                      </h2>
+                      <p className="text-sm text-gray-300 mt-1">
+                        {weekEvents.length} event{weekEvents.length !== 1 ? 's' : ''} this week
+                      </p>
                     </div>
-                  )}
-                </div>
-              </div>
 
-              {/* Events Grid for this week */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-6">
-                {featuredContentService.interleaveWithEvents(weekEvents, featuredContent, 6).map((item, index) => {
-                  // Check for FeaturedContent by looking for caption field (unique to FeaturedContent)
-                  if ('caption' in item && 'image_url' in item) {
-                    // It's a FeaturedContent item
-                    const featured = item as FeaturedContent;
-                    return (
-                      <FeaturedImageCard
-                        key={`featured-${featured.id}`}
-                        title={featured.title}
-                        caption={featured.caption}
-                        imageUrl={featured.image_url}
-                        linkUrl={featured.link_url}
-                      />
-                    );
-                  } else {
-                    // It's an Event item
-                    const event = item as Event;
-                    return (
-                      <EventCard
-                        key={event.id}
-                        event={event}
-                        showActions={showActions}
-                        onApprove={onApprove}
-                        onReject={onReject}
-                      />
-                    );
-                  }
-                })}
-              </div>
-
-              {/* Week Separator */}
-              {weekNumber !== paginatedEvents[paginatedEvents.length - 1].weekNumber && (
-                <div className="flex items-center justify-center py-8">
-                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blkout-accent/30 to-transparent"></div>
-                  <div className="mx-4 flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blkout-accent/50 rounded-full"></div>
-                    <div className="w-1 h-1 bg-blkout-accent/30 rounded-full"></div>
-                    <div className="w-2 h-2 bg-blkout-accent/50 rounded-full"></div>
+                    {isCurrentWeek && (
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-blkout-primary rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-blkout-primary">Happening Now</span>
+                      </div>
+                    )}
                   </div>
-                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blkout-accent/30 to-transparent"></div>
                 </div>
-              )}
-            </div>
-          );
-        })}
+
+                {/* Events Grid for this week */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-6">
+                  {weekItems.map((item, index) => {
+                    // Check for FeaturedContent by looking for caption field (unique to FeaturedContent)
+                    if ('caption' in item && 'image_url' in item) {
+                      // It's a FeaturedContent item
+                      const featured = item as FeaturedContent;
+                      return (
+                        <FeaturedImageCard
+                          key={`featured-${featured.id}-${weekNumber}-${index}`}
+                          title={featured.title}
+                          caption={featured.caption}
+                          imageUrl={featured.image_url}
+                          linkUrl={featured.link_url}
+                        />
+                      );
+                    } else {
+                      // It's an Event item
+                      const event = item as Event;
+                      return (
+                        <EventCard
+                          key={event.id}
+                          event={event}
+                          showActions={showActions}
+                          onApprove={onApprove}
+                          onReject={onReject}
+                        />
+                      );
+                    }
+                  })}
+                </div>
+
+                {/* Week Separator */}
+                {weekNumber !== paginatedEvents[paginatedEvents.length - 1].weekNumber && (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blkout-accent/30 to-transparent"></div>
+                    <div className="mx-4 flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-blkout-accent/50 rounded-full"></div>
+                      <div className="w-1 h-1 bg-blkout-accent/30 rounded-full"></div>
+                      <div className="w-2 h-2 bg-blkout-accent/50 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blkout-accent/30 to-transparent"></div>
+                  </div>
+                )}
+              </div>
+            );
+          });
+        })()}
       </div>
 
       {/* Pagination */}
