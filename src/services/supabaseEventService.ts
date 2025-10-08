@@ -272,10 +272,15 @@ class SupabaseEventService {
       if (edits.description !== undefined) dbFields.description = edits.description;
       if (edits.event_date !== undefined) dbFields.date = edits.event_date; // event_date -> date
       if (edits.start_date !== undefined) dbFields.date = edits.start_date; // start_date -> date
+      if (edits.start_time !== undefined) dbFields.start_time = edits.start_time; // preserve start_time
+      if (edits.end_time !== undefined) dbFields.end_time = edits.end_time; // preserve end_time
       if (edits.location !== undefined) dbFields.location = edits.location;
       if (edits.organizer_name !== undefined) dbFields.organizer = edits.organizer_name; // organizer_name -> organizer
       if (edits.source !== undefined) dbFields.source = edits.source;
       if (edits.source_url !== undefined) dbFields.url = edits.source_url; // source_url -> url
+      if (edits.url !== undefined) dbFields.url = edits.url; // direct url field
+      if (edits.image_url !== undefined) dbFields.image_url = edits.image_url; // preserve image_url
+      if (edits.featured_image !== undefined) dbFields.featured_image = edits.featured_image; // preserve featured_image
       if (edits.tags !== undefined) dbFields.tags = edits.tags;
       if (edits.price !== undefined) dbFields.cost = edits.price; // price -> cost
       if (edits.status !== undefined) dbFields.status = edits.status;
