@@ -1,36 +1,30 @@
 // Moderation API Route Implementation with Supabase integration
-export default async function handler(request: Request): Promise<Response> {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  };
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 200, headers: corsHeaders });
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({
+  if (req.method !== 'POST') {
+    return res.status(405).json({
       success: false,
       error: 'Method not allowed - use POST'
-    }), {
-      status: 405,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 
   try {
-    const body = await request.json();
-    const { action, eventId, status, edits } = body;
+    const { action, eventId, status, edits } = req.body;
 
     if (!action || !eventId) {
-      return new Response(JSON.stringify({
+      return res.status(400).json({
         success: false,
         error: 'Missing required fields: action, eventId'
-      }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
@@ -101,58 +95,40 @@ export default async function handler(request: Request): Promise<Response> {
       const errorText = await updateResponse.text();
       console.error('Supabase update failed:', errorText);
 
-      return new Response(JSON.stringify({
+      return res.status(500).json({
         success: false,
         error: `Failed to update event: ${errorText}`
-      }), {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
     if (action === 'approve') {
-      return new Response(JSON.stringify({
+      return res.status(200).json({
         success: true,
         message: 'Event approved successfully',
         publishedId: eventId
-      }), {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     } else if (action === 'reject') {
-      return new Response(JSON.stringify({
+      return res.status(200).json({
         success: true,
         message: 'Event rejected successfully'
-      }), {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     } else if (action === 'edit') {
-      return new Response(JSON.stringify({
+      return res.status(200).json({
         success: true,
         message: 'Event updated successfully'
-      }), {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     } else {
-      return new Response(JSON.stringify({
+      return res.status(400).json({
         success: false,
         error: 'Invalid action. Use approve, reject, or edit'
-      }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
   } catch (error) {
     console.error('API Error:', error);
-    return new Response(JSON.stringify({
+    return res.status(500).json({
       success: false,
       error: 'Internal server error',
       message: error instanceof Error ? error.message : 'Unknown error'
-    }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 }
