@@ -325,9 +325,8 @@ class SupabaseEventService {
       let dbStatus = status;
       if (status === 'published') {
         dbStatus = 'approved';
-      } else if (status === 'archived') {
-        dbStatus = 'rejected';  // Map archived to rejected for consistency
       }
+      // Keep 'archived' as is - don't map to 'rejected'
 
       const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
       const response = await fetch(url, {

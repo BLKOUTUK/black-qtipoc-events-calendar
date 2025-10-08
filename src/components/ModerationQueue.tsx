@@ -59,16 +59,28 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
-      // Try both services - one will succeed based on where the event came from
-      const results = await Promise.allSettled([
-        googleSheetsService.updateEventStatus(id, 'published'),
-        supabaseEventService.updateEventStatus(id, 'approved')
-      ]);
+      // Use moderation API for Supabase events
+      const apiResponse = await fetch('/api/moderate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'approve',
+          eventId: id,
+          status: 'approved'
+        })
+      });
 
-      // Check if at least one succeeded
-      const anySucceeded = results.some(r => r.status === 'fulfilled' && r.value === true);
-      if (!anySucceeded) {
-        console.error('Failed to approve event in both systems');
+      const apiResult = await apiResponse.json();
+
+      // Also try Google Sheets in case it's from there
+      await googleSheetsService.updateEventStatus(id, 'published').catch(err => {
+        console.log('Not in Google Sheets:', err);
+      });
+
+      if (!apiResult.success) {
+        console.error('Failed to approve event:', apiResult.error);
+        alert(`Failed to approve event: ${apiResult.error}`);
+        return;
       }
 
       // Wait a moment for database to update
@@ -76,21 +88,34 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       await loadData();
     } catch (error) {
       console.error('Error approving event:', error);
+      alert('Failed to approve event. Please try again.');
     }
   };
 
   const handleReject = async (id: string) => {
     try {
-      // Try both services - one will succeed based on where the event came from
-      const results = await Promise.allSettled([
-        googleSheetsService.updateEventStatus(id, 'archived'),
-        supabaseEventService.updateEventStatus(id, 'archived')
-      ]);
+      // Use moderation API for Supabase events
+      const apiResponse = await fetch('/api/moderate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reject',
+          eventId: id,
+          status: 'archived'
+        })
+      });
 
-      // Check if at least one succeeded
-      const anySucceeded = results.some(r => r.status === 'fulfilled' && r.value === true);
-      if (!anySucceeded) {
-        console.error('Failed to reject event in both systems');
+      const apiResult = await apiResponse.json();
+
+      // Also try Google Sheets in case it's from there
+      await googleSheetsService.updateEventStatus(id, 'archived').catch(err => {
+        console.log('Not in Google Sheets:', err);
+      });
+
+      if (!apiResult.success) {
+        console.error('Failed to reject event:', apiResult.error);
+        alert(`Failed to reject event: ${apiResult.error}`);
+        return;
       }
 
       // Wait a moment for database to update
@@ -98,6 +123,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       await loadData();
     } catch (error) {
       console.error('Error rejecting event:', error);
+      alert('Failed to reject event. Please try again.');
     }
   };
 

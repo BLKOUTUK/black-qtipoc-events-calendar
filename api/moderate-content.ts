@@ -1,4 +1,4 @@
-// Moderation API Route Implementation - Simplified
+// Moderation API Route Implementation with Supabase integration
 export default async function handler(request: Request): Promise<Response> {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -11,55 +11,88 @@ export default async function handler(request: Request): Promise<Response> {
   }
 
   if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: 'Method not allowed - use POST' 
-    }), { 
-      status: 405, 
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    return new Response(JSON.stringify({
+      success: false,
+      error: 'Method not allowed - use POST'
+    }), {
+      status: 405,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 
   try {
     const body = await request.json();
-    const { action, contentId, moderatorId, reason } = body;
+    const { action, eventId, status } = body;
 
-    if (!action || !contentId || !moderatorId) {
+    if (!action || !eventId) {
       return new Response(JSON.stringify({
         success: false,
-        error: 'Missing required fields: action, contentId, moderatorId'
-      }), { 
-        status: 400, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        error: 'Missing required fields: action, eventId'
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
-    // For now, just return success - we'll implement the database logic later
-    console.log(`Moderation action: ${action} on content ${contentId} by ${moderatorId}`);
-    
+    // Get Supabase credentials from environment
+    const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://bgjengudzfickgomjqmz.supabase.co';
+    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0';
+
+    console.log(`Moderation action: ${action} on event ${eventId} with status ${status}`);
+
+    // Map status for database
+    let dbStatus = status;
+    if (action === 'approve') {
+      dbStatus = 'approved';
+    } else if (action === 'reject') {
+      dbStatus = 'archived';
+    }
+
+    // Update event status in Supabase
+    const updateUrl = `${supabaseUrl}/rest/v1/events?id=eq.${eventId}`;
+    const updateResponse = await fetch(updateUrl, {
+      method: 'PATCH',
+      headers: {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify({
+        status: dbStatus,
+        moderated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
+    });
+
+    console.log('Supabase update response:', updateResponse.status);
+
+    if (!updateResponse.ok) {
+      const errorText = await updateResponse.text();
+      console.error('Supabase update failed:', errorText);
+
+      return new Response(JSON.stringify({
+        success: false,
+        error: `Failed to update event: ${errorText}`
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
     if (action === 'approve') {
       return new Response(JSON.stringify({
         success: true,
-        message: 'Content approved successfully',
-        publishedId: contentId
+        message: 'Event approved successfully',
+        publishedId: eventId
       }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     } else if (action === 'reject') {
-      if (!reason) {
-        return new Response(JSON.stringify({
-          success: false,
-          error: 'Rejection reason is required'
-        }), { 
-          status: 400, 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        });
-      }
-      
       return new Response(JSON.stringify({
         success: true,
-        message: 'Content rejected successfully'
+        message: 'Event rejected successfully'
       }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -68,9 +101,9 @@ export default async function handler(request: Request): Promise<Response> {
       return new Response(JSON.stringify({
         success: false,
         error: 'Invalid action. Use approve or reject'
-      }), { 
-        status: 400, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
   } catch (error) {
