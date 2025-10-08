@@ -36,7 +36,7 @@ class SupabaseEventService {
     try {
       // Filter for events on or after 2025-09-30 (today)
       const todayDate = '2025-09-30';
-      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date&order=date.asc`;
+      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date&order=date.asc`;
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -105,7 +105,8 @@ class SupabaseEventService {
         start_time: event.start_time,
         end_time: event.end_time,
         end_date: event.end_date,
-        location: event.location || 'TBA',
+        location: event.virtual_link ? 'Online Event' : (event.location || 'Location TBA'),
+        virtual_link: event.virtual_link,
         organizer_name: event.organizer || 'Unknown Organizer',
         source: event.source || 'community',
         source_url: event.url || '',
