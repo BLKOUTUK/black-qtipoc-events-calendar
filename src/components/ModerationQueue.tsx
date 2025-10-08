@@ -131,12 +131,22 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     try {
       console.log('🔍 Editing event:', id, edits);
 
-      // Update in Supabase
-      const success = await supabaseEventService.updateEvent(id, edits);
+      // Use moderation API for edits
+      const apiResponse = await fetch('/api/moderate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'edit',
+          eventId: id,
+          edits: edits
+        })
+      });
 
-      if (!success) {
-        console.error('Failed to update event');
-        alert('Failed to update event. Please try again.');
+      const apiResult = await apiResponse.json();
+
+      if (!apiResult.success) {
+        console.error('Failed to update event:', apiResult.error);
+        alert(`Failed to update event: ${apiResult.error}`);
         return;
       }
 

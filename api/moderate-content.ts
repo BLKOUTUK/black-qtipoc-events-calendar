@@ -22,7 +22,7 @@ export default async function handler(request: Request): Promise<Response> {
 
   try {
     const body = await request.json();
-    const { action, eventId, status } = body;
+    const { action, eventId, status, edits } = body;
 
     if (!action || !eventId) {
       return new Response(JSON.stringify({
@@ -40,15 +40,49 @@ export default async function handler(request: Request): Promise<Response> {
 
     console.log(`Moderation action: ${action} on event ${eventId} with status ${status}`);
 
-    // Map status for database
-    let dbStatus = status;
-    if (action === 'approve') {
-      dbStatus = 'approved';
-    } else if (action === 'reject') {
-      dbStatus = 'archived';
+    let updatePayload: any = {};
+
+    if (action === 'edit' && edits) {
+      // Handle edit action - map frontend fields to database fields
+      if (edits.title !== undefined) updatePayload.title = edits.title;
+      if (edits.name !== undefined) updatePayload.title = edits.name;
+      if (edits.description !== undefined) updatePayload.description = edits.description;
+      if (edits.event_date !== undefined) updatePayload.date = edits.event_date;
+      if (edits.start_date !== undefined) updatePayload.date = edits.start_date;
+      if (edits.start_time !== undefined) updatePayload.start_time = edits.start_time;
+      if (edits.end_time !== undefined) updatePayload.end_time = edits.end_time;
+      if (edits.location !== undefined) updatePayload.location = edits.location;
+      if (edits.organizer_name !== undefined) updatePayload.organizer = edits.organizer_name;
+      if (edits.source !== undefined) updatePayload.source = edits.source;
+      if (edits.source_url !== undefined) updatePayload.url = edits.source_url;
+      if (edits.url !== undefined) updatePayload.url = edits.url;
+      if (edits.image_url !== undefined) updatePayload.image_url = edits.image_url;
+      if (edits.featured_image !== undefined) updatePayload.featured_image = edits.featured_image;
+      if (edits.tags !== undefined) updatePayload.tags = edits.tags;
+      if (edits.price !== undefined) updatePayload.cost = edits.price;
+      if (edits.status !== undefined) updatePayload.status = edits.status;
+      if (edits.recurrence_rule !== undefined) updatePayload.recurrence_rule = edits.recurrence_rule;
+      if (edits.recurrence_parent_id !== undefined) updatePayload.recurrence_parent_id = edits.recurrence_parent_id;
+      if (edits.is_recurring_instance !== undefined) updatePayload.is_recurring_instance = edits.is_recurring_instance;
+      if (edits.original_start_date !== undefined) updatePayload.original_start_date = edits.original_start_date;
+    } else {
+      // Map status for approve/reject actions
+      let dbStatus = status;
+      if (action === 'approve') {
+        dbStatus = 'approved';
+      } else if (action === 'reject') {
+        dbStatus = 'archived';
+      }
+
+      updatePayload = {
+        status: dbStatus,
+        moderated_at: new Date().toISOString()
+      };
     }
 
-    // Update event status in Supabase
+    updatePayload.updated_at = new Date().toISOString();
+
+    // Update event in Supabase
     const updateUrl = `${supabaseUrl}/rest/v1/events?id=eq.${eventId}`;
     const updateResponse = await fetch(updateUrl, {
       method: 'PATCH',
@@ -58,11 +92,7 @@ export default async function handler(request: Request): Promise<Response> {
         'Content-Type': 'application/json',
         'Prefer': 'return=representation'
       },
-      body: JSON.stringify({
-        status: dbStatus,
-        moderated_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })
+      body: JSON.stringify(updatePayload)
     });
 
     console.log('Supabase update response:', updateResponse.status);
@@ -97,10 +127,18 @@ export default async function handler(request: Request): Promise<Response> {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
+    } else if (action === 'edit') {
+      return new Response(JSON.stringify({
+        success: true,
+        message: 'Event updated successfully'
+      }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
     } else {
       return new Response(JSON.stringify({
         success: false,
-        error: 'Invalid action. Use approve or reject'
+        error: 'Invalid action. Use approve, reject, or edit'
       }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
