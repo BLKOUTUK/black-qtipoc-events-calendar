@@ -261,23 +261,26 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
               {/* Events Grid for this week */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-6">
                 {featuredContentService.interleaveWithEvents(weekEvents, featuredContent, 6).map((item, index) => {
-                  if ('image_url' in item) {
+                  // Check for FeaturedContent by looking for caption field (unique to FeaturedContent)
+                  if ('caption' in item && 'image_url' in item) {
                     // It's a FeaturedContent item
+                    const featured = item as FeaturedContent;
                     return (
                       <FeaturedImageCard
-                        key={`featured-${item.id}`}
-                        title={item.title}
-                        caption={item.caption}
-                        imageUrl={item.image_url}
-                        linkUrl={item.link_url}
+                        key={`featured-${featured.id}`}
+                        title={featured.title}
+                        caption={featured.caption}
+                        imageUrl={featured.image_url}
+                        linkUrl={featured.link_url}
                       />
                     );
                   } else {
                     // It's an Event item
+                    const event = item as Event;
                     return (
                       <EventCard
-                        key={item.id}
-                        event={item}
+                        key={event.id}
+                        event={event}
                         showActions={showActions}
                         onApprove={onApprove}
                         onReject={onReject}
