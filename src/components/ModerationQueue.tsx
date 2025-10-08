@@ -5,7 +5,8 @@ import { supabaseEventService } from '../services/supabaseEventService';
 import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
-import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download } from 'lucide-react';
+import { FeaturedContentManager } from './FeaturedContentManager';
+import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download, Image } from 'lucide-react';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -15,7 +16,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const [pendingEvents, setPendingEvents] = useState<Event[]>([]);
   const [stats, setStats] = useState<ModerationStats>({ pending: 0, approved: 0, rejected: 0, total: 0 });
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'queue' | 'discovery' | 'organizations'>('queue');
+  const [activeTab, setActiveTab] = useState<'queue' | 'discovery' | 'organizations' | 'featured'>('queue');
 
   // Get Google Sheet ID from environment
   const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID;
@@ -337,6 +338,17 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
               <Users className="w-4 h-4 mr-2" />
               Organization Monitor
             </button>
+            <button
+              onClick={() => setActiveTab('featured')}
+              className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                activeTab === 'featured'
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Image className="w-4 h-4 mr-2" />
+              Featured Images
+            </button>
           </div>
 
           {activeTab === 'queue' && (
@@ -434,6 +446,10 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
           {activeTab === 'organizations' && (
             <OrganizationMonitor />
+          )}
+
+          {activeTab === 'featured' && (
+            <FeaturedContentManager />
           )}
         </div>
       </div>

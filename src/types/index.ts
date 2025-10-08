@@ -9,6 +9,19 @@ export interface RecurrenceRule {
   endAfterOccurrences?: number; // End after X occurrences
 }
 
+export interface FeaturedContent {
+  id: string;
+  title: string;
+  caption: string;
+  image_url: string;
+  link_url?: string;
+  week_start: string;
+  display_order: number;
+  status: 'active' | 'archived' | 'draft';
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Event {
   id: string;
   title: string; // Updated to match new API structure

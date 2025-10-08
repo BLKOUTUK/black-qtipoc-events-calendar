@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
-import { Event } from '../types';
+import { Event, FeaturedContent } from '../types';
 import { EventCard } from './EventCard';
+import { FeaturedImageCard } from './FeaturedImageCard';
 import { groupEventsByWeek } from '../utils/dateUtils';
+import { featuredContentService } from '../services/featuredContentService';
 
 interface PaginatedEventListProps {
   events: Event[];
@@ -24,6 +26,16 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
   itemsPerPage = 12
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [featuredContent, setFeaturedContent] = useState<FeaturedContent[]>([]);
+
+  useEffect(() => {
+    loadFeaturedContent();
+  }, []);
+
+  const loadFeaturedContent = async () => {
+    const content = await featuredContentService.getCurrentWeekFeatured();
+    setFeaturedContent(content);
+  };
 
   // Group events by week and flatten for pagination
   const { paginatedEvents, totalPages } = useMemo(() => {
@@ -248,15 +260,31 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 
               {/* Events Grid for this week */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-6">
-                {weekEvents.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    showActions={showActions}
-                    onApprove={onApprove}
-                    onReject={onReject}
-                  />
-                ))}
+                {featuredContentService.interleaveWithEvents(weekEvents, featuredContent, 6).map((item, index) => {
+                  if ('image_url' in item) {
+                    // It's a FeaturedContent item
+                    return (
+                      <FeaturedImageCard
+                        key={`featured-${item.id}`}
+                        title={item.title}
+                        caption={item.caption}
+                        imageUrl={item.image_url}
+                        linkUrl={item.link_url}
+                      />
+                    );
+                  } else {
+                    // It's an Event item
+                    return (
+                      <EventCard
+                        key={item.id}
+                        event={item}
+                        showActions={showActions}
+                        onApprove={onApprove}
+                        onReject={onReject}
+                      />
+                    );
+                  }
+                })}
               </div>
 
               {/* Week Separator */}
