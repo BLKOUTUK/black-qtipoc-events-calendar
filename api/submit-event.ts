@@ -57,16 +57,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Format data for Supabase events table (match schema)
+    // Ensure required NOT NULL fields have values
     const eventData = {
-      title,
-      date,
+      title: title || 'Untitled Event',
+      date: date,
       start_time: time || null,
+      end_time: null,
+      end_date: req.body.end_date || null,
       location: location || 'TBD',
-      description: description || '',
-      url: url || moreInfoUrl || sourceUrl || '',
-      tags: Array.isArray(tags) ? tags : [tags],
-      organizer: organizer || null,
-      source: source,
+      description: description || 'No description provided', // NOT NULL constraint
+      url: url || moreInfoUrl || sourceUrl || req.body.event_url || '',
+      tags: Array.isArray(tags) ? tags : (tags ? [tags] : []),
+      organizer: organizer || 'Community',
+      source: source || 'chrome-extension',
       status: 'pending', // Events need approval
       created_at: new Date().toISOString()
     };
