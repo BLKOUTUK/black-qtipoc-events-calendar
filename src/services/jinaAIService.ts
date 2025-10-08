@@ -245,6 +245,98 @@ export class JinaAIScrapingService {
     return 'Community Organizer';
   }
 
+  /**
+   * Extract location from event title patterns
+   * Handles formats like:
+   * - "Event @ Venue, City"
+   * - "Event | Date @ Location"
+   * - "Event Tickets | Date @ Venue, City | Price | Platform"
+   */
+  private extractLocationFromTitle(title: string): string | null {
+    // Pattern 1: @ Location format (most common)
+    // Matches: "Event @ Venue, City" or "Event @ Location"
+    const atPattern = /@\s*([^|]+?)(?:\s*\||$)/;
+    const atMatch = title.match(atPattern);
+    if (atMatch) {
+      let location = atMatch[1].trim();
+
+      // Clean up common platform names from location
+      location = location
+        .replace(/\s*(Eventbrite|OutSavvy|Meetup|Tickets)\s*$/i, '')
+        .trim();
+
+      // Only return if we have a meaningful location (not just "Tickets" or platform name)
+      if (location.length > 3 && !location.match(/^(Tickets?|TBD|TBA)$/i)) {
+        return location;
+      }
+    }
+
+    // Pattern 2: Pipe-separated with @ symbol
+    // Matches: "Title | Date @ Location, Details"
+    const pipeAtPattern = /\|\s*[^|]*?@\s*([^|]+?)(?:\s*\||$)/;
+    const pipeAtMatch = title.match(pipeAtPattern);
+    if (pipeAtMatch) {
+      let location = pipeAtMatch[1].trim();
+      location = location
+        .replace(/\s*(Eventbrite|OutSavvy|Meetup|Tickets)\s*$/i, '')
+        .trim();
+
+      if (location.length > 3 && !location.match(/^(Tickets?|TBD|TBA)$/i)) {
+        return location;
+      }
+    }
+
+    // Pattern 3: UK postcode detection
+    // Matches postcodes like "SW1A 1AA", "EC1A 1BB", "W1D 3QU"
+    const postcodePattern = /\b([A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2})\b/;
+    const postcodeMatch = title.match(postcodePattern);
+    if (postcodeMatch) {
+      // Extract context around postcode (up to 30 chars before)
+      const postcodeIndex = title.indexOf(postcodeMatch[0]);
+      const contextStart = Math.max(0, postcodeIndex - 30);
+      const context = title.substring(contextStart, postcodeIndex + postcodeMatch[0].length);
+
+      // Try to find venue name before postcode
+      const venueMatch = context.match(/([^,|@]+),?\s*$/);
+      if (venueMatch) {
+        return `${venueMatch[1].trim()}, ${postcodeMatch[0]}`;
+      }
+
+      return postcodeMatch[0];
+    }
+
+    // Pattern 4: Major UK cities
+    const cities = ['London', 'Manchester', 'Birmingham', 'Leeds', 'Glasgow', 'Edinburgh',
+                    'Liverpool', 'Bristol', 'Sheffield', 'Newcastle', 'Brighton', 'Cardiff'];
+    const cityPattern = new RegExp(`\\b(${cities.join('|')})\\b`, 'i');
+    const cityMatch = title.match(cityPattern);
+    if (cityMatch) {
+      // Try to get venue name before city
+      const cityIndex = title.indexOf(cityMatch[0]);
+      const beforeCity = title.substring(Math.max(0, cityIndex - 40), cityIndex);
+
+      // Look for venue patterns like "at Venue," or "@ Venue,"
+      const venueMatch = beforeCity.match(/(?:at|@)\s+([^,|@]+?)(?:,\s*)?$/i);
+      if (venueMatch) {
+        return `${venueMatch[1].trim()}, ${cityMatch[0]}`;
+      }
+
+      return cityMatch[0];
+    }
+
+    // Pattern 5: "in [Location]" or "at [Location]"
+    const inAtPattern = /(?:in|at)\s+([A-Z][a-zA-Z\s]+?)(?:\s*[,|]|$)/;
+    const inAtMatch = title.match(inAtPattern);
+    if (inAtMatch) {
+      const location = inAtMatch[1].trim();
+      if (location.length > 3 && !location.match(/^(Tickets?|TBD|TBA)$/i)) {
+        return location;
+      }
+    }
+
+    return null;
+  }
+
   private extractTagsFromTitle(title: string): string[] {
     const qtipocKeywords = [
       // Q - Queer umbrella
@@ -434,7 +526,7 @@ export class JinaAIScrapingService {
         );
       }
 
-      // Extract location
+      // Extract location - enhanced with title parsing
       const locationPatterns = [
         /Location[:\s]+(.+?)(?:\n|$)/i,
         /Venue[:\s]+(.+?)(?:\n|$)/i,
@@ -442,13 +534,20 @@ export class JinaAIScrapingService {
         /Where[:\s]+(.+?)(?:\n|$)/i
       ];
 
-      let location = 'TBD';
+      let location = 'Location TBA';
+
+      // First try explicit location fields
       for (const pattern of locationPatterns) {
         const match = markdown.match(pattern);
         if (match) {
           location = match[1].trim();
           break;
         }
+      }
+
+      // If no explicit location, try to extract from title
+      if (location === 'Location TBA') {
+        location = this.extractLocationFromTitle(title) || 'Location TBA';
       }
 
       // Extract organizer
