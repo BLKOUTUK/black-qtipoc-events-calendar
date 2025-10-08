@@ -43,6 +43,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (edits.description !== undefined) updatePayload.description = edits.description;
       if (edits.event_date !== undefined) updatePayload.date = edits.event_date;
       if (edits.start_date !== undefined) updatePayload.date = edits.start_date;
+      if (edits.end_date !== undefined) updatePayload.end_date = edits.end_date;
       if (edits.start_time !== undefined) updatePayload.start_time = edits.start_time;
       if (edits.end_time !== undefined) updatePayload.end_time = edits.end_time;
       if (edits.location !== undefined) updatePayload.location = edits.location;

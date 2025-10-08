@@ -22,13 +22,42 @@ export const EventCard: React.FC<EventCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [showRecurrenceForm, setShowRecurrenceForm] = useState(false);
   const [editForm, setEditForm] = useState<Partial<Event>>({});
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+  const formatDate = (dateString: string, endDateString?: string | null) => {
+    const startDate = new Date(dateString);
+    const formattedStart = startDate.toLocaleDateString('en-US', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
       year: 'numeric'
     });
+
+    if (!endDateString) return formattedStart;
+
+    const endDate = new Date(endDateString);
+    const isSameMonth = startDate.getMonth() === endDate.getMonth() && startDate.getFullYear() === endDate.getFullYear();
+    const isSameYear = startDate.getFullYear() === endDate.getFullYear();
+
+    if (isSameMonth) {
+      // Same month: "Mon, Dec 5 - 15, 2025"
+      return `${formattedStart.split(',')[0]}, ${formattedStart.split(',')[1].trim().split(' ')[0]} ${startDate.getDate()} - ${endDate.getDate()}, ${endDate.getFullYear()}`;
+    } else if (isSameYear) {
+      // Same year: "Mon, Dec 5 - Fri, Jan 15, 2025"
+      const formattedEnd = endDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      });
+      return `${formattedStart.replace(`, ${startDate.getFullYear()}`, '')} - ${formattedEnd}, ${endDate.getFullYear()}`;
+    } else {
+      // Different years: "Mon, Dec 5, 2025 - Fri, Jan 15, 2026"
+      const formattedEnd = endDate.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      return `${formattedStart} - ${formattedEnd}`;
+    }
   };
 
   const formatTime = (timeString?: string | null) => {
@@ -88,10 +117,12 @@ export const EventCard: React.FC<EventCardProps> = ({
       name: event.name,
       description: event.description,
       event_date: event.event_date,
+      end_date: event.end_date,
       start_time: event.start_time,
       location: locationStr,
       organizer_name: event.organizer_name,
-      url: event.url
+      url: event.url,
+      price: event.price || event.cost?.toString() || 'Free'
     });
   };
 
@@ -143,7 +174,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Date</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Start Date</label>
               <input
                 type="date"
                 value={editForm.event_date || ''}
@@ -153,11 +184,34 @@ export const EventCard: React.FC<EventCardProps> = ({
             </div>
 
             <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">End Date (optional)</label>
+              <input
+                type="date"
+                value={editForm.end_date || ''}
+                onChange={(e) => setEditForm({ ...editForm, end_date: e.target.value })}
+                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+                placeholder="Leave blank for single-day events"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Start Time</label>
               <input
                 type="time"
                 value={editForm.start_time || ''}
                 onChange={(e) => setEditForm({ ...editForm, start_time: e.target.value })}
+                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">End Time (optional)</label>
+              <input
+                type="time"
+                value={editForm.end_time || ''}
+                onChange={(e) => setEditForm({ ...editForm, end_time: e.target.value })}
                 className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
               />
             </div>
@@ -190,6 +244,17 @@ export const EventCard: React.FC<EventCardProps> = ({
               value={editForm.url || ''}
               onChange={(e) => setEditForm({ ...editForm, url: e.target.value })}
               className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Cost/Price</label>
+            <input
+              type="text"
+              value={editForm.price || ''}
+              onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+              placeholder="Free, £10, £5-£10, etc."
             />
           </div>
 
@@ -268,7 +333,7 @@ export const EventCard: React.FC<EventCardProps> = ({
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-gray-300">
             <Calendar className="w-4 h-4 mr-2 text-yellow-500" />
-            <span>{formatDate(event.event_date)} at {formatTime(event.start_time)}</span>
+            <span>{formatDate(event.event_date, event.end_date)} at {formatTime(event.start_time)}</span>
           </div>
 
           <div className="flex items-center text-sm text-gray-300">
