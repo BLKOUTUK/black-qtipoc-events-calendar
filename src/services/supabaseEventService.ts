@@ -36,7 +36,7 @@ class SupabaseEventService {
     try {
       // Filter for events on or after 2025-09-30 (today)
       const todayDate = '2025-09-30';
-      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,organizer,source,tags,url,cost&order=date.asc`;
+      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date&order=date.asc`;
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -102,25 +102,32 @@ class SupabaseEventService {
         title: event.title || 'Untitled Event',
         description: event.description || '',
         event_date: event.date,
+        start_time: event.start_time,
+        end_time: event.end_time,
+        end_date: event.end_date,
         location: event.location || 'TBA',
         organizer_name: event.organizer || 'Unknown Organizer',
         source: event.source || 'community',
         source_url: event.url || '',
+        url: event.url || '',
         tags: Array.isArray(event.tags) ? event.tags : [],
         image_url: '',
         price: event.cost || 'Free',
+        cost: event.cost,
         contact_email: '',
+        recurrence_rule: event.recurrence_rule,
+        recurrence_parent_id: event.recurrence_parent_id,
+        is_recurring_instance: event.is_recurring_instance,
+        original_start_date: event.original_start_date,
         registration_link: event.url || '',
         status: 'approved',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         start_date: event.date,
-        end_date: event.date,
         event_type: 'community' as any,
         organizer_id: 'unknown',
         max_attendees: 50,
         registration_required: false,
-        cost: 0,
         featured_image: '',
         profiles: null
       }));
