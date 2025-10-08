@@ -50,8 +50,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (edits.source !== undefined) updatePayload.source = edits.source;
       if (edits.source_url !== undefined) updatePayload.url = edits.source_url;
       if (edits.url !== undefined) updatePayload.url = edits.url;
-      if (edits.image_url !== undefined) updatePayload.image_url = edits.image_url;
-      if (edits.featured_image !== undefined) updatePayload.featured_image = edits.featured_image;
       if (edits.tags !== undefined) updatePayload.tags = edits.tags;
       if (edits.price !== undefined) updatePayload.cost = edits.price;
       if (edits.status !== undefined) updatePayload.status = edits.status;
