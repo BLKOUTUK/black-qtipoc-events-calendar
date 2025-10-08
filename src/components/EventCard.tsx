@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X } from 'lucide-react';
-import { Event } from '../types';
+import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X, Repeat } from 'lucide-react';
+import { Event, RecurrenceRule } from '../types';
+import { RecurringEventForm } from './RecurringEventForm';
+import { formatRecurrenceRule } from '../utils/recurringEvents';
 
 interface EventCardProps {
   event: Event;
@@ -18,6 +20,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   onEdit
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [showRecurrenceForm, setShowRecurrenceForm] = useState(false);
   const [editForm, setEditForm] = useState<Partial<Event>>({});
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -104,6 +107,13 @@ export const EventCard: React.FC<EventCardProps> = ({
       setIsEditing(false);
       setEditForm({});
     }
+  };
+
+  const handleRecurrenceSave = (rule: RecurrenceRule | null) => {
+    if (onEdit) {
+      onEdit(event.id, { recurrence_rule: rule });
+    }
+    setShowRecurrenceForm(false);
   };
 
   if (isEditing) {
@@ -194,21 +204,31 @@ export const EventCard: React.FC<EventCardProps> = ({
             />
           </div>
 
-          <div className="flex gap-2 justify-end pt-2">
+          <div className="flex gap-2 justify-between pt-2">
             <button
-              onClick={cancelEdit}
-              className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors inline-flex items-center gap-2"
+              onClick={() => setShowRecurrenceForm(true)}
+              className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors inline-flex items-center gap-2"
+              title="Set recurring pattern"
             >
-              <X className="w-4 h-4" />
-              Cancel
+              <Repeat className="w-4 h-4" />
+              {event.recurrence_rule ? 'Edit Recurrence' : 'Make Recurring'}
             </button>
-            <button
-              onClick={saveEdit}
-              className="px-4 py-2 bg-yellow-500 text-gray-900 rounded-md hover:bg-yellow-400 transition-colors inline-flex items-center gap-2 font-medium"
-            >
-              <Save className="w-4 h-4" />
-              Save Changes
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={cancelEdit}
+                className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors inline-flex items-center gap-2"
+              >
+                <X className="w-4 h-4" />
+                Cancel
+              </button>
+              <button
+                onClick={saveEdit}
+                className="px-4 py-2 bg-yellow-500 text-gray-900 rounded-md hover:bg-yellow-400 transition-colors inline-flex items-center gap-2 font-medium"
+              >
+                <Save className="w-4 h-4" />
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -216,7 +236,19 @@ export const EventCard: React.FC<EventCardProps> = ({
   }
 
   return (
-    <div className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-yellow-500/50 transition-all duration-300">
+    <>
+      {/* Recurrence Form Modal */}
+      {showRecurrenceForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <RecurringEventForm
+            initialRule={event.recurrence_rule || undefined}
+            onSave={handleRecurrenceSave}
+            onCancel={() => setShowRecurrenceForm(false)}
+          />
+        </div>
+      )}
+
+      <div className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-yellow-500/50 transition-all duration-300">
       {event.image_url && (
         <div className="relative h-48 overflow-hidden">
           <img 
@@ -260,6 +292,16 @@ export const EventCard: React.FC<EventCardProps> = ({
             <span>{event.organizer_name || 'Unknown Organizer'}</span>
           </div>
         </div>
+
+        {/* Recurring Event Badge */}
+        {event.recurrence_rule && (
+          <div className="mb-3 flex items-center gap-2 p-2 bg-purple-500/20 border border-purple-500/30 rounded-md">
+            <Repeat className="w-4 h-4 text-purple-400" />
+            <span className="text-sm text-purple-300">
+              Repeats {formatRecurrenceRule(event.recurrence_rule)}
+            </span>
+          </div>
+        )}
 
         {event.tags && event.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
@@ -327,5 +369,6 @@ export const EventCard: React.FC<EventCardProps> = ({
         </div>
       </div>
     </div>
+    </>
   );
 };

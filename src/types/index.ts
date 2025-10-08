@@ -1,8 +1,19 @@
+export interface RecurrenceRule {
+  frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  interval: number; // Every X days/weeks/months
+  daysOfWeek?: number[]; // 0=Sunday, 1=Monday, etc. (for weekly)
+  dayOfMonth?: number; // Day of month (for monthly)
+  monthlyType?: 'dayOfMonth' | 'dayOfWeek'; // "First Monday" vs "Day 15"
+  weekOfMonth?: number; // 1=First, 2=Second, etc. (for monthly dayOfWeek)
+  endDate?: string; // End by this date
+  endAfterOccurrences?: number; // End after X occurrences
+}
+
 export interface Event {
   id: string;
   title: string; // Updated to match new API structure
   description: string;
-  start_date: string; // Updated to match new API structure  
+  start_date: string; // Updated to match new API structure
   end_date: string; // Added end_date for new API
   location: string; // Simplified location field
   address?: string; // Optional detailed address
@@ -17,7 +28,13 @@ export interface Event {
   status: 'draft' | 'published' | 'cancelled'; // Updated status options
   created_at: string;
   updated_at: string;
-  
+
+  // Recurring event fields
+  recurrence_rule?: RecurrenceRule | null; // Recurrence pattern
+  recurrence_parent_id?: string | null; // ID of parent recurring event
+  is_recurring_instance?: boolean; // Is this an instance of a recurring event?
+  original_start_date?: string; // Original date for recurring instances
+
   // Profile relation for organizer
   profiles?: {
     id: string;
