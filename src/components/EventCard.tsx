@@ -91,8 +91,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       start_time: event.start_time,
       location: locationStr,
       organizer_name: event.organizer_name,
-      url: event.url,
-      image_url: event.image_url
+      url: event.url
     });
   };
 
@@ -190,16 +189,6 @@ export const EventCard: React.FC<EventCardProps> = ({
               type="url"
               value={editForm.url || ''}
               onChange={(e) => setEditForm({ ...editForm, url: e.target.value })}
-              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Image URL</label>
-            <input
-              type="url"
-              value={editForm.image_url || ''}
-              onChange={(e) => setEditForm({ ...editForm, image_url: e.target.value })}
               className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
             />
           </div>
