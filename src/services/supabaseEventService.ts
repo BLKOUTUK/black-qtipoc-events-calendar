@@ -264,6 +264,26 @@ class SupabaseEventService {
     try {
       console.log('🔍 Updating event via direct API:', id, edits);
 
+      // Map frontend Event fields to database column names
+      const dbFields: any = {};
+
+      if (edits.title !== undefined) dbFields.title = edits.title;
+      if (edits.name !== undefined) dbFields.title = edits.name; // name -> title
+      if (edits.description !== undefined) dbFields.description = edits.description;
+      if (edits.event_date !== undefined) dbFields.date = edits.event_date; // event_date -> date
+      if (edits.start_date !== undefined) dbFields.date = edits.start_date; // start_date -> date
+      if (edits.location !== undefined) dbFields.location = edits.location;
+      if (edits.organizer_name !== undefined) dbFields.organizer = edits.organizer_name; // organizer_name -> organizer
+      if (edits.source !== undefined) dbFields.source = edits.source;
+      if (edits.source_url !== undefined) dbFields.url = edits.source_url; // source_url -> url
+      if (edits.tags !== undefined) dbFields.tags = edits.tags;
+      if (edits.price !== undefined) dbFields.cost = edits.price; // price -> cost
+      if (edits.status !== undefined) dbFields.status = edits.status;
+
+      dbFields.updated_at = new Date().toISOString();
+
+      console.log('🔍 Mapped database fields:', dbFields);
+
       const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
       const response = await fetch(url, {
         method: 'PATCH',
@@ -273,10 +293,7 @@ class SupabaseEventService {
           'Content-Type': 'application/json',
           'Prefer': 'return=minimal'
         },
-        body: JSON.stringify({
-          ...edits,
-          updated_at: new Date().toISOString()
-        })
+        body: JSON.stringify(dbFields)
       });
 
       console.log('🔍 Update response status:', response.status);
