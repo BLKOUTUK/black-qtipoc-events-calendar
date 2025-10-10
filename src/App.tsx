@@ -170,18 +170,18 @@ function App() {
             />
           </div>
 
-          {/* CONNECT Title with outline style */}
+          {/* WHAT'S ON Title with outline style */}
           <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-8 leading-none tracking-tighter text-yellow-500 drop-shadow-2xl" style={{
             WebkitTextStroke: '2px currentColor',
             WebkitTextFillColor: 'transparent',
             paintOrder: 'stroke fill'
           }}>
-            CONNECT
+            WHAT'S ON
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-lg max-w-3xl mx-auto">
-            Where Black Queer Magic Happens • Parties • Workshops • Revolution
+            parties - culture - workshops<br/>Where the Black Queer Magic happens
           </p>
         </div>
       </div>
