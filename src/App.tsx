@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Settings, LogIn, LogOut, BarChart3, Globe, Rss, Users } from 'lucide-react';
+import { Plus, Settings, LogIn, LogOut, BarChart3, Globe, Rss, Users, Calendar } from 'lucide-react';
 import { Event, FilterOptions } from './types';
 import { supabaseEventService } from './services/supabaseEventService';
 import { googleSheetsService } from './services/googleSheetsService';
@@ -10,6 +10,12 @@ import { ModerationQueue } from './components/ModerationQueue';
 import { FilterBar } from './components/FilterBar';
 import { AuthModal } from './components/AuthModal';
 import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
+import { GoogleCalendarEmbed } from './components/GoogleCalendarEmbed';
+import { CalendarSyncDashboard } from './components/CalendarSyncDashboard';
+import { FeaturedHeroCarousel } from './components/FeaturedHeroCarousel';
+import { FeaturedContentManager } from './components/FeaturedContentManager';
+import { featuredContentService } from './services/featuredContentService';
+import { FeaturedContent } from './types';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
@@ -21,9 +27,13 @@ function App() {
   const [showModerationQueue, setShowModerationQueue] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showIntelligenceDashboard, setShowIntelligenceDashboard] = useState(false);
+  const [showCalendarEmbed, setShowCalendarEmbed] = useState(false);
+  const [showCalendarSync, setShowCalendarSync] = useState(false);
+  const [showFeaturedManager, setShowFeaturedManager] = useState(false);
   const [isScrapingEvents, setIsScrapingEvents] = useState(false);
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
+  const [featuredContent, setFeaturedContent] = useState<FeaturedContent[]>([]);
   const [filters, setFilters] = useState<FilterOptions>({
     dateRange: 'all',
     source: 'all',
@@ -41,6 +51,7 @@ function App() {
     loadEvents();
     loadStats();
     checkUser();
+    loadFeaturedContent();
   }, []);
 
   useEffect(() => {
@@ -72,6 +83,15 @@ function App() {
       setStats(moderationStats);
     } catch (error) {
       console.error('Error loading stats:', error);
+    }
+  };
+
+  const loadFeaturedContent = async () => {
+    try {
+      const content = await featuredContentService.getCurrentWeekFeatured();
+      setFeaturedContent(content);
+    } catch (error) {
+      console.error('Error loading featured content:', error);
     }
   };
 
@@ -217,6 +237,20 @@ function App() {
                   Intelligence
                 </button>
                 <button
+                  onClick={() => setShowCalendarSync(true)}
+                  className="flex items-center px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-600 transition-colors duration-200 font-medium"
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Calendar Sync
+                </button>
+                <button
+                  onClick={() => setShowFeaturedManager(true)}
+                  className="flex items-center px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-600 transition-colors duration-200 font-medium"
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  Featured Content
+                </button>
+                <button
                   onClick={handleSignOut}
                   className="flex items-center px-4 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200"
                 >
@@ -262,6 +296,13 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* Featured Hero Carousel */}
+        {featuredContent.length > 0 && (
+          <div className="mb-8">
+            <FeaturedHeroCarousel featuredContent={featuredContent} autoPlayInterval={5000} />
+          </div>
+        )}
 
         {/* Filter Bar */}
         <FilterBar
@@ -315,6 +356,13 @@ function App() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Google Calendar Widget - Optional Public View */}
+        {showCalendarEmbed && import.meta.env.VITE_GOOGLE_CALENDAR_ID && (
+          <div className="mb-8">
+            <GoogleCalendarEmbed />
           </div>
         )}
 
@@ -393,6 +441,44 @@ function App() {
         <CommunityIntelligenceDashboard
           onClose={() => setShowIntelligenceDashboard(false)}
         />
+      )}
+
+      {showCalendarSync && user && (
+        <CalendarSyncDashboard
+          events={events}
+          onClose={() => setShowCalendarSync(false)}
+        />
+      )}
+
+      {showFeaturedManager && user && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-purple-500/30">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-white">Featured Content Manager</h2>
+                <p className="text-sm text-gray-100">Manage hero carousel and featured images</p>
+              </div>
+              <button
+                onClick={() => {
+                  setShowFeaturedManager(false);
+                  loadFeaturedContent(); // Reload after closing
+                }}
+                className="text-white hover:text-gray-200 transition-colors"
+                aria-label="Close"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6">
+              <FeaturedContentManager />
+            </div>
+          </div>
+        </div>
       )}
 
       {showAuthModal && (

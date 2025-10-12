@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X, Repeat } from 'lucide-react';
+import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X, Repeat, Download } from 'lucide-react';
 import { Event, RecurrenceRule } from '../types';
 import { RecurringEventForm } from './RecurringEventForm';
 import { formatRecurrenceRule } from '../utils/recurringEvents';
+import { googleCalendarService } from '../services/googleCalendarService';
 
 interface EventCardProps {
   event: Event;
@@ -84,27 +85,16 @@ export const EventCard: React.FC<EventCardProps> = ({
     return colors[source as keyof typeof colors] || 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
   };
 
-  const addToCalendar = () => {
-    const startDate = new Date(event.event_date);
-    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Default 2 hours
-    
-    const formatDateForCalendar = (date: Date) => {
-      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    };
+  const [showCalendarOptions, setShowCalendarOptions] = useState(false);
 
-    const locationStr = typeof event.location === 'string' 
-      ? event.location 
-      : JSON.stringify(event.location);
+  const addToGoogleCalendar = () => {
+    googleCalendarService.addToGoogleCalendar(event);
+    setShowCalendarOptions(false);
+  };
 
-    const calendarData = {
-      text: event.name,
-      dates: `${formatDateForCalendar(startDate)}/${formatDateForCalendar(endDate)}`,
-      details: event.description,
-      location: locationStr
-    };
-
-    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calendarData.text)}&dates=${calendarData.dates}&details=${encodeURIComponent(calendarData.details)}&location=${encodeURIComponent(calendarData.location)}`;
-    window.open(calendarUrl, '_blank');
+  const downloadICSFile = () => {
+    googleCalendarService.downloadICSFile(event);
+    setShowCalendarOptions(false);
   };
 
   const locationStr = typeof event.location === 'string'
@@ -373,16 +363,39 @@ export const EventCard: React.FC<EventCardProps> = ({
         )}
 
         <div className="flex items-center justify-between">
-          <div className="flex space-x-2">
-            <button
-              onClick={addToCalendar}
-              className="flex items-center px-3 py-2 bg-yellow-500 text-gray-900 text-sm rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
-              aria-label="Add to calendar"
-            >
-              <Calendar className="w-4 h-4 mr-1" />
-              Add to Calendar
-            </button>
-            
+          <div className="flex space-x-2 relative">
+            {/* Calendar Options Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setShowCalendarOptions(!showCalendarOptions)}
+                className="flex items-center px-3 py-2 bg-yellow-500 text-gray-900 text-sm rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
+                aria-label="Add to calendar"
+              >
+                <Calendar className="w-4 h-4 mr-1" />
+                Add to Calendar
+              </button>
+
+              {/* Dropdown Menu */}
+              {showCalendarOptions && (
+                <div className="absolute left-0 mt-2 w-48 bg-gray-800 border border-yellow-500/30 rounded-lg shadow-xl z-10">
+                  <button
+                    onClick={addToGoogleCalendar}
+                    className="w-full flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 transition-colors duration-200 rounded-t-lg"
+                  >
+                    <Calendar className="w-4 h-4 mr-2 text-yellow-500" />
+                    Google Calendar
+                  </button>
+                  <button
+                    onClick={downloadICSFile}
+                    className="w-full flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 transition-colors duration-200 rounded-b-lg"
+                  >
+                    <Download className="w-4 h-4 mr-2 text-yellow-500" />
+                    Download .ics
+                  </button>
+                </div>
+              )}
+            </div>
+
             {event.url && (
               <a
                 href={event.url}
