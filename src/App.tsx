@@ -141,7 +141,7 @@ function App() {
       <div className="h-16"></div>
 
       {/* Hero Section with BLKOUT Branding */}
-      <div className="relative overflow-hidden h-auto py-16 md:py-24 mb-8">
+      <div className="relative overflow-hidden h-auto py-8 md:py-16 lg:py-20 mb-8">
         {/* Background Image - more visible */}
         <img
           src="/images/imagine.png"
@@ -158,11 +158,11 @@ function App() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* BLKOUT Logo - using white version for dark background */}
-          <div className="mb-8 md:mb-12">
+          <div className="mb-6 md:mb-10">
             <img
               src="/images/blkoutlogo_wht_transparent.png"
               alt="BLKOUT Logo"
-              className="h-24 md:h-32 lg:h-40 w-auto mx-auto filter drop-shadow-2xl"
+              className="h-16 md:h-24 lg:h-32 w-auto mx-auto filter drop-shadow-2xl"
               loading="eager"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none';
@@ -171,7 +171,7 @@ function App() {
           </div>
 
           {/* WHAT'S ON Title with outline style */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mb-8 leading-none tracking-tighter text-yellow-500 drop-shadow-2xl" style={{
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-none tracking-tighter text-yellow-500 drop-shadow-2xl" style={{
             WebkitTextStroke: '2px currentColor',
             WebkitTextFillColor: 'transparent',
             paintOrder: 'stroke fill'
@@ -180,8 +180,8 @@ function App() {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white drop-shadow-lg max-w-3xl mx-auto">
-            parties - culture - workshops<br/>Where the Black Queer Magic happens
+          <p className="text-lg sm:text-xl md:text-2xl font-bold text-white drop-shadow-lg max-w-3xl mx-auto px-4">
+            parties • culture • workshops<br/>Where the Black Queer Magic happens
           </p>
         </div>
       </div>
