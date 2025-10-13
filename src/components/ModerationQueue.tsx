@@ -268,36 +268,62 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
             </div>
           </div>
 
-          {/* Chrome Extension Download */}
-          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+          {/* Chrome Extension Download - v2.2.0 */}
+          <div className="mb-6 bg-gradient-to-r from-orange-50 to-red-50 border border-orange-200 rounded-lg p-4">
             <div className="flex items-start">
-              <Download className="w-5 h-5 text-blue-600 mr-2 mt-0.5" />
+              <Download className="w-5 h-5 text-orange-600 mr-2 mt-0.5" />
               <div className="flex-1">
-                <h4 className="font-medium text-blue-900">BLKOUT News Curator Extension v2.1</h4>
-                <p className="text-sm text-blue-800 mt-1">
-                  Submit events and news directly from any webpage to this moderation dashboard. Auto-extracts content from Eventbrite, Meetup, Facebook Events, news sites, and more.
-                  Features intelligent content detection and auto-fill forms.
+                <h4 className="font-medium text-orange-900">BLKOUT Moderator Tools Extension v2.2.0</h4>
+                <p className="text-sm text-orange-800 mt-1">
+                  <strong>🚀 NEW: Dual-platform support!</strong> Submit events AND news directly from any webpage. Auto-extracts content from Eventbrite, Meetup, Facebook Events, news sites, and more.
+                  Features intelligent type detection, event-specific fields, and smart routing to the correct platform.
                 </p>
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="flex items-center text-xs text-green-800">
+                    <svg className="w-4 h-4 text-green-600 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                    </svg>
+                    Event-specific fields (date, location, capacity)
+                  </div>
+                  <div className="flex items-center text-xs text-green-800">
+                    <svg className="w-4 h-4 text-green-600 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                    </svg>
+                    Auto date/location extraction
+                  </div>
+                  <div className="flex items-center text-xs text-green-800">
+                    <svg className="w-4 h-4 text-green-600 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                    </svg>
+                    Smart content type detection
+                  </div>
+                  <div className="flex items-center text-xs text-green-800">
+                    <svg className="w-4 h-4 text-green-600 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                    </svg>
+                    Intelligent API routing
+                  </div>
+                </div>
                 <div className="mt-3 flex flex-wrap gap-2 items-center">
                   <a
-                    href="https://news-blkout.vercel.app/downloads/blkout-news-curator-v2.1.tar.gz"
-                    download="blkout-news-curator-v2.1.tar.gz"
-                    className="flex items-center text-sm bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    href="/blkout-moderator-tools-v2.2.0.zip"
+                    download="blkout-moderator-tools-v2.2.0.zip"
+                    className="flex items-center text-sm bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 transition-colors font-medium"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Extension v2.1
+                    Download Extension v2.2.0
                   </a>
                   <a
                     href="https://news-blkout.vercel.app/admin"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-blue-700 hover:text-blue-900 underline"
+                    className="text-sm text-orange-700 hover:text-orange-900 underline flex items-center"
                   >
                     📰 News Admin Dashboard
                   </a>
                 </div>
-                <p className="text-xs text-blue-700 mt-2">
-                  💡 After download: Extract with <code className="bg-blue-100 px-1 rounded">tar -xzf blkout-news-curator-v2.1.tar.gz</code> → Chrome Extensions → Developer Mode → Load Unpacked
+                <p className="text-xs text-orange-700 mt-2">
+                  💡 After download: Extract the ZIP file → Chrome Extensions → Developer Mode → Load Unpacked → Select extracted folder
                 </p>
               </div>
             </div>
