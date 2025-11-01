@@ -63,7 +63,7 @@ https://your-events-calendar.vercel.app/api/approve-event
 ### Example Tweet:
 
 ```
-Join the BLKOUT community for our next event!
+BLKOUTUK.COM The digital home for the UK's Black Queer Men, by Black Queer Men. Where Realness Lives
 
 Black Queer History Month Celebration
 📅 Thu, 1 Feb 2025 at 7:00 PM

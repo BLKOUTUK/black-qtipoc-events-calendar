@@ -180,7 +180,7 @@ class TwitterService {
     const eventsUrl = `${this.communityUrl}/events`;
 
     // Community intro line
-    const intro = "Join the BLKOUT community for our next event!";
+    const intro = "BLKOUTUK.COM The digital home for the UK's Black Queer Men, by Black Queer Men. Where Realness Lives";
 
     // Location line
     const locationStr = event.location ? `📍 ${event.location}` : '';
