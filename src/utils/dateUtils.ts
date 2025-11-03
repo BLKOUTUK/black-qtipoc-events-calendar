@@ -39,15 +39,19 @@ export const getWeekTitle = (weekNumber: number, start: Date, end: Date): string
   weekStart.setHours(0, 0, 0, 0);
   weekEnd.setHours(23, 59, 59, 999);
 
+  // Check if this week contains today
   if (today >= weekStart && today <= weekEnd) {
     return `This Week • ${formatWeekRange(start, end)}`;
-  } else if (weekNumber === 1) {
-    return `Next Week • ${formatWeekRange(start, end)}`;
-  } else if (weekNumber === 2) {
-    return `Week of ${formatWeekRange(start, end)}`;
-  } else {
-    return `Week of ${formatWeekRange(start, end)}`;
   }
+
+  // Check if this is next week (starts within 7 days from today)
+  const daysUntilWeekStart = Math.ceil((weekStart.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  if (daysUntilWeekStart > 0 && daysUntilWeekStart <= 7) {
+    return `Next Week • ${formatWeekRange(start, end)}`;
+  }
+
+  // All other weeks
+  return `Week of ${formatWeekRange(start, end)}`;
 };
 
 export const groupEventsByWeek = (events: Event[], startDate: Date = new Date('2025-09-30')): { [week: number]: { events: Event[]; title: string; range: { start: Date; end: Date } } } => {
@@ -68,10 +72,11 @@ export const groupEventsByWeek = (events: Event[], startDate: Date = new Date('2
     const eventDate = new Date(event.date || event.event_date);
     const weekNumber = getWeekStartingFrom(startDate, eventDate);
 
-    // Skip past weeks if we're on Sunday night or later in the week
-    if ((shouldFilterPastWeeks || shouldFilterPastWeeksMonday) && weekNumber < currentWeekNumber) {
-      return; // Skip this event
-    }
+    // DISABLED: Don't filter past weeks - show all approved events
+    // This was filtering out events because they were from "past weeks" relative to Sept 30, 2025
+    // if ((shouldFilterPastWeeks || shouldFilterPastWeeksMonday) && weekNumber < currentWeekNumber) {
+    //   return; // Skip this event
+    // }
 
     if (!grouped[weekNumber]) {
       const range = getWeekRange(startDate, weekNumber);

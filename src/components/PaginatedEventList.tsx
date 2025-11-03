@@ -27,6 +27,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [featuredContent, setFeaturedContent] = useState<FeaturedContent[]>([]);
+  const [showPastEvents, setShowPastEvents] = useState(false);
 
   useEffect(() => {
     loadFeaturedContent();
@@ -43,14 +44,31 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       return { paginatedEvents: [], totalPages: 0 };
     }
 
+    // Separate past and future events relative to today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const futureEvents = events.filter(event => {
+      const eventDate = new Date(event.date || event.event_date);
+      return eventDate >= today;
+    });
+
+    const pastEvents = events.filter(event => {
+      const eventDate = new Date(event.date || event.event_date);
+      return eventDate < today;
+    });
+
+    // Combine: future events first (chronologically), then past events (only if showPastEvents is true)
+    const sortedEvents = showPastEvents ? [...futureEvents, ...pastEvents] : futureEvents;
+
     // Group events by week - using September 30, 2025 as the start date
-    const weeklyEvents = groupEventsByWeek(events, new Date('2025-09-30'));
+    const weeklyEvents = groupEventsByWeek(sortedEvents, new Date('2025-09-30'));
     const weekNumbers = Object.keys(weeklyEvents).map(Number).sort((a, b) => a - b);
 
     // Calculate pagination
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const eventsSlice = events.slice(startIndex, endIndex);
+    const eventsSlice = sortedEvents.slice(startIndex, endIndex);
 
     // Re-group the paginated slice by weeks for display
     const paginatedWeeklyEvents = groupEventsByWeek(eventsSlice, new Date('2025-09-30'));
@@ -223,6 +241,42 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
           Page {currentPage} of {totalPages}
         </div>
       </div>
+
+      {/* Past Events Toggle */}
+      {(() => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const pastCount = events.filter(e => new Date(e.date || e.event_date) < today).length;
+
+        if (pastCount === 0) return null;
+
+        return (
+          <div className="mb-8 flex justify-center">
+            <button
+              onClick={() => {
+                setShowPastEvents(!showPastEvents);
+                setCurrentPage(1); // Reset to first page when toggling
+              }}
+              className="flex items-center space-x-2 px-6 py-3 bg-gray-800/80 hover:bg-gray-700/80 border border-yellow-500/30 hover:border-yellow-500/50 rounded-lg transition-all duration-200"
+            >
+              <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-white font-medium">
+                {showPastEvents ? 'Hide' : 'Show'} Past Events ({pastCount})
+              </span>
+              <svg
+                className={`w-4 h-4 text-yellow-500 transition-transform duration-200 ${showPastEvents ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        );
+      })()}
 
       {/* Events by Week */}
       <div className="space-y-12">

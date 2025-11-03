@@ -34,9 +34,11 @@ class SupabaseEventService {
     console.log('🔍 getPublishedEvents called - using direct fetch API');
 
     try {
-      // Filter for events on or after 2025-09-30 (today)
-      const todayDate = '2025-09-30';
-      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date&order=date.asc`;
+      // NO DATE FILTER - show all approved events regardless of date
+      // This ensures we don't accidentally filter out events due to timezone/date issues
+      console.log('🔍 Fetching all approved events (no date filter)');
+
+      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&select=id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date&order=date.asc`;
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -443,18 +445,25 @@ class SupabaseEventService {
 
   // Utility methods
   filterEvents(events: Event[], filters: FilterOptions): Event[] {
-    return events.filter(event => {
-      // Date filter - fixed to handle null/undefined dates properly
+    console.log('🔍 filterEvents called:', {
+      totalEvents: events.length,
+      filters: filters
+    });
+
+    const filtered = events.filter(event => {
+      // Date filter - NO DATE FILTERING for 'all', and improved logic for other filters
       if (filters.dateRange !== 'all' && event.event_date) {
         const eventDate = new Date(event.event_date);
         if (isNaN(eventDate.getTime())) return true; // Invalid date, include it
-        
+
         const now = new Date();
+        now.setHours(0, 0, 0, 0); // Normalize to start of day
         const daysDiff = Math.ceil((eventDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-        
+
+        // Only show future events for time-based filters
         if (filters.dateRange === 'today' && daysDiff !== 0) return false;
-        if (filters.dateRange === 'week' && daysDiff > 7) return false;
-        if (filters.dateRange === 'month' && daysDiff > 30) return false;
+        if (filters.dateRange === 'week' && (daysDiff < 0 || daysDiff > 7)) return false;
+        if (filters.dateRange === 'month' && (daysDiff < 0 || daysDiff > 30)) return false;
       }
 
       // Source filter - fixed to handle null sources
@@ -482,6 +491,14 @@ class SupabaseEventService {
 
       return true;
     });
+
+    console.log('🔍 filterEvents result:', {
+      totalEvents: events.length,
+      filteredEvents: filtered.length,
+      filters: filters
+    });
+
+    return filtered;
   }
 }
 

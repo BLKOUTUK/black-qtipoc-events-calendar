@@ -37,10 +37,9 @@ export class JinaAIScrapingService {
   
   constructor(apiKey?: string) {
     // Try multiple ways to get API key, including localStorage for development
-    this.apiKey = apiKey || 
+    this.apiKey = apiKey ||
                   localStorage.getItem('JINA_AI_API_KEY') ||
-                  import.meta.env?.VITE_JINA_API_KEY || 
-                  process.env?.VITE_JINA_API_KEY || 
+                  import.meta.env?.VITE_JINA_API_KEY ||
                   '';
     
     console.log('Jina AI Service initialized:', this.apiKey ? 'API key configured' : 'Running in development mode with mock data');

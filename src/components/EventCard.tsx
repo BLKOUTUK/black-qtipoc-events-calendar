@@ -279,6 +279,11 @@ export const EventCard: React.FC<EventCardProps> = ({
     );
   }
 
+  // Check if event has adult content tags
+  const isAdultContent = event.tags?.some(tag =>
+    ['adult', '18+', 'mature', 'nsfw', 'sex', 'sexual', 'xxx', '18 plus'].includes(tag.toLowerCase())
+  );
+
   return (
     <>
       {/* Recurrence Form Modal */}
@@ -293,6 +298,18 @@ export const EventCard: React.FC<EventCardProps> = ({
       )}
 
       <div className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:border-yellow-500/50 transition-all duration-300">
+
+      {/* Adult Content Warning Banner */}
+      {isAdultContent && (
+        <div className="bg-purple-600 border-b-2 border-purple-800 px-4 py-2 flex items-center justify-center">
+          <div className="flex items-center space-x-3">
+            <span className="text-white font-black text-sm tracking-widest">XXX</span>
+            <span className="text-white font-bold text-xs tracking-wide">SEX RATED</span>
+            <span className="text-white font-black text-sm tracking-widest">XXX</span>
+          </div>
+        </div>
+      )}
+
       {event.image_url && (
         <div className="relative h-48 overflow-hidden">
           <img 
