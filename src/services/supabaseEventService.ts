@@ -233,7 +233,8 @@ class SupabaseEventService {
     try {
       console.log('🔍 Fetching pending events via direct API');
 
-      const url = 'https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=in.(draft,reviewing,pending)&select=*&order=created_at.desc';
+      // Only fetch draft and reviewing events, explicitly excluding archived and approved
+      const url = 'https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=in.(draft,reviewing)&select=*&order=created_at.desc';
       const response = await fetch(url, {
         method: 'GET',
         headers: {
