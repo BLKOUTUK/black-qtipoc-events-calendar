@@ -30,7 +30,7 @@ const AdventCalendarBanner: React.FC = () => {
             {/* Action Links */}
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
               <a
-                href="https://blkoutuk.com/discover"
+                href="https://blkoutuk.com/platform"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-green-600 text-white font-bold rounded-xl hover:from-red-500 hover:to-green-500 transition-all shadow-lg"
@@ -39,7 +39,7 @@ const AdventCalendarBanner: React.FC = () => {
                 <ExternalLink className="w-5 h-5" />
               </a>
               <a
-                href="https://blkoutuk.com/voices"
+                href="https://voices-blkout.up.railway.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800/80 border-2 border-yellow-500/60 text-yellow-300 font-bold rounded-xl hover:bg-gray-700/80 transition-all shadow-lg"
