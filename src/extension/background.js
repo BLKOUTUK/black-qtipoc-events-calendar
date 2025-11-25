@@ -7,6 +7,8 @@
 const CONFIG = {
   SUPABASE_URL: 'https://bgjengudzfickgomjqmz.supabase.co',
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
+  IVOR_API_URL: 'https://ivor-core.railway.app',
+  GOOGLE_SHEET_ID: '', // Will be set from storage or environment
   TEAMS: {
     EVENTS: 'events',
     NEWS: 'news',
@@ -101,6 +103,42 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     default:
       console.warn('Unknown message type:', message.type);
       sendResponse({ error: 'Unknown message type' });
+  }
+});
+
+/**
+ * Handle external messages from BrowserAct automation
+ */
+chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+  console.log('[BrowserAct] External message received:', message, 'from:', sender.url);
+
+  // Validate sender origin (security check)
+  const allowedOrigins = [
+    'https://blkout-events-calendar.netlify.app',
+    'https://browseract.com',
+    'https://www.browseract.com'
+  ];
+
+  const senderOrigin = new URL(sender.url || '').origin;
+  if (!allowedOrigins.some(origin => senderOrigin.startsWith(origin))) {
+    console.warn('[BrowserAct] Rejected message from unauthorized origin:', senderOrigin);
+    sendResponse({ error: 'Unauthorized origin' });
+    return;
+  }
+
+  if (message.action === 'submit_content' || message.action === 'submit_browseract_content') {
+    handleBrowserActSubmission(message.data)
+      .then(sendResponse)
+      .catch(error => sendResponse({ error: error.message }));
+    return true; // Indicates async response
+  } else if (message.action === 'batch_submit') {
+    handleBrowserActBatchSubmission(message.data)
+      .then(sendResponse)
+      .catch(error => sendResponse({ error: error.message }));
+    return true;
+  } else {
+    console.warn('[BrowserAct] Unknown action:', message.action);
+    sendResponse({ error: 'Unknown action' });
   }
 });
 
@@ -605,6 +643,161 @@ async function updateTeamAssignment(teamId) {
     teamAssignment: teamId,
     timestamp: Date.now()
   };
+}
+
+/**
+ * Handle BrowserAct content submission with IVOR AI moderation
+ */
+async function handleBrowserActSubmission(contentData) {
+  try {
+    console.log('[BrowserAct] Processing submission:', contentData.title);
+
+    // Call IVOR API for moderation
+    const ivorResult = await moderateWithIVOR(contentData);
+
+    console.log('[BrowserAct] IVOR moderation result:', ivorResult);
+
+    // Determine routing based on IVOR confidence
+    let moderationStatus;
+    if (ivorResult.recommendation === 'auto-approve' && ivorResult.confidence >= 0.90) {
+      moderationStatus = 'auto-approved';
+    } else if (ivorResult.confidence >= 0.70) {
+      moderationStatus = 'review-quick';
+    } else {
+      moderationStatus = 'review-deep';
+    }
+
+    // Enrich content data with IVOR analysis
+    const enrichedData = {
+      ...contentData,
+      ivor_confidence: (ivorResult.confidence * 100).toFixed(0) + '%',
+      ivor_reasoning: ivorResult.reasoning,
+      liberation_score: (ivorResult.liberation_score * 100).toFixed(0) + '%',
+      moderation_status: moderationStatus,
+      relevance: ivorResult.relevance,
+      quality: ivorResult.quality,
+      submitted_by: 'browseract-automation',
+      submitted_at: new Date().toISOString(),
+      flags: ivorResult.flags?.join(', ') || ''
+    };
+
+    // Write to Google Sheets (implementation depends on having sheets integration)
+    // For now, submit to Supabase as fallback
+    const submissionResult = await submitToSupabase(enrichedData, CONFIG.TEAMS.EVENTS);
+
+    return {
+      success: true,
+      submission_id: submissionResult.id,
+      moderation_status: moderationStatus,
+      ivor_confidence: ivorResult.confidence,
+      recommendation: ivorResult.recommendation,
+      timestamp: Date.now()
+    };
+
+  } catch (error) {
+    console.error('[BrowserAct] Submission failed:', error);
+    throw error;
+  }
+}
+
+/**
+ * Handle batch submission from BrowserAct
+ */
+async function handleBrowserActBatchSubmission(eventsData) {
+  try {
+    console.log('[BrowserAct] Processing batch submission:', eventsData.length, 'events');
+
+    const results = await Promise.all(
+      eventsData.map(async (eventData) => {
+        try {
+          return await handleBrowserActSubmission(eventData);
+        } catch (error) {
+          return {
+            success: false,
+            title: eventData.title,
+            error: error.message
+          };
+        }
+      })
+    );
+
+    const stats = {
+      total: results.length,
+      auto_approved: results.filter(r => r.moderation_status === 'auto-approved').length,
+      review_quick: results.filter(r => r.moderation_status === 'review-quick').length,
+      review_deep: results.filter(r => r.moderation_status === 'review-deep').length,
+      failed: results.filter(r => !r.success).length
+    };
+
+    console.log('[BrowserAct] Batch processing complete:', stats);
+
+    return {
+      success: true,
+      stats,
+      results
+    };
+
+  } catch (error) {
+    console.error('[BrowserAct] Batch submission failed:', error);
+    throw error;
+  }
+}
+
+/**
+ * Call IVOR AI API for content moderation
+ */
+async function moderateWithIVOR(content) {
+  try {
+    const response = await fetch(`${CONFIG.IVOR_API_URL}/api/moderate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        content: {
+          type: content.type || 'event',
+          title: content.title,
+          description: content.description,
+          organizer_name: content.organizer_name,
+          tags: content.tags,
+          source_url: content.source_url,
+          location: content.location,
+          event_date: content.event_date
+        },
+        moderation_type: content.type === 'news' ? 'news_relevance' : 'event_relevance'
+      })
+    });
+
+    if (!response.ok) {
+      console.error('[IVOR] API error:', response.status);
+      // Return fallback moderation result
+      return {
+        confidence: 0,
+        relevance: 'low',
+        quality: 'low',
+        liberation_score: 0,
+        reasoning: 'AI moderation failed - requires manual review',
+        recommendation: 'review',
+        flags: ['error']
+      };
+    }
+
+    const result = await response.json();
+    return result;
+
+  } catch (error) {
+    console.error('[IVOR] Moderation failed:', error);
+    // Return conservative fallback
+    return {
+      confidence: 0,
+      relevance: 'low',
+      quality: 'low',
+      liberation_score: 0,
+      reasoning: 'AI moderation failed - requires manual review',
+      recommendation: 'review',
+      flags: ['error']
+    };
+  }
 }
 
 /**

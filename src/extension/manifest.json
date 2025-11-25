@@ -55,6 +55,13 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
+  "externally_connectable": {
+    "matches": [
+      "https://blkout-events-calendar.netlify.app/*",
+      "https://browseract.com/*",
+      "https://*.browseract.com/*"
+    ]
+  },
   "oauth2": {
     "client_id": "YOUR_GOOGLE_CLIENT_ID",
     "scopes": [

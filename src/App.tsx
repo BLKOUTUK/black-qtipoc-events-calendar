@@ -18,6 +18,7 @@ import { featuredContentService } from './services/featuredContentService';
 import { FeaturedContent } from './types';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import AdventCalendarBanner from './components/AdventCalendarBanner';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -296,6 +297,9 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* Advent Calendar Banner - Always Visible During December */}
+        <AdventCalendarBanner />
 
         {/* Featured Hero Carousel */}
         {featuredContent.length > 0 && (
