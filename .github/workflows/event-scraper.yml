@@ -1,0 +1,41 @@
+name: Weekly Event Scraper
+
+on:
+  # Run every Sunday at 6 AM UTC
+  schedule:
+    - cron: '0 6 * * 0'
+
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  scrape-events:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: scraper/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./scraper
+        run: npm ci
+
+      - name: Run event scraper
+        working-directory: ./scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          RUN_NOW: 'true'
+          NODE_ENV: 'production'
+        run: node server.js
+        timeout-minutes: 10
+
+      - name: Log completion
+        run: echo "Event scraping completed at $(date -u)"
