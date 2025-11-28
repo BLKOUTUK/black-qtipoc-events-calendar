@@ -306,12 +306,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2 items-center">
                   <a
-                    href="/blkout-moderator-tools-v2.2.0.zip"
-                    download="blkout-moderator-tools-v2.2.0.zip"
+                    href="https://news-blkout.vercel.app/blkout-moderator-tools-v2.2.2-fixed.zip"
+                    download="blkout-moderator-tools-v2.2.2-fixed.zip"
                     className="flex items-center text-sm bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 transition-colors font-medium"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Extension v2.2.0
+                    Download Extension v2.2.2
                   </a>
                   <a
                     href="https://news-blkout.vercel.app/admin"

@@ -1,0 +1,19 @@
+{
+  "name": "BLKOUT Moderator Tools",
+  "version": "2.2.2",
+  "filename": "blkout-moderator-tools-v2.2.2-fixed.zip",
+  "releaseDate": "2025-11-25",
+  "changelog": [
+    "v2.2.2 - Fixed content submission button styling",
+    "v2.2.1 - Removed floating button, popup-only interface",
+    "v2.2.0 - Initial moderation tools release"
+  ],
+  "downloadUrl": "https://news-blkout.vercel.app/blkout-moderator-tools-v2.2.2-fixed.zip",
+  "minChromeVersion": "88",
+  "features": [
+    "Quick article submission to moderation queue",
+    "Event submission with date/location extraction",
+    "Direct Supabase integration",
+    "Popup-based interface for moderators"
+  ]
+}
