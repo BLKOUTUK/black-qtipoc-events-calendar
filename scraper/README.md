@@ -4,8 +4,9 @@ Event discovery service for Black LGBTQ+ community events in the UK.
 
 ## Overview
 
-This scraper automatically discovers events from UK event platforms and submits them to the BLKOUT Supabase database for moderation. Events are filtered by:
+This scraper automatically discovers events from **scene-oriented periodicals and civil society organisations** - sources with higher-density, more relevant LGBTQ+ event listings than generic ticketing platforms.
 
+Events are filtered by:
 - **UK location** - Only events in UK cities
 - **Community relevance** - Black LGBTQ+ focused keywords get higher scores
 - **Trust score** - Sources are weighted by reliability
@@ -14,12 +15,13 @@ This scraper automatically discovers events from UK event platforms and submits 
 
 | Source | Type | Category | Trust Score |
 |--------|------|----------|-------------|
-| Eventbrite UK | API/Web | Community | 0.9 |
-| OutSavvy | RSS | Community | 0.85 |
-| Dice.fm | Web | Nightlife | 0.8 |
-| Skiddle | API/Web | Nightlife | 0.85 |
-| DesignMyNight | Web | Nightlife | 0.8 |
-| Meetup UK | RSS | Community | 0.85 |
+| QX Magazine Events | JSON-LD | Nightlife | 0.95 |
+| QX Magazine Feed | RSS | Nightlife | 0.9 |
+| DIVA Magazine Events | JSON-LD | Community | 0.95 |
+| Consortium LGBT+ | iCal | Community | 0.95 |
+| Eventbrite (Black LGBTQ+) | JSON-LD | Community | 0.85 |
+
+**Note**: Generic ticketing platforms (Dice.fm, Skiddle, DesignMyNight) have been removed - too few relevant events to justify scraping. Manual searches on OutSavvy and Eventbrite are still recommended. Instagram/Facebook require alternative approaches.
 
 ## Usage
 
@@ -45,8 +47,7 @@ npm start
 ```
 
 Scheduled runs:
-- **Daily at 6 AM and 6 PM UTC** - Regular event discovery
-- **Sundays at midnight** - Weekly deep scrape
+- **Sundays at 6 AM UTC** - Weekly scrape (scene publications don't update frequently)
 
 ## How It Works
 
