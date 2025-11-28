@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BLKOUT Content Curator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Community-driven content curation for BLKOUT Liberation Platform - Events and news discovery for Black queer communities",
   "permissions": [
     "storage",
@@ -23,7 +23,25 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "https://*.eventbrite.com/*",
+        "https://*.eventbrite.co.uk/*",
+        "https://*.meetup.com/*",
+        "https://*.outsavvy.com/*",
+        "https://*.dice.fm/*",
+        "https://*.skiddle.com/*",
+        "https://*.designmynight.com/*",
+        "https://*.theguardian.com/*",
+        "https://*.bbc.co.uk/*",
+        "https://*.bbc.com/*",
+        "https://*.independent.co.uk/*",
+        "https://*.pinknews.co.uk/*",
+        "https://*.gal-dem.com/*",
+        "https://*.attitude.co.uk/*",
+        "https://*.dazeddigital.com/*",
+        "https://www.facebook.com/events/*",
+        "https://*.instagram.com/*"
+      ],
       "js": ["content.js"],
       "css": ["content.css"],
       "run_at": "document_end"

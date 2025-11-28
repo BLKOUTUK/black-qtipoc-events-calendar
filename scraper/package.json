@@ -1,0 +1,32 @@
+{
+  "name": "blkout-event-scraper",
+  "version": "1.0.0",
+  "description": "Event scraping service for BLKOUT community platform - discovers Black LGBTQ+ events from UK platforms",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "scrape": "RUN_NOW=true node server.js",
+    "test": "echo \"Event scraper - no tests yet\" && exit 0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "fast-xml-parser": "^4.3.2",
+    "node-cron": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "blkout",
+    "lgbtq",
+    "black queer",
+    "events",
+    "scraper",
+    "community"
+  ],
+  "author": "BLKOUT Community",
+  "license": "MIT"
+}

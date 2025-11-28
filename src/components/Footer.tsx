@@ -133,6 +133,9 @@ const Footer: React.FC = () => {
             <p>
               Built by and for Black queer communities with love, rage, and liberation
             </p>
+            <p className="mt-4 text-xs text-gray-500 max-w-2xl mx-auto">
+              BLKOUT Creative Ltd is registered by the Financial Conduct Authority (London) as a Community Benefit Society under the Co-operative and Community Benefit Societies Act 2014.
+            </p>
           </div>
         </div>
       </div>
