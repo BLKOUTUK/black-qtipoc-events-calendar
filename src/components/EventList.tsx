@@ -8,9 +8,11 @@ interface EventListProps {
   loading?: boolean;
   emptyMessage?: string;
   showActions?: boolean;
+  showDeleteOnly?: boolean;
   onApprove?: (id: string) => void;
   onReject?: (id: string) => void;
   onEdit?: (id: string, edits: Partial<Event>) => void;
+  onDelete?: (id: string) => void;
 }
 
 export const EventList: React.FC<EventListProps> = ({
@@ -18,9 +20,11 @@ export const EventList: React.FC<EventListProps> = ({
   loading = false,
   emptyMessage = "No events found matching your criteria.",
   showActions = false,
+  showDeleteOnly = false,
   onApprove,
   onReject,
-  onEdit
+  onEdit,
+  onDelete
 }) => {
   if (loading) {
     return (
@@ -116,9 +120,11 @@ export const EventList: React.FC<EventListProps> = ({
                   key={event.id}
                   event={event}
                   showActions={showActions}
+                  showDeleteOnly={showDeleteOnly}
                   onApprove={onApprove}
                   onReject={onReject}
                   onEdit={onEdit}
+                  onDelete={onDelete}
                 />
               ))}
             </div>

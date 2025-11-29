@@ -116,10 +116,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         success: true,
         message: 'Event updated successfully'
       });
+    } else if (action === 'delete') {
+      // Permanently delete event from database
+      const deleteUrl = `${supabaseUrl}/rest/v1/events?id=eq.${eventId}`;
+      const deleteResponse = await fetch(deleteUrl, {
+        method: 'DELETE',
+        headers: {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log('Supabase delete response:', deleteResponse.status);
+
+      if (!deleteResponse.ok) {
+        const errorText = await deleteResponse.text();
+        console.error('Supabase delete failed:', errorText);
+
+        return res.status(500).json({
+          success: false,
+          error: `Failed to delete event: ${errorText}`
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: 'Event permanently deleted'
+      });
     } else {
       return res.status(400).json({
         success: false,
-        error: 'Invalid action. Use approve, reject, or edit'
+        error: 'Invalid action. Use approve, reject, edit, or delete'
       });
     }
   } catch (error) {

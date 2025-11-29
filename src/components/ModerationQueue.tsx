@@ -6,7 +6,7 @@ import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
 import { FeaturedContentManager } from './FeaturedContentManager';
-import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download, Image } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download, Image, Trash2 } from 'lucide-react';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -14,9 +14,10 @@ interface ModerationQueueProps {
 
 export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => {
   const [pendingEvents, setPendingEvents] = useState<Event[]>([]);
+  const [approvedEvents, setApprovedEvents] = useState<Event[]>([]);
   const [stats, setStats] = useState<ModerationStats>({ pending: 0, approved: 0, rejected: 0, total: 0 });
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'queue' | 'discovery' | 'organizations' | 'featured'>('queue');
+  const [activeTab, setActiveTab] = useState<'queue' | 'approved' | 'discovery' | 'organizations' | 'featured'>('queue');
 
   // Get Google Sheet ID from environment
   const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID;
@@ -48,6 +49,10 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
         rejected: sheetsStats.rejected + supabaseStats.rejected,
         total: sheetsStats.total + supabaseStats.total
       };
+
+      // Load approved events from Supabase
+      const approved = await supabaseEventService.getApprovedEvents();
+      setApprovedEvents(approved);
 
       setPendingEvents(allEvents);
       setStats(mergedStats);
@@ -159,6 +164,37 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     } catch (error) {
       console.error('Error editing event:', error);
       alert('Failed to update event. Please try again.');
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      // Use moderation API for delete
+      const apiResponse = await fetch('/api/moderate-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'delete',
+          eventId: id
+        })
+      });
+
+      const apiResult = await apiResponse.json();
+
+      if (!apiResult.success) {
+        console.error('Failed to delete event:', apiResult.error);
+        alert(`Failed to delete event: ${apiResult.error}`);
+        return;
+      }
+
+      alert('Event permanently deleted');
+
+      // Wait a moment for database to update
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await loadData();
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      alert('Failed to delete event. Please try again.');
     }
   };
 
@@ -343,6 +379,17 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
               Moderation Queue ({stats.pending})
             </button>
             <button
+              onClick={() => setActiveTab('approved')}
+              className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                activeTab === 'approved'
+                  ? 'bg-white text-green-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <CheckCircle className="w-4 h-4 mr-2" />
+              Approved Events ({stats.approved})
+            </button>
+            <button
               onClick={() => setActiveTab('discovery')}
               className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                 activeTab === 'discovery'
@@ -461,6 +508,38 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                   onApprove={handleApprove}
                   onReject={handleReject}
                   onEdit={handleEdit}
+                />
+              </div>
+            </>
+          )}
+
+          {activeTab === 'approved' && (
+            <>
+              {/* Approved Events Header */}
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-start">
+                  <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-0.5" />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-green-900">Approved Events</h4>
+                    <p className="text-sm text-green-800 mt-1">
+                      These events are currently published and visible to users. You can edit or permanently delete them.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Approved Events List */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Published Events ({approvedEvents.length})
+                </h3>
+                <EventList
+                  events={approvedEvents}
+                  loading={loading}
+                  emptyMessage="No approved events found."
+                  showDeleteOnly={true}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
                 />
               </div>
             </>

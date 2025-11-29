@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X, Repeat, Download } from 'lucide-react';
+import { Calendar, MapPin, ExternalLink, Clock, User, Edit2, Save, X, Repeat, Download, Trash2 } from 'lucide-react';
 import { Event, RecurrenceRule } from '../types';
 import { RecurringEventForm } from './RecurringEventForm';
 import { formatRecurrenceRule } from '../utils/recurringEvents';
@@ -8,17 +8,21 @@ import { googleCalendarService } from '../services/googleCalendarService';
 interface EventCardProps {
   event: Event;
   showActions?: boolean;
+  showDeleteOnly?: boolean;
   onApprove?: (id: string) => void;
   onReject?: (id: string) => void;
   onEdit?: (id: string, edits: Partial<Event>) => void;
+  onDelete?: (id: string) => void;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
   event,
   showActions = false,
+  showDeleteOnly = false,
   onApprove,
   onReject,
-  onEdit
+  onEdit,
+  onDelete
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showRecurrenceForm, setShowRecurrenceForm] = useState(false);
@@ -447,6 +451,29 @@ export const EventCard: React.FC<EventCardProps> = ({
                 className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-500 transition-colors duration-200"
               >
                 Reject
+              </button>
+            </div>
+          )}
+          {showDeleteOnly && (
+            <div className="flex space-x-2">
+              <button
+                onClick={startEdit}
+                className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-500 transition-colors duration-200"
+                title="Edit"
+              >
+                <Edit2 className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => {
+                  if (confirm(`Are you sure you want to permanently delete "${event.name}"? This action cannot be undone.`)) {
+                    onDelete?.(event.id);
+                  }
+                }}
+                className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-500 transition-colors duration-200 flex items-center gap-1"
+                title="Delete permanently"
+              >
+                <Trash2 className="w-4 h-4" />
+                Delete
               </button>
             </div>
           )}

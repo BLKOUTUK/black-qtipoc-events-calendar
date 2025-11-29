@@ -229,6 +229,11 @@ class SupabaseEventService {
     }
   }
 
+  async getApprovedEvents(): Promise<Event[]> {
+    // Alias for getPublishedEvents - returns approved events for moderation dashboard
+    return this.getPublishedEvents();
+  }
+
   async getPendingEvents(): Promise<Event[]> {
     try {
       console.log('🔍 Fetching pending events via direct API');
