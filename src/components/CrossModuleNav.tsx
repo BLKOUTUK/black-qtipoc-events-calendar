@@ -11,31 +11,32 @@ interface ModuleLink {
 const CrossModuleNav: React.FC = () => {
   const moduleLinks: ModuleLink[] = [
     {
-      label: "BLKOUT Platform",
-      href: "https://platform-blkout.vercel.app",
+      label: "BLKOUT Home",
+      href: "https://blkoutuk.com",
       icon: <Home className="w-4 h-4" />,
       external: true
     },
     {
-      label: "Liberation Journey",
-      href: "https://journey-blkout.vercel.app",
+      label: "Voices",
+      href: "https://voices.blkoutuk.com",
       icon: <Newspaper className="w-4 h-4" />,
       external: true
     },
     {
-      label: "Ask I.V.O.R.",
-      href: "https://ivor-blkout.vercel.app",
+      label: "Ask IVOR",
+      href: "https://ivor.blkoutuk.com",
       icon: <Bot className="w-4 h-4" />,
       external: true
     },
     {
-      label: "Mobile App",
-      href: "#",
-      icon: <Smartphone className="w-4 h-4" />
+      label: "Discover",
+      href: "https://discover.blkoutuk.com",
+      icon: <Smartphone className="w-4 h-4" />,
+      external: true
     }
   ];
 
-  const handleModuleClick = (module: ModuleLink, e: React.MouseEvent) => {
+  const handleModuleClick = (module: ModuleLink) => {
     // Track navigation
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'cross_module_navigation', {
@@ -43,15 +44,6 @@ const CrossModuleNav: React.FC = () => {
         to_module: module.label.toLowerCase().replace(/\s+/g, '_'),
         is_external: module.external
       });
-    }
-
-    if (module.label === "Mobile App") {
-      e.preventDefault();
-      // Try mobile app first, fallback to app store
-      window.location.href = 'blkouthub://events';
-      setTimeout(() => {
-        window.open('https://apps.apple.com/app/blkouthub', '_blank');
-      }, 2500);
     }
   };
 
@@ -67,7 +59,7 @@ const CrossModuleNav: React.FC = () => {
             href={module.href}
             target={module.external ? '_blank' : '_self'}
             rel={module.external ? 'noopener noreferrer' : undefined}
-            onClick={(e) => handleModuleClick(module, e)}
+            onClick={() => handleModuleClick(module)}
             className="flex items-center px-3 py-2 bg-yellow-50 hover:bg-yellow-100 text-yellow-800 rounded-lg border border-yellow-200 hover:border-yellow-300 transition-colors duration-200 text-sm font-medium"
           >
             {module.icon}

@@ -5,7 +5,7 @@ import { Handler } from '@netlify/functions'
  * Receives scraped events from BrowserAct and sends them to IVOR for AI moderation
  */
 
-const IVOR_API_URL = process.env.IVOR_API_URL || 'https://ivor-core.railway.app'
+const IVOR_API_URL = process.env.IVOR_API_URL || 'https://ivor.blkoutuk.cloud'
 const BROWSERACT_SECRET = process.env.BROWSERACT_SECRET_TOKEN || ''
 const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID || ''
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || ''

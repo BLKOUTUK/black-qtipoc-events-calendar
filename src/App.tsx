@@ -279,7 +279,7 @@ function App() {
                 Add Your Event
               </button>
               <button
-                onClick={() => window.open('https://blkout.vercel.app', '_blank')}
+                onClick={() => window.open('https://blkoutuk.com', '_blank')}
                 className="flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 font-bold shadow-lg"
               >
                 <Users className="w-5 h-5 mr-2" />

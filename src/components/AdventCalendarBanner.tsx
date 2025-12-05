@@ -39,7 +39,7 @@ const AdventCalendarBanner: React.FC = () => {
                 <ExternalLink className="w-5 h-5" />
               </a>
               <a
-                href="https://voices-blkout.up.railway.app/"
+                href="https://blog.blkoutuk.cloud"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800/80 border-2 border-yellow-500/60 text-yellow-300 font-bold rounded-xl hover:bg-gray-700/80 transition-all shadow-lg"

@@ -3,14 +3,14 @@ import { Home, Heart, Brain, Vote, Users, Info, Play, Calendar, Instagram, Twitt
 
 const Footer: React.FC = () => {
   const footerLinks = [
-    { id: 'platform', label: 'Platform', icon: Home, href: 'https://blkout.vercel.app' },
-    { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://blkout.vercel.app' },
-    { id: 'news', label: 'Newsroom', icon: Play, href: 'https://blkout.vercel.app' },
-    { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkout.vercel.app' },
+    { id: 'platform', label: 'Platform', icon: Home, href: 'https://blkoutuk.com' },
+    { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://ivor.blkoutuk.cloud' },
+    { id: 'news', label: 'Newsroom', icon: Play, href: 'https://news.blkoutuk.cloud' },
+    { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkoutuk.com/stories' },
     { id: 'events', label: 'Connect', icon: Calendar, href: '#', active: true },
-    { id: 'community', label: 'Community', icon: Users, href: 'https://blkout.vercel.app' },
-    { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkout.vercel.app' },
-    { id: 'about', label: 'About', icon: Info, href: 'https://blkout.vercel.app' }
+    { id: 'community', label: 'Community', icon: Users, href: 'https://blkoutuk.com/community' },
+    { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkoutuk.com/governance' },
+    { id: 'about', label: 'About', icon: Info, href: 'https://blkoutuk.com/about' }
   ];
 
   const handleNavigation = (link: any) => {
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
         {/* Platform Button */}
         <div className="flex justify-center mb-8">
           <button
-            onClick={() => window.open('https://blkout.vercel.app', '_blank')}
+            onClick={() => window.open('https://blkoutuk.com', '_blank')}
             className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 px-6 py-3 rounded-2xl font-bold transition-all duration-300 hover:scale-105 flex items-center gap-2"
           >
             <Home className="h-5 w-5" />

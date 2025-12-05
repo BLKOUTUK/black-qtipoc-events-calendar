@@ -9,14 +9,14 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigationItems = [
-    { id: 'platform', label: 'Platform', icon: Home, href: 'https://blkout.vercel.app' },
-    { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://blkout.vercel.app' },
-    { id: 'news', label: 'Newsroom', icon: Play, href: 'https://blkout.vercel.app' },
-    { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkout.vercel.app' },
+    { id: 'platform', label: 'Platform', icon: Home, href: 'https://blkoutuk.com' },
+    { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://ivor.blkoutuk.cloud' },
+    { id: 'news', label: 'Newsroom', icon: Play, href: 'https://news.blkoutuk.cloud' },
+    { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkoutuk.com/stories' },
     { id: 'events', label: 'Connect', icon: Calendar, href: '#', active: true },
-    { id: 'community', label: 'Community', icon: Users, href: 'https://blkout.vercel.app' },
-    { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkout.vercel.app' },
-    { id: 'about', label: 'About', icon: Info, href: 'https://blkout.vercel.app' }
+    { id: 'community', label: 'Community', icon: Users, href: 'https://blkoutuk.com/community' },
+    { id: 'governance', label: 'Governance', icon: Vote, href: 'https://blkoutuk.com/governance' },
+    { id: 'about', label: 'About', icon: Info, href: 'https://blkoutuk.com/about' }
   ];
 
   const handleNavigation = (item: any) => {
@@ -68,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
           {/* Back to Platform Button - Desktop */}
           <div className="hidden lg:block">
             <button
-              onClick={() => window.open('https://blkout.vercel.app', '_blank')}
+              onClick={() => window.open('https://blkoutuk.com', '_blank')}
               className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2"
             >
               <Home className="h-4 w-4" />
@@ -111,7 +111,7 @@ const Header: React.FC<HeaderProps> = ({ onBackToPlatform }) => {
               <div className="pt-4 border-t border-yellow-500/30">
                 <button
                   onClick={() => {
-                    window.open('https://blkout.vercel.app', '_blank');
+                    window.open('https://blkoutuk.com', '_blank');
                     setIsMobileMenuOpen(false);
                   }}
                   className="w-full bg-yellow-500 text-gray-900 px-3 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors flex items-center gap-2"

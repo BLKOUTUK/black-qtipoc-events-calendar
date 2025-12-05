@@ -36,7 +36,7 @@ class SupabaseApiService {
     }
     
     // Production: use the deployed API
-    return 'https://blkoutnxt-api.vercel.app/api';
+    return 'https://ivor.blkoutuk.cloud/api';
   }
 
   private async makeRequest<T = any>(
