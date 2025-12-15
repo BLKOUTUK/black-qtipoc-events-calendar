@@ -22,35 +22,23 @@ ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 # Build the app
 RUN npm run build
 
-# Production stage with nginx
-FROM nginx:alpine AS production
+# Production stage
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
+# Install serve globally
+RUN npm install -g serve
 
 # Copy built assets
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Copy nginx config for SPA routing
-RUN echo 'server { \
-    listen 80; \
-    listen [::]:80; \
-    server_name _; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    gzip on; \
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-    location /health { \
-        return 200 "healthy"; \
-        add_header Content-Type text/plain; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist ./dist
 
 # Expose port
-EXPOSE 80
+EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:80/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/ || exit 1
 
-CMD ["nginx", "-g", "daemon off;"]
+# Serve the built app
+CMD ["serve", "-s", "dist", "-l", "3000"]
