@@ -7,6 +7,7 @@ import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
 import { FeaturedContentManager } from './FeaturedContentManager';
 import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download, Image, Trash2 } from 'lucide-react';
+import { approveEventViaIvor, rejectEventViaIvor, IVOR_API_URL } from '../config/api';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -65,18 +66,9 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
-      // Use moderation API for Supabase events
-      const apiResponse = await fetch('/api/moderate-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'approve',
-          eventId: id,
-          status: 'approved'
-        })
-      });
-
-      const apiResult = await apiResponse.json();
+      // Use IVOR Core API for approval (Liberation Layer 3)
+      console.log('🏴‍☠️ Approving event via IVOR Core:', id);
+      const apiResult = await approveEventViaIvor(id);
 
       // Also try Google Sheets in case it's from there
       await googleSheetsService.updateEventStatus(id, 'published').catch(err => {
@@ -84,10 +76,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       });
 
       if (!apiResult.success) {
-        console.error('Failed to approve event:', apiResult.error);
-        alert(`Failed to approve event: ${apiResult.error}`);
+        console.error('Failed to approve event:', apiResult.message);
+        alert(`Failed to approve event: ${apiResult.message}`);
         return;
       }
+
+      console.log('✅ Event approved via IVOR Core');
 
       // Wait a moment for database to update
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -100,18 +94,9 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleReject = async (id: string) => {
     try {
-      // Use moderation API for Supabase events
-      const apiResponse = await fetch('/api/moderate-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'reject',
-          eventId: id,
-          status: 'archived'
-        })
-      });
-
-      const apiResult = await apiResponse.json();
+      // Use IVOR Core API for rejection (Liberation Layer 3)
+      console.log('🏴‍☠️ Rejecting event via IVOR Core:', id);
+      const apiResult = await rejectEventViaIvor(id, 'Does not meet community guidelines');
 
       // Also try Google Sheets in case it's from there
       await googleSheetsService.updateEventStatus(id, 'archived').catch(err => {
@@ -119,10 +104,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       });
 
       if (!apiResult.success) {
-        console.error('Failed to reject event:', apiResult.error);
-        alert(`Failed to reject event: ${apiResult.error}`);
+        console.error('Failed to reject event:', apiResult.message);
+        alert(`Failed to reject event: ${apiResult.message}`);
         return;
       }
+
+      console.log('❌ Event rejected via IVOR Core');
 
       // Wait a moment for database to update
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -135,24 +122,14 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleEdit = async (id: string, edits: Partial<Event>) => {
     try {
-      console.log('🔍 Editing event:', id, edits);
+      console.log('🔍 Editing event via Supabase:', id, edits);
 
-      // Use moderation API for edits
-      const apiResponse = await fetch('/api/moderate-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'edit',
-          eventId: id,
-          edits: edits
-        })
-      });
+      // Use Supabase event service for edits (direct database update)
+      const result = await supabaseEventService.updateEvent(id, edits);
 
-      const apiResult = await apiResponse.json();
-
-      if (!apiResult.success) {
-        console.error('Failed to update event:', apiResult.error);
-        alert(`Failed to update event: ${apiResult.error}`);
+      if (!result) {
+        console.error('Failed to update event');
+        alert('Failed to update event');
         return;
       }
 
@@ -169,21 +146,14 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleDelete = async (id: string) => {
     try {
-      // Use moderation API for delete
-      const apiResponse = await fetch('/api/moderate-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'delete',
-          eventId: id
-        })
-      });
+      console.log('🗑️ Deleting event via Supabase:', id);
 
-      const apiResult = await apiResponse.json();
+      // Use Supabase event service for delete (direct database delete)
+      const result = await supabaseEventService.deleteEvent(id);
 
-      if (!apiResult.success) {
-        console.error('Failed to delete event:', apiResult.error);
-        alert(`Failed to delete event: ${apiResult.error}`);
+      if (!result) {
+        console.error('Failed to delete event');
+        alert('Failed to delete event');
         return;
       }
 

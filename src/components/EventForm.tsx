@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { X, Home } from 'lucide-react';
+import { X, Home, Shield } from 'lucide-react';
 import { Event } from '../types';
 import { supabaseEventService } from '../services/supabaseEventService';
 import { googleSheetsService } from '../services/googleSheetsService';
+import { submitEventToIvor } from '../config/api';
 
 interface EventFormProps {
   onSubmit: (event: Event) => void;
@@ -25,6 +26,10 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [liberationInfo, setLiberationInfo] = useState<{
+    score: number;
+    autoApproved: boolean;
+  } | null>(null);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -45,31 +50,57 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setLiberationInfo(null);
+
     try {
       const tags = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
 
-      // Primary: Submit to Supabase database
-      const newEvent = await supabaseEventService.addEvent({
-        name: formData.name,
-        description: formData.description,
-        event_date: formData.event_date,
+      // Primary: Submit through IVOR Core API (Liberation Layer 3)
+      console.log('🏴‍☠️ Submitting event through IVOR Core Liberation Layer...');
+      const ivorResult = await submitEventToIvor({
+        title: formData.name,
+        date: formData.event_date,
         location: formData.location,
-        source: 'community' as const,
-        source_url: formData.source_url,
-        organizer_name: formData.organizer_name,
+        description: formData.description,
+        url: formData.source_url,
         tags,
-        status: 'draft' as const,
-        price: formData.price || undefined,
-        contact_email: formData.contact_email || undefined,
-        image_url: formData.image_url || undefined
+        organizer: formData.organizer_name,
+        source: 'events-calendar-web',
       });
 
-      if (newEvent) {
-        // Secondary: Also save to Google Sheets for N8N bridge and transparency
+      if (ivorResult.success) {
+        console.log('✅ Event submitted through IVOR Core:', ivorResult);
+
+        // Store liberation info for display
+        if (ivorResult.liberation) {
+          setLiberationInfo({
+            score: ivorResult.liberation.score,
+            autoApproved: ivorResult.liberation.autoApproved,
+          });
+        }
+
+        // Create event object for callback
+        const newEvent: Event = {
+          id: ivorResult.data?.id || Date.now().toString(),
+          name: formData.name,
+          title: formData.name,
+          description: formData.description,
+          event_date: formData.event_date,
+          location: formData.location,
+          source: 'community',
+          source_url: formData.source_url,
+          organizer_name: formData.organizer_name,
+          tags,
+          status: ivorResult.liberation?.autoApproved ? 'published' : 'pending',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        } as Event;
+
+        // Secondary: Backup to Google Sheets for transparency
         try {
           console.log('📊 BACKUP: Saving to Google Sheets for N8N bridge...');
           await googleSheetsService.addEvent({
@@ -81,7 +112,7 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
             source_url: formData.source_url,
             organizer_name: formData.organizer_name,
             tags,
-            status: 'draft' as const,
+            status: ivorResult.liberation?.autoApproved ? 'approved' : 'draft',
             price: formData.price || undefined,
             contact_email: formData.contact_email || undefined,
             image_url: formData.image_url || undefined
@@ -93,7 +124,7 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
 
         onSubmit(newEvent);
       } else {
-        throw new Error('Failed to create event');
+        throw new Error(ivorResult.message || 'Failed to create event');
       }
     } catch (error) {
       console.error('Error submitting event:', error);
@@ -141,6 +172,22 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
           {errors.submit && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-800 text-sm">{errors.submit}</p>
+            </div>
+          )}
+
+          {liberationInfo && (
+            <div className={`mb-4 p-3 rounded-lg ${liberationInfo.autoApproved ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5" />
+                <p className={`font-medium ${liberationInfo.autoApproved ? 'text-green-800' : 'text-blue-800'}`}>
+                  {liberationInfo.autoApproved
+                    ? '🏴‍☠️ Event auto-approved! (Liberation-compliant)'
+                    : 'Event submitted for review'}
+                </p>
+              </div>
+              <p className={`text-sm mt-1 ${liberationInfo.autoApproved ? 'text-green-700' : 'text-blue-700'}`}>
+                Liberation Score: {Math.round(liberationInfo.score * 100)}%
+              </p>
             </div>
           )}
 
