@@ -4,11 +4,16 @@ import { Event, RecurrenceRule } from '../types';
 import { RecurringEventForm } from './RecurringEventForm';
 import { formatRecurrenceRule } from '../utils/recurringEvents';
 import { googleCalendarService } from '../services/googleCalendarService';
+import { RSVPButton, AddToCalendar } from './rsvp';
 
 interface EventCardProps {
   event: Event;
   showActions?: boolean;
   showDeleteOnly?: boolean;
+  showRsvp?: boolean;
+  userId?: string;
+  userName?: string;
+  userEmail?: string;
   onApprove?: (id: string) => void;
   onReject?: (id: string) => void;
   onEdit?: (id: string, edits: Partial<Event>) => void;
@@ -19,6 +24,10 @@ export const EventCard: React.FC<EventCardProps> = ({
   event,
   showActions = false,
   showDeleteOnly = false,
+  showRsvp = true,
+  userId,
+  userName,
+  userEmail,
   onApprove,
   onReject,
   onEdit,
@@ -87,18 +96,6 @@ export const EventCard: React.FC<EventCardProps> = ({
       facebook: 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
     };
     return colors[source as keyof typeof colors] || 'bg-gray-500/20 text-gray-300 border border-gray-500/30';
-  };
-
-  const [showCalendarOptions, setShowCalendarOptions] = useState(false);
-
-  const addToGoogleCalendar = () => {
-    googleCalendarService.addToGoogleCalendar(event);
-    setShowCalendarOptions(false);
-  };
-
-  const downloadICSFile = () => {
-    googleCalendarService.downloadICSFile(event);
-    setShowCalendarOptions(false);
   };
 
   const locationStr = typeof event.location === 'string'
@@ -384,38 +381,25 @@ export const EventCard: React.FC<EventCardProps> = ({
         )}
 
         <div className="flex items-center justify-between">
-          <div className="flex space-x-2 relative">
-            {/* Calendar Options Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setShowCalendarOptions(!showCalendarOptions)}
-                className="flex items-center px-3 py-2 bg-yellow-500 text-gray-900 text-sm rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
-                aria-label="Add to calendar"
-              >
-                <Calendar className="w-4 h-4 mr-1" />
-                Add to Calendar
-              </button>
+          <div className="flex space-x-2 relative items-center">
+            {/* RSVP Button */}
+            {showRsvp && (
+              <RSVPButton
+                eventId={event.id}
+                userId={userId}
+                attendeeName={userName}
+                attendeeEmail={userEmail}
+                compact
+                showCapacity={false}
+              />
+            )}
 
-              {/* Dropdown Menu */}
-              {showCalendarOptions && (
-                <div className="absolute left-0 mt-2 w-48 bg-gray-800 border border-yellow-500/30 rounded-lg shadow-xl z-10">
-                  <button
-                    onClick={addToGoogleCalendar}
-                    className="w-full flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 transition-colors duration-200 rounded-t-lg"
-                  >
-                    <Calendar className="w-4 h-4 mr-2 text-yellow-500" />
-                    Google Calendar
-                  </button>
-                  <button
-                    onClick={downloadICSFile}
-                    className="w-full flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 transition-colors duration-200 rounded-b-lg"
-                  >
-                    <Download className="w-4 h-4 mr-2 text-yellow-500" />
-                    Download .ics
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* Calendar Options Dropdown - Enhanced */}
+            <AddToCalendar
+              eventId={event.id}
+              eventTitle={event.name}
+              compact
+            />
 
             {event.url && (
               <a

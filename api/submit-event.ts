@@ -11,6 +11,61 @@ const corsHeaders = {
 const SUPABASE_URL = 'https://bgjengudzfickgomjqmz.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0';
 
+// IVOR Liberation API configuration
+const IVOR_API_BASE = process.env.IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
+
+/**
+ * Liberation validation for event submissions
+ * Enforces creator sovereignty and anti-oppression checks
+ */
+async function validateEventLiberation(event: {
+  title: string;
+  description: string;
+  organizer?: string;
+}): Promise<{
+  passed: boolean;
+  recommendation: 'auto-approve' | 'review-quick' | 'review-deep';
+  liberationScore: number;
+  concerns: string[];
+}> {
+  const contentText = `${event.title} ${event.description}`.toLowerCase();
+
+  // Liberation alignment indicators
+  const liberationIndicators = [
+    'black queer', 'black trans', 'qtipoc', 'lgbtq', 'pride',
+    'community', 'healing', 'safe space', 'mutual aid', 'liberation'
+  ];
+
+  const alignmentCount = liberationIndicators.filter(ind => contentText.includes(ind)).length;
+  const liberationScore = Math.min(1, alignmentCount / 4);
+
+  // Anti-oppression checks
+  const concerns: string[] = [];
+  const problematicPatterns = [
+    { pattern: /corporate.*diversity|diversity.*training.*company/i, concern: 'Corporate diversity focus' },
+    { pattern: /fetish|exotic/i, concern: 'Potential fetishization' }
+  ];
+
+  for (const { pattern, concern } of problematicPatterns) {
+    if (pattern.test(contentText)) concerns.push(concern);
+  }
+
+  // Determine recommendation
+  let recommendation: 'auto-approve' | 'review-quick' | 'review-deep' = 'review-quick';
+  if (liberationScore >= 0.5 && concerns.length === 0) {
+    recommendation = 'auto-approve';
+  } else if (concerns.length > 0) {
+    recommendation = 'review-deep';
+  }
+
+  return {
+    passed: concerns.length === 0,
+    recommendation,
+    liberationScore,
+    concerns
+  };
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
   Object.entries(corsHeaders).forEach(([key, value]) => {
@@ -56,8 +111,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
+    // Liberation validation - enforce community values
+    const liberationCheck = await validateEventLiberation({
+      title,
+      description: description || '',
+      organizer
+    });
+
+    console.log('🏴‍☠️ Liberation validation:', liberationCheck);
+
     // Format data for Supabase events table (match schema)
     // Ensure required NOT NULL fields have values
+    // Apply liberation validation results to event status
     const eventData = {
       title: title || 'Untitled Event',
       date: date,
@@ -70,8 +135,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       tags: Array.isArray(tags) ? tags : (tags ? [tags] : []),
       organizer: organizer || 'Community',
       source: source || 'chrome-extension',
-      status: 'pending', // Events need approval
-      created_at: new Date().toISOString()
+      // Liberation-aware status: auto-approve high-confidence liberation events
+      status: liberationCheck.recommendation === 'auto-approve' ? 'published' : 'pending',
+      created_at: new Date().toISOString(),
+      // Liberation metadata
+      liberation_score: liberationCheck.liberationScore,
+      moderation_recommendation: liberationCheck.recommendation,
+      liberation_concerns: liberationCheck.concerns
     };
 
     console.log('📤 Submitting event to Supabase:', eventData);
@@ -104,12 +174,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(201).json({
       success: true,
-      message: 'Event submitted successfully and is pending approval',
+      message: liberationCheck.recommendation === 'auto-approve'
+        ? 'Event auto-approved (liberation-compliant community event)'
+        : 'Event submitted successfully and is pending approval',
       data: {
         id: responseData[0]?.id,
         title,
         date,
-        status: 'pending'
+        status: eventData.status,
+        liberation: {
+          score: liberationCheck.liberationScore,
+          recommendation: liberationCheck.recommendation,
+          autoApproved: liberationCheck.recommendation === 'auto-approve'
+        }
       }
     });
 

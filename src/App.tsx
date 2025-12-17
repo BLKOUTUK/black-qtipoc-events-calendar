@@ -19,6 +19,11 @@ import { FeaturedContent } from './types';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import AdventCalendarBanner from './components/AdventCalendarBanner';
+import { InstallPrompt, OfflineIndicator } from './components/pwa';
+import { AnalyticsDashboard } from './components/analytics';
+import { CommunityGroups } from './components/groups';
+import { OrganizerDashboard } from './components/organizer';
+import { MyEvents } from './components/rsvp';
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -31,6 +36,10 @@ function App() {
   const [showCalendarEmbed, setShowCalendarEmbed] = useState(false);
   const [showCalendarSync, setShowCalendarSync] = useState(false);
   const [showFeaturedManager, setShowFeaturedManager] = useState(false);
+  const [showAnalyticsDashboard, setShowAnalyticsDashboard] = useState(false);
+  const [showCommunityGroups, setShowCommunityGroups] = useState(false);
+  const [showOrganizerDashboard, setShowOrganizerDashboard] = useState(false);
+  const [showMyEvents, setShowMyEvents] = useState(false);
   const [isScrapingEvents, setIsScrapingEvents] = useState(false);
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
@@ -252,6 +261,20 @@ function App() {
                   Featured Content
                 </button>
                 <button
+                  onClick={() => setShowAnalyticsDashboard(true)}
+                  className="flex items-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 font-medium"
+                >
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  Analytics
+                </button>
+                <button
+                  onClick={() => setShowOrganizerDashboard(true)}
+                  className="flex items-center px-4 py-2 bg-orange-700 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium"
+                >
+                  <Users className="w-4 h-4 mr-2" />
+                  Organizer
+                </button>
+                <button
                   onClick={handleSignOut}
                   className="flex items-center px-4 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200"
                 >
@@ -279,11 +302,18 @@ function App() {
                 Add Your Event
               </button>
               <button
-                onClick={() => window.open('https://blkoutuk.com', '_blank')}
+                onClick={() => setShowCommunityGroups(true)}
                 className="flex items-center px-6 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 font-bold shadow-lg"
               >
                 <Users className="w-5 h-5 mr-2" />
-                Join BLKOUT Platform
+                Community Groups
+              </button>
+              <button
+                onClick={() => setShowMyEvents(true)}
+                className="flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 transition-all duration-300 font-bold shadow-lg"
+              >
+                <Calendar className="w-5 h-5 mr-2" />
+                My Events
               </button>
               {!user && (
                 <button
@@ -492,8 +522,88 @@ function App() {
         />
       )}
 
+      {/* Analytics Dashboard Modal */}
+      {showAnalyticsDashboard && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-blue-500/30">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-500 p-4 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">Analytics Dashboard</h2>
+              <button onClick={() => setShowAnalyticsDashboard(false)} className="text-white hover:text-gray-200">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              <AnalyticsDashboard isAdmin={!!user} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Community Groups Modal */}
+      {showCommunityGroups && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-900 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-yellow-500/30">
+            <div className="bg-gradient-to-r from-yellow-600 to-amber-500 p-4 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-gray-900">Community Groups</h2>
+              <button onClick={() => setShowCommunityGroups(false)} className="text-gray-900 hover:text-gray-700">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              <CommunityGroups userId="demo-user" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Organizer Dashboard Modal */}
+      {showOrganizerDashboard && user && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-orange-500/30">
+            <div className="bg-gradient-to-r from-orange-600 to-red-500 p-4 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">Organizer Dashboard</h2>
+              <button onClick={() => setShowOrganizerDashboard(false)} className="text-white hover:text-gray-200">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              <OrganizerDashboard userId="demo-user" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* My Events Modal */}
+      {showMyEvents && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-900 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-emerald-500/30">
+            <div className="bg-gradient-to-r from-emerald-600 to-teal-500 p-4 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">My Events</h2>
+              <button onClick={() => setShowMyEvents(false)} className="text-white hover:text-gray-200">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              <MyEvents userId="demo-user" />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
       <Footer />
+
+      {/* PWA Components */}
+      <OfflineIndicator />
+      <InstallPrompt />
     </div>
   );
 }

@@ -2,11 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://*.googleapis.com; frame-ancestors 'none';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://*.googleapis.com https://ivor.blkoutuk.cloud; frame-ancestors 'none';" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="BLKOUT Events" />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon-blkout.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BLKOUT Connect - Where Black Queer Power Meets</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- SEO -->
+    <title>BLKOUT Events - Community Calendar for Black Queer Liberation</title>
     <meta name="description" content="Connect with thousands of Black queer revolutionaries worldwide. Find your people, build power, and create change together through community organizing and events." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="BLKOUT Events - Community Calendar" />
+    <meta property="og:description" content="Community events calendar for Black queer liberation. Find events, build power, create change." />
+    <meta property="og:image" content="/pwa-512x512.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BLKOUT Events" />
+    <meta name="twitter:description" content="Community events calendar for Black queer liberation" />
   </head>
   <body>
     <div id="root"></div>
