@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { Plus, Settings, LogIn, LogOut, BarChart3, Globe, Rss, Users, Calendar } from 'lucide-react';
 import { Event, FilterOptions } from './types';
 import { supabaseEventService } from './services/supabaseEventService';
@@ -24,8 +25,18 @@ import { AnalyticsDashboard } from './components/analytics';
 import { CommunityGroups } from './components/groups';
 import { OrganizerDashboard } from './components/organizer';
 import { MyEvents } from './components/rsvp';
+import { ModerationDashboardPage } from './pages';
 
 function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/moderation" element={<ModerationDashboardPage />} />
+    </Routes>
+  );
+}
+
+function HomePage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
