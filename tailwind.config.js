@@ -1,14 +1,14 @@
 /**
  * Events Calendar - Tailwind Configuration
  *
- * Uses @blkout/shared preset for consistent design system.
- * App-specific extensions can be added below.
+ * Uses local BLKOUT preset for standalone deployment.
+ * Preset copied from @blkout/shared for Coolify builds.
  */
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // Use shared BLKOUT design system
-  presets: [require('../../packages/shared/tailwind.preset')],
+  // Use local BLKOUT design system preset (for standalone builds)
+  presets: [require('./tailwind.preset')],
 
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 
