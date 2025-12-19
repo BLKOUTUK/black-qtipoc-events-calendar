@@ -429,7 +429,7 @@ function HomePage() {
                 </h3>
               </div>
               <button
-                onClick={() => window.open('https://blkout.vercel.app/newsroom', '_blank')}
+                onClick={() => window.open('https://blkoutuk.com/newsroom', '_blank')}
                 className="flex items-center px-4 py-2 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
               >
                 <Globe className="w-4 h-4 mr-2" />
@@ -440,7 +440,7 @@ function HomePage() {
               {articles.slice(0, 3).map((article) => (
                 <a
                   key={article.id}
-                  href={`https://blkout.vercel.app/newsroom/${article.slug}`}
+                  href={`https://blkoutuk.com/newsroom/${article.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block p-4 bg-gray-700 border border-gray-600 rounded-lg hover:border-yellow-500/50 transition-colors duration-200"
