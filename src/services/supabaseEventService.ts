@@ -1,11 +1,27 @@
-import { createClient } from '@supabase/supabase-js';
+/**
+ * Supabase Event Service
+ *
+ * Provides event CRUD operations using the shared Supabase client.
+ * NO HARDCODED CREDENTIALS - uses environment variables only.
+ */
+
+import { supabase } from '../lib/supabase';
 import { Event, FilterOptions, ModerationStats, ScrapingLog } from '../types';
 
-// Use main platform Supabase database (blkout-community-platform)
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://bgjengudzfickgomjqmz.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0';
+// Get Supabase config from environment - NO FALLBACKS with real credentials
+const getSupabaseConfig = () => {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  if (!url || !key) {
+    console.warn('[SupabaseEventService] Missing env vars - some features may be limited');
+    console.warn('Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
+  }
+
+  return { url, key };
+};
+
+const config = getSupabaseConfig();
 
 class SupabaseEventService {
   // Authentication methods
@@ -31,67 +47,27 @@ class SupabaseEventService {
 
   // Public methods - no authentication required
   async getPublishedEvents(): Promise<Event[]> {
-    console.log('🔍 getPublishedEvents called - using direct fetch API');
+    console.log('🔍 getPublishedEvents called');
 
     try {
-      // NO DATE FILTER - show all approved events regardless of date
-      // This ensures we don't accidentally filter out events due to timezone/date issues
-      console.log('🔍 Fetching all approved events (no date filter)');
+      // Use Supabase client instead of hardcoded fetch
+      const { data, error } = await supabase
+        .from('events')
+        .select('id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date')
+        .eq('status', 'approved')
+        .order('date', { ascending: true });
 
-      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=eq.approved&select=id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date&order=date.asc`;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
-        }
-      });
-
-      console.log('🔍 Direct API response status:', response.status);
-
-      if (!response.ok) {
-        console.error('🔍 API response not OK:', response.status, response.statusText);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      if (error) {
+        console.error('🔍 Supabase error:', error);
+        throw error;
       }
 
-      const data = await response.json();
-      console.log('🔍 Direct API data:', data);
+      console.log(`🔍 Found ${data?.length || 0} approved events`);
 
       if (!data || data.length === 0) {
-        console.log('🔍 No approved events found - returning fallback event');
-        return [{
-          id: 'api-fallback-1',
-          name: 'API Connection Successful',
-          title: 'API Connection Successful',
-          description: 'Direct API connection worked, but no approved events were found in the database',
-          event_date: '2025-03-20',
-          location: 'Direct API Test',
-          organizer_name: 'System Test',
-          source: 'api-test',
-          source_url: '',
-          tags: ['api-test'],
-          image_url: '',
-          price: 'Free',
-          contact_email: '',
-          registration_link: '',
-          status: 'approved',
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          start_date: '2025-03-20',
-          end_date: '2025-03-20',
-          event_type: 'workshop' as any,
-          organizer_id: 'test',
-          max_attendees: 50,
-          registration_required: false,
-          cost: 0,
-          featured_image: '',
-          profiles: null
-        }];
+        console.log('🔍 No approved events found');
+        return [];
       }
-
-      console.log(`🔍 Found ${data.length} approved events via direct API`);
 
       // Remove duplicates based on event ID
       const uniqueData = Array.from(new Map(data.map((event: any) => [event.id, event])).values());
@@ -134,12 +110,11 @@ class SupabaseEventService {
         featured_image: '',
         profiles: null
       }));
-      
-      console.log('🔍 Mapped events from direct API:', mappedEvents);
+
       return mappedEvents;
 
     } catch (error) {
-      console.error('🔍 Direct API error:', error);
+      console.error('🔍 Error fetching events:', error);
       return [];
     }
   }
@@ -230,38 +205,28 @@ class SupabaseEventService {
   }
 
   async getApprovedEvents(): Promise<Event[]> {
-    // Alias for getPublishedEvents - returns approved events for moderation dashboard
     return this.getPublishedEvents();
   }
 
   async getPendingEvents(): Promise<Event[]> {
     try {
-      console.log('🔍 Fetching pending events via direct API');
+      console.log('🔍 Fetching pending events');
 
-      // Only fetch draft and reviewing events, explicitly excluding archived and approved
-      const url = 'https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?status=in.(draft,reviewing)&select=*&order=created_at.desc';
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Content-Type': 'application/json'
-        }
-      });
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .in('status', ['draft', 'reviewing'])
+        .order('created_at', { ascending: false });
 
-      console.log('🔍 Pending events response status:', response.status);
-
-      if (!response.ok) {
-        console.error('🔍 Failed to fetch pending events:', response.status, response.statusText);
+      if (error) {
+        console.error('🔍 Error fetching pending events:', error);
         return [];
       }
 
-      const data = await response.json();
-      console.log('🔍 Pending events data:', data.length, 'events');
+      console.log('🔍 Pending events:', data?.length || 0);
 
-      return data.map((event: any) => ({
+      return (data || []).map((event: any) => ({
         ...event,
-        // Map to frontend format
         name: event.title || 'Untitled Event',
         event_date: event.date,
         organizer_name: event.organizer || 'Unknown Organizer',
@@ -271,107 +236,84 @@ class SupabaseEventService {
         price: event.cost || 'Free'
       }));
     } catch (error) {
-      console.error('🔍 Error fetching pending events via direct API:', error);
+      console.error('🔍 Error fetching pending events:', error);
       return [];
     }
   }
 
   async updateEvent(id: string, edits: Partial<Event>): Promise<boolean> {
     try {
-      console.log('🔍 Updating event via direct API:', id, edits);
+      console.log('🔍 Updating event:', id, edits);
 
       // Map frontend Event fields to database column names
       const dbFields: any = {};
 
       if (edits.title !== undefined) dbFields.title = edits.title;
-      if (edits.name !== undefined) dbFields.title = edits.name; // name -> title
+      if (edits.name !== undefined) dbFields.title = edits.name;
       if (edits.description !== undefined) dbFields.description = edits.description;
-      if (edits.event_date !== undefined) dbFields.date = edits.event_date; // event_date -> date
-      if (edits.start_date !== undefined) dbFields.date = edits.start_date; // start_date -> date
-      if (edits.start_time !== undefined) dbFields.start_time = edits.start_time; // preserve start_time
-      if (edits.end_time !== undefined) dbFields.end_time = edits.end_time; // preserve end_time
+      if (edits.event_date !== undefined) dbFields.date = edits.event_date;
+      if (edits.start_date !== undefined) dbFields.date = edits.start_date;
+      if (edits.start_time !== undefined) dbFields.start_time = edits.start_time;
+      if (edits.end_time !== undefined) dbFields.end_time = edits.end_time;
       if (edits.location !== undefined) dbFields.location = edits.location;
-      if (edits.organizer_name !== undefined) dbFields.organizer = edits.organizer_name; // organizer_name -> organizer
+      if (edits.organizer_name !== undefined) dbFields.organizer = edits.organizer_name;
       if (edits.source !== undefined) dbFields.source = edits.source;
-      if (edits.source_url !== undefined) dbFields.url = edits.source_url; // source_url -> url
-      if (edits.url !== undefined) dbFields.url = edits.url; // direct url field
-      if (edits.image_url !== undefined) dbFields.image_url = edits.image_url; // preserve image_url
-      if (edits.featured_image !== undefined) dbFields.featured_image = edits.featured_image; // preserve featured_image
+      if (edits.source_url !== undefined) dbFields.url = edits.source_url;
+      if (edits.url !== undefined) dbFields.url = edits.url;
+      if (edits.image_url !== undefined) dbFields.image_url = edits.image_url;
+      if (edits.featured_image !== undefined) dbFields.featured_image = edits.featured_image;
       if (edits.tags !== undefined) dbFields.tags = edits.tags;
-      if (edits.price !== undefined) dbFields.cost = edits.price; // price -> cost
+      if (edits.price !== undefined) dbFields.cost = edits.price;
       if (edits.status !== undefined) dbFields.status = edits.status;
 
       dbFields.updated_at = new Date().toISOString();
 
-      console.log('🔍 Mapped database fields:', dbFields);
+      const { error } = await supabase
+        .from('events')
+        .update(dbFields)
+        .eq('id', id);
 
-      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
-      const response = await fetch(url, {
-        method: 'PATCH',
-        headers: {
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify(dbFields)
-      });
-
-      console.log('🔍 Update response status:', response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('🔍 Update failed:', response.status, response.statusText, errorText);
+      if (error) {
+        console.error('🔍 Update failed:', error);
         return false;
       }
 
       console.log('🔍 Event updated successfully');
       return true;
     } catch (error) {
-      console.error('🔍 Error updating event via direct API:', error);
+      console.error('🔍 Error updating event:', error);
       return false;
     }
   }
 
   async updateEventStatus(id: string, status: 'draft' | 'reviewing' | 'published' | 'archived'): Promise<boolean> {
     try {
-      console.log('🔍 Updating event status via direct API:', id, status);
+      console.log('🔍 Updating event status:', id, status);
 
       // Map status to what the database expects
       let dbStatus = status;
       if (status === 'published') {
         dbStatus = 'approved';
       }
-      // Keep 'archived' as is - don't map to 'rejected'
 
-      const url = `https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?id=eq.${id}`;
-      const response = await fetch(url, {
-        method: 'PATCH',
-        headers: {
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({
+      const { error } = await supabase
+        .from('events')
+        .update({
           status: dbStatus,
           moderated_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         })
-      });
+        .eq('id', id);
 
-      console.log('🔍 Update response status:', response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('🔍 Update failed:', response.status, response.statusText, errorText);
+      if (error) {
+        console.error('🔍 Update failed:', error);
         return false;
       }
 
       console.log('🔍 Event status updated successfully to:', dbStatus);
       return true;
     } catch (error) {
-      console.error('🔍 Error updating event status via direct API:', error);
+      console.error('🔍 Error updating event status:', error);
       return false;
     }
   }
@@ -393,27 +335,20 @@ class SupabaseEventService {
 
   async getModerationStats(): Promise<ModerationStats> {
     try {
-      console.log('🔍 Fetching moderation stats via direct API');
-      
-      const url = 'https://bgjengudzfickgomjqmz.supabase.co/rest/v1/events?select=status';
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
-          'Content-Type': 'application/json'
-        }
-      });
+      console.log('🔍 Fetching moderation stats');
 
-      if (!response.ok) {
-        console.error('🔍 Failed to fetch moderation stats:', response.status, response.statusText);
+      const { data, error } = await supabase
+        .from('events')
+        .select('status');
+
+      if (error) {
+        console.error('🔍 Failed to fetch moderation stats:', error);
         return { pending: 0, approved: 0, rejected: 0, total: 0 };
       }
 
-      const data = await response.json();
-      console.log('🔍 Moderation stats data:', data.length, 'total events');
+      console.log('🔍 Moderation stats data:', data?.length || 0, 'total events');
 
-      const stats = data.reduce((acc: any, event: any) => {
+      const stats = (data || []).reduce((acc: any, event: any) => {
         if (event.status === 'draft' || event.status === 'reviewing') {
           acc.pending++;
         } else if (event.status === 'approved') {
@@ -428,7 +363,7 @@ class SupabaseEventService {
       console.log('🔍 Computed stats:', stats);
       return stats;
     } catch (error) {
-      console.error('🔍 Error fetching moderation stats via direct API:', error);
+      console.error('🔍 Error fetching moderation stats:', error);
       return { pending: 0, approved: 0, rejected: 0, total: 0 };
     }
   }
@@ -457,39 +392,38 @@ class SupabaseEventService {
     });
 
     const filtered = events.filter(event => {
-      // Date filter - NO DATE FILTERING for 'all', and improved logic for other filters
+      // Date filter
       if (filters.dateRange !== 'all' && event.event_date) {
         const eventDate = new Date(event.event_date);
-        if (isNaN(eventDate.getTime())) return true; // Invalid date, include it
+        if (isNaN(eventDate.getTime())) return true;
 
         const now = new Date();
-        now.setHours(0, 0, 0, 0); // Normalize to start of day
+        now.setHours(0, 0, 0, 0);
         const daysDiff = Math.ceil((eventDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
-        // Only show future events for time-based filters
         if (filters.dateRange === 'today' && daysDiff !== 0) return false;
         if (filters.dateRange === 'week' && (daysDiff < 0 || daysDiff > 7)) return false;
         if (filters.dateRange === 'month' && (daysDiff < 0 || daysDiff > 30)) return false;
       }
 
-      // Source filter - fixed to handle null sources
+      // Source filter
       if (filters.source !== 'all' && event.source && event.source !== filters.source) return false;
 
-      // Location filter - fixed to handle null locations
+      // Location filter
       if (filters.location && event.location) {
-        const locationStr = typeof event.location === 'string' 
-          ? event.location 
+        const locationStr = typeof event.location === 'string'
+          ? event.location
           : JSON.stringify(event.location);
         if (!locationStr.toLowerCase().includes(filters.location.toLowerCase())) return false;
       }
 
-      // Search term filter - fixed to handle null/undefined fields
+      // Search term filter
       if (filters.searchTerm) {
         const searchLower = filters.searchTerm.toLowerCase();
         const name = event.name || '';
         const description = event.description || '';
         const tags = event.tags || [];
-        
+
         return name.toLowerCase().includes(searchLower) ||
                description.toLowerCase().includes(searchLower) ||
                tags.some(tag => tag.toLowerCase().includes(searchLower));
@@ -498,12 +432,7 @@ class SupabaseEventService {
       return true;
     });
 
-    console.log('🔍 filterEvents result:', {
-      totalEvents: events.length,
-      filteredEvents: filtered.length,
-      filters: filters
-    });
-
+    console.log('🔍 filterEvents result:', filtered.length);
     return filtered;
   }
 }
