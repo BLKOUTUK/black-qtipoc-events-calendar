@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, Heart, Brain, Vote, Users, Info, Play, Calendar, Instagram, Twitter, Facebook, Youtube, Mail } from 'lucide-react';
+import NewsletterSignup from './NewsletterSignup';
 
 const Footer: React.FC = () => {
   const footerLinks = [
@@ -39,6 +40,11 @@ const Footer: React.FC = () => {
               <span className="text-sm font-medium">{link.label}</span>
             </button>
           ))}
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="max-w-md mx-auto mb-8">
+          <NewsletterSignup />
         </div>
 
         {/* Platform Button */}
