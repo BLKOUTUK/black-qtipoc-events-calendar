@@ -373,7 +373,7 @@ function HomePage() {
                 </div>
                 <div>
                   <p className="text-3xl font-bold text-emerald-500">
-                    {new Set(events.map(e => e.organizer_name)).size}
+                    {new Set(events.filter(e => e && e.organizer_name).map(e => e.organizer_name)).size}
                   </p>
                   <p className="text-sm text-gray-300">Community Organizers</p>
                 </div>
@@ -394,7 +394,7 @@ function HomePage() {
                 </div>
                 <div>
                   <p className="text-4xl font-bold text-emerald-500 mb-2">
-                    {new Set(events.map(e => e.organizer_name)).size}
+                    {new Set(events.filter(e => e && e.organizer_name).map(e => e.organizer_name)).size}
                   </p>
                   <p className="text-lg text-gray-300">Community Organizers</p>
                   <p className="text-xs text-gray-400 mt-1">Folk are connecting, organizing, liberating</p>
