@@ -155,12 +155,12 @@ export const supabaseHelpers = {
     limit?: number
     offset?: number
   } = {}) {
-    // Query both newsroom_articles and published_articles to get all content
+    // Query both news_articles and published_articles to get all content
     const [newsroomResults, publishedResults] = await Promise.all([
       // Original newsroom articles
       this.safeQuery(() => {
         let query = supabase
-          .from('newsroom_articles')
+          .from('news_articles')
           .select('*')
           .order('published_at', { ascending: false })
 
@@ -226,7 +226,7 @@ export const supabaseHelpers = {
   async createArticle(articleData: any) {
     return this.safeQuery(() =>
       supabase
-        .from('newsroom_articles')
+        .from('news_articles')
         .insert(articleData)
         .select()
         .single()
@@ -236,7 +236,7 @@ export const supabaseHelpers = {
   async updateArticle(id: string, updates: any) {
     return this.safeQuery(() =>
       supabase
-        .from('newsroom_articles')
+        .from('news_articles')
         .update(updates)
         .eq('id', id)
         .select()
@@ -247,7 +247,7 @@ export const supabaseHelpers = {
   async deleteArticle(id: string) {
     return this.safeQuery(() =>
       supabase
-        .from('newsroom_articles')
+        .from('news_articles')
         .delete()
         .eq('id', id)
     )
@@ -302,7 +302,7 @@ export const supabaseHelpers = {
       .on('postgres_changes', {
         event: '*',
         schema: 'public',
-        table: 'newsroom_articles'
+        table: 'news_articles'
       }, (payload) => {
         console.log('📰 Article change detected:', payload)
         callback(payload)
@@ -320,7 +320,7 @@ export const supabaseHelpers = {
       ),
       this.safeQuery(() =>
         supabase
-          .from('newsroom_articles')
+          .from('news_articles')
           .select('status, category')
       ),
       this.safeQuery(() =>
