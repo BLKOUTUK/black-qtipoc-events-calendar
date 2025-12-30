@@ -115,7 +115,7 @@ export const EventList: React.FC<EventListProps> = ({
 
             {/* Events Grid for this week */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-6">
-              {week.events.map((event) => (
+              {week.events.filter(event => event && event.id).map((event) => (
                 <EventCard
                   key={event.id}
                   event={event}

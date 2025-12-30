@@ -361,6 +361,8 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
                     } else {
                       // It's an Event item
                       const event = item as Event;
+                      // Safety check: filter out undefined/null events
+                      if (!event || !event.id) return null;
                       return (
                         <EventCard
                           key={event.id}
@@ -371,7 +373,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
                         />
                       );
                     }
-                  })}
+                  }).filter(Boolean)}
                 </div>
 
                 {/* Week Separator */}
