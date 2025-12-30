@@ -68,7 +68,10 @@ export const groupEventsByWeek = (events: Event[], startDate: Date = new Date('2
 
   const currentWeekNumber = getWeekStartingFrom(startDate, now);
 
-  events.forEach(event => {
+  // CRITICAL FIX: Filter out null/undefined events BEFORE processing
+  const validEvents = events.filter(event => event && event.id && (event.date || event.event_date));
+
+  validEvents.forEach(event => {
     const eventDate = new Date(event.date || event.event_date);
     const weekNumber = getWeekStartingFrom(startDate, eventDate);
 
