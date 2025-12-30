@@ -48,12 +48,15 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const futureEvents = events.filter(event => {
+    // CRITICAL: Filter out null/undefined events BEFORE accessing properties
+    const validEvents = events.filter(event => event && event.id && (event.date || event.event_date));
+
+    const futureEvents = validEvents.filter(event => {
       const eventDate = new Date(event.date || event.event_date);
       return eventDate >= today;
     });
 
-    const pastEvents = events.filter(event => {
+    const pastEvents = validEvents.filter(event => {
       const eventDate = new Date(event.date || event.event_date);
       return eventDate < today;
     });
@@ -302,8 +305,8 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
                 // It's featured content, include it
                 weekItems.push(item);
                 interleavedIndex++;
-              } else if (weekEvents.some(e => e.id === (item as Event).id)) {
-                // It's an event from this week, include it
+              } else if (weekEvents.some(e => e && e.id && e.id === (item as Event).id)) {
+                // It's an event from this week, include it (with null check for e)
                 weekItems.push(item);
                 interleavedIndex++;
               } else {
