@@ -73,8 +73,12 @@ class SupabaseEventService {
       const uniqueData = Array.from(new Map(data.map((event: any) => [event.id, event])).values());
       console.log(`🔍 After deduplication: ${uniqueData.length} unique events`);
 
+      // Filter out any events without an ID (safety check)
+      const validEvents = uniqueData.filter((event: any) => event && event.id);
+      console.log(`🔍 After null filtering: ${validEvents.length} valid events`);
+
       // Map database fields to frontend format
-      const mappedEvents = uniqueData.map((event: any) => ({
+      const mappedEvents = validEvents.map((event: any) => ({
         id: event.id,
         name: event.title || 'Untitled Event',
         title: event.title || 'Untitled Event',
