@@ -285,7 +285,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       <div className="space-y-12">
         {(() => {
           // Interleave featured content across ALL events on this page, not per week
-          const allPageEvents = paginatedEvents.flatMap(week => week.events);
+          const allPageEvents = paginatedEvents.flatMap(week => week.events).filter(event => event && event.id);
           const interleavedItems = featuredContentService.interleaveWithEvents(allPageEvents, featuredContent, 6);
 
           // Track which interleaved item we're at across all weeks
