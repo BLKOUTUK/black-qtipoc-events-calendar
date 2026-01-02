@@ -1,5 +1,4 @@
 import { Event } from '../types';
-import { google } from 'googleapis';
 
 // Google Calendar Configuration
 const CALENDAR_ID = import.meta.env.VITE_GOOGLE_CALENDAR_ID || 'primary';
@@ -135,13 +134,15 @@ END:VCALENDAR`;
     }
 
     // Try to load from localStorage
-    const storedToken = localStorage.getItem('google_calendar_token');
-    const storedExpiry = localStorage.getItem('google_calendar_token_expiry');
+    if (typeof window !== 'undefined') {
+        const storedToken = localStorage.getItem('google_calendar_token');
+        const storedExpiry = localStorage.getItem('google_calendar_token_expiry');
 
-    if (storedToken && storedExpiry && Date.now() < parseInt(storedExpiry)) {
-      this.accessToken = storedToken;
-      this.tokenExpiry = parseInt(storedExpiry);
-      return this.accessToken;
+        if (storedToken && storedExpiry && Date.now() < parseInt(storedExpiry)) {
+          this.accessToken = storedToken;
+          this.tokenExpiry = parseInt(storedExpiry);
+          return this.accessToken;
+        }
     }
 
     // Need to get new token via OAuth2

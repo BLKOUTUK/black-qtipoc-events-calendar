@@ -15,16 +15,45 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 const createNoOpSupabaseClient = () => {
-  const handler = {
-    get: (target: any, prop: string) => {
-      if (prop === 'then') return undefined; // Make it non-thenable
-      return () => {
-        console.warn(`[No-Op Supabase] ${prop} called but Supabase is not configured.`);
-        return Promise.resolve({ data: null, error: { message: 'Supabase not configured' } });
-      };
-    }
+  const noOp = () => {
+    const chainable = {
+      from: () => chainable,
+      select: () => chainable,
+      eq: () => chainable,
+      in: () => chainable,
+      order: () => chainable,
+      limit: () => chainable,
+      single: () => chainable,
+      insert: () => chainable,
+      update: () => chainable,
+      delete: () => chainable,
+      channel: () => chainable,
+      on: () => chainable,
+      subscribe: () => {},
+      then: (resolve: any) => resolve({ data: null, error: { message: 'Supabase not configured' } }),
+    };
+    return chainable;
   };
-  return new Proxy({}, handler);
+
+  return {
+    from: noOp,
+    auth: {
+        getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+        signInWithPassword: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+        signOut: () => Promise.resolve({ error: null }),
+    },
+    functions: {
+        invoke: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+    },
+    channel: noOp,
+    storage: {
+        from: () => ({
+            upload: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+            getPublicUrl: () => ({ data: { publicUrl: '' } }),
+        }),
+    },
+    rpc: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+  };
 };
 
 // Create Supabase client only if configured, otherwise use a no-op client

@@ -38,24 +38,27 @@ export class JinaAIScrapingService {
   constructor(apiKey?: string) {
     // Try multiple ways to get API key, including localStorage for development
     this.apiKey = apiKey ||
-                  localStorage.getItem('JINA_AI_API_KEY') ||
+                  (typeof window !== 'undefined' && localStorage.getItem('JINA_AI_API_KEY')) ||
                   import.meta.env?.VITE_JINA_API_KEY ||
                   '';
     
     console.log('Jina AI Service initialized:', this.apiKey ? 'API key configured' : 'Running in development mode with mock data');
     
     // Show helper message for setting API key in development
-    if (!this.apiKey) {
+    if (!this.apiKey && typeof window !== 'undefined') {
       console.log('💡 To use live Jina AI integration, set API key in browser console:');
       console.log('localStorage.setItem("JINA_AI_API_KEY", "your_api_key_here")');
       console.log('Then refresh the page. For now, using enhanced mock data.');
     }
     
-    this.resetDailyBudget();
+    if (typeof window !== 'undefined') {
+        this.resetDailyBudget();
+    }
   }
 
   private resetDailyBudget() {
     // Reset budget daily
+    if (typeof window === 'undefined') return;
     const lastReset = localStorage.getItem('jina-budget-reset');
     const today = new Date().toDateString();
     
@@ -70,7 +73,9 @@ export class JinaAIScrapingService {
 
   private trackAPIUsage(cost: number) {
     this.usedBudget += cost;
-    localStorage.setItem('jina-used-budget', this.usedBudget.toString());
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('jina-used-budget', this.usedBudget.toString());
+    }
   }
 
   private canAfford(cost: number): boolean {

@@ -35,7 +35,9 @@ export class EnhancedDiscoveryEngine {
 
   constructor() {
     this.initializeKnownOrganizations();
-    this.loadDeduplicationCache();
+    if (typeof window !== 'undefined') {
+        this.loadDeduplicationCache();
+    }
   }
 
   // Main discovery orchestration
