@@ -29,7 +29,7 @@ const createNoOpSupabaseClient = () => {
       delete: () => chainable,
       channel: () => chainable,
       on: () => chainable,
-      subscribe: () => {},
+      subscribe: () => ({ unsubscribe: () => {} }),
       then: (resolve: any) => resolve({ data: null, error: { message: 'Supabase not configured' } }),
     };
     return chainable;
@@ -41,6 +41,9 @@ const createNoOpSupabaseClient = () => {
         getUser: () => Promise.resolve({ data: { user: null }, error: null }),
         signInWithPassword: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
         signOut: () => Promise.resolve({ error: null }),
+        onAuthStateChange: () => ({
+            data: { subscription: { unsubscribe: () => {} } },
+        }),
     },
     functions: {
         invoke: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),

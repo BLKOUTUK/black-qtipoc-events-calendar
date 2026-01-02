@@ -82,9 +82,9 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
         weekNumber,
         ...paginatedWeeklyEvents[weekNumber]
       })),
-      totalPages: Math.ceil(events.length / itemsPerPage)
+      totalPages: Math.ceil(validEvents.length / itemsPerPage)
     };
-  }, [events, currentPage, itemsPerPage]);
+  }, [events, currentPage, itemsPerPage, showPastEvents]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
