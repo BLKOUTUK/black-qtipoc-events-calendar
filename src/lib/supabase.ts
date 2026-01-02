@@ -11,25 +11,37 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Missing Supabase environment variables - using demo mode')
   console.warn('Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY for full functionality')
-  // Fallback for demo deployment
+  // No fallback - we will use a mock client if variables are missing
 }
 
-// Create Supabase client with fallback for demo mode
-export const supabase = createClient<Database>(
-  supabaseUrl || 'https://demo.supabase.co', 
-  supabaseAnonKey || 'demo-key', 
-  {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10
+const createNoOpSupabaseClient = () => {
+  const handler = {
+    get: (target: any, prop: string) => {
+      if (prop === 'then') return undefined; // Make it non-thenable
+      return () => {
+        console.warn(`[No-Op Supabase] ${prop} called but Supabase is not configured.`);
+        return Promise.resolve({ data: null, error: { message: 'Supabase not configured' } });
+      };
     }
-  }
-})
+  };
+  return new Proxy({}, handler);
+};
+
+// Create Supabase client only if configured, otherwise use a no-op client
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient<Database>(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+      realtime: {
+        params: {
+          eventsPerSecond: 10,
+        },
+      },
+    })
+  : createNoOpSupabaseClient();
 
 // Helper functions for common operations with community-owned values
 export const supabaseHelpers = {
