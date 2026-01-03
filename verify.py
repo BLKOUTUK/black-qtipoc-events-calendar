@@ -8,7 +8,7 @@ async def main():
         page = await browser.new_page()
         console_logs = []
         page.on("console", lambda msg: console_logs.append(msg.text))
-        await page.goto("http://localhost:4173")
+        await page.goto("http://localhost:5175")
         await page.screenshot(path="verification.png")
         await browser.close()
         for log in console_logs:

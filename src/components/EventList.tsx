@@ -2,6 +2,7 @@ import React from 'react';
 import { Event } from '../types';
 import { EventCard } from './EventCard';
 import { groupEventsByWeek } from '../utils/dateUtils';
+import { sanitizeEvents } from '../utils/eventUtils';
 
 interface EventListProps {
   events: Event[];
@@ -26,6 +27,8 @@ export const EventList: React.FC<EventListProps> = ({
   onEdit,
   onDelete
 }) => {
+  const sanitizedEvents = sanitizeEvents(events);
+
   if (loading) {
     return (
       <div className="space-y-8">
@@ -60,7 +63,7 @@ export const EventList: React.FC<EventListProps> = ({
     );
   }
 
-  if (events.length === 0) {
+  if (sanitizedEvents.length === 0) {
     return (
       <div className="text-center py-12">
         <div className="text-gray-400 mb-4">
@@ -75,7 +78,7 @@ export const EventList: React.FC<EventListProps> = ({
   }
 
   // Group events by week starting from September 28th, 2025
-  const weeklyEvents = groupEventsByWeek(events, new Date('2025-09-28'));
+  const weeklyEvents = groupEventsByWeek(sanitizedEvents, new Date('2025-09-28'));
   const weekNumbers = Object.keys(weeklyEvents).map(Number).sort((a, b) => a - b);
 
   return (
