@@ -36,6 +36,10 @@ export const EventCard: React.FC<EventCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [showRecurrenceForm, setShowRecurrenceForm] = useState(false);
   const [editForm, setEditForm] = useState<Partial<Event>>({});
+
+  if (!event || !event.id) {
+    return null; // Don't render if event is invalid
+  }
   const formatDate = (dateString: string, endDateString?: string | null) => {
     const startDate = new Date(dateString);
     const formattedStart = startDate.toLocaleDateString('en-US', {
