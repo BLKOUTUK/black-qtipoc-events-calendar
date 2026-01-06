@@ -77,7 +77,9 @@ function HomePage() {
 
   useEffect(() => {
     const filtered = supabaseEventService.filterEvents(events, filters);
-    setFilteredEvents(filtered);
+    // CRITICAL: Safety filter on filtered results too
+    const safeFiltered = (filtered || []).filter(event => event && event.id);
+    setFilteredEvents(safeFiltered);
   }, [events, filters]);
 
   const checkUser = async () => {
@@ -90,7 +92,9 @@ function HomePage() {
     try {
       // Load published events from Supabase
       const allEvents = await supabaseEventService.getPublishedEvents();
-      setEvents(allEvents);
+      // CRITICAL: Extra safety filter to remove any null/undefined events
+      const safeEvents = (allEvents || []).filter(event => event && event.id);
+      setEvents(safeEvents);
     } catch (error) {
       console.error('Error loading events:', error);
     } finally {
