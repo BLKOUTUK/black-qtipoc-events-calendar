@@ -313,7 +313,7 @@ function EventsList({ userId, onNavigate }: { userId: string; onNavigate?: (sect
 
   return (
     <div className="space-y-4">
-      {events.map(event => (
+      {events.filter(event => event && event.id).map(event => (
         <div
           key={event.id}
           className="bg-liberation-black-power/50 rounded-xl border border-liberation-gold-divine/20 p-4 hover:border-liberation-gold-divine/40 transition-colors cursor-pointer"

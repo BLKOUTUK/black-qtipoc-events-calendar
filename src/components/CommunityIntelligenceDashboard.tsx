@@ -80,7 +80,7 @@ export default function CommunityIntelligenceDashboard() {
     const organizerCounts = new Map<string, number>();
     const organizerThemes = new Map<string, Set<string>>();
 
-    events.forEach(event => {
+    events.filter(event => event && event.id).forEach(event => {
       if (event.organizer_name && event.organizer_name !== 'Community Organizer') {
         organizerCounts.set(event.organizer_name, (organizerCounts.get(event.organizer_name) || 0) + 1);
         

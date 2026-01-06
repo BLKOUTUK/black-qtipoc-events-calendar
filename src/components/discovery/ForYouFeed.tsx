@@ -193,7 +193,7 @@ export function ForYouFeed({
           </div>
         ) : (
           <div className="space-y-3">
-            {events.map((event) => (
+            {events.filter(event => event && event.id).map((event) => (
               <EventCard
                 key={event.id}
                 event={event}
