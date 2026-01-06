@@ -51,10 +51,10 @@ class SupabaseEventService {
 
     try {
       // Use Supabase client instead of hardcoded fetch
-      const { data, error } = await supabase
+      const { data, error} = await supabase
         .from('events')
         .select('id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date')
-        .eq('status', 'approved')
+        .in('status', ['approved', 'published'])
         .order('date', { ascending: true });
 
       if (error) {
