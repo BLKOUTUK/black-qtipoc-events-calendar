@@ -92,11 +92,13 @@ function HomePage() {
     try {
       // Load published events from Supabase
       const allEvents = await supabaseEventService.getPublishedEvents();
-      // CRITICAL: Extra safety filter to remove any null/undefined events
+      // CRITICAL: Filter null/undefined events before setting state
       const safeEvents = (allEvents || []).filter(event => event && event.id);
+      console.log(`✅ Loaded ${safeEvents.length} valid events`);
       setEvents(safeEvents);
     } catch (error) {
       console.error('Error loading events:', error);
+      setEvents([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
