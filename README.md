@@ -43,7 +43,7 @@ This platform serves the Black QTIPOC+ community by:
 - **Frontend**: React + TypeScript + Tailwind CSS
 - **Backend**: Supabase (Database + Edge Functions)
 - **APIs**: Eventbrite API, Facebook Graph API
-- **Deployment**: Netlify (Frontend), Supabase (Backend)
+- **Deployment**: Hostinger VPS managed by Coolify (via Docker)
 - **Icons**: Lucide React
 
 ## 📋 Current Status
@@ -70,7 +70,7 @@ This platform serves the Black QTIPOC+ community by:
 - [ ] API key configuration and testing
 - [ ] Facebook app review process
 - [ ] Known QTIPOC+ organization database
-- [ ] Production deployment setup
+- [x] Production deployment setup (Dockerized for Coolify)
 - [ ] Community feedback integration
 
 ### 📅 Planned Features
