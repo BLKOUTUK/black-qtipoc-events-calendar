@@ -3,10 +3,10 @@ import { Event } from '../types';
 export const sanitizeEvents = (events: (Event | null | undefined)[]): Event[] => {
   return (
     events
-      // 1. Filter out any null or undefined event objects
-      .filter((event): event is Event => !!event)
+      // 1. Filter out any null, undefined, or ID-less event objects
+      .filter((event): event is Event => !!event && !!event.id)
       // 2. Map over the valid events to sanitize and provide defaults
-      .map((event, index) => {
+      .map((event) => {
         const nowISO = new Date().toISOString();
         const startDate = event.start_date || event.event_date || nowISO;
         const title = event.title || event.name || 'Untitled Event';
@@ -16,7 +16,7 @@ export const sanitizeEvents = (events: (Event | null | undefined)[]): Event[] =>
           ...event,
 
           // Provide sensible defaults for required fields to ensure type safety
-          id: event.id || `temp-id-${index}`,
+          // ID is now guaranteed to exist, so no fallback is needed.
           title: title,
           description: event.description || '',
           start_date: startDate,
