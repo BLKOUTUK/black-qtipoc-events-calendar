@@ -300,13 +300,21 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 
             for (let i = 0; i < weekItemsCount && interleavedIndex < interleavedItems.length; i++) {
               const item = interleavedItems[interleavedIndex];
+
+              // CRITICAL: Safety check - skip if item is null/undefined
+              if (!item) {
+                interleavedIndex++;
+                i--; // Don't count this iteration
+                continue;
+              }
+
               // Only include if it's an event from this week OR a featured item
               if ('caption' in item && 'image_url' in item) {
                 // It's featured content, include it
                 weekItems.push(item);
                 interleavedIndex++;
-              } else if (weekEvents.some(e => e && e.id && e.id === (item as Event).id)) {
-                // It's an event from this week, include it (with null check for e)
+              } else if (item && 'id' in item && weekEvents.some(e => e && e.id && e.id === item.id)) {
+                // It's an event from this week, include it (with null check)
                 weekItems.push(item);
                 interleavedIndex++;
               } else {
