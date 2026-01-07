@@ -43,6 +43,11 @@ export function AddToCalendar({
   const [loading, setLoading] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // CRITICAL: Safety check - don't render if event is invalid
+  if (!event || !event.id) {
+    return null;
+  }
+
   // Fetch calendar links
   useEffect(() => {
     const fetchLinks = async () => {
