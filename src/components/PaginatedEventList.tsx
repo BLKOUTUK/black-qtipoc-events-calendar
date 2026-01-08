@@ -49,7 +49,14 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
     today.setHours(0, 0, 0, 0);
 
     // CRITICAL: Filter out null/undefined events BEFORE accessing properties
-    const validEvents = events.filter(event => event && event.id && (event.date || event.event_date));
+    const validEvents = events.filter(event => {
+      if (!event || !event.id) return false;
+      const dateField = event.date || event.event_date;
+      if (!dateField) return false;
+      // Ensure the date is valid
+      const testDate = new Date(dateField);
+      return !isNaN(testDate.getTime());
+    });
 
     const futureEvents = validEvents.filter(event => {
       const eventDate = new Date(event.date || event.event_date);
@@ -249,7 +256,13 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       {(() => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        const pastCount = events.filter(e => new Date(e.date || e.event_date) < today).length;
+        const pastCount = events.filter(e => {
+          if (!e || !e.id) return false;
+          const dateField = e.date || e.event_date;
+          if (!dateField) return false;
+          const eventDate = new Date(dateField);
+          return !isNaN(eventDate.getTime()) && eventDate < today;
+        }).length;
 
         if (pastCount === 0) return null;
 
@@ -285,7 +298,10 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       <div className="space-y-12">
         {(() => {
           // Interleave featured content across ALL events on this page, not per week
-          const allPageEvents = paginatedEvents.flatMap(week => week.events).filter(event => event && event.id);
+          // CRITICAL: Filter out null/undefined events AND validate they have required properties
+          const allPageEvents = paginatedEvents
+            .flatMap(week => week.events || [])
+            .filter(event => event && event.id && (event.date || event.event_date));
           const interleavedItems = featuredContentService.interleaveWithEvents(allPageEvents, featuredContent, 6);
 
           // Track which interleaved item we're at across all weeks
