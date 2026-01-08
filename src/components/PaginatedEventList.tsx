@@ -51,7 +51,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
     // CRITICAL: Filter out null/undefined events BEFORE accessing properties
     const validEvents = events.filter(event => {
       if (!event || !event.id) return false;
-      const dateField = event.date || event.event_date;
+      const dateField = event.event_date || event.start_date;
       if (!dateField) return false;
       // Ensure the date is valid
       const testDate = new Date(dateField);
@@ -59,12 +59,12 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
     });
 
     const futureEvents = validEvents.filter(event => {
-      const eventDate = new Date(event.date || event.event_date);
+      const eventDate = new Date(event.event_date || event.start_date);
       return eventDate >= today;
     });
 
     const pastEvents = validEvents.filter(event => {
-      const eventDate = new Date(event.date || event.event_date);
+      const eventDate = new Date(event.event_date || event.start_date);
       return eventDate < today;
     });
 
@@ -258,7 +258,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
         today.setHours(0, 0, 0, 0);
         const pastCount = events.filter(e => {
           if (!e || !e.id) return false;
-          const dateField = e.date || e.event_date;
+          const dateField = e.event_date || e.start_date;
           if (!dateField) return false;
           const eventDate = new Date(dateField);
           return !isNaN(eventDate.getTime()) && eventDate < today;
@@ -301,7 +301,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
           // CRITICAL: Filter out null/undefined events AND validate they have required properties
           const allPageEvents = paginatedEvents
             .flatMap(week => week.events || [])
-            .filter(event => event && event.id && (event.date || event.event_date));
+            .filter(event => event && event.id && (event.event_date || event.start_date));
           const interleavedItems = featuredContentService.interleaveWithEvents(allPageEvents, featuredContent, 6);
 
           // Track which interleaved item we're at across all weeks
