@@ -26,12 +26,14 @@ import { CommunityGroups } from './components/groups';
 import { OrganizerDashboard } from './components/organizer';
 import { MyEvents } from './components/rsvp';
 import { ModerationDashboardPage } from './pages';
+import { QuickAddEventPage } from './pages/QuickAddEventPage';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/moderation" element={<ModerationDashboardPage />} />
+      <Route path="/quick-add" element={<QuickAddEventPage />} />
     </Routes>
   );
 }
