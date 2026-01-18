@@ -238,7 +238,7 @@ class EventScrapingService {
         category: this.categorizeEvent(title, description, source.category),
         relevanceScore: this.calculateRelevanceScore(title, description),
         trustScore: source.trustScore,
-        status: 'pending',
+        status: 'approved', // Auto-approve scraped events from trusted sources
         priority: 'medium',
         scrapedAt: new Date().toISOString()
       }
@@ -368,7 +368,7 @@ class EventScrapingService {
           category: this.categorizeEvent(title, getValue('DESCRIPTION') || '', source.category),
           relevanceScore: this.calculateRelevanceScore(title, getValue('DESCRIPTION') || ''),
           trustScore: source.trustScore,
-          status: 'pending',
+          status: 'approved', // Auto-approve scraped events from trusted sources
           priority: 'medium',
           scrapedAt: new Date().toISOString()
         }
@@ -562,7 +562,7 @@ class EventScrapingService {
         category: this.categorizeEvent(title, description, source.category),
         relevanceScore: this.calculateRelevanceScore(title, description),
         trustScore: source.trustScore,
-        status: 'pending',
+        status: 'approved', // Auto-approve scraped events from trusted sources
         priority: 'medium',
         scrapedAt: new Date().toISOString()
       }
@@ -846,7 +846,7 @@ class EventScrapingService {
             url: event.url,
             source: event.source,
             tags: event.tags,
-            status: 'pending',
+            status: 'approved', // Auto-approve scraped events from trusted sources
             priority: event.relevanceScore > 0.5 ? 'high' : 'medium'
           })
 
