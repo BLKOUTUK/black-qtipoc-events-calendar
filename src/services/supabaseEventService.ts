@@ -219,7 +219,7 @@ class SupabaseEventService {
       const { data, error } = await supabase
         .from('events')
         .select('*')
-        .in('status', ['draft', 'reviewing'])
+        .eq('status', 'pending')
         .order('created_at', { ascending: false });
 
       if (error) {
