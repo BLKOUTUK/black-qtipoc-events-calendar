@@ -1,4 +1,6 @@
-# BLKOUT Events Calendar - Production Dockerfile
+# BLKOUT Events Calendar - Full-stack Express + React deployment
+# Includes backend API routes for event moderation and submission
+
 FROM node:22-alpine AS builder
 
 WORKDIR /app
@@ -6,39 +8,46 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
+# Install ALL dependencies
 RUN npm ci
 
-# Copy source
+# Copy source (including api/ directory)
 COPY . .
 
-# Build-time env vars (Vite needs these at build time)
-ARG VITE_SUPABASE_URL
-ARG VITE_SUPABASE_ANON_KEY
-
-ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
-ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
-
-# Build the app
+# Build the Vite frontend
 RUN npm run build
 
-# Production stage
+# Production stage - Node.js to run Express server
 FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-# Install serve globally
-RUN npm install -g serve
+# Install curl for health checks
+RUN apk add --no-cache curl
 
-# Copy built assets
+# Copy package files
+COPY package*.json ./
+
+# Install only production dependencies
+RUN npm install --production
+
+# Copy built frontend from builder
 COPY --from=builder /app/dist ./dist
 
-# Expose port
+# Copy server and API routes
+COPY server.ts ./
+COPY api ./api
+COPY tsconfig.json tsconfig.node.json ./
+
+# Install tsx to run TypeScript server
+RUN npm install -g tsx
+
+# Expose port (server.ts uses PORT env var or 3000)
 EXPOSE 3000
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/ || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:3000/ || exit 1
 
-# Serve the built app
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Start Express server (serves frontend + API routes)
+CMD ["tsx", "server.ts"]

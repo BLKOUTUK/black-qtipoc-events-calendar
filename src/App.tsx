@@ -347,8 +347,8 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Advent Calendar Banner - Always Visible During December */}
-        <AdventCalendarBanner />
+        {/* Advent Calendar Banner - Only Visible During December */}
+        {new Date().getMonth() === 11 && <AdventCalendarBanner />}
 
         {/* Featured Hero Carousel */}
         {featuredContent.length > 0 && (
