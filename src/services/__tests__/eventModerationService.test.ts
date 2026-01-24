@@ -9,7 +9,7 @@ import { Event } from '../../types';
 // Mock supabaseApiService
 vi.mock('../supabaseApiService', () => ({
   supabaseApiService: {
-    updateEvent: vi.fn((id, updates) => Promise.resolve({ id, ...updates })),
+    updateEvent: vi.fn((id: string, updates: Partial<Event>) => Promise.resolve({ id, ...updates })),
   }
 }));
 
