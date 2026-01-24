@@ -35,7 +35,6 @@
     "@types/node": "^20.10.0",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
-    "@types/react-testing-library": "^10.2.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
     "eslint": "^9.9.1",
