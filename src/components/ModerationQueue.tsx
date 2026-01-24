@@ -6,8 +6,8 @@ import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
 import { FeaturedContentManager } from './FeaturedContentManager';
-import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download, Image, Trash2 } from 'lucide-react';
-import { approveEventViaIvor, rejectEventViaIvor, IVOR_API_URL } from '../config/api';
+import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, X, Home, Download, Image, Trash2 } from 'lucide-react';
+import { approveEventViaIvor, rejectEventViaIvor } from '../config/api';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -19,6 +19,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const [stats, setStats] = useState<ModerationStats>({ pending: 0, approved: 0, rejected: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'queue' | 'approved' | 'discovery' | 'organizations' | 'featured'>('queue');
+  const [dateFilter, setDateFilter] = useState<'all' | 'future' | 'past'>('future');
 
   // Get Google Sheet ID from environment
   const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID;
@@ -40,6 +41,19 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       // Merge events from both sources
       const allEvents = [...sheetsEvents, ...supabaseEvents];
 
+      // Deduplicate events by title + date
+      const dedupeEvents = (events: Event[]) => {
+        const seen = new Set();
+        return events.filter(event => {
+          const key = `${event.title.toLowerCase().trim()}-${event.start_date}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+      };
+
+      const uniqueEvents = dedupeEvents(allEvents);
+
       // Get Supabase stats
       const supabaseStats = await supabaseEventService.getModerationStats();
 
@@ -55,7 +69,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       const approved = await supabaseEventService.getApprovedEvents();
       setApprovedEvents(approved);
 
-      setPendingEvents(allEvents);
+      setPendingEvents(uniqueEvents);
       setStats(mergedStats);
     } catch (error) {
       console.error('Error loading moderation data:', error);
@@ -148,8 +162,9 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     try {
       console.log('🗑️ Deleting event via Supabase:', id);
 
-      // Use Supabase event service for delete (direct database delete)
-      const result = await supabaseEventService.deleteEvent(id);
+      // Use supabaseApiService for delete (IVOR Core API)
+      const { supabaseApiService } = await import('../services/supabaseApiService');
+      const result = await supabaseApiService.deleteEvent(id);
 
       if (!result) {
         console.error('Failed to delete event');
@@ -171,7 +186,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
       const sheetsStatus = action === 'approve' ? 'published' : 'archived';
-      const supabaseStatus = action === 'approve' ? 'approved' : 'archived';
+      const supabaseStatus = action === 'approve' ? 'published' : 'archived';
 
       // Try updating in both services for each event
       await Promise.all(
@@ -191,6 +206,91 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     }
   };
 
+  const handleBulkRejectPast = async () => {
+    if (!confirm(`Are you sure you want to reject all ${pastEventsCount} past events?`)) {
+      return;
+    }
+    
+    try {
+      const pastEvents = pendingEvents.filter(e => new Date(e.start_date) <= new Date());
+      
+      await Promise.all(
+        pastEvents.map(event =>
+          rejectEventViaIvor(event.id, 'Past event - no longer relevant')
+        )
+      );
+
+      // Wait for database updates
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await loadData();
+    } catch (error) {
+      console.error('Error bulk rejecting past events:', error);
+      alert('Failed to reject past events. Please try again.');
+    }
+  };
+
+  const handleBulkRejectIncomplete = async () => {
+    const incompleteEvents = pendingEvents.filter(e => 
+      !e.title || !e.start_date || !e.location || e.title.length < 5
+    );
+    
+    if (incompleteEvents.length === 0) {
+      alert('No incomplete events found.');
+      return;
+    }
+    
+    if (!confirm(`Are you sure you want to reject ${incompleteEvents.length} incomplete events?`)) {
+      return;
+    }
+    
+    try {
+      await Promise.all(
+        incompleteEvents.map(event =>
+          rejectEventViaIvor(event.id, 'Incomplete event data')
+        )
+      );
+
+      // Wait for database updates
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await loadData();
+    } catch (error) {
+      console.error('Error bulk rejecting incomplete events:', error);
+      alert('Failed to reject incomplete events. Please try again.');
+    }
+  };
+
+  const handleBulkApproveTrusted = async () => {
+    const trustedFutureEvents = pendingEvents.filter(e => {
+      const isFuture = new Date(e.start_date) > new Date();
+      const isComplete = e.title && e.start_date && e.location && e.title.length >= 5;
+      return isFuture && isComplete;
+    });
+    
+    if (trustedFutureEvents.length === 0) {
+      alert('No trusted future events found.');
+      return;
+    }
+    
+    if (!confirm(`Are you sure you want to approve ${trustedFutureEvents.length} trusted future events?`)) {
+      return;
+    }
+    
+    try {
+      await Promise.all(
+        trustedFutureEvents.map(event =>
+          approveEventViaIvor(event.id)
+        )
+      );
+
+      // Wait for database updates
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await loadData();
+    } catch (error) {
+      console.error('Error bulk approving trusted events:', error);
+      alert('Failed to approve trusted events. Please try again.');
+    }
+  };
+
   const openGoogleSheet = (sheetName?: string) => {
     if (!SHEET_ID) {
       alert('Google Sheet ID not configured. Please set VITE_GOOGLE_SHEET_ID in your environment variables.');
@@ -203,6 +303,30 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     }
     window.open(url, '_blank');
   };
+
+  // Filter events based on date filter
+  const filteredEvents = pendingEvents.filter(event => {
+    if (dateFilter === 'future') {
+      return new Date(event.start_date) > new Date();
+    }
+    if (dateFilter === 'past') {
+      return new Date(event.start_date) <= new Date();
+    }
+    return true; // 'all'
+  });
+
+  // Calculate counts for UI
+  const futureEventsCount = pendingEvents.filter(e => new Date(e.start_date) > new Date()).length;
+  const pastEventsCount = pendingEvents.filter(e => new Date(e.start_date) <= new Date()).length;
+  const incompleteEventsCount = pendingEvents.filter(e => 
+    !e.title || !e.start_date || !e.location || e.title.length < 5
+  ).length;
+  const trustedFutureEventsCount = pendingEvents.filter(e => {
+    const isFuture = new Date(e.start_date) > new Date();
+    const isComplete = e.title && e.start_date && e.location && e.title.length >= 5;
+    return isFuture && isComplete;
+  }).length;
+  const duplicatesRemoved = (pendingEvents.length || 0) - filteredEvents.length;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -396,6 +520,43 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
           {activeTab === 'queue' && (
             <>
+              {/* Filter and Stats Bar */}
+              <div className="mb-6 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-4">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div className="flex items-center space-x-4">
+                    <label className="text-sm font-medium text-gray-700">Filter Events:</label>
+                    <select
+                      value={dateFilter}
+                      onChange={(e) => setDateFilter(e.target.value as 'all' | 'future' | 'past')}
+                      className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    >
+                      <option value="future">Future Events Only ({futureEventsCount})</option>
+                      <option value="past">Past Events ({pastEventsCount})</option>
+                      <option value="all">All Events ({pendingEvents.length})</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 text-sm">
+                    <div className="flex items-center px-3 py-1 bg-white rounded-full border border-purple-200">
+                      <span className="font-medium text-purple-700">Total:</span>
+                      <span className="ml-2 font-bold text-purple-900">{pendingEvents.length}</span>
+                    </div>
+                    <div className="flex items-center px-3 py-1 bg-white rounded-full border border-green-200">
+                      <span className="font-medium text-green-700">Future:</span>
+                      <span className="ml-2 font-bold text-green-900">{futureEventsCount}</span>
+                    </div>
+                    <div className="flex items-center px-3 py-1 bg-white rounded-full border border-orange-200">
+                      <span className="font-medium text-orange-700">Past:</span>
+                      <span className="ml-2 font-bold text-orange-900">{pastEventsCount}</span>
+                    </div>
+                    <div className="flex items-center px-3 py-1 bg-white rounded-full border border-red-200">
+                      <span className="font-medium text-red-700">Incomplete:</span>
+                      <span className="ml-2 font-bold text-red-900">{incompleteEventsCount}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Stats Dashboard */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                 <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
@@ -443,24 +604,48 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
               {pendingEvents.length > 0 && (
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg">
                   <h3 className="font-medium text-gray-900 mb-3">Bulk Actions</h3>
-                  <div className="flex space-x-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <button
+                      onClick={handleBulkRejectPast}
+                      disabled={pastEventsCount === 0}
+                      className="flex items-center justify-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Reject Past Events ({pastEventsCount})
+                    </button>
+                    <button
+                      onClick={handleBulkRejectIncomplete}
+                      disabled={incompleteEventsCount === 0}
+                      className="flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    >
+                      <XCircle className="w-4 h-4 mr-2" />
+                      Reject Incomplete ({incompleteEventsCount})
+                    </button>
+                    <button
+                      onClick={handleBulkApproveTrusted}
+                      disabled={trustedFutureEventsCount === 0}
+                      className="flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    >
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Approve Trusted Future ({trustedFutureEventsCount})
+                    </button>
                     <button
                       onClick={() => handleBulkAction('approve')}
-                      className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
+                      className="flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200"
                     >
                       <CheckCircle className="w-4 h-4 mr-2" />
                       Approve All ({pendingEvents.length})
                     </button>
                     <button
                       onClick={() => handleBulkAction('reject')}
-                      className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200"
+                      className="flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200"
                     >
                       <XCircle className="w-4 h-4 mr-2" />
                       Reject All ({pendingEvents.length})
                     </button>
                   </div>
-                  <p className="text-xs text-gray-600 mt-2">
-                    💡 Bulk actions will update all rows in the Google Sheet simultaneously
+                  <p className="text-xs text-gray-600 mt-3">
+                    💡 Smart bulk actions: Reject past/incomplete events or approve complete future events. All actions update both Google Sheets and Supabase.
                   </p>
                 </div>
               )}
@@ -468,12 +653,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
               {/* Pending Events */}
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  Pending Events ({pendingEvents.length})
+                  Pending Events ({filteredEvents.length})
                 </h3>
                 <EventList
-                  events={pendingEvents}
+                  events={filteredEvents}
                   loading={loading}
-                  emptyMessage="No events pending moderation."
+                  emptyMessage={`No ${dateFilter === 'future' ? 'future' : dateFilter === 'past' ? 'past' : ''} events pending moderation.`}
                   showActions={true}
                   onApprove={handleApprove}
                   onReject={handleReject}
