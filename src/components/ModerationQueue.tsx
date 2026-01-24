@@ -6,8 +6,8 @@ import { EventList } from './EventList';
 import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
 import { FeaturedContentManager } from './FeaturedContentManager';
-import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, Calendar, X, Home, Download, Image, Trash2 } from 'lucide-react';
-import { approveEventViaIvor, rejectEventViaIvor, IVOR_API_URL } from '../config/api';
+import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, X, Home, Download, Image, Trash2 } from 'lucide-react';
+import { approveEventViaIvor, rejectEventViaIvor } from '../config/api';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -162,8 +162,9 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     try {
       console.log('🗑️ Deleting event via Supabase:', id);
 
-      // Use Supabase event service for delete (direct database delete)
-      const result = await supabaseEventService.deleteEvent(id);
+      // Use supabaseApiService for delete (IVOR Core API)
+      const { supabaseApiService } = await import('../services/supabaseApiService');
+      const result = await supabaseApiService.deleteEvent(id);
 
       if (!result) {
         console.error('Failed to delete event');
@@ -185,7 +186,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
       const sheetsStatus = action === 'approve' ? 'published' : 'archived';
-      const supabaseStatus = action === 'approve' ? 'approved' : 'archived';
+      const supabaseStatus = action === 'approve' ? 'published' : 'archived';
 
       // Try updating in both services for each event
       await Promise.all(
