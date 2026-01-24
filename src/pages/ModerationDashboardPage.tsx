@@ -13,6 +13,7 @@ import {
   AlertTriangle, TrendingUp, Users, Home, RefreshCw, Eye,
   ChevronRight, FileText, Flag, Loader2
 } from 'lucide-react';
+import { EventModerationPanel } from '../components/EventModerationPanel';
 
 const IVOR_API = import.meta.env.VITE_IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
 
@@ -378,36 +379,10 @@ export function ModerationDashboardPage() {
                 <div className="bg-white/5 rounded-xl border border-white/10 p-6">
                   <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <Calendar className="w-5 h-5 text-green-400" />
-                    Event Moderation
+                    Event Moderation - 253 Pending Events
                   </h2>
 
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="bg-yellow-500/10 rounded-lg p-4 text-center">
-                      <p className="text-2xl font-bold text-yellow-400">{stats.events.pending}</p>
-                      <p className="text-white/60 text-sm">Pending Reports</p>
-                    </div>
-                    <div className="bg-orange-500/10 rounded-lg p-4 text-center">
-                      <p className="text-2xl font-bold text-orange-400">{stats.events.flagged}</p>
-                      <p className="text-white/60 text-sm">Flagged Events</p>
-                    </div>
-                    <div className="bg-green-500/10 rounded-lg p-4 text-center">
-                      <p className="text-2xl font-bold text-green-400">{stats.reports.resolved}</p>
-                      <p className="text-white/60 text-sm">Resolved</p>
-                    </div>
-                  </div>
-
-                  <p className="text-white/60 text-center py-4">
-                    Event moderation is integrated into the main calendar admin panel.
-                  </p>
-                  <div className="text-center">
-                    <Link
-                      to="/"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/30 text-purple-300 rounded-lg hover:bg-purple-500/40 transition-colors"
-                    >
-                      <Calendar className="w-4 h-4" />
-                      Open Event Admin Panel
-                    </Link>
-                  </div>
+                  <EventModerationPanel onStatsUpdate={loadAllData} />
                 </div>
               </div>
             )}
