@@ -38,7 +38,7 @@ export interface Event {
   cost: number; // Changed to number for new API
   featured_image?: string;
   tags: string[];
-  status: 'draft' | 'published' | 'cancelled'; // Updated status options
+  status: 'draft' | 'published' | 'cancelled' | 'pending' | 'approved' | 'rejected'; // Include moderation statuses
   created_at: string;
   updated_at: string;
 
@@ -70,6 +70,12 @@ export interface Event {
   attendee_count?: number; // Not in new API, for display only
   relevance_score?: number; // AI-generated relevance score for QTIPOC+ community
   target_audience?: string[]; // Computed from tags/description
+
+  // IVOR API additional fields
+  date?: string; // Alternative date field from IVOR API
+  url?: string; // Event URL from IVOR API
+  organizer?: string; // Organizer name from IVOR API
+  liberation_score?: number; // Liberation score from IVOR API
 }
 
 export interface FilterOptions {
@@ -77,7 +83,7 @@ export interface FilterOptions {
   source: 'all' | 'workshop' | 'conference' | 'meetup' | 'fundraiser' | 'protest' | 'celebration' | 'education' | 'health';
   location: string;
   searchTerm: string;
-  status?: 'all' | 'draft' | 'published' | 'cancelled';
+  status?: 'all' | 'draft' | 'published' | 'cancelled' | 'pending' | 'approved' | 'rejected';
   event_type?: string;
   organizer?: string;
 }

@@ -9,7 +9,7 @@ import {
   Filter, Clock, MapPin, Globe, Trash2, CheckCheck, Eye
 } from 'lucide-react';
 import { Event } from '../types';
-import { supabaseApiService } from '../services/supabaseApiService';
+import { fetchPendingEventsViaIvor } from '../config/api';
 import { eventModerationService, ModerationResult } from '../services/eventModerationService';
 import { isTrustedSource, isAutoRejectSource } from '../config/trustedEventSources';
 
@@ -38,25 +38,46 @@ export function EventModerationPanel({ onStatsUpdate }: EventModerationPanelProp
   const loadPendingEvents = async () => {
     setLoading(true);
     try {
-      // Fetch events with status 'draft' or 'pending'
-      const events = await supabaseApiService.getEvents({
-        dateRange: 'all',
-        source: 'all',
-        location: '',
-        searchTerm: '',
-        status: 'draft' // In Supabase, pending events have status='draft' or custom 'pending'
-      });
+      // Fetch pending events from IVOR API
+      const result = await fetchPendingEventsViaIvor();
 
-      // Filter to only pending/draft events
-      const pending = events.filter(e =>
-        e.status === 'draft' ||
-        e.status === 'pending' ||
-        (e as any).moderation_status === 'pending'
-      );
+      if (result.success && result.events) {
+        // Transform API events to Event type
+        const pending: Event[] = result.events.map((e: any) => ({
+          id: e.id,
+          title: e.title || 'Untitled Event',
+          description: e.description || '',
+          start_date: e.date || e.start_date,
+          end_date: e.end_date,
+          date: e.date,
+          location: e.location || 'TBD',
+          address: e.address,
+          event_type: e.event_type || 'community',
+          organizer_id: e.organizer_id,
+          max_attendees: e.max_attendees,
+          registration_required: e.registration_required || false,
+          registration_url: e.registration_url || e.url,
+          cost: e.cost,
+          featured_image: e.featured_image || e.image_url,
+          tags: e.tags || [],
+          status: e.status || 'pending',
+          created_at: e.created_at,
+          updated_at: e.updated_at,
+          source: e.source || 'unknown',
+          url: e.url,
+          organizer: e.organizer,
+          liberation_score: e.liberation_score
+        }));
 
-      setPendingEvents(pending);
+        console.log(`[EventModerationPanel] Loaded ${pending.length} pending events from IVOR API`);
+        setPendingEvents(pending);
+      } else {
+        console.error('Failed to fetch pending events:', result);
+        setPendingEvents([]);
+      }
     } catch (error) {
       console.error('Failed to load pending events:', error);
+      setPendingEvents([]);
     } finally {
       setLoading(false);
     }
