@@ -106,10 +106,60 @@ export async function rejectEventViaIvor(eventId: string, reason?: string): Prom
   }
 }
 
+/**
+ * Fetch pending events from IVOR Core
+ */
+export async function fetchPendingEventsViaIvor(): Promise<{ success: boolean; events: any[]; count: number }> {
+  try {
+    const response = await fetch(API_ENDPOINTS.EVENTS_PENDING, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+    return {
+      success: result.success,
+      events: result.events || [],
+      count: result.count || 0,
+    };
+  } catch (error: any) {
+    console.error('[API] Failed to fetch pending events:', error);
+    return { success: false, events: [], count: 0 };
+  }
+}
+
+/**
+ * Fetch upcoming (approved) events from IVOR Core
+ */
+export async function fetchUpcomingEventsViaIvor(): Promise<{ success: boolean; events: any[]; count: number }> {
+  try {
+    const response = await fetch(API_ENDPOINTS.EVENTS_UPCOMING, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+    return {
+      success: result.success,
+      events: result.events || [],
+      count: result.count || 0,
+    };
+  } catch (error: any) {
+    console.error('[API] Failed to fetch upcoming events:', error);
+    return { success: false, events: [], count: 0 };
+  }
+}
+
 export default {
   IVOR_API_URL,
   API_ENDPOINTS,
   submitEventToIvor,
   approveEventViaIvor,
   rejectEventViaIvor,
+  fetchPendingEventsViaIvor,
+  fetchUpcomingEventsViaIvor,
 };
