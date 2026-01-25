@@ -4,7 +4,7 @@
  */
 
 import { Event } from '../types';
-import { supabaseApiService } from './supabaseApiService';
+import { approveEventViaIvor, rejectEventViaIvor } from '../config/api';
 import { isAutoRejectSource, isTrustedSource } from '../config/trustedEventSources';
 
 export interface ModerationCriteria {
@@ -73,14 +73,17 @@ class EventModerationService {
   }
 
   /**
-   * Approve a single event
+   * Approve a single event via IVOR API
    */
   async approveEvent(eventId: string): Promise<boolean> {
     try {
-      const updated = await supabaseApiService.updateEvent(eventId, {
-        status: 'published'
-      });
-      return updated !== null;
+      const result = await approveEventViaIvor(eventId);
+      if (result.success) {
+        console.log(`[Moderation] Event ${eventId} approved`);
+      } else {
+        console.error(`[Moderation] Failed to approve event ${eventId}:`, result.message);
+      }
+      return result.success;
     } catch (error) {
       console.error('Error approving event:', error);
       return false;
@@ -88,14 +91,17 @@ class EventModerationService {
   }
 
   /**
-   * Reject a single event
+   * Reject a single event via IVOR API
    */
-  async rejectEvent(eventId: string): Promise<boolean> {
+  async rejectEvent(eventId: string, reason?: string): Promise<boolean> {
     try {
-      const updated = await supabaseApiService.updateEvent(eventId, {
-        status: 'cancelled'
-      });
-      return updated !== null;
+      const result = await rejectEventViaIvor(eventId, reason);
+      if (result.success) {
+        console.log(`[Moderation] Event ${eventId} rejected`);
+      } else {
+        console.error(`[Moderation] Failed to reject event ${eventId}:`, result.message);
+      }
+      return result.success;
     } catch (error) {
       console.error('Error rejecting event:', error);
       return false;
