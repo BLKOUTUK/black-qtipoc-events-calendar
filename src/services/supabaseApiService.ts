@@ -353,9 +353,10 @@ class SupabaseApiService {
       
       const stats = events.reduce((acc, event) => {
         acc.total++;
-        if (event.status === 'draft') acc.pending++;
-        if (event.status === 'published') acc.approved++;
-        if (event.status === 'cancelled') acc.rejected++;
+        // Count pending statuses (draft, reviewing, pending)
+        if (event.status === 'draft' || event.status === 'reviewing' || event.status === 'pending') acc.pending++;
+        if (event.status === 'published' || event.status === 'approved') acc.approved++;
+        if (event.status === 'cancelled' || event.status === 'archived') acc.rejected++;
         return acc;
       }, { pending: 0, approved: 0, rejected: 0, total: 0 });
 

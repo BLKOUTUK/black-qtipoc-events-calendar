@@ -14,6 +14,42 @@
 import axios from 'axios'
 import { XMLParser } from 'fast-xml-parser'
 
+// Trusted sources that get auto-approved (match trustedEventSources.ts)
+const TRUSTED_SOURCES = [
+  'DIVA Magazine Events',
+  'Eventbrite UK - LGBTQ+',
+  'qxmagazine.com',
+  'ukblackpride.org.uk',
+  'QX Magazine Events',
+  'QX Magazine Feed',
+  'stonewall.org.uk',
+  'Consortium LGBT+',
+  'community-submission',
+];
+
+// Sources that need manual review before publishing
+const MANUAL_REVIEW_SOURCES = [
+  'n8n_automation',
+  'research_agent',
+  'Web Search',
+  'chrome-extension',
+  'chrome_extension',
+];
+
+/**
+ * Determine the correct status for an event based on its source
+ * - Trusted sources: 'approved' (auto-publish)
+ * - Manual review sources: 'pending' (goes to moderation queue)
+ * - Unknown sources: 'pending' (goes to moderation queue)
+ */
+function getStatusForSource(sourceName) {
+  if (TRUSTED_SOURCES.includes(sourceName)) {
+    return 'approved';
+  }
+  // All other sources go to moderation queue for review
+  return 'pending';
+}
+
 class EventScrapingService {
   constructor(supabaseClient) {
     this.supabase = supabaseClient
@@ -238,7 +274,7 @@ class EventScrapingService {
         category: this.categorizeEvent(title, description, source.category),
         relevanceScore: this.calculateRelevanceScore(title, description),
         trustScore: source.trustScore,
-        status: 'approved', // Auto-approve scraped events from trusted sources
+        status: getStatusForSource(source.name), // Use source classification for moderation routing
         priority: 'medium',
         scrapedAt: new Date().toISOString()
       }
@@ -368,7 +404,7 @@ class EventScrapingService {
           category: this.categorizeEvent(title, getValue('DESCRIPTION') || '', source.category),
           relevanceScore: this.calculateRelevanceScore(title, getValue('DESCRIPTION') || ''),
           trustScore: source.trustScore,
-          status: 'approved', // Auto-approve scraped events from trusted sources
+          status: getStatusForSource(source.name), // Use source classification for moderation routing
           priority: 'medium',
           scrapedAt: new Date().toISOString()
         }
@@ -562,7 +598,7 @@ class EventScrapingService {
         category: this.categorizeEvent(title, description, source.category),
         relevanceScore: this.calculateRelevanceScore(title, description),
         trustScore: source.trustScore,
-        status: 'approved', // Auto-approve scraped events from trusted sources
+        status: getStatusForSource(source.name), // Use source classification for moderation routing
         priority: 'medium',
         scrapedAt: new Date().toISOString()
       }
@@ -846,7 +882,7 @@ class EventScrapingService {
             url: event.url,
             source: event.source,
             tags: event.tags,
-            status: 'approved', // Auto-approve scraped events from trusted sources
+            status: getStatusForSource(event.source), // Use source classification for moderation routing
             priority: event.relevanceScore > 0.5 ? 'high' : 'medium'
           })
 

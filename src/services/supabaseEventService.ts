@@ -353,11 +353,12 @@ class SupabaseEventService {
       console.log('🔍 Moderation stats data:', data?.length || 0, 'total events');
 
       const stats = (data || []).reduce((acc: any, event: any) => {
-        if (event.status === 'draft' || event.status === 'reviewing') {
+        // Count pending statuses (draft, reviewing, pending)
+        if (event.status === 'draft' || event.status === 'reviewing' || event.status === 'pending') {
           acc.pending++;
-        } else if (event.status === 'approved') {
+        } else if (event.status === 'approved' || event.status === 'published') {
           acc.approved++;
-        } else if (event.status === 'archived') {
+        } else if (event.status === 'archived' || event.status === 'cancelled') {
           acc.rejected++;
         }
         acc.total++;
