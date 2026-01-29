@@ -33,7 +33,13 @@
     <meta name="twitter:description" content="Community events calendar for Black queer liberation" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Pre-React loading state — replaced once JS bundle executes -->
+      <div style="min-height:100vh;background:linear-gradient(135deg,#111827,#1e1b4b,#064e3b);display:flex;align-items:center;justify-content:center;flex-direction:column">
+        <img src="/images/blkoutlogo_wht_transparent.png" alt="BLKOUT" style="height:64px;margin-bottom:24px" onerror="this.style.display='none'" />
+        <div style="color:#eab308;font-size:14px;font-family:system-ui">Loading events...</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
