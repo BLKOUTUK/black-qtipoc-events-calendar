@@ -7,7 +7,7 @@ import { ScrapingDashboard } from './ScrapingDashboard';
 import { OrganizationMonitor } from './OrganizationMonitor';
 import { FeaturedContentManager } from './FeaturedContentManager';
 import { CheckCircle, XCircle, Clock, BarChart3, Target, ExternalLink, Users, X, Home, Download, Image, Trash2 } from 'lucide-react';
-import { approveEventViaIvor, rejectEventViaIvor, fetchPendingEventsViaIvor, fetchUpcomingEventsViaIvor } from '../config/api';
+import { approveEventViaIvor, rejectEventViaIvor } from '../config/api';
 
 interface ModerationQueueProps {
   onClose: () => void;
@@ -15,7 +15,7 @@ interface ModerationQueueProps {
 
 export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => {
   const [pendingEvents, setPendingEvents] = useState<Event[]>([]);
-  const [approvedEvents, setApprovedEvents] = useState<Event[]>([]);
+  const [approvedEvents] = useState<Event[]>([]);
   const [stats, setStats] = useState<ModerationStats>({ pending: 0, approved: 0, rejected: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'queue' | 'approved' | 'discovery' | 'organizations' | 'featured'>('queue');
@@ -33,113 +33,51 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     setLoading(true);
     setDataSource('loading');
     try {
-      // Deduplicate events by title + date
-      const dedupeEvents = (events: Event[]) => {
-        const seen = new Set();
-        return events.filter(event => {
-          const key = `${event.title.toLowerCase().trim()}-${event.start_date}`;
-          if (seen.has(key)) return false;
-          seen.add(key);
-          return true;
-        });
-      };
+      // Fetch pending events from local server-side API (uses service role key)
+      const response = await fetch('/api/pending-events');
+      const result = await response.json();
 
-      // Try IVOR API first, then fall back to Supabase directly
-      const [ivorResult, sheetsEvents, sheetsStats] = await Promise.all([
-        fetchPendingEventsViaIvor(),
-        googleSheetsService.getPendingEvents().catch(() => []),
-        googleSheetsService.getModerationStats().catch(() => ({ pending: 0, approved: 0, rejected: 0, total: 0 }))
-      ]);
+      console.log('[ModerationQueue] /api/pending-events response:', result.success, result.count);
 
-      let pendingFromPrimary: Event[] = [];
-      let approvedFromPrimary: Event[] = [];
+      const pending: Event[] = (result.events || []).map((e: any) => ({
+        id: e.id,
+        title: e.title || 'Untitled',
+        description: e.description || '',
+        start_date: e.date || e.start_date || '',
+        end_date: e.end_date || e.date || '',
+        start_time: e.start_time || '',
+        end_time: e.end_time || '',
+        location: e.location || 'TBA',
+        virtual_link: e.virtual_link || '',
+        organizer: e.organizer || 'Unknown',
+        organizer_name: e.organizer || 'Unknown',
+        organizer_id: '',
+        tags: Array.isArray(e.tags) ? e.tags : [],
+        category: e.category || 'community',
+        event_type: e.event_type || 'meetup',
+        status: e.status || 'pending',
+        registration_link: e.registration_link || e.url || '',
+        registration_required: false,
+        cost: e.cost || 'Free',
+        source: e.source || 'unknown',
+        created_at: e.created_at || new Date().toISOString(),
+        updated_at: e.updated_at || new Date().toISOString(),
+      }));
 
-      if (ivorResult.success && ivorResult.events.length > 0) {
-        // IVOR API returned data — use it
-        setDataSource('ivor');
-        pendingFromPrimary = (ivorResult.events || []).map((e: any) => ({
-          id: e.id,
-          title: e.title || 'Untitled',
-          description: e.description || '',
-          start_date: e.date || '',
-          end_date: e.end_date || e.date || '',
-          start_time: e.start_time || '',
-          end_time: e.end_time || '',
-          location: e.location || 'TBA',
-          virtual_link: e.virtual_link || '',
-          organizer: e.organizer || 'Unknown',
-          organizer_name: e.organizer || 'Unknown',
-          organizer_id: '',
-          tags: e.tags || [],
-          category: e.category || 'community',
-          event_type: 'meetup',
-          status: 'pending',
-          registration_link: e.url || '',
-          registration_required: false,
-          cost: e.cost || 'Free',
-          source: e.source || 'research_agent',
-          created_at: e.created_at || new Date().toISOString(),
-          updated_at: e.updated_at || new Date().toISOString(),
-        }));
+      setDataSource(result.source === 'supabase-direct' ? 'supabase' : 'ivor');
+      setPendingEvents(pending);
+      setStats({
+        pending: pending.length,
+        approved: 0,
+        rejected: 0,
+        total: pending.length
+      });
 
-        const approvedResult = await fetchUpcomingEventsViaIvor();
-        approvedFromPrimary = (approvedResult.events || []).map((e: any) => ({
-          id: e.id,
-          title: e.title || 'Untitled',
-          description: e.description || '',
-          start_date: e.date || '',
-          end_date: e.end_date || e.date || '',
-          start_time: e.start_time || '',
-          end_time: e.end_time || '',
-          location: e.location || 'TBA',
-          virtual_link: e.virtual_link || '',
-          organizer: e.organizer || 'Unknown',
-          organizer_name: e.organizer || 'Unknown',
-          organizer_id: '',
-          tags: e.tags || [],
-          category: e.category || 'community',
-          event_type: 'meetup',
-          status: 'approved',
-          registration_link: e.url || '',
-          registration_required: false,
-          cost: e.cost || 'Free',
-          source: e.source || 'research_agent',
-          created_at: e.created_at || new Date().toISOString(),
-          updated_at: e.updated_at || new Date().toISOString(),
-        })) as Event[];
-
-        console.log(`✅ Loaded ${pendingFromPrimary.length} pending events from IVOR API`);
-      } else {
-        // IVOR API unavailable or returned empty — fall back to Supabase directly
-        setDataSource('supabase');
-        console.warn('⚠️ IVOR API unavailable, falling back to Supabase direct query');
-
-        const [supabasePending, supabaseApproved] = await Promise.all([
-          supabaseEventService.getPendingEvents().catch(() => []),
-          supabaseEventService.getPublishedEvents().catch(() => []),
-        ]);
-
-        pendingFromPrimary = supabasePending;
-        approvedFromPrimary = supabaseApproved;
-        console.log(`✅ Loaded ${pendingFromPrimary.length} pending events from Supabase (fallback)`);
-      }
-
-      // Merge with Google Sheets events and deduplicate
-      const allPending = dedupeEvents([...pendingFromPrimary, ...sheetsEvents] as Event[]);
-      setApprovedEvents(approvedFromPrimary);
-
-      // Calculate stats
-      const mergedStats = {
-        pending: allPending.length + sheetsStats.pending,
-        approved: approvedFromPrimary.length + sheetsStats.approved,
-        rejected: sheetsStats.rejected,
-        total: allPending.length + approvedFromPrimary.length + sheetsStats.total
-      };
-
-      setPendingEvents(allPending);
-      setStats(mergedStats);
+      console.log(`[ModerationQueue] Loaded ${pending.length} pending events`);
     } catch (error) {
-      console.error('Error loading moderation data:', error);
+      console.error('[ModerationQueue] Error loading data:', error);
+      setDataSource('supabase');
+      setPendingEvents([]);
     } finally {
       setLoading(false);
     }

@@ -9,8 +9,7 @@ import {
   Filter, Clock, MapPin, Globe, Trash2, CheckCheck, Eye
 } from 'lucide-react';
 import { Event } from '../types';
-import { fetchPendingEventsViaIvor } from '../config/api';
-import { supabaseEventService } from '../services/supabaseEventService';
+// Server-side API at /api/pending-events handles data fetching
 import { eventModerationService, ModerationResult } from '../services/eventModerationService';
 import { isTrustedSource, isAutoRejectSource } from '../config/trustedEventSources';
 
@@ -39,55 +38,43 @@ export function EventModerationPanel({ onStatsUpdate }: EventModerationPanelProp
   const loadPendingEvents = async () => {
     setLoading(true);
     try {
-      // Try IVOR API first
-      const result = await fetchPendingEventsViaIvor();
+      // Fetch from local server-side API (uses service role key, bypasses RLS)
+      const response = await fetch('/api/pending-events');
+      const result = await response.json();
 
-      if (result.success && result.events && result.events.length > 0) {
-        // Transform API events to Event type
-        const pending: Event[] = result.events.map((e: any) => ({
-          id: e.id,
-          title: e.title || 'Untitled Event',
-          description: e.description || '',
-          start_date: e.date || e.start_date,
-          end_date: e.end_date,
-          date: e.date,
-          location: e.location || 'TBD',
-          address: e.address,
-          event_type: e.event_type || 'community',
-          organizer_id: e.organizer_id,
-          max_attendees: e.max_attendees,
-          registration_required: e.registration_required || false,
-          registration_url: e.registration_url || e.url,
-          cost: e.cost,
-          featured_image: e.featured_image || e.image_url,
-          tags: e.tags || [],
-          status: e.status || 'pending',
-          created_at: e.created_at,
-          updated_at: e.updated_at,
-          source: e.source || 'unknown',
-          url: e.url,
-          organizer: e.organizer,
-          liberation_score: e.liberation_score
-        }));
+      console.log('[EventModerationPanel] /api/pending-events:', result.success, result.count);
 
-        console.log(`[EventModerationPanel] Loaded ${pending.length} pending events from IVOR API`);
-        setPendingEvents(pending);
-      } else {
-        // IVOR unavailable or empty — fall back to Supabase
-        console.warn('[EventModerationPanel] IVOR unavailable, falling back to Supabase');
-        const supabasePending = await supabaseEventService.getPendingEvents().catch(() => []);
-        console.log(`[EventModerationPanel] Loaded ${supabasePending.length} pending events from Supabase`);
-        setPendingEvents(supabasePending);
-      }
+      const pending: Event[] = (result.events || []).map((e: any) => ({
+        id: e.id,
+        title: e.title || 'Untitled Event',
+        description: e.description || '',
+        start_date: e.date || e.start_date,
+        end_date: e.end_date,
+        date: e.date,
+        location: e.location || 'TBD',
+        address: e.address,
+        event_type: e.event_type || 'community',
+        organizer_id: e.organizer_id,
+        max_attendees: e.max_attendees,
+        registration_required: e.registration_required || false,
+        registration_url: e.registration_url || e.url,
+        cost: e.cost,
+        featured_image: e.featured_image || e.image_url,
+        tags: Array.isArray(e.tags) ? e.tags : [],
+        status: e.status || 'pending',
+        created_at: e.created_at,
+        updated_at: e.updated_at,
+        source: e.source || 'unknown',
+        url: e.url,
+        organizer: e.organizer,
+        liberation_score: e.liberation_score
+      }));
+
+      console.log(`[EventModerationPanel] Loaded ${pending.length} pending events`);
+      setPendingEvents(pending);
     } catch (error) {
-      console.error('Failed to load pending events:', error);
-      // Last resort fallback to Supabase
-      try {
-        const supabasePending = await supabaseEventService.getPendingEvents();
-        setPendingEvents(supabasePending);
-      } catch {
-        setPendingEvents([]);
-      }
+      console.error('[EventModerationPanel] Failed to load:', error);
+      setPendingEvents([]);
     } finally {
       setLoading(false);
     }
