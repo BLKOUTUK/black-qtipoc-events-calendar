@@ -12,7 +12,18 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, 'dist')));
+// Hashed assets (JS/CSS) get long-term caching; HTML always revalidates
+app.use(express.static(path.join(__dirname, 'dist'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      // HTML must always revalidate to pick up new builds
+      res.setHeader('Cache-Control', 'no-cache');
+    } else if (filePath.includes('/assets/')) {
+      // Vite-hashed assets are immutable — cache aggressively
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }
+}));
 
 // Dynamically import and register API routes, then start server
 const apiDir = path.join(__dirname, 'api');
@@ -38,7 +49,8 @@ async function startServer() {
   console.log(`🚀 All API routes registered`);
 
   // SPA fallback: serve index.html for any request that doesn't match an API route or a static file
-  app.use((req, res) => {
+  app.use((_req, res) => {
+    res.setHeader('Cache-Control', 'no-cache');
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
 

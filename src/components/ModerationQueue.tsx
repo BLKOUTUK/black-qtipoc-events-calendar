@@ -20,6 +20,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'queue' | 'approved' | 'discovery' | 'organizations' | 'featured'>('queue');
   const [dateFilter, setDateFilter] = useState<'all' | 'future' | 'past'>('future');
+  const [dataSource, setDataSource] = useState<'ivor' | 'supabase' | 'loading'>('loading');
 
   // Get Google Sheet ID from environment
   const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID;
@@ -30,43 +31,8 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const loadData = async () => {
     setLoading(true);
+    setDataSource('loading');
     try {
-      // Load from IVOR API (primary) and Google Sheets (fallback)
-      const [ivorResult, sheetsEvents, sheetsStats] = await Promise.all([
-        fetchPendingEventsViaIvor(),
-        googleSheetsService.getPendingEvents().catch(() => []),
-        googleSheetsService.getModerationStats().catch(() => ({ pending: 0, approved: 0, rejected: 0, total: 0 }))
-      ]);
-
-      // Map IVOR events to Event type
-      const ivorEvents = (ivorResult.events || []).map((e: any) => ({
-        id: e.id,
-        title: e.title || 'Untitled',
-        description: e.description || '',
-        start_date: e.date || '',
-        end_date: e.end_date || e.date || '',
-        start_time: e.start_time || '',
-        end_time: e.end_time || '',
-        location: e.location || 'TBA',
-        virtual_link: e.virtual_link || '',
-        organizer: e.organizer || 'Unknown',
-        organizer_name: e.organizer || 'Unknown',
-        organizer_id: '',
-        tags: e.tags || [],
-        category: e.category || 'community',
-        event_type: 'meetup',
-        status: 'pending',
-        registration_link: e.url || '',
-        registration_required: false,
-        cost: e.cost || 'Free',
-        source: e.source || 'research_agent',
-        created_at: e.created_at || new Date().toISOString(),
-        updated_at: e.updated_at || new Date().toISOString(),
-      }));
-
-      // Merge events from both sources
-      const allEvents = [...ivorEvents, ...sheetsEvents] as Event[];
-
       // Deduplicate events by title + date
       const dedupeEvents = (events: Event[]) => {
         const seen = new Set();
@@ -78,47 +44,100 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
         });
       };
 
-      const uniqueEvents = dedupeEvents(allEvents);
+      // Try IVOR API first, then fall back to Supabase directly
+      const [ivorResult, sheetsEvents, sheetsStats] = await Promise.all([
+        fetchPendingEventsViaIvor(),
+        googleSheetsService.getPendingEvents().catch(() => []),
+        googleSheetsService.getModerationStats().catch(() => ({ pending: 0, approved: 0, rejected: 0, total: 0 }))
+      ]);
 
-      // Load approved events from IVOR API
-      const approvedResult = await fetchUpcomingEventsViaIvor();
-      const approvedMapped = (approvedResult.events || []).map((e: any) => ({
-        id: e.id,
-        title: e.title || 'Untitled',
-        description: e.description || '',
-        start_date: e.date || '',
-        end_date: e.end_date || e.date || '',
-        start_time: e.start_time || '',
-        end_time: e.end_time || '',
-        location: e.location || 'TBA',
-        virtual_link: e.virtual_link || '',
-        organizer: e.organizer || 'Unknown',
-        organizer_name: e.organizer || 'Unknown',
-        organizer_id: '',
-        tags: e.tags || [],
-        category: e.category || 'community',
-        event_type: 'meetup',
-        status: 'approved',
-        registration_link: e.url || '',
-        registration_required: false,
-        cost: e.cost || 'Free',
-        source: e.source || 'research_agent',
-        created_at: e.created_at || new Date().toISOString(),
-        updated_at: e.updated_at || new Date().toISOString(),
-      })) as Event[];
-      setApprovedEvents(approvedMapped);
+      let pendingFromPrimary: Event[] = [];
+      let approvedFromPrimary: Event[] = [];
+
+      if (ivorResult.success && ivorResult.events.length > 0) {
+        // IVOR API returned data — use it
+        setDataSource('ivor');
+        pendingFromPrimary = (ivorResult.events || []).map((e: any) => ({
+          id: e.id,
+          title: e.title || 'Untitled',
+          description: e.description || '',
+          start_date: e.date || '',
+          end_date: e.end_date || e.date || '',
+          start_time: e.start_time || '',
+          end_time: e.end_time || '',
+          location: e.location || 'TBA',
+          virtual_link: e.virtual_link || '',
+          organizer: e.organizer || 'Unknown',
+          organizer_name: e.organizer || 'Unknown',
+          organizer_id: '',
+          tags: e.tags || [],
+          category: e.category || 'community',
+          event_type: 'meetup',
+          status: 'pending',
+          registration_link: e.url || '',
+          registration_required: false,
+          cost: e.cost || 'Free',
+          source: e.source || 'research_agent',
+          created_at: e.created_at || new Date().toISOString(),
+          updated_at: e.updated_at || new Date().toISOString(),
+        }));
+
+        const approvedResult = await fetchUpcomingEventsViaIvor();
+        approvedFromPrimary = (approvedResult.events || []).map((e: any) => ({
+          id: e.id,
+          title: e.title || 'Untitled',
+          description: e.description || '',
+          start_date: e.date || '',
+          end_date: e.end_date || e.date || '',
+          start_time: e.start_time || '',
+          end_time: e.end_time || '',
+          location: e.location || 'TBA',
+          virtual_link: e.virtual_link || '',
+          organizer: e.organizer || 'Unknown',
+          organizer_name: e.organizer || 'Unknown',
+          organizer_id: '',
+          tags: e.tags || [],
+          category: e.category || 'community',
+          event_type: 'meetup',
+          status: 'approved',
+          registration_link: e.url || '',
+          registration_required: false,
+          cost: e.cost || 'Free',
+          source: e.source || 'research_agent',
+          created_at: e.created_at || new Date().toISOString(),
+          updated_at: e.updated_at || new Date().toISOString(),
+        })) as Event[];
+
+        console.log(`✅ Loaded ${pendingFromPrimary.length} pending events from IVOR API`);
+      } else {
+        // IVOR API unavailable or returned empty — fall back to Supabase directly
+        setDataSource('supabase');
+        console.warn('⚠️ IVOR API unavailable, falling back to Supabase direct query');
+
+        const [supabasePending, supabaseApproved] = await Promise.all([
+          supabaseEventService.getPendingEvents().catch(() => []),
+          supabaseEventService.getPublishedEvents().catch(() => []),
+        ]);
+
+        pendingFromPrimary = supabasePending;
+        approvedFromPrimary = supabaseApproved;
+        console.log(`✅ Loaded ${pendingFromPrimary.length} pending events from Supabase (fallback)`);
+      }
+
+      // Merge with Google Sheets events and deduplicate
+      const allPending = dedupeEvents([...pendingFromPrimary, ...sheetsEvents] as Event[]);
+      setApprovedEvents(approvedFromPrimary);
 
       // Calculate stats
       const mergedStats = {
-        pending: uniqueEvents.length + sheetsStats.pending,
-        approved: approvedMapped.length + sheetsStats.approved,
+        pending: allPending.length + sheetsStats.pending,
+        approved: approvedFromPrimary.length + sheetsStats.approved,
         rejected: sheetsStats.rejected,
-        total: uniqueEvents.length + approvedMapped.length + sheetsStats.total
+        total: allPending.length + approvedFromPrimary.length + sheetsStats.total
       };
 
-      setPendingEvents(uniqueEvents);
+      setPendingEvents(allPending);
       setStats(mergedStats);
-      console.log(`✅ Loaded ${uniqueEvents.length} pending events from IVOR API`);
     } catch (error) {
       console.error('Error loading moderation data:', error);
     } finally {
@@ -128,24 +147,21 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleApprove = async (id: string) => {
     try {
-      // Use IVOR Core API for approval (Liberation Layer 3)
-      console.log('🏴‍☠️ Approving event via IVOR Core:', id);
+      console.log('🏴‍☠️ Approving event:', id);
+
+      // Try IVOR Core API first
       const apiResult = await approveEventViaIvor(id);
 
-      // Also try Google Sheets in case it's from there
-      await googleSheetsService.updateEventStatus(id, 'published').catch(err => {
-        console.log('Not in Google Sheets:', err);
-      });
-
       if (!apiResult.success) {
-        console.error('Failed to approve event:', apiResult.message);
-        alert(`Failed to approve event: ${apiResult.message}`);
-        return;
+        // IVOR failed — fall back to direct Supabase update
+        console.warn('IVOR approve failed, using Supabase directly');
+        await supabaseEventService.updateEventStatus(id, 'published');
       }
 
-      console.log('✅ Event approved via IVOR Core');
+      // Also try Google Sheets in case it's from there
+      await googleSheetsService.updateEventStatus(id, 'published').catch(() => {});
 
-      // Wait a moment for database to update
+      console.log('✅ Event approved');
       await new Promise(resolve => setTimeout(resolve, 500));
       await loadData();
     } catch (error) {
@@ -156,24 +172,21 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
 
   const handleReject = async (id: string) => {
     try {
-      // Use IVOR Core API for rejection (Liberation Layer 3)
-      console.log('🏴‍☠️ Rejecting event via IVOR Core:', id);
+      console.log('🏴‍☠️ Rejecting event:', id);
+
+      // Try IVOR Core API first
       const apiResult = await rejectEventViaIvor(id, 'Does not meet community guidelines');
 
-      // Also try Google Sheets in case it's from there
-      await googleSheetsService.updateEventStatus(id, 'archived').catch(err => {
-        console.log('Not in Google Sheets:', err);
-      });
-
       if (!apiResult.success) {
-        console.error('Failed to reject event:', apiResult.message);
-        alert(`Failed to reject event: ${apiResult.message}`);
-        return;
+        // IVOR failed — fall back to direct Supabase update
+        console.warn('IVOR reject failed, using Supabase directly');
+        await supabaseEventService.updateEventStatus(id, 'archived');
       }
 
-      console.log('❌ Event rejected via IVOR Core');
+      // Also try Google Sheets in case it's from there
+      await googleSheetsService.updateEventStatus(id, 'archived').catch(() => {});
 
-      // Wait a moment for database to update
+      console.log('❌ Event rejected');
       await new Promise(resolve => setTimeout(resolve, 500));
       await loadData();
     } catch (error) {
@@ -374,8 +387,6 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
     const isComplete = e.title && e.start_date && e.location && e.title.length >= 5;
     return isFuture && isComplete;
   }).length;
-  const duplicatesRemoved = (pendingEvents.length || 0) - filteredEvents.length;
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg max-w-7xl w-full max-h-[90vh] overflow-y-auto">
@@ -409,6 +420,21 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
               </button>
             </div>
           </div>
+
+          {/* Data Source Status */}
+          {dataSource === 'supabase' && (
+            <div className="mb-4 bg-amber-50 border border-amber-300 rounded-lg p-3">
+              <div className="flex items-center text-sm text-amber-800">
+                <svg className="w-4 h-4 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                <span>
+                  <strong>IVOR API unavailable</strong> — loading events directly from Supabase database.
+                  Approve/reject actions will update Supabase directly.
+                </span>
+              </div>
+            </div>
+          )}
 
           {/* Dual Integration Notice */}
           <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
