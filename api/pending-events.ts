@@ -38,12 +38,17 @@ export default async function handler(req: Request, res: Response) {
       return res.status(500).json({ success: false, events: [], error: 'Database query failed' });
     }
 
-    const events = await response.json();
+    const rawEvents = await response.json();
+
+    // Deduplicate by title+date (scrapers insert same event with different IDs)
+    const events = Array.from(
+      new Map((rawEvents || []).map((e: any) => [`${(e.title || '').toLowerCase().trim()}|${e.date || ''}`, e])).values()
+    );
 
     return res.status(200).json({
       success: true,
-      events: events || [],
-      count: events?.length || 0,
+      events,
+      count: events.length,
       source: 'supabase-direct'
     });
   } catch (error: any) {

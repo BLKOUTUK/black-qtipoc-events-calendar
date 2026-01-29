@@ -69,9 +69,14 @@ class SupabaseEventService {
         return [];
       }
 
-      // Remove duplicates based on event ID
-      const uniqueData = Array.from(new Map(data.map((event: any) => [event.id, event])).values());
-      console.log(`🔍 After deduplication: ${uniqueData.length} unique events`);
+      // Remove duplicates based on title+date (scrapers insert same event with different IDs)
+      const uniqueData = Array.from(
+        new Map(data.map((event: any) => {
+          const key = `${(event.title || '').toLowerCase().trim()}|${event.date || ''}`;
+          return [key, event];
+        })).values()
+      );
+      console.log(`🔍 After deduplication: ${uniqueData.length} unique events (from ${data.length} rows)`);
 
       // Filter out any events without an ID (safety check)
       const validEvents = uniqueData.filter((event: any) => event && event.id);

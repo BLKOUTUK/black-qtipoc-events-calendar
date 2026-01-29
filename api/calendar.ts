@@ -68,7 +68,12 @@ export default async function handler(req: Request, res: Response) {
         return res.status(500).send('Failed to fetch events');
       }
 
-      const events = await response.json();
+      const rawEvents = await response.json();
+
+      // Deduplicate by title+date (scrapers insert same event with different IDs)
+      const events = Array.from(
+        new Map(rawEvents.map((e: any) => [`${(e.title || '').toLowerCase().trim()}|${e.date || ''}`, e])).values()
+      );
 
       // Generate iCal format
       const icalEvents = events.map(generateICalEvent).join('\n');
