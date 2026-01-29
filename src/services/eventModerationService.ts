@@ -5,6 +5,7 @@
 
 import { Event } from '../types';
 import { approveEventViaIvor, rejectEventViaIvor } from '../config/api';
+import { supabaseEventService } from './supabaseEventService';
 import { isAutoRejectSource, isTrustedSource } from '../config/trustedEventSources';
 
 export interface ModerationCriteria {
@@ -79,11 +80,14 @@ class EventModerationService {
     try {
       const result = await approveEventViaIvor(eventId);
       if (result.success) {
-        console.log(`[Moderation] Event ${eventId} approved`);
-      } else {
-        console.error(`[Moderation] Failed to approve event ${eventId}:`, result.message);
+        console.log(`[Moderation] Event ${eventId} approved via IVOR`);
+        return true;
       }
-      return result.success;
+      // IVOR failed — fall back to Supabase direct update
+      console.warn(`[Moderation] IVOR approve failed, using Supabase for ${eventId}`);
+      await supabaseEventService.updateEventStatus(eventId, 'published');
+      console.log(`[Moderation] Event ${eventId} approved via Supabase`);
+      return true;
     } catch (error) {
       console.error('Error approving event:', error);
       return false;
@@ -91,17 +95,20 @@ class EventModerationService {
   }
 
   /**
-   * Reject a single event via IVOR API
+   * Reject a single event via IVOR API with Supabase fallback
    */
   async rejectEvent(eventId: string, reason?: string): Promise<boolean> {
     try {
       const result = await rejectEventViaIvor(eventId, reason);
       if (result.success) {
-        console.log(`[Moderation] Event ${eventId} rejected`);
-      } else {
-        console.error(`[Moderation] Failed to reject event ${eventId}:`, result.message);
+        console.log(`[Moderation] Event ${eventId} rejected via IVOR`);
+        return true;
       }
-      return result.success;
+      // IVOR failed — fall back to Supabase direct update
+      console.warn(`[Moderation] IVOR reject failed, using Supabase for ${eventId}`);
+      await supabaseEventService.updateEventStatus(eventId, 'archived');
+      console.log(`[Moderation] Event ${eventId} rejected via Supabase`);
+      return true;
     } catch (error) {
       console.error('Error rejecting event:', error);
       return false;

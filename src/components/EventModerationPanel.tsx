@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Event } from '../types';
 import { fetchPendingEventsViaIvor } from '../config/api';
+import { supabaseEventService } from '../services/supabaseEventService';
 import { eventModerationService, ModerationResult } from '../services/eventModerationService';
 import { isTrustedSource, isAutoRejectSource } from '../config/trustedEventSources';
 
@@ -38,10 +39,10 @@ export function EventModerationPanel({ onStatsUpdate }: EventModerationPanelProp
   const loadPendingEvents = async () => {
     setLoading(true);
     try {
-      // Fetch pending events from IVOR API
+      // Try IVOR API first
       const result = await fetchPendingEventsViaIvor();
 
-      if (result.success && result.events) {
+      if (result.success && result.events && result.events.length > 0) {
         // Transform API events to Event type
         const pending: Event[] = result.events.map((e: any) => ({
           id: e.id,
@@ -72,12 +73,21 @@ export function EventModerationPanel({ onStatsUpdate }: EventModerationPanelProp
         console.log(`[EventModerationPanel] Loaded ${pending.length} pending events from IVOR API`);
         setPendingEvents(pending);
       } else {
-        console.error('Failed to fetch pending events:', result);
-        setPendingEvents([]);
+        // IVOR unavailable or empty — fall back to Supabase
+        console.warn('[EventModerationPanel] IVOR unavailable, falling back to Supabase');
+        const supabasePending = await supabaseEventService.getPendingEvents().catch(() => []);
+        console.log(`[EventModerationPanel] Loaded ${supabasePending.length} pending events from Supabase`);
+        setPendingEvents(supabasePending);
       }
     } catch (error) {
       console.error('Failed to load pending events:', error);
-      setPendingEvents([]);
+      // Last resort fallback to Supabase
+      try {
+        const supabasePending = await supabaseEventService.getPendingEvents();
+        setPendingEvents(supabasePending);
+      } catch {
+        setPendingEvents([]);
+      }
     } finally {
       setLoading(false);
     }
