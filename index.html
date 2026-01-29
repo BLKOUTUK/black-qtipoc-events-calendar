@@ -35,11 +35,24 @@
   <body>
     <div id="root">
       <!-- Pre-React loading state — replaced once JS bundle executes -->
-      <div style="min-height:100vh;background:linear-gradient(135deg,#111827,#1e1b4b,#064e3b);display:flex;align-items:center;justify-content:center;flex-direction:column">
+      <div id="app-loader" style="min-height:100vh;background:linear-gradient(135deg,#111827,#1e1b4b,#064e3b);display:flex;align-items:center;justify-content:center;flex-direction:column">
         <img src="/images/blkoutlogo_wht_transparent.png" alt="BLKOUT" style="height:64px;margin-bottom:24px" onerror="this.style.display='none'" />
         <div style="color:#eab308;font-size:14px;font-family:system-ui">Loading events...</div>
       </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Failsafe: if the app hasn't rendered after 8 seconds, force a clean reload.
+      // This catches stale JS bundle references after deploys.
+      setTimeout(function() {
+        var root = document.getElementById('root');
+        var loader = document.getElementById('app-loader');
+        // If the loader is still visible, the React app didn't mount
+        if (loader && root && root.contains(loader)) {
+          console.warn('[BLKOUT] App did not mount — forcing reload');
+          window.location.reload();
+        }
+      }, 8000);
+    </script>
   </body>
 </html>

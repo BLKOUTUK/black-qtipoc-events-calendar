@@ -70,17 +70,28 @@ export async function submitEventToIvor(eventData: {
 }
 
 /**
- * Approve event through IVOR Core
+ * Approve event — tries local API first, falls back to IVOR Core
  */
 export async function approveEventViaIvor(eventId: string): Promise<{ success: boolean; message: string }> {
+  // Try local server-side API first
+  try {
+    const localResponse = await fetch('/api/moderate-event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ eventId, action: 'approve' }),
+    });
+    if (localResponse.ok) {
+      const result = await localResponse.json();
+      if (result.success) return result;
+    }
+  } catch { /* fall through to IVOR */ }
+
+  // Fall back to IVOR
   try {
     const response = await fetch(API_ENDPOINTS.EVENTS_APPROVE(eventId), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
-
     return await response.json();
   } catch (error: any) {
     return { success: false, message: error.message };
@@ -88,18 +99,29 @@ export async function approveEventViaIvor(eventId: string): Promise<{ success: b
 }
 
 /**
- * Reject event through IVOR Core
+ * Reject event — tries local API first, falls back to IVOR Core
  */
 export async function rejectEventViaIvor(eventId: string, reason?: string): Promise<{ success: boolean; message: string }> {
+  // Try local server-side API first
+  try {
+    const localResponse = await fetch('/api/moderate-event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ eventId, action: 'reject', reason }),
+    });
+    if (localResponse.ok) {
+      const result = await localResponse.json();
+      if (result.success) return result;
+    }
+  } catch { /* fall through to IVOR */ }
+
+  // Fall back to IVOR
   try {
     const response = await fetch(API_ENDPOINTS.EVENTS_REJECT(eventId), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ reason }),
     });
-
     return await response.json();
   } catch (error: any) {
     return { success: false, message: error.message };
@@ -107,15 +129,33 @@ export async function rejectEventViaIvor(eventId: string, reason?: string): Prom
 }
 
 /**
- * Fetch pending events from IVOR Core
+ * Fetch pending events — tries local API first (service role key, bypasses RLS),
+ * then falls back to IVOR Core
  */
 export async function fetchPendingEventsViaIvor(): Promise<{ success: boolean; events: any[]; count: number }> {
+  // Try local server-side API first (uses service role key, no CORS issues)
+  try {
+    const localResponse = await fetch('/api/pending-events', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (localResponse.ok) {
+      const localResult = await localResponse.json();
+      if (localResult.success && localResult.events?.length > 0) {
+        console.log(`[API] Loaded ${localResult.events.length} pending events from local API`);
+        return localResult;
+      }
+    }
+  } catch (err) {
+    console.warn('[API] Local pending-events API unavailable, trying IVOR');
+  }
+
+  // Fall back to IVOR Core API
   try {
     const response = await fetch(API_ENDPOINTS.EVENTS_PENDING, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const result = await response.json();
