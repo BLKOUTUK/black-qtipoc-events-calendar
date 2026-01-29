@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { Request, Response } from 'express';
 
 // CORS headers for Chrome extension
 const corsHeaders = {
@@ -66,7 +66,7 @@ async function validateEventLiberation(event: {
   };
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: Request, res: Response) {
   // Set CORS headers
   Object.entries(corsHeaders).forEach(([key, value]) => {
     res.setHeader(key, value);

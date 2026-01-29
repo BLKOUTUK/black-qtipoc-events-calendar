@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { Request, Response } from 'express';
 import twitterService from '../lib/twitterService';
 
 // CORS headers
@@ -12,7 +12,7 @@ const corsHeaders = {
 const SUPABASE_URL = 'https://bgjengudzfickgomjqmz.supabase.co';
 const SUPABASE_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTYxMjc2NywiZXhwIjoyMDcxMTg4NzY3fQ.syRvR268kK8MmxEeBm7cBRjj-37sOM3PCR9oWUlaghw';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: Request, res: Response) {
   // Set CORS headers
   Object.entries(corsHeaders).forEach(([key, value]) => {
     res.setHeader(key, value);
