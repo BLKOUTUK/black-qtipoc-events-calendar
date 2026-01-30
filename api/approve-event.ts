@@ -9,8 +9,12 @@ const corsHeaders = {
 };
 
 // Supabase configuration
-const SUPABASE_URL = 'https://bgjengudzfickgomjqmz.supabase.co';
-const SUPABASE_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTYxMjc2NywiZXhwIjoyMDcxMTg4NzY3fQ.syRvR268kK8MmxEeBm7cBRjj-37sOM3PCR9oWUlaghw';
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  console.error('[approve-event] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars');
+}
 
 export default async function handler(req: Request, res: Response) {
   // Set CORS headers
@@ -32,7 +36,7 @@ export default async function handler(req: Request, res: Response) {
   }
 
   // Check admin authentication
-  const adminPassword = process.env.ADMIN_PASSWORD || 'blkout2024';
+  const adminPassword = process.env.ADMIN_PASSWORD || '';
   const providedPassword = req.headers['x-admin-password'];
 
   if (providedPassword !== adminPassword) {

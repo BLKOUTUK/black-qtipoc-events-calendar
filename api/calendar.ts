@@ -48,8 +48,8 @@ export default async function handler(req: Request, res: Response) {
   if (req.method === 'GET') {
     try {
       // Fetch approved events from Supabase
-      const supabaseUrl = 'https://bgjengudzfickgomjqmz.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0';
+      const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
+      const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
 
       const todayDate = new Date().toISOString().split('T')[0];
       const url = `${supabaseUrl}/rest/v1/events?status=eq.approved&date=gte.${todayDate}&select=id,title,date,description,location,organizer&order=date.asc`;

@@ -344,21 +344,29 @@ class SupabaseEventService {
 
   async getModerationStats(): Promise<ModerationStats> {
     try {
-      console.log('🔍 Fetching moderation stats');
+      console.log('🔍 Fetching moderation stats via server-side API');
 
+      // Use server-side endpoint (service role key bypasses RLS)
+      const response = await fetch('/api/moderation-stats');
+      const result = await response.json();
+
+      if (result.success && result.stats) {
+        console.log('🔍 Moderation stats:', result.stats);
+        return result.stats;
+      }
+
+      console.warn('🔍 Server stats failed, falling back to client query');
+      // Fallback: try client-side (may get 401 if RLS blocks)
       const { data, error } = await supabase
         .from('events')
         .select('status');
 
       if (error) {
-        console.error('🔍 Failed to fetch moderation stats:', error);
+        console.error('🔍 Client fallback also failed:', error);
         return { pending: 0, approved: 0, rejected: 0, total: 0 };
       }
 
-      console.log('🔍 Moderation stats data:', data?.length || 0, 'total events');
-
       const stats = (data || []).reduce((acc: any, event: any) => {
-        // Count pending statuses (draft, reviewing, pending)
         if (event.status === 'draft' || event.status === 'reviewing' || event.status === 'pending') {
           acc.pending++;
         } else if (event.status === 'approved' || event.status === 'published') {
@@ -370,7 +378,6 @@ class SupabaseEventService {
         return acc;
       }, { pending: 0, approved: 0, rejected: 0, total: 0 });
 
-      console.log('🔍 Computed stats:', stats);
       return stats;
     } catch (error) {
       console.error('🔍 Error fetching moderation stats:', error);

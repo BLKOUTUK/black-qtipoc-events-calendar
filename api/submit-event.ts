@@ -8,8 +8,12 @@ const corsHeaders = {
 };
 
 // Supabase configuration (same database as community platform)
-const SUPABASE_URL = 'https://bgjengudzfickgomjqmz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0';
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  console.error('[submit-event] Missing SUPABASE_URL or SUPABASE_ANON_KEY env vars');
+}
 
 // IVOR Liberation API configuration
 const IVOR_API_BASE = process.env.IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
