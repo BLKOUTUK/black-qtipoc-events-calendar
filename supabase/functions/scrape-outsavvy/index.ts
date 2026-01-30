@@ -41,138 +41,8 @@ const ALL_KEYWORDS = [
   ...EVENT_TYPE_KEYWORDS
 ];
 
-// UK-focused search terms for Outsavvy
-// Narrow (Black-specific) + Broad (LGBTQ+ events the community attends)
-const SEARCH_STRATEGIES = [
-  // Black-specific searches (high relevance)
-  { query: 'black queer', cities: ['London', 'Manchester', 'Birmingham', 'Bristol', 'Leeds'] },
-  { query: 'qtipoc', cities: ['London', 'Brighton', 'Manchester', 'Bristol'] },
-  { query: 'black trans', cities: ['London', 'Manchester', 'Birmingham', 'Leeds'] },
-  { query: 'black lgbtq', cities: ['London', 'Bristol', 'Manchester', 'Brighton'] },
-  { query: 'black pride', cities: ['London', 'Manchester', 'Birmingham', 'Brighton'] },
-  { query: 'black liberation', cities: ['London', 'Manchester', 'Birmingham'] },
-  { query: 'racial justice queer', cities: ['London', 'Bristol', 'Manchester'] },
-  { query: 'queer poc', cities: ['London', 'Manchester', 'Brighton', 'Bristol'] },
-  // Broader LGBTQ+ searches (catch more events, filtered by relevance scoring)
-  { query: 'queer', cities: ['London', 'Manchester', 'Birmingham', 'Brighton'] },
-  { query: 'lgbtq', cities: ['London', 'Manchester', 'Bristol', 'Brighton'] },
-  { query: 'drag', cities: ['London', 'Manchester', 'Brighton'] },
-  { query: 'trans community', cities: ['London', 'Manchester', 'Brighton'] },
-  { query: 'pride', cities: ['London', 'Manchester', 'Birmingham', 'Brighton', 'Bristol', 'Leeds'] },
-  { query: 'queer club night', cities: ['London', 'Manchester', 'Brighton'] },
-  { query: 'lgbtq history month', cities: ['London', 'Manchester', 'Birmingham', 'Bristol'] },
-];
-
-interface OutsavvyEvent {
-  id: string;
-  title: string;
-  description: string;
-  start_date: string;
-  end_date?: string;
-  venue: {
-    name: string;
-    address: string;
-    city: string;
-    postcode: string;
-  };
-  organizer: {
-    name: string;
-    id: string;
-  };
-  url: string;
-  image_url?: string;
-  price_info: {
-    min_price: number;
-    max_price: number;
-    currency: string;
-    is_free: boolean;
-  };
-  categories: string[];
-  tags: string[];
-}
-
-function calculateRelevanceScore(event: OutsavvyEvent): number {
-  const searchText = `${event.title} ${event.description} ${event.categories.join(' ')} ${event.tags.join(' ')}`.toLowerCase();
-  let score = 0;
-
-  // Identity keywords get highest weight
-  IDENTITY_KEYWORDS.forEach(keyword => {
-    if (searchText.includes(keyword)) {
-      score += 10;
-    }
-  });
-
-  // Community keywords get medium-high weight
-  COMMUNITY_KEYWORDS.forEach(keyword => {
-    if (searchText.includes(keyword)) {
-      score += 7;
-    }
-  });
-
-  // Values keywords get medium weight
-  VALUES_KEYWORDS.forEach(keyword => {
-    if (searchText.includes(keyword)) {
-      score += 5;
-    }
-  });
-
-  // Event type keywords get lower weight
-  EVENT_TYPE_KEYWORDS.forEach(keyword => {
-    if (searchText.includes(keyword)) {
-      score += 2;
-    }
-  });
-
-  // Bonus points for multiple keyword matches
-  const uniqueMatches = ALL_KEYWORDS.filter(keyword => searchText.includes(keyword)).length;
-  if (uniqueMatches >= 3) score += 5;
-  if (uniqueMatches >= 5) score += 10;
-
-  // Category bonuses
-  event.categories.forEach(category => {
-    const cat = category.toLowerCase();
-    if (cat.includes('community') || cat.includes('social')) score += 3;
-    if (cat.includes('arts') || cat.includes('culture')) score += 2;
-    if (cat.includes('lgbtq') || cat.includes('diversity')) score += 5;
-  });
-
-  return score;
-}
-
-function isRelevantEvent(event: OutsavvyEvent): boolean {
-  const score = calculateRelevanceScore(event);
-  return score >= 10; // Minimum threshold for relevance
-}
-
-function extractTags(event: OutsavvyEvent): string[] {
-  const text = `${event.title} ${event.description}`.toLowerCase();
-  const foundKeywords = ALL_KEYWORDS.filter(keyword => text.includes(keyword));
-  
-  // Combine with existing tags and categories
-  const tags = [...foundKeywords, ...event.tags, ...event.categories];
-  
-  // Add event type tags
-  if (text.includes('workshop') || text.includes('training')) tags.push('workshop');
-  if (text.includes('art') || text.includes('creative')) tags.push('arts');
-  if (text.includes('music') || text.includes('concert')) tags.push('music');
-  if (text.includes('health') || text.includes('wellness')) tags.push('wellness');
-  if (text.includes('social') || text.includes('networking')) tags.push('social');
-  if (text.includes('support') || text.includes('group')) tags.push('support');
-  if (text.includes('celebration') || text.includes('party')) tags.push('celebration');
-  
-  return [...new Set(tags.map(tag => tag.toLowerCase()))];
-}
-
-function formatPrice(event: OutsavvyEvent): string {
-  const { price_info } = event;
-  if (price_info.is_free) return 'Free';
-  
-  if (price_info.min_price === price_info.max_price) {
-    return `£${price_info.min_price}`;
-  } else {
-    return `£${price_info.min_price} - £${price_info.max_price}`;
-  }
-}
+// Cities supported for website scraping
+const SUPPORTED_CITIES = ['London', 'Manchester', 'Birmingham', 'Bristol', 'Leeds', 'Brighton'];
 
 // Decode HTML entities in scraped text
 function decodeHTMLEntities(text: string): string {
@@ -201,7 +71,7 @@ function isBoilerplate(text: string): boolean {
   return BOILERPLATE_PATTERNS.some(p => p.test(text));
 }
 
-async function scrapeEventPage(url: string): Promise<{ description?: string; location?: string; organizer?: string }> {
+async function scrapeEventPage(url: string): Promise<{ description?: string; location?: string; organizer?: string; date?: string; imageUrl?: string }> {
   try {
     const res = await fetch(url, {
       headers: {
@@ -211,7 +81,7 @@ async function scrapeEventPage(url: string): Promise<{ description?: string; loc
     });
     if (!res.ok) return {};
     const html = await res.text();
-    const result: { description?: string; location?: string; organizer?: string } = {};
+    const result: { description?: string; location?: string; organizer?: string; date?: string; imageUrl?: string } = {};
 
     // Try JSON-LD structured data first
     const jsonLdMatches = html.match(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi);
@@ -220,7 +90,10 @@ async function scrapeEventPage(url: string): Promise<{ description?: string; loc
         try {
           const jsonContent = match.replace(/<script[^>]*>/, '').replace(/<\/script>/, '').trim();
           const ld = JSON.parse(jsonContent);
-          const event = ld['@type'] === 'Event' ? ld : (Array.isArray(ld) ? ld.find((l: any) => l['@type'] === 'Event') : null);
+          // Match Event and all subtypes (DanceEvent, MusicEvent, SocialEvent, etc.)
+          const isEventType = (t: string) => t === 'Event' || t.endsWith('Event') || t === 'Festival';
+          const event = (ld['@type'] && isEventType(ld['@type'])) ? ld
+            : (Array.isArray(ld) ? ld.find((l: any) => l['@type'] && isEventType(l['@type'])) : null);
           if (event) {
             if (event.description && !isBoilerplate(event.description)) {
               result.description = decodeHTMLEntities(event.description.replace(/<[^>]+>/g, '').trim().substring(0, 500));
@@ -245,6 +118,14 @@ async function scrapeEventPage(url: string): Promise<{ description?: string; loc
             }
             if (event.organizer?.name) {
               result.organizer = decodeHTMLEntities(event.organizer.name);
+            }
+            if (event.startDate) {
+              // JSON-LD startDate can be ISO string or date string
+              result.date = event.startDate.split('T')[0]; // Extract YYYY-MM-DD
+            }
+            if (event.image) {
+              const img = typeof event.image === 'string' ? event.image : event.image?.url;
+              if (img) result.imageUrl = img;
             }
           }
         } catch { /* JSON parse failure, try next block */ }
@@ -277,237 +158,208 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const outsavvyApiKey = Deno.env.get('OUTSAVVY_API_KEY');
-    if (!outsavvyApiKey) {
+    // Parse request body for parameters
+    // city: which city to search (default 'London')
+    // limit: max new events to process per call (default 20)
+    let city = 'London';
+    let limit = 20;
+    try {
+      const body = await req.json();
+      if (body.city && typeof body.city === 'string') city = body.city;
+      if (typeof body.limit === 'number') limit = Math.min(body.limit, 50);
+    } catch { /* no body or invalid JSON — use defaults */ }
+
+    // Title-based keyword filter for relevant LGBTQ+/Black events
+    const TITLE_KEYWORDS = [
+      'black', 'queer', 'qtipoc', 'lgbtq', 'lgbtqia', 'trans', 'transgender',
+      'pride', 'drag', 'poc', 'bipoc', 'qpoc', 'tbpoc',
+      'gay', 'lesbian', 'bisexual', 'dyke', 'nonbinary', 'non-binary',
+      'liberation', 'intersectional', 'sapphic',
+    ];
+
+    let totalFound = 0;
+    let totalRelevant = 0;
+    let totalAdded = 0;
+    let totalSkippedExisting = 0;
+    const errors: string[] = [];
+
+    // Step 1: Fetch the OutSavvy search page for this city
+    // The API is no longer returning results, so we scrape the website directly
+    const searchUrl = `https://www.outsavvy.com/search?q=queer&location=${encodeURIComponent(city)}`;
+    console.log(`Fetching search page: ${searchUrl}`);
+
+    const searchRes = await fetch(searchUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; BLKOUT-Events-Bot/1.0; +https://events.blkoutuk.cloud)',
+        'Accept': 'text/html'
+      }
+    });
+
+    if (!searchRes.ok) {
       return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Outsavvy API key not configured. Please set OUTSAVVY_API_KEY environment variable.',
-          events_found: 0,
-          events_added: 0
-        }),
-        {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 200,
-        }
+        JSON.stringify({ success: false, error: `Search page returned ${searchRes.status}`, events_found: 0, events_added: 0 }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
       );
     }
 
-    let totalFound = 0;
-    let totalAdded = 0;
-    let totalRelevant = 0;
-    let totalSkippedDuplicates = 0;
-    const errors: string[] = [];
-    const relevanceScores: number[] = [];
-    // Track seen events within this run to prevent cross-query duplicates
-    const seenEvents = new Set<string>();
+    const searchHtml = await searchRes.text();
 
-    // City coordinates for geo-based search
-    const cityCoords: Record<string, { lat: number; lng: number }> = {
-      'London': { lat: 51.5074, lng: -0.1278 },
-      'Manchester': { lat: 53.4808, lng: -2.2426 },
-      'Birmingham': { lat: 52.4862, lng: -1.8904 },
-      'Bristol': { lat: 51.4545, lng: -2.5879 },
-      'Leeds': { lat: 53.8008, lng: -1.5491 },
-      'Brighton': { lat: 50.8225, lng: -0.1372 },
-    };
-
-    // Search using different strategies
-    for (const strategy of SEARCH_STRATEGIES) {
-      for (const city of strategy.cities) {
-        try {
-          const coords = cityCoords[city] || cityCoords['London'];
-
-          // Outsavvy API v1 with geo-based search
-          const url = `https://api.outsavvy.com/v1/events/search?` +
-            `q=${encodeURIComponent(strategy.query)}&` +
-            `latitude=${coords.lat}&` +
-            `longitude=${coords.lng}&` +
-            `range=10&` +
-            `start_date=${new Date().toISOString().split('T')[0]}&` +
-            `end_date=${new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}`;
-
-          const response = await fetch(url, {
-            headers: {
-              'Authorization': `Partner ${outsavvyApiKey}`,
-              'Content-Type': 'application/json'
-            }
-          });
-          if (!response.ok) {
-            if (response.status === 429) {
-              // Rate limited - wait and retry
-              await new Promise(resolve => setTimeout(resolve, 5000));
-              continue;
-            }
-            throw new Error(`Outsavvy API error: ${response.status}`);
-          }
-
-          const data = await response.json();
-          const events: OutsavvyEvent[] = data.events || [];
-          totalFound += events.length;
-
-          for (const event of events) {
-            const relevanceScore = calculateRelevanceScore(event);
-            relevanceScores.push(relevanceScore);
-
-            if (!isRelevantEvent(event)) continue;
-            totalRelevant++;
-
-            // Dedup within this scraper run (same event found across multiple queries)
-            const dedupeKey = `${event.title.toLowerCase().trim()}|${event.start_date}`;
-            if (seenEvents.has(dedupeKey)) {
-              totalSkippedDuplicates++;
-              continue;
-            }
-            seenEvents.add(dedupeKey);
-
-            // Check if event already exists in database (by source_url OR title+date)
-            const { data: existingByUrl } = await supabaseClient
-              .from('events')
-              .select('id')
-              .eq('source_url', event.url)
-              .maybeSingle();
-
-            if (existingByUrl) continue;
-
-            const { data: existingByTitle } = await supabaseClient
-              .from('events')
-              .select('id')
-              .ilike('title', event.title.trim())
-              .eq('date', event.start_date)
-              .maybeSingle();
-
-            if (existingByTitle) continue;
-
-            // Create or find organizer contact
-            let organizerId = null;
-            try {
-              const { data: existingContact } = await supabaseClient
-                .from('contacts')
-                .select('id')
-                .eq('name', event.organizer.name)
-                .single();
-
-              if (existingContact) {
-                organizerId = existingContact.id;
-              } else {
-                const { data: newContact } = await supabaseClient
-                  .from('contacts')
-                  .insert({
-                    name: event.organizer.name,
-                    email: `${event.organizer.name.toLowerCase().replace(/\s+/g, '.')}@outsavvy.com`
-                  })
-                  .select()
-                  .single();
-
-                if (newContact) organizerId = newContact.id;
-              }
-            } catch (contactError) {
-              console.warn('Contact creation failed:', contactError);
-            }
-
-            // Scrape the actual event page for real description and location
-            // The Outsavvy API often returns boilerplate in the description field
-            const eventUrl = event.url || `https://www.outsavvy.com/event/${event.id}`;
-            const pageData = await scrapeEventPage(eventUrl);
-
-            // Use page-scraped data first, fall back to API data
-            let cleanDescription = pageData.description || '';
-            if (!cleanDescription || isBoilerplate(cleanDescription)) {
-              // Try API description
-              cleanDescription = (event.description || '').trim();
-            }
-            if (!cleanDescription || isBoilerplate(cleanDescription)) {
-              // Last resort: build from metadata
-              const parts = [event.title];
-              if (event.categories?.length) parts.push(`Categories: ${event.categories.join(', ')}`);
-              if (event.tags?.length) parts.push(`Tags: ${event.tags.join(', ')}`);
-              cleanDescription = parts.join('. ') + '. See OutSavvy link for full details.';
-            }
-
-            // Use page-scraped location first, fall back to API venue data
-            let cleanLocation = pageData.location || '';
-            if (!cleanLocation || cleanLocation === 'Location TBA') {
-              if (event.venue?.name && event.venue?.city) {
-                cleanLocation = `${event.venue.name}, ${event.venue.city}`;
-                if (event.venue.postcode) cleanLocation += ` ${event.venue.postcode}`;
-              } else if (event.venue?.city) {
-                cleanLocation = event.venue.city;
-              } else if (event.venue?.name) {
-                cleanLocation = event.venue.name;
-              } else {
-                cleanLocation = 'See OutSavvy listing for venue details';
-              }
-            }
-
-            // Use page-scraped organizer if API didn't provide one
-            const cleanOrganizer = pageData.organizer || event.organizer?.name || 'Unknown';
-
-            // Rate limit page scraping (don't hammer OutSavvy)
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            // Insert event with enriched data
-            const { error } = await supabaseClient
-              .from('events')
-              .insert({
-                title: event.title,
-                description: cleanDescription,
-                date: event.start_date,
-                location: cleanLocation,
-                source: 'OutSavvy',
-                source_url: eventUrl,
-                url: eventUrl,
-                organizer_id: organizerId,
-                organizer: cleanOrganizer,
-                tags: extractTags(event),
-                status: 'pending',
-                image_url: event.image_url,
-                cost: event.price_info?.is_free ? 'Free' : formatPrice(event)
-              });
-
-            if (!error) {
-              totalAdded++;
-            } else {
-              errors.push(`Failed to insert event ${event.title}: ${error.message}`);
-            }
-          }
-
-          // Rate limiting - be respectful to Outsavvy API
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        } catch (error) {
-          errors.push(`Error searching ${city} for "${strategy.query}": ${error.message}`);
-        }
+    // Step 2: Extract event URLs and titles from HTML cards
+    // Card format: <a href="/event/{id}/{slug}"> ... <img alt="Title"> ... <div class="feature-price">Price</div>
+    const cardPattern = /href="(\/event\/\d+\/[^"]+)"[\s\S]*?alt="([^"]+)"[\s\S]*?feature-price">([^<]+)</g;
+    const discoveredEvents: { url: string; title: string; price: string }[] = [];
+    const seenUrls = new Set<string>();
+    let cardMatch;
+    while ((cardMatch = cardPattern.exec(searchHtml)) !== null) {
+      const eventUrl = `https://www.outsavvy.com${cardMatch[1]}`;
+      if (!seenUrls.has(eventUrl)) {
+        seenUrls.add(eventUrl);
+        discoveredEvents.push({
+          url: eventUrl,
+          title: decodeHTMLEntities(cardMatch[2].trim()),
+          price: cardMatch[3].trim()
+        });
       }
     }
 
-    // Calculate quality metrics
-    const avgRelevanceScore = relevanceScores.length > 0 
-      ? relevanceScores.reduce((a, b) => a + b, 0) / relevanceScores.length 
-      : 0;
+    totalFound = discoveredEvents.length;
+    console.log(`Found ${totalFound} events on search page`);
+
+    // Step 3: Filter by title keywords
+    const relevantEvents = discoveredEvents.filter(e => {
+      const lower = e.title.toLowerCase();
+      return TITLE_KEYWORDS.some(k => lower.includes(k));
+    });
+    totalRelevant = relevantEvents.length;
+    console.log(`${totalRelevant} match title keywords`);
+
+    // Step 4: Process relevant events (up to limit)
+    let processed = 0;
+    for (const discovered of relevantEvents) {
+      if (processed >= limit) break;
+
+      try {
+        // Check if event already exists in database by URL or title
+        const { data: existingByUrl } = await supabaseClient
+          .from('events')
+          .select('id')
+          .eq('url', discovered.url)
+          .maybeSingle();
+
+        if (existingByUrl) {
+          totalSkippedExisting++;
+          continue;
+        }
+
+        const { data: existingByTitle } = await supabaseClient
+          .from('events')
+          .select('id')
+          .ilike('title', discovered.title)
+          .maybeSingle();
+
+        if (existingByTitle) {
+          totalSkippedExisting++;
+          continue;
+        }
+
+        // Step 5: Scrape individual event page for full data (JSON-LD)
+        console.log(`Scraping: ${discovered.title}`);
+        const pageData = await scrapeEventPage(discovered.url);
+
+        // Build event record from scraped page data
+        const description = pageData.description || `${discovered.title}. See OutSavvy link for full details.`;
+        const location = pageData.location || 'See OutSavvy listing for venue details';
+        const organizer = pageData.organizer || 'Unknown';
+        const eventDate = pageData.date; // YYYY-MM-DD from JSON-LD
+
+        if (!eventDate) {
+          errors.push(`No date found: ${discovered.title}`);
+          processed++;
+          continue;
+        }
+
+        // Skip past events (recurring events may have original start dates from years ago)
+        const today = new Date().toISOString().split('T')[0];
+        if (eventDate < today) {
+          console.log(`  Skipping past event: ${discovered.title} (${eventDate})`);
+          processed++;
+          continue;
+        }
+
+        // Extract tags from title and description
+        const textForTags = `${discovered.title} ${description}`.toLowerCase();
+        const tags = ALL_KEYWORDS.filter(k => textForTags.includes(k));
+        if (textForTags.includes('workshop') || textForTags.includes('training')) tags.push('workshop');
+        if (textForTags.includes('art') || textForTags.includes('creative')) tags.push('arts');
+        if (textForTags.includes('music') || textForTags.includes('concert')) tags.push('music');
+        if (textForTags.includes('social') || textForTags.includes('networking')) tags.push('social');
+        if (textForTags.includes('party') || textForTags.includes('celebration')) tags.push('celebration');
+        const uniqueTags = [...new Set(tags)];
+
+        // Parse price
+        const cost = discovered.price === 'FREE' ? 'Free'
+          : discovered.price.startsWith('Pay What') ? 'Pay What You Can'
+          : discovered.price.includes('Sold Out') ? 'Sold Out'
+          : discovered.price.includes('Waiting List') ? 'Waitlist'
+          : discovered.price;
+
+        // Insert into database
+        const { error } = await supabaseClient
+          .from('events')
+          .insert({
+            title: discovered.title,
+            description,
+            date: eventDate,
+            location,
+            source: 'OutSavvy',
+            url: discovered.url,
+            organizer,
+            tags: uniqueTags,
+            status: 'pending',
+            cost,
+            source_platform: 'outsavvy',
+            discovery_method: 'web_scrape',
+          });
+
+        if (!error) {
+          totalAdded++;
+          console.log(`  ✅ Added: ${discovered.title}`);
+        } else {
+          errors.push(`Insert failed: ${discovered.title}: ${error.message}`);
+        }
+
+        processed++;
+
+        // Rate limit: don't hammer OutSavvy with page scrapes
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } catch (err) {
+        errors.push(`Error processing ${discovered.title}: ${(err as Error).message}`);
+      }
+    }
 
     // Log the scraping session
-    await supabaseClient
-      .from('scraping_logs')
-      .insert({
-        source: 'outsavvy',
-        events_found: totalFound,
-        events_added: totalAdded,
-        status: errors.length > 0 ? 'partial' : 'success',
-        error_message: errors.length > 0 ? errors.slice(0, 5).join('; ') : null
-      });
+    try {
+      await supabaseClient
+        .from('scraping_logs')
+        .insert({
+          source: 'outsavvy',
+          events_found: totalFound,
+          events_added: totalAdded,
+          status: errors.length > 0 ? 'partial' : 'success',
+          error_message: errors.length > 0 ? errors.slice(0, 5).join('; ') : null
+        });
+    } catch { /* scraping_logs table may not exist */ }
 
     return new Response(
       JSON.stringify({
         success: true,
-        events_found: totalFound,
-        events_relevant: totalRelevant,
+        city,
+        events_on_page: totalFound,
+        events_matching_keywords: totalRelevant,
+        events_already_in_db: totalSkippedExisting,
         events_added: totalAdded,
-        duplicates_skipped: totalSkippedDuplicates,
-        relevance_rate: totalFound > 0 ? (totalRelevant / totalFound * 100).toFixed(1) + '%' : '0%',
-        avg_relevance_score: avgRelevanceScore.toFixed(1),
-        search_strategies_used: SEARCH_STRATEGIES.length,
-        cities_searched: SEARCH_STRATEGIES.reduce((acc, s) => acc + s.cities.length, 0),
-        errors: errors.length > 0 ? errors.slice(0, 3) : undefined
+        limit,
+        errors: errors.length > 0 ? errors.slice(0, 5) : undefined
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
