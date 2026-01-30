@@ -155,19 +155,6 @@ function extractTags(event: OutsavvyEvent): string[] {
   return [...new Set(tags.map(tag => tag.toLowerCase()))];
 }
 
-function formatLocation(event: OutsavvyEvent): any {
-  const { venue } = event;
-  return {
-    type: 'physical',
-    name: venue.name,
-    address: venue.address,
-    city: venue.city,
-    postcode: venue.postcode,
-    country: 'UK',
-    formatted: `${venue.name}, ${venue.city}, ${venue.postcode}`
-  };
-}
-
 function formatPrice(event: OutsavvyEvent): string {
   const { price_info } = event;
   if (price_info.is_free) return 'Free';
@@ -209,8 +196,11 @@ Deno.serve(async (req) => {
     let totalFound = 0;
     let totalAdded = 0;
     let totalRelevant = 0;
+    let totalSkippedDuplicates = 0;
     const errors: string[] = [];
     const relevanceScores: number[] = [];
+    // Track seen events within this run to prevent cross-query duplicates
+    const seenEvents = new Set<string>();
 
     // Search using different strategies
     for (const strategy of SEARCH_STRATEGIES) {
@@ -223,7 +213,7 @@ Deno.serve(async (req) => {
             `start_date=${new Date().toISOString().split('T')[0]}&` +
             `end_date=${new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}&` +
             `api_key=${outsavvyApiKey}`;
-          
+
           const response = await fetch(url);
           if (!response.ok) {
             if (response.status === 429) {
@@ -245,14 +235,31 @@ Deno.serve(async (req) => {
             if (!isRelevantEvent(event)) continue;
             totalRelevant++;
 
-            // Check if event already exists
-            const { data: existingEvent } = await supabaseClient
+            // Dedup within this scraper run (same event found across multiple queries)
+            const dedupeKey = `${event.title.toLowerCase().trim()}|${event.start_date}`;
+            if (seenEvents.has(dedupeKey)) {
+              totalSkippedDuplicates++;
+              continue;
+            }
+            seenEvents.add(dedupeKey);
+
+            // Check if event already exists in database (by source_url OR title+date)
+            const { data: existingByUrl } = await supabaseClient
               .from('events')
               .select('id')
               .eq('source_url', event.url)
-              .single();
+              .maybeSingle();
 
-            if (existingEvent) continue;
+            if (existingByUrl) continue;
+
+            const { data: existingByTitle } = await supabaseClient
+              .from('events')
+              .select('id')
+              .ilike('title', event.title.trim())
+              .eq('date', event.start_date)
+              .maybeSingle();
+
+            if (existingByTitle) continue;
 
             // Create or find organizer contact
             let organizerId = null;
@@ -281,23 +288,52 @@ Deno.serve(async (req) => {
               console.warn('Contact creation failed:', contactError);
             }
 
-            // Insert event with enhanced data
+            // Clean description — strip Outsavvy boilerplate
+            const OUTSAVVY_BOILERPLATE = [
+              'track your loved events',
+              'download the outsavvy app',
+              'on the outsavvy app'
+            ];
+            let cleanDescription = (event.description || '').trim();
+            const descLower = cleanDescription.toLowerCase();
+            if (!cleanDescription || OUTSAVVY_BOILERPLATE.some(bp => descLower.includes(bp))) {
+              // Build description from available metadata
+              const parts = [event.title];
+              if (event.categories?.length) parts.push(`Categories: ${event.categories.join(', ')}`);
+              if (event.tags?.length) parts.push(`Tags: ${event.tags.join(', ')}`);
+              cleanDescription = parts.join('. ') + '. See Outsavvy link for full details.';
+            }
+
+            // Clean location — handle missing venue data
+            let cleanLocation: string;
+            if (event.venue?.name && event.venue?.city) {
+              cleanLocation = `${event.venue.name}, ${event.venue.city}`;
+              if (event.venue.postcode) cleanLocation += ` ${event.venue.postcode}`;
+            } else if (event.venue?.city) {
+              cleanLocation = event.venue.city;
+            } else if (event.venue?.name) {
+              cleanLocation = event.venue.name;
+            } else {
+              cleanLocation = 'See Outsavvy listing for venue details';
+            }
+
+            // Insert event with cleaned data
             const { error } = await supabaseClient
               .from('events')
               .insert({
-                name: event.title,
-                description: event.description || 'No description available',
-                event_date: event.start_date,
-                location: formatLocation(event),
+                title: event.title,
+                description: cleanDescription,
+                date: event.start_date,
+                location: cleanLocation,
                 source: 'outsavvy',
                 source_url: event.url,
+                url: event.url,
                 organizer_id: organizerId,
-                organizer_name: event.organizer.name,
+                organizer: event.organizer?.name || 'Unknown',
                 tags: extractTags(event),
-                status: 'draft', // All scraped events need review
+                status: 'pending',
                 image_url: event.image_url,
-                price: formatPrice(event),
-                target_audience: ['black', 'qtipoc', 'community']
+                cost: event.price_info?.is_free ? 'Free' : formatPrice(event)
               });
 
             if (!error) {
@@ -337,6 +373,7 @@ Deno.serve(async (req) => {
         events_found: totalFound,
         events_relevant: totalRelevant,
         events_added: totalAdded,
+        duplicates_skipped: totalSkippedDuplicates,
         relevance_rate: totalFound > 0 ? (totalRelevant / totalFound * 100).toFixed(1) + '%' : '0%',
         avg_relevance_score: avgRelevanceScore.toFixed(1),
         search_strategies_used: SEARCH_STRATEGIES.length,
