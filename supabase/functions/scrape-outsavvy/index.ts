@@ -42,17 +42,25 @@ const ALL_KEYWORDS = [
 ];
 
 // UK-focused search terms for Outsavvy
+// Narrow (Black-specific) + Broad (LGBTQ+ events the community attends)
 const SEARCH_STRATEGIES = [
+  // Black-specific searches (high relevance)
   { query: 'black queer', cities: ['London', 'Manchester', 'Birmingham', 'Bristol', 'Leeds'] },
   { query: 'qtipoc', cities: ['London', 'Brighton', 'Manchester', 'Bristol'] },
   { query: 'black trans', cities: ['London', 'Manchester', 'Birmingham', 'Leeds'] },
   { query: 'black lgbtq', cities: ['London', 'Bristol', 'Manchester', 'Brighton'] },
+  { query: 'black pride', cities: ['London', 'Manchester', 'Birmingham', 'Brighton'] },
   { query: 'black liberation', cities: ['London', 'Manchester', 'Birmingham'] },
   { query: 'racial justice queer', cities: ['London', 'Bristol', 'Manchester'] },
-  { query: 'intersectional community', cities: ['London', 'Brighton', 'Leeds'] },
-  { query: 'black community workshop', cities: ['London', 'Manchester', 'Birmingham'] },
-  { query: 'queer poc arts', cities: ['London', 'Bristol', 'Brighton'] },
-  { query: 'black wellness healing', cities: ['London', 'Manchester', 'Leeds'] }
+  { query: 'queer poc', cities: ['London', 'Manchester', 'Brighton', 'Bristol'] },
+  // Broader LGBTQ+ searches (catch more events, filtered by relevance scoring)
+  { query: 'queer', cities: ['London', 'Manchester', 'Birmingham', 'Brighton'] },
+  { query: 'lgbtq', cities: ['London', 'Manchester', 'Bristol', 'Brighton'] },
+  { query: 'drag', cities: ['London', 'Manchester', 'Brighton'] },
+  { query: 'trans community', cities: ['London', 'Manchester', 'Brighton'] },
+  { query: 'pride', cities: ['London', 'Manchester', 'Birmingham', 'Brighton', 'Bristol', 'Leeds'] },
+  { query: 'queer club night', cities: ['London', 'Manchester', 'Brighton'] },
+  { query: 'lgbtq history month', cities: ['London', 'Manchester', 'Birmingham', 'Bristol'] },
 ];
 
 interface OutsavvyEvent {
@@ -163,6 +171,98 @@ function formatPrice(event: OutsavvyEvent): string {
     return `£${price_info.min_price}`;
   } else {
     return `£${price_info.min_price} - £${price_info.max_price}`;
+  }
+}
+
+// Decode HTML entities in scraped text
+function decodeHTMLEntities(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(parseInt(code)))
+    .replace(/&nbsp;/g, ' ');
+}
+
+// Scrape an OutSavvy event page for real description and location
+// The API often returns boilerplate; the actual page has the real content
+const BOILERPLATE_PATTERNS = [
+  /track your loved events/i,
+  /store your tickets securely/i,
+  /outsavvy app/i,
+  /get personalised event recommendations/i,
+];
+
+function isBoilerplate(text: string): boolean {
+  if (!text || text.length < 20) return true;
+  return BOILERPLATE_PATTERNS.some(p => p.test(text));
+}
+
+async function scrapeEventPage(url: string): Promise<{ description?: string; location?: string; organizer?: string }> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; BLKOUT-Events-Bot/1.0; +https://events.blkoutuk.cloud)',
+        'Accept': 'text/html'
+      }
+    });
+    if (!res.ok) return {};
+    const html = await res.text();
+    const result: { description?: string; location?: string; organizer?: string } = {};
+
+    // Try JSON-LD structured data first
+    const jsonLdMatches = html.match(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi);
+    if (jsonLdMatches) {
+      for (const match of jsonLdMatches) {
+        try {
+          const jsonContent = match.replace(/<script[^>]*>/, '').replace(/<\/script>/, '').trim();
+          const ld = JSON.parse(jsonContent);
+          const event = ld['@type'] === 'Event' ? ld : (Array.isArray(ld) ? ld.find((l: any) => l['@type'] === 'Event') : null);
+          if (event) {
+            if (event.description && !isBoilerplate(event.description)) {
+              result.description = decodeHTMLEntities(event.description.replace(/<[^>]+>/g, '').trim().substring(0, 500));
+            }
+            if (event.location) {
+              const loc = event.location;
+              if (typeof loc === 'string') {
+                result.location = decodeHTMLEntities(loc);
+              } else if (loc.name) {
+                const parts = [loc.name];
+                if (loc.address) {
+                  if (typeof loc.address === 'string') parts.push(loc.address);
+                  else if (loc.address.streetAddress) {
+                    parts.push(loc.address.streetAddress);
+                    if (loc.address.addressLocality) parts.push(loc.address.addressLocality);
+                    if (loc.address.postalCode) parts.push(loc.address.postalCode);
+                  }
+                }
+                result.location = decodeHTMLEntities(parts.join(', '))
+                  .replace(/^([^,]+), \1,/, '$1,'); // Remove doubled venue name
+              }
+            }
+            if (event.organizer?.name) {
+              result.organizer = decodeHTMLEntities(event.organizer.name);
+            }
+          }
+        } catch { /* JSON parse failure, try next block */ }
+      }
+    }
+
+    // Fallback: try Open Graph meta tags
+    if (!result.description) {
+      const ogDesc = html.match(/<meta\s+property="og:description"\s+content="([^"]+)"/i) ||
+                     html.match(/<meta\s+name="description"\s+content="([^"]+)"/i);
+      if (ogDesc?.[1] && !isBoilerplate(ogDesc[1])) {
+        result.description = decodeHTMLEntities(ogDesc[1]).substring(0, 500);
+      }
+    }
+
+    return result;
+  } catch {
+    return {};
   }
 }
 
@@ -288,36 +388,47 @@ Deno.serve(async (req) => {
               console.warn('Contact creation failed:', contactError);
             }
 
-            // Clean description — strip Outsavvy boilerplate
-            const OUTSAVVY_BOILERPLATE = [
-              'track your loved events',
-              'download the outsavvy app',
-              'on the outsavvy app'
-            ];
-            let cleanDescription = (event.description || '').trim();
-            const descLower = cleanDescription.toLowerCase();
-            if (!cleanDescription || OUTSAVVY_BOILERPLATE.some(bp => descLower.includes(bp))) {
-              // Build description from available metadata
+            // Scrape the actual event page for real description and location
+            // The Outsavvy API often returns boilerplate in the description field
+            const eventUrl = event.url || `https://www.outsavvy.com/event/${event.id}`;
+            const pageData = await scrapeEventPage(eventUrl);
+
+            // Use page-scraped data first, fall back to API data
+            let cleanDescription = pageData.description || '';
+            if (!cleanDescription || isBoilerplate(cleanDescription)) {
+              // Try API description
+              cleanDescription = (event.description || '').trim();
+            }
+            if (!cleanDescription || isBoilerplate(cleanDescription)) {
+              // Last resort: build from metadata
               const parts = [event.title];
               if (event.categories?.length) parts.push(`Categories: ${event.categories.join(', ')}`);
               if (event.tags?.length) parts.push(`Tags: ${event.tags.join(', ')}`);
-              cleanDescription = parts.join('. ') + '. See Outsavvy link for full details.';
+              cleanDescription = parts.join('. ') + '. See OutSavvy link for full details.';
             }
 
-            // Clean location — handle missing venue data
-            let cleanLocation: string;
-            if (event.venue?.name && event.venue?.city) {
-              cleanLocation = `${event.venue.name}, ${event.venue.city}`;
-              if (event.venue.postcode) cleanLocation += ` ${event.venue.postcode}`;
-            } else if (event.venue?.city) {
-              cleanLocation = event.venue.city;
-            } else if (event.venue?.name) {
-              cleanLocation = event.venue.name;
-            } else {
-              cleanLocation = 'See Outsavvy listing for venue details';
+            // Use page-scraped location first, fall back to API venue data
+            let cleanLocation = pageData.location || '';
+            if (!cleanLocation || cleanLocation === 'Location TBA') {
+              if (event.venue?.name && event.venue?.city) {
+                cleanLocation = `${event.venue.name}, ${event.venue.city}`;
+                if (event.venue.postcode) cleanLocation += ` ${event.venue.postcode}`;
+              } else if (event.venue?.city) {
+                cleanLocation = event.venue.city;
+              } else if (event.venue?.name) {
+                cleanLocation = event.venue.name;
+              } else {
+                cleanLocation = 'See OutSavvy listing for venue details';
+              }
             }
 
-            // Insert event with cleaned data
+            // Use page-scraped organizer if API didn't provide one
+            const cleanOrganizer = pageData.organizer || event.organizer?.name || 'Unknown';
+
+            // Rate limit page scraping (don't hammer OutSavvy)
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // Insert event with enriched data
             const { error } = await supabaseClient
               .from('events')
               .insert({
@@ -325,11 +436,11 @@ Deno.serve(async (req) => {
                 description: cleanDescription,
                 date: event.start_date,
                 location: cleanLocation,
-                source: 'outsavvy',
-                source_url: event.url,
-                url: event.url,
+                source: 'OutSavvy',
+                source_url: eventUrl,
+                url: eventUrl,
                 organizer_id: organizerId,
-                organizer: event.organizer?.name || 'Unknown',
+                organizer: cleanOrganizer,
                 tags: extractTags(event),
                 status: 'pending',
                 image_url: event.image_url,
