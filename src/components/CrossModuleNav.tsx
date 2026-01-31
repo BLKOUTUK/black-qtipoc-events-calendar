@@ -23,7 +23,7 @@ const CrossModuleNav: React.FC = () => {
       external: true
     },
     {
-      label: "Ask IVOR",
+      label: "Ask AIvor",
       href: "https://ivor.blkoutuk.com",
       icon: <Bot className="w-4 h-4" />,
       external: true

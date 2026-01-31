@@ -5,6 +5,13 @@ import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import './index.css';
 
+// Clean up recovery query param if present (added by index.html failsafe)
+if (window.location.search.includes('_r=')) {
+  const url = new URL(window.location.href);
+  url.searchParams.delete('_r');
+  window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>

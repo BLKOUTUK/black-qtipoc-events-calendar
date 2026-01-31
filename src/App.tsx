@@ -1,40 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Plus, Settings, LogIn, LogOut, BarChart3, Globe, Rss, Users, Calendar } from 'lucide-react';
 import { Event, FilterOptions } from './types';
 import { supabaseEventService } from './services/supabaseEventService';
 import { googleSheetsService } from './services/googleSheetsService';
 import { useArticles } from './hooks/useSupabase';
-import { PaginatedEventList } from './components/PaginatedEventList';
-import { EventForm } from './components/EventForm';
-import { ModerationQueue } from './components/ModerationQueue';
-import { FilterBar } from './components/FilterBar';
-import { AuthModal } from './components/AuthModal';
-import CommunityIntelligenceDashboard from './components/CommunityIntelligenceDashboard';
-import { GoogleCalendarEmbed } from './components/GoogleCalendarEmbed';
-import { CalendarSyncDashboard } from './components/CalendarSyncDashboard';
-import { FeaturedHeroCarousel } from './components/FeaturedHeroCarousel';
-import { FeaturedContentManager } from './components/FeaturedContentManager';
-import { featuredContentService } from './services/featuredContentService';
 import { FeaturedContent } from './types';
+import { featuredContentService } from './services/featuredContentService';
+
+// Critical path — loaded eagerly (needed for first paint)
+import { PaginatedEventList } from './components/PaginatedEventList';
+import { FilterBar } from './components/FilterBar';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import AdventCalendarBanner from './components/AdventCalendarBanner';
-import { InstallPrompt, OfflineIndicator } from './components/pwa';
-import { AnalyticsDashboard } from './components/analytics';
-import { CommunityGroups } from './components/groups';
-import { OrganizerDashboard } from './components/organizer';
-import { MyEvents } from './components/rsvp';
-import { ModerationDashboardPage } from './pages';
-import { QuickAddEventPage } from './pages/QuickAddEventPage';
+
+// Deferred — loaded on demand (modals, admin panels, secondary features)
+const EventForm = lazy(() => import('./components/EventForm').then(m => ({ default: m.EventForm })));
+const ModerationQueue = lazy(() => import('./components/ModerationQueue').then(m => ({ default: m.ModerationQueue })));
+const AuthModal = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
+const CommunityIntelligenceDashboard = lazy(() => import('./components/CommunityIntelligenceDashboard'));
+const GoogleCalendarEmbed = lazy(() => import('./components/GoogleCalendarEmbed').then(m => ({ default: m.GoogleCalendarEmbed })));
+const CalendarSyncDashboard = lazy(() => import('./components/CalendarSyncDashboard').then(m => ({ default: m.CalendarSyncDashboard })));
+const FeaturedHeroCarousel = lazy(() => import('./components/FeaturedHeroCarousel').then(m => ({ default: m.FeaturedHeroCarousel })));
+const FeaturedContentManager = lazy(() => import('./components/FeaturedContentManager').then(m => ({ default: m.FeaturedContentManager })));
+const AdventCalendarBanner = lazy(() => import('./components/AdventCalendarBanner'));
+const AnalyticsDashboard = lazy(() => import('./components/analytics').then(m => ({ default: m.AnalyticsDashboard })));
+const CommunityGroups = lazy(() => import('./components/groups').then(m => ({ default: m.CommunityGroups })));
+const OrganizerDashboard = lazy(() => import('./components/organizer').then(m => ({ default: m.OrganizerDashboard })));
+const MyEvents = lazy(() => import('./components/rsvp').then(m => ({ default: m.MyEvents })));
+const InstallPrompt = lazy(() => import('./components/pwa').then(m => ({ default: m.InstallPrompt })));
+const OfflineIndicator = lazy(() => import('./components/pwa').then(m => ({ default: m.OfflineIndicator })));
+const ModerationDashboardPage = lazy(() => import('./pages').then(m => ({ default: m.ModerationDashboardPage })));
+const QuickAddEventPage = lazy(() => import('./pages/QuickAddEventPage').then(m => ({ default: m.QuickAddEventPage })));
+
+// Lightweight loading fallback for lazy components
+function LazyFallback() {
+  return <div className="flex items-center justify-center p-8"><div className="w-6 h-6 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" /></div>;
+}
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/moderation" element={<ModerationDashboardPage />} />
-      <Route path="/quick-add" element={<QuickAddEventPage />} />
-    </Routes>
+    <Suspense fallback={<LazyFallback />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/moderation" element={<ModerationDashboardPage />} />
+        <Route path="/quick-add" element={<QuickAddEventPage />} />
+      </Routes>
+    </Suspense>
   );
 }
 
@@ -348,12 +360,18 @@ function HomePage() {
         </div>
 
         {/* Advent Calendar Banner - Only Visible During December */}
-        {new Date().getMonth() === 11 && <AdventCalendarBanner />}
+        {new Date().getMonth() === 11 && (
+          <Suspense fallback={null}>
+            <AdventCalendarBanner />
+          </Suspense>
+        )}
 
         {/* Featured Hero Carousel */}
         {featuredContent.length > 0 && (
           <div className="mb-8">
-            <FeaturedHeroCarousel featuredContent={featuredContent} autoPlayInterval={5000} />
+            <Suspense fallback={null}>
+              <FeaturedHeroCarousel featuredContent={featuredContent} autoPlayInterval={5000} />
+            </Suspense>
           </div>
         )}
 
@@ -414,9 +432,11 @@ function HomePage() {
 
         {/* Google Calendar Widget - Optional Public View */}
         {showCalendarEmbed && import.meta.env.VITE_GOOGLE_CALENDAR_ID && (
-          <div className="mb-8">
-            <GoogleCalendarEmbed />
-          </div>
+          <Suspense fallback={null}>
+            <div className="mb-8">
+              <GoogleCalendarEmbed />
+            </div>
+          </Suspense>
         )}
 
         {/* Events List */}
@@ -476,153 +496,164 @@ function HomePage() {
         )}
       </main>
 
-      {/* Modals */}
-      {showEventForm && (
-        <EventForm
-          onSubmit={handleEventSubmit}
-          onCancel={() => setShowEventForm(false)}
-        />
-      )}
+      {/* Modals — lazy-loaded on demand */}
+      <Suspense fallback={null}>
+        {showEventForm && (
+          <EventForm
+            onSubmit={handleEventSubmit}
+            onCancel={() => setShowEventForm(false)}
+          />
+        )}
 
-      {showModerationQueue && user && (
-        <ModerationQueue
-          onClose={() => setShowModerationQueue(false)}
-        />
-      )}
+        {showModerationQueue && user && (
+          <ModerationQueue
+            onClose={() => setShowModerationQueue(false)}
+          />
+        )}
 
-      {showIntelligenceDashboard && user && (
-        <CommunityIntelligenceDashboard
-          onClose={() => setShowIntelligenceDashboard(false)}
-        />
-      )}
+        {showIntelligenceDashboard && user && (
+          <CommunityIntelligenceDashboard
+            onClose={() => setShowIntelligenceDashboard(false)}
+          />
+        )}
 
-      {showCalendarSync && user && (
-        <CalendarSyncDashboard
-          events={events}
-          onClose={() => setShowCalendarSync(false)}
-        />
-      )}
+        {showCalendarSync && user && (
+          <CalendarSyncDashboard
+            events={events}
+            onClose={() => setShowCalendarSync(false)}
+          />
+        )}
+      </Suspense>
 
-      {showFeaturedManager && user && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-purple-500/30">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-6 flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold text-white">Featured Content Manager</h2>
-                <p className="text-sm text-gray-100">Manage hero carousel and featured images</p>
+      <Suspense fallback={null}>
+        {showFeaturedManager && user && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-purple-500/30">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-6 flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Featured Content Manager</h2>
+                  <p className="text-sm text-gray-100">Manage hero carousel and featured images</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowFeaturedManager(false);
+                    loadFeaturedContent(); // Reload after closing
+                  }}
+                  className="text-white hover:text-gray-200 transition-colors"
+                  aria-label="Close"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
-              <button
-                onClick={() => {
-                  setShowFeaturedManager(false);
-                  loadFeaturedContent(); // Reload after closing
-                }}
-                className="text-white hover:text-gray-200 transition-colors"
-                aria-label="Close"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto p-6">
-              <FeaturedContentManager />
+              {/* Content */}
+              <div className="flex-1 overflow-y-auto p-6">
+                <FeaturedContentManager />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Suspense>
 
-      {showAuthModal && (
-        <AuthModal
-          onSignIn={handleSignIn}
-          onClose={() => setShowAuthModal(false)}
-        />
-      )}
+      <Suspense fallback={null}>
+        {showAuthModal && (
+          <AuthModal
+            onSignIn={handleSignIn}
+            onClose={() => setShowAuthModal(false)}
+          />
+        )}
+      </Suspense>
 
-      {/* Analytics Dashboard Modal */}
-      {showAnalyticsDashboard && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-blue-500/30">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-500 p-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">Analytics Dashboard</h2>
-              <button onClick={() => setShowAnalyticsDashboard(false)} className="text-white hover:text-gray-200">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6">
-              <AnalyticsDashboard isAdmin={!!user} />
+      {/* Remaining modals — lazy-loaded on demand */}
+      <Suspense fallback={null}>
+        {/* Analytics Dashboard Modal */}
+        {showAnalyticsDashboard && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-blue-500/30">
+              <div className="bg-gradient-to-r from-blue-600 to-indigo-500 p-4 flex items-center justify-between">
+                <h2 className="text-xl font-bold text-white">Analytics Dashboard</h2>
+                <button onClick={() => setShowAnalyticsDashboard(false)} className="text-white hover:text-gray-200">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-6">
+                <AnalyticsDashboard isAdmin={!!user} />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Community Groups Modal */}
-      {showCommunityGroups && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-900 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-yellow-500/30">
-            <div className="bg-gradient-to-r from-yellow-600 to-amber-500 p-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">Community Groups</h2>
-              <button onClick={() => setShowCommunityGroups(false)} className="text-gray-900 hover:text-gray-700">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6">
-              <CommunityGroups userId="demo-user" />
+        {/* Community Groups Modal */}
+        {showCommunityGroups && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-900 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-yellow-500/30">
+              <div className="bg-gradient-to-r from-yellow-600 to-amber-500 p-4 flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-900">Community Groups</h2>
+                <button onClick={() => setShowCommunityGroups(false)} className="text-gray-900 hover:text-gray-700">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-6">
+                <CommunityGroups userId="demo-user" />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Organizer Dashboard Modal */}
-      {showOrganizerDashboard && user && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-orange-500/30">
-            <div className="bg-gradient-to-r from-orange-600 to-red-500 p-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">Organizer Dashboard</h2>
-              <button onClick={() => setShowOrganizerDashboard(false)} className="text-white hover:text-gray-200">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6">
-              <OrganizerDashboard userId="demo-user" />
+        {/* Organizer Dashboard Modal */}
+        {showOrganizerDashboard && user && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-orange-500/30">
+              <div className="bg-gradient-to-r from-orange-600 to-red-500 p-4 flex items-center justify-between">
+                <h2 className="text-xl font-bold text-white">Organizer Dashboard</h2>
+                <button onClick={() => setShowOrganizerDashboard(false)} className="text-white hover:text-gray-200">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-6">
+                <OrganizerDashboard userId="demo-user" />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* My Events Modal */}
-      {showMyEvents && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-900 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-emerald-500/30">
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-500 p-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">My Events</h2>
-              <button onClick={() => setShowMyEvents(false)} className="text-white hover:text-gray-200">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6">
-              <MyEvents userId="demo-user" />
+        {/* My Events Modal */}
+        {showMyEvents && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-900 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-emerald-500/30">
+              <div className="bg-gradient-to-r from-emerald-600 to-teal-500 p-4 flex items-center justify-between">
+                <h2 className="text-xl font-bold text-white">My Events</h2>
+                <button onClick={() => setShowMyEvents(false)} className="text-white hover:text-gray-200">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-6">
+                <MyEvents userId="demo-user" />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Suspense>
 
       {/* Footer */}
       <Footer />
 
-      {/* PWA Components */}
-      <OfflineIndicator />
-      <InstallPrompt />
+      {/* PWA Components — lazy, non-blocking */}
+      <Suspense fallback={null}>
+        <OfflineIndicator />
+        <InstallPrompt />
+      </Suspense>
     </div>
   );
 }

@@ -40,19 +40,66 @@
         <div style="color:#eab308;font-size:14px;font-family:system-ui">Loading events...</div>
       </div>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx" onerror="window.__blkoutModuleError=true"></script>
     <script>
-      // Failsafe: if the app hasn't rendered after 8 seconds, force a clean reload.
-      // This catches stale JS bundle references after deploys.
-      setTimeout(function() {
-        var root = document.getElementById('root');
-        var loader = document.getElementById('app-loader');
-        // If the loader is still visible, the React app didn't mount
-        if (loader && root && root.contains(loader)) {
-          console.warn('[BLKOUT] App did not mount — forcing reload');
-          window.location.reload();
+      // Smart recovery: detect module load failures and recover quickly.
+      // Handles stale bundle references after deploys, network errors, etc.
+      (function() {
+        var MOUNT_TIMEOUT = 4000;  // 4s — if React hasn't mounted by now, something's wrong
+        var hasRecovered = false;
+
+        function recover() {
+          if (hasRecovered) return;
+          hasRecovered = true;
+          var loader = document.getElementById('app-loader');
+          if (!loader) return; // React mounted successfully — nothing to do
+
+          console.warn('[BLKOUT] App did not mount — recovering');
+
+          // Show a helpful message instead of blank screen
+          loader.innerHTML =
+            '<div style="text-align:center;padding:24px">' +
+              '<img src="/images/blkoutlogo_wht_transparent.png" alt="BLKOUT" style="height:48px;margin-bottom:16px" onerror="this.style.display=\'none\'" />' +
+              '<div style="color:#eab308;font-size:14px;font-family:system-ui;margin-bottom:12px">Loading fresh content...</div>' +
+              '<div style="width:32px;height:32px;border:2px solid #eab308;border-top-color:transparent;border-radius:50%;margin:0 auto;animation:spin 0.8s linear infinite"></div>' +
+              '<style>@keyframes spin{to{transform:rotate(360deg)}}</style>' +
+            '</div>';
+
+          // Force a cache-busting reload (adds timestamp to break CDN/browser cache)
+          setTimeout(function() {
+            var url = new URL(window.location.href);
+            url.searchParams.set('_r', Date.now().toString(36));
+            window.location.replace(url.toString());
+          }, 500);
         }
-      }, 8000);
+
+        // Detect module script load failure immediately
+        window.addEventListener('error', function(e) {
+          if (e.filename && (e.filename.includes('/assets/') || e.filename.includes('main.tsx'))) {
+            recover();
+          }
+        });
+
+        // Detect module import failures (e.g. stale chunk references)
+        window.addEventListener('unhandledrejection', function(e) {
+          if (e.reason && (
+            String(e.reason).includes('Failed to fetch dynamically imported module') ||
+            String(e.reason).includes('Loading chunk') ||
+            String(e.reason).includes('Importing a module script failed')
+          )) {
+            recover();
+          }
+        });
+
+        // Timeout fallback: if React hasn't replaced the loader div in 4s
+        setTimeout(function() {
+          var root = document.getElementById('root');
+          var loader = document.getElementById('app-loader');
+          if (loader && root && root.contains(loader)) {
+            recover();
+          }
+        }, MOUNT_TIMEOUT);
+      })();
     </script>
   </body>
 </html>

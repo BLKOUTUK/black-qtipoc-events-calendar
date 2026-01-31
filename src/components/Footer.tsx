@@ -5,7 +5,7 @@ import NewsletterSignup from './NewsletterSignup';
 const Footer: React.FC = () => {
   const footerLinks = [
     { id: 'platform', label: 'Platform', icon: Home, href: 'https://blkoutuk.com' },
-    { id: 'ivor', label: 'IVOR', icon: Brain, href: 'https://ivor.blkoutuk.cloud' },
+    { id: 'ivor', label: 'AIvor', icon: Brain, href: 'https://ivor.blkoutuk.cloud' },
     { id: 'news', label: 'Newsroom', icon: Play, href: 'https://news.blkoutuk.cloud' },
     { id: 'stories', label: 'Archive', icon: Calendar, href: 'https://blkoutuk.com/stories' },
     { id: 'events', label: 'Connect', icon: Calendar, href: '#', active: true },
