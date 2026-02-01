@@ -45,7 +45,7 @@
       // Smart recovery: detect module load failures and recover quickly.
       // Handles stale bundle references after deploys, network errors, etc.
       (function() {
-        var MOUNT_TIMEOUT = 4000;  // 4s — if React hasn't mounted by now, something's wrong
+        var MOUNT_TIMEOUT = 10000;  // 10s — if React hasn't mounted by now, something's wrong
         var hasRecovered = false;
 
         function recover() {
@@ -55,6 +55,18 @@
           if (!loader) return; // React mounted successfully — nothing to do
 
           console.warn('[BLKOUT] App did not mount — recovering');
+
+          // Selective PWA deletion: Unregister service workers ONLY when a recovery is needed.
+          // This preserves PWA functionality (push, install) for healthy sessions while
+          // clearing potential stale cache culprits when the app is failing to load.
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+              for (var i = 0; i < registrations.length; i++) {
+                registrations[i].unregister();
+                console.log('[BLKOUT] Unregistered service worker during recovery');
+              }
+            });
+          }
 
           // Show a helpful message instead of blank screen
           loader.innerHTML =
