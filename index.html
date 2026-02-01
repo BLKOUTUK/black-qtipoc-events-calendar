@@ -45,7 +45,17 @@
       // Smart recovery: detect module load failures and recover quickly.
       // Handles stale bundle references after deploys, network errors, etc.
       (function() {
-        var MOUNT_TIMEOUT = 4000;  // 4s — if React hasn't mounted by now, something's wrong
+        // Unregister any legacy service workers that might be causing hard-refresh loops
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (var i = 0; i < registrations.length; i++) {
+              registrations[i].unregister();
+              console.log('[BLKOUT] Unregistered legacy service worker');
+            }
+          });
+        }
+
+        var MOUNT_TIMEOUT = 10000;  // 10s — if React hasn't mounted by now, something's wrong
         var hasRecovered = false;
 
         function recover() {

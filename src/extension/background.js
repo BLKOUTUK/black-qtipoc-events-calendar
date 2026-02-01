@@ -541,15 +541,15 @@ async function submitToSupabase(data, teamId) {
       // Submit event to events table
       endpoint = `${CONFIG.SUPABASE_URL}/rest/v1/events`;
       payload = {
-        title: data.eventTitle || '',
-        date: data.eventDate || new Date().toISOString().split('T')[0],
-        description: data.eventDescription || '',
-        location: data.eventLocation || '',
-        organizer: data.eventOrganizer || data.submittedBy || '',
-        source: 'chrome-extension',
-        url: data.sourceUrl || '',
-        cost: data.eventCost || 'Free',
-        tags: [],
+        title: data.eventTitle || data.title || '',
+        date: data.eventDate || data.date || data.event_date || new Date().toISOString().split('T')[0],
+        description: data.eventDescription || data.description || '',
+        location: data.eventLocation || data.location || '',
+        organizer: data.eventOrganizer || data.organizer || data.organizer_name || data.submittedBy || '',
+        source: 'community', // Satisfies DB check constraint (eventbrite, community, outsavvy, facebook)
+        url: data.sourceUrl || data.url || data.source_url || '',
+        cost: data.eventCost || data.cost || data.price || 'Free',
+        tags: Array.isArray(data.tags) ? data.tags : [],
         status: 'draft',
         submitted_by: data.submittedBy || 'chrome-extension'
       };
@@ -557,13 +557,13 @@ async function submitToSupabase(data, teamId) {
       // Submit article to articles table
       endpoint = `${CONFIG.SUPABASE_URL}/rest/v1/articles`;
       payload = {
-        title: data.articleTitle || '',
-        content: data.excerpt || '',
-        author: data.articleAuthor || data.submittedBy || '',
-        source_url: data.sourceUrl || '',
+        title: data.articleTitle || data.title || '',
+        content: data.excerpt || data.description || data.content || '',
+        author: data.articleAuthor || data.author || data.submittedBy || '',
+        source_url: data.sourceUrl || data.url || data.source_url || '',
         status: 'draft',
         submitted_by: data.submittedBy || 'chrome-extension',
-        published_at: data.publishDate || new Date().toISOString()
+        published_at: data.publishDate || data.date || new Date().toISOString()
       };
     } else {
       throw new Error(`Unsupported team: ${teamId}`);
