@@ -546,11 +546,11 @@ async function submitToSupabase(data, teamId) {
         description: data.eventDescription || data.description || '',
         location: data.eventLocation || data.location || '',
         organizer: data.eventOrganizer || data.organizer || data.organizer_name || data.submittedBy || '',
-        source: 'community', // Satisfies DB check constraint (eventbrite, community, outsavvy, facebook)
+        source: 'chrome-extension',
         url: data.sourceUrl || data.url || data.source_url || '',
         cost: data.eventCost || data.cost || data.price || 'Free',
         tags: Array.isArray(data.tags) ? data.tags : [],
-        status: 'draft',
+        status: 'pending',
         submitted_by: data.submittedBy || 'chrome-extension'
       };
     } else if (teamId === CONFIG.TEAMS.NEWS) {

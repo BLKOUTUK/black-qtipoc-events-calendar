@@ -75,6 +75,7 @@
   },
   "externally_connectable": {
     "matches": [
+      "https://events.blkoutuk.cloud/*",
       "https://blkout-events-calendar.netlify.app/*",
       "https://browseract.com/*",
       "https://*.browseract.com/*"
