@@ -605,7 +605,10 @@ async function scrapeEventbriteAPI(): Promise<ScrapedEvent[]> {
 
       for (const ev of apiEvents) {
         const title = ev.name?.text || '';
-        const description = ev.description?.text || '';
+        // Eventbrite removed `description` from Event objects (March 2021).
+        // Use `summary` as fallback. Full description requires separate API call
+        // to /v3/events/:id/description/ which we skip to stay within rate limits.
+        const description = ev.description?.text || ev.summary?.text || ev.summary || '';
         if (!title) continue;
 
         const location = ev.online_event
