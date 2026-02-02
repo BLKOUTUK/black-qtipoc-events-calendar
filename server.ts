@@ -65,8 +65,52 @@ async function startServer() {
   });
 }
 
+// Weekly event scraping scheduler
+// Runs every Sunday at 06:00 UTC (matches legacy scraper/server.js schedule)
+function startScrapeScheduler() {
+  const ONE_HOUR = 60 * 60 * 1000;
+
+  function msUntilNextSunday6am(): number {
+    const now = new Date();
+    const next = new Date(now);
+    // Set to next Sunday
+    next.setUTCDate(now.getUTCDate() + ((7 - now.getUTCDay()) % 7 || 7));
+    next.setUTCHours(6, 0, 0, 0);
+    // If we're already past Sunday 6am this week, wait for next Sunday
+    if (next.getTime() <= now.getTime()) {
+      next.setUTCDate(next.getUTCDate() + 7);
+    }
+    return next.getTime() - now.getTime();
+  }
+
+  async function triggerScrape() {
+    try {
+      console.log('⏰ Scheduled scrape starting...');
+      const { runScraper } = await import('./api/scrape-events.js');
+      const results = await runScraper();
+      console.log(`⏰ Scheduled scrape complete: ${results.totalEvents} events, ${results.submittedToSupabase} submitted`);
+    } catch (error) {
+      console.error('⏰ Scheduled scrape failed:', error);
+    }
+  }
+
+  // Schedule first run, then repeat weekly
+  const msToNext = msUntilNextSunday6am();
+  const nextRun = new Date(Date.now() + msToNext);
+  console.log(`⏰ Event scraper scheduled: next run ${nextRun.toUTCString()}`);
+
+  setTimeout(() => {
+    triggerScrape();
+    // Then every 7 days
+    setInterval(triggerScrape, 7 * 24 * ONE_HOUR);
+  }, msToNext);
+}
+
 // Start the server
 startServer().catch(error => {
   console.error('Failed to start server:', error);
   process.exit(1);
 });
+
+// Start the scraper scheduler after server is up
+startScrapeScheduler();
