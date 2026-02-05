@@ -58,7 +58,7 @@ export default async function handler(req: Request, res: Response) {
           'apikey': SUPABASE_SERVICE_ROLE_KEY,
           'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
           'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
+          'Prefer': 'return=representation'
         },
         body: JSON.stringify({
           status: newStatus,
@@ -77,7 +77,19 @@ export default async function handler(req: Request, res: Response) {
       });
     }
 
-    console.log(`[moderate-event] Event ${eventId} ${action}d → status: ${newStatus}`);
+    // Check if any rows were actually updated
+    const updatedRows = await response.json();
+    console.log(`[moderate-event] Updated rows:`, updatedRows.length, updatedRows);
+
+    if (!updatedRows || updatedRows.length === 0) {
+      console.error(`[moderate-event] No rows updated for event ${eventId}`);
+      return res.status(404).json({
+        success: false,
+        message: `Event ${eventId} not found or already in status ${newStatus}`
+      });
+    }
+
+    console.log(`[moderate-event] Event ${eventId} ${action}ed → status: ${newStatus}`);
     return res.status(200).json({
       success: true,
       message: `Event ${action}d successfully`
