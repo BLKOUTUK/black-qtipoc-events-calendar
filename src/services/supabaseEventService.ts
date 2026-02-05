@@ -51,10 +51,10 @@ class SupabaseEventService {
 
     try {
       // Use Supabase client instead of hardcoded fetch
-      // Query uses actual database column names from comms-blkout migration schema
+      // Query uses only columns that exist in production database
       const { data, error} = await supabase
         .from('events')
-        .select('id,title,date,description,location,organizer,source,tags,url,cost,image_url,created_at')
+        .select('id,title,date,description,location,organizer,source,tags,url,cost,created_at')
         .in('status', ['approved', 'published'])
         .order('date', { ascending: true });
 
@@ -100,7 +100,7 @@ class SupabaseEventService {
         source_url: event.url || '',
         url: event.url || '',
         tags: Array.isArray(event.tags) ? event.tags : [],
-        image_url: event.image_url || '',
+        image_url: '',
         price: event.cost || 'Free',
         cost: event.cost ? parseFloat(String(event.cost).replace(/[^0-9.]/g, '')) || 0 : 0,
         status: 'approved' as const,
@@ -110,7 +110,7 @@ class SupabaseEventService {
         organizer_id: event.organizer || 'unknown',
         max_attendees: 50,
         registration_required: false,
-        featured_image: event.image_url || '',
+        featured_image: '',
         profiles: undefined
       }));
 
