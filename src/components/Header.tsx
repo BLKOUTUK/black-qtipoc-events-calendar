@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     { id: 'home', label: 'Home', icon: Home, href: 'https://blkoutuk.com' },
     { id: 'events', label: 'Events', icon: Calendar, href: '#', active: true },
     { id: 'news', label: 'News', icon: Newspaper, href: 'https://news.blkoutuk.cloud' },
-    { id: 'aivor', label: 'AIvor', icon: Brain, href: 'https://ivor.blkoutuk.cloud' },
+    { id: 'aivor', label: 'AIvor', icon: Brain, href: 'https://blkoutuk.com?chat=open' },
     { id: 'voices', label: 'Voices', icon: ExternalLink, href: 'https://voices.blkoutuk.cloud' },
   ];
 
