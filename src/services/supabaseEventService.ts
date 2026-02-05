@@ -51,11 +51,12 @@ class SupabaseEventService {
 
     try {
       // Use Supabase client instead of hardcoded fetch
+      // Query uses actual database column names from migration schema
       const { data, error} = await supabase
         .from('events')
-        .select('id,title,date,description,location,virtual_link,organizer,source,tags,url,cost,start_time,end_time,end_date,recurrence_rule,recurrence_parent_id,is_recurring_instance,original_start_date')
+        .select('id,title,event_date,description,location,organizer_name,source,source_url,tags,price,image_url,created_at')
         .in('status', ['approved', 'published'])
-        .order('date', { ascending: true });
+        .order('event_date', { ascending: true });
 
       if (error) {
         console.error('🔍 Supabase error:', error);
@@ -72,7 +73,7 @@ class SupabaseEventService {
       // Remove duplicates based on title+date (scrapers insert same event with different IDs)
       const uniqueData = Array.from(
         new Map(data.map((event: any) => {
-          const key = `${(event.title || '').toLowerCase().trim()}|${event.date || ''}`;
+          const key = `${(event.title || '').toLowerCase().trim()}|${event.event_date || ''}`;
           return [key, event];
         })).values()
       );
@@ -83,40 +84,33 @@ class SupabaseEventService {
       console.log(`🔍 After null filtering: ${validEvents.length} valid events`);
 
       // Map database fields to frontend format
+      // Column names match the actual database schema from migrations
       const mappedEvents = validEvents.map((event: any) => ({
         id: event.id,
         name: event.title || 'Untitled Event',
         title: event.title || 'Untitled Event',
         description: event.description || '',
-        event_date: event.date,
-        start_time: event.start_time,
-        end_time: event.end_time,
-        end_date: event.end_date,
-        location: event.virtual_link ? 'Online Event' : (event.location || 'Location TBA'),
-        virtual_link: event.virtual_link,
-        organizer_name: event.organizer || 'Unknown Organizer',
+        event_date: event.event_date,
+        date: event.event_date, // Alias for groupEventsByWeek
+        start_date: event.event_date,
+        end_date: event.event_date, // Default to same day if not specified
+        location: event.location || 'Location TBA',
+        organizer_name: event.organizer_name || 'Unknown Organizer',
         source: event.source || 'community',
-        source_url: event.url || '',
-        url: event.url || '',
+        source_url: event.source_url || '',
+        url: event.source_url || '',
         tags: Array.isArray(event.tags) ? event.tags : [],
-        image_url: '',
-        price: event.cost || 'Free',
-        cost: event.cost,
-        contact_email: '',
-        recurrence_rule: event.recurrence_rule,
-        recurrence_parent_id: event.recurrence_parent_id,
-        is_recurring_instance: event.is_recurring_instance,
-        original_start_date: event.original_start_date,
-        registration_link: event.url || '',
-        status: 'approved',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        start_date: event.date,
-        event_type: 'meetup',
-        organizer_id: event.organizer || 'unknown',
+        image_url: event.image_url || '',
+        price: event.price || 'Free',
+        cost: event.price ? parseFloat(event.price) || 0 : 0,
+        status: 'approved' as const,
+        created_at: event.created_at || new Date().toISOString(),
+        updated_at: event.created_at || new Date().toISOString(),
+        event_type: 'meetup' as const,
+        organizer_id: event.organizer_name || 'unknown',
         max_attendees: 50,
         registration_required: false,
-        featured_image: '',
+        featured_image: event.image_url || '',
         profiles: null
       }));
 
