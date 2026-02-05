@@ -5,9 +5,13 @@ import type { Request, Response } from 'express';
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-  console.error('[moderate-event] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars');
-}
+// Log config status at startup (mask key for security)
+console.log('[moderate-event] Config:', {
+  hasUrl: !!SUPABASE_URL,
+  urlPrefix: SUPABASE_URL?.slice(0, 30) + '...',
+  hasServiceKey: !!SUPABASE_SERVICE_ROLE_KEY,
+  keyPrefix: SUPABASE_SERVICE_ROLE_KEY?.slice(0, 10) + '...'
+});
 
 export default async function handler(req: Request, res: Response) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,8 +26,18 @@ export default async function handler(req: Request, res: Response) {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
+  // Check config before processing
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error('[moderate-event] Missing env vars - URL:', !!SUPABASE_URL, 'Key:', !!SUPABASE_SERVICE_ROLE_KEY);
+    return res.status(500).json({
+      success: false,
+      error: 'Server misconfigured - missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY'
+    });
+  }
+
   try {
     const { eventId, action, reason } = req.body || {};
+    console.log('[moderate-event] Request:', { eventId, action, reason });
 
     if (!eventId || !action) {
       return res.status(400).json({ success: false, error: 'Missing eventId or action' });
@@ -56,7 +70,11 @@ export default async function handler(req: Request, res: Response) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`[moderate-event] Supabase error:`, response.status, errorText);
-      return res.status(500).json({ success: false, message: 'Database update failed' });
+      return res.status(500).json({
+        success: false,
+        message: 'Database update failed',
+        debug: { status: response.status, error: errorText }
+      });
     }
 
     console.log(`[moderate-event] Event ${eventId} ${action}d → status: ${newStatus}`);
