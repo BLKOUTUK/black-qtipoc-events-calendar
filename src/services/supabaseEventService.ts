@@ -51,12 +51,12 @@ class SupabaseEventService {
 
     try {
       // Use Supabase client instead of hardcoded fetch
-      // Query uses actual database column names from migration schema
+      // Query uses actual database column names from comms-blkout migration schema
       const { data, error} = await supabase
         .from('events')
-        .select('id,title,event_date,description,location,organizer_name,source,source_url,tags,price,image_url,created_at')
+        .select('id,title,date,description,location,organizer,source,tags,url,cost,image_url,created_at')
         .in('status', ['approved', 'published'])
-        .order('event_date', { ascending: true });
+        .order('date', { ascending: true });
 
       if (error) {
         console.error('🔍 Supabase error:', error);
@@ -73,7 +73,7 @@ class SupabaseEventService {
       // Remove duplicates based on title+date (scrapers insert same event with different IDs)
       const uniqueData = Array.from(
         new Map(data.map((event: any) => {
-          const key = `${(event.title || '').toLowerCase().trim()}|${event.event_date || ''}`;
+          const key = `${(event.title || '').toLowerCase().trim()}|${event.date || ''}`;
           return [key, event];
         })).values()
       );
@@ -84,34 +84,34 @@ class SupabaseEventService {
       console.log(`🔍 After null filtering: ${validEvents.length} valid events`);
 
       // Map database fields to frontend format
-      // Column names match the actual database schema from migrations
+      // Column names match the actual database schema from comms-blkout migration
       const mappedEvents = validEvents.map((event: any) => ({
         id: event.id,
         name: event.title || 'Untitled Event',
         title: event.title || 'Untitled Event',
         description: event.description || '',
-        event_date: event.event_date,
-        date: event.event_date, // Alias for groupEventsByWeek
-        start_date: event.event_date,
-        end_date: event.event_date, // Default to same day if not specified
+        event_date: event.date,
+        date: event.date, // For groupEventsByWeek
+        start_date: event.date,
+        end_date: event.date, // Default to same day if not specified
         location: event.location || 'Location TBA',
-        organizer_name: event.organizer_name || 'Unknown Organizer',
+        organizer_name: event.organizer || 'Unknown Organizer',
         source: event.source || 'community',
-        source_url: event.source_url || '',
-        url: event.source_url || '',
+        source_url: event.url || '',
+        url: event.url || '',
         tags: Array.isArray(event.tags) ? event.tags : [],
         image_url: event.image_url || '',
-        price: event.price || 'Free',
-        cost: event.price ? parseFloat(event.price) || 0 : 0,
+        price: event.cost || 'Free',
+        cost: event.cost ? parseFloat(String(event.cost).replace(/[^0-9.]/g, '')) || 0 : 0,
         status: 'approved' as const,
         created_at: event.created_at || new Date().toISOString(),
         updated_at: event.created_at || new Date().toISOString(),
         event_type: 'meetup' as const,
-        organizer_id: event.organizer_name || 'unknown',
+        organizer_id: event.organizer || 'unknown',
         max_attendees: 50,
         registration_required: false,
         featured_image: event.image_url || '',
-        profiles: null
+        profiles: undefined
       }));
 
       return mappedEvents;
