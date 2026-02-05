@@ -185,14 +185,14 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
   const handleBulkAction = async (action: 'approve' | 'reject') => {
     try {
       const sheetsStatus = action === 'approve' ? 'published' : 'archived';
-      const supabaseStatus = action === 'approve' ? 'published' : 'archived';
+      const apiAction = action === 'approve' ? approveEventViaIvor : rejectEventViaIvor;
 
-      // Try updating in both services for each event
+      // Use server-side API for Supabase (bypasses RLS), Google Sheets as secondary
       await Promise.all(
         pendingEvents.map(event =>
           Promise.allSettled([
             googleSheetsService.updateEventStatus(event.id, sheetsStatus),
-            supabaseEventService.updateEventStatus(event.id, supabaseStatus)
+            apiAction(event.id)
           ])
         )
       );
