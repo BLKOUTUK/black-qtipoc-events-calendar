@@ -33,7 +33,8 @@ export default async function handler(req: Request, res: Response) {
       return res.status(400).json({ success: false, error: 'Action must be approve or reject' });
     }
 
-    const newStatus = action === 'approve' ? 'approved' : 'archived';
+    // Database CHECK constraint only allows: pending, approved, rejected, published, past
+    const newStatus = action === 'approve' ? 'approved' : 'rejected';
 
     const response = await fetch(
       `${SUPABASE_URL}/rest/v1/events?id=eq.${eventId}`,
@@ -47,8 +48,7 @@ export default async function handler(req: Request, res: Response) {
         },
         body: JSON.stringify({
           status: newStatus,
-          updated_at: new Date().toISOString(),
-          ...(reason ? { rejection_reason: reason } : {})
+          updated_at: new Date().toISOString()
         })
       }
     );

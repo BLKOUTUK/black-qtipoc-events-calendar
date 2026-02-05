@@ -118,7 +118,7 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
       if (!apiResult.success) {
         // IVOR failed — fall back to direct Supabase update
         console.warn('IVOR reject failed, using Supabase directly');
-        await supabaseEventService.updateEventStatus(id, 'archived');
+        await supabaseEventService.updateEventStatus(id, 'archived'); // Maps to 'rejected' in DB
       }
 
       // Also try Google Sheets in case it's from there

@@ -293,17 +293,21 @@ class SupabaseEventService {
     try {
       console.log('🔍 Updating event status:', id, status);
 
-      // Map status to what the database expects
-      let dbStatus = status;
+      // Map status to what the database CHECK constraint allows:
+      // pending, approved, rejected, published, past
+      let dbStatus: string = status;
       if (status === 'published') {
         dbStatus = 'approved';
+      } else if (status === 'archived') {
+        dbStatus = 'rejected'; // Database doesn't allow 'archived'
+      } else if (status === 'draft' || status === 'reviewing') {
+        dbStatus = 'pending'; // Map draft/reviewing to pending
       }
 
       const { error } = await supabase
         .from('events')
         .update({
           status: dbStatus,
-          moderated_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         })
         .eq('id', id);
