@@ -170,6 +170,28 @@ function cleanText(text: string): string {
     .trim();
 }
 
+// Strip Outsavvy boilerplate from descriptions
+function stripOutsavvyBoilerplate(text: string): string {
+  if (!text) return '';
+
+  // Common Outsavvy app promotion patterns
+  const boilerplatePatterns = [
+    /Track your loved events in your profile or on the OutSavvy App[\s\S]*?Available on the App Store[\s\S]*?Avai[a-z]*/gi,
+    /Store your tickets securely on the app[\s\S]*?Get app notifications when tickets go on sale[^.]*\.?/gi,
+    /Browse and buy tickets on the go[^.]*\.?/gi,
+    /Available on the App Store[\s\S]*$/gi,
+    /Download the OutSavvy app[^.]*\.?/gi,
+    /Get the OutSavvy app[^.]*\.?/gi,
+  ];
+
+  let cleaned = text;
+  for (const pattern of boilerplatePatterns) {
+    cleaned = cleaned.replace(pattern, '');
+  }
+
+  return cleaned.replace(/\s+/g, ' ').trim();
+}
+
 function cleanICalText(text: string): string {
   if (!text) return '';
   return text
@@ -707,7 +729,7 @@ async function scrapeOutsavvyAPI(): Promise<ScrapedEvent[]> {
           events.push({
             id: generateEventId('outsavvy_api', ev.url || ev.id || title),
             title: cleanText(title),
-            description: cleanText(description),
+            description: stripOutsavvyBoilerplate(cleanText(description)),
             url: ev.url || '',
             source: 'Outsavvy API',
             sourceId: 'outsavvy_api',
