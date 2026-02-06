@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import {
   Shield, Newspaper, Calendar, Clock, CheckCircle, XCircle,
   AlertTriangle, TrendingUp, Users, Home, RefreshCw, Eye,
-  ChevronRight, FileText, Flag, Loader2
+  ChevronRight, FileText, Flag, Loader2, Download
 } from 'lucide-react';
 import { EventModerationPanel } from '../components/EventModerationPanel';
 
@@ -185,14 +185,24 @@ export function ModerationDashboardPage() {
                 <h1 className="text-xl font-bold text-white">Moderation Dashboard</h1>
               </div>
             </div>
-            <button
-              onClick={loadAllData}
-              disabled={loading}
-              className="flex items-center gap-2 px-3 py-2 bg-white/10 rounded-lg text-white/80 hover:bg-white/20 transition-colors"
-            >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              Refresh
-            </button>
+            <div className="flex items-center gap-2">
+              <a
+                href="/extensions/blkout-events-curator-v1.2.3.zip"
+                download
+                className="flex items-center gap-2 px-3 py-2 bg-purple-500/20 rounded-lg text-purple-300 hover:bg-purple-500/30 transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Extension v1.2.3
+              </a>
+              <button
+                onClick={loadAllData}
+                disabled={loading}
+                className="flex items-center gap-2 px-3 py-2 bg-white/10 rounded-lg text-white/80 hover:bg-white/20 transition-colors"
+              >
+                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+            </div>
           </div>
         </div>
       </header>
