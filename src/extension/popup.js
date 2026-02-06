@@ -300,6 +300,17 @@ async function handleQuickSubmit(contentType) {
     return;
   }
 
+  // If date extraction failed for events, show manual form so user can enter correct date
+  if (contentType === 'event') {
+    const extractedDate = currentAnalysis.extractedData?.date;
+    if (!extractedDate) {
+      console.log('Date extraction failed, showing manual form for editing');
+      showManualForm();
+      showError('Could not extract date - please enter it manually');
+      return;
+    }
+  }
+
   try {
     showLoading('Submitting content...');
 

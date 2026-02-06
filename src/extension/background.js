@@ -331,10 +331,31 @@ function extractEventData(pageData) {
     tags: []
   };
 
+  // Helper to find Event objects in nested structures (handles @graph, arrays, etc.)
+  function findEventObjects(obj, results = []) {
+    if (!obj) return results;
+    if (Array.isArray(obj)) {
+      obj.forEach(item => findEventObjects(item, results));
+    } else if (typeof obj === 'object') {
+      // Check if this object is an Event
+      if (obj['@type'] === 'Event' || obj.type === 'event') {
+        results.push(obj);
+      }
+      // Check @graph array (common in Eventbrite, schema.org)
+      if (obj['@graph'] && Array.isArray(obj['@graph'])) {
+        findEventObjects(obj['@graph'], results);
+      }
+    }
+    return results;
+  }
+
   // First, try to extract from structured data (JSON-LD) which is most reliable
   if (pageData.structured && Array.isArray(pageData.structured)) {
-    for (const item of pageData.structured) {
-      if (item && (item['@type'] === 'Event' || item.type === 'event')) {
+    const eventObjects = findEventObjects(pageData.structured);
+    console.log('Found event objects:', eventObjects.length);
+
+    for (const item of eventObjects) {
+      if (item) {
         if (item.name) data.title = item.name;
         if (item.description) data.description = item.description;
         if (item.startDate) {
