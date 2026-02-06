@@ -5,7 +5,6 @@
 
 // DOM Elements
 let elements = {};
-let currentUser = null;
 let currentAnalysis = null;
 let submissionStats = {
   today: 0,
@@ -114,31 +113,6 @@ function setupEventListeners() {
   });
 }
 
-/**
- * Load current user authentication state
- */
-async function loadUserState() {
-  try {
-    updateConnectionStatus('connecting');
-
-    const response = await sendMessage({ type: 'GET_USER_PROFILE' });
-
-    if (response && response.userProfile && response.authToken) {
-      currentUser = response.userProfile;
-      displayUserProfile(currentUser);
-      showMainContent();
-      updateConnectionStatus('connected');
-    } else {
-      showAuthSection();
-      updateConnectionStatus('disconnected');
-    }
-
-  } catch (error) {
-    console.error('Failed to load user state:', error);
-    showAuthSection();
-    updateConnectionStatus('error');
-  }
-}
 
 /**
  * Update connection status indicator
@@ -162,105 +136,6 @@ function updateConnectionStatus(status) {
     case 'error':
       statusText.textContent = 'Connection error';
       break;
-  }
-}
-
-/**
- * Display user profile information
- */
-function displayUserProfile(user) {
-  elements.userName.textContent = user.name || 'Unknown User';
-  elements.userEmail.textContent = user.email || '';
-  elements.userAvatar.src = user.picture || 'icons/icon32.png';
-
-  // Load team assignment
-  chrome.storage.sync.get(['teamAssignment'], (result) => {
-    const team = result.teamAssignment || 'events';
-    elements.userTeam.textContent = `${team.charAt(0).toUpperCase()}${team.slice(1)} Team`;
-
-    // Update form default
-    const teamRadio = document.querySelector(`input[name="teamAssignment"][value="${team}"]`);
-    if (teamRadio) {
-      teamRadio.checked = true;
-    }
-  });
-}
-
-/**
- * Show authentication section
- */
-function showAuthSection() {
-  elements.authSection.classList.remove('hidden');
-  elements.userProfile.classList.add('hidden');
-  elements.mainContent.classList.add('hidden');
-}
-
-/**
- * Show main content after authentication
- */
-function showMainContent() {
-  elements.authSection.classList.add('hidden');
-  elements.userProfile.classList.remove('hidden');
-  elements.mainContent.classList.remove('hidden');
-}
-
-/**
- * Handle user sign in
- */
-async function handleSignIn() {
-  try {
-    showLoading('Signing in...');
-    elements.signInBtn.disabled = true;
-
-    const response = await sendMessage({ type: 'AUTHENTICATE_USER' });
-
-    if (response && response.success) {
-      currentUser = response.userProfile;
-      displayUserProfile(currentUser);
-      showMainContent();
-      updateConnectionStatus('connected');
-
-      // Trigger page analysis after successful auth
-      await analyzeCurrentPage();
-
-    } else {
-      throw new Error(response?.error || 'Authentication failed');
-    }
-
-  } catch (error) {
-    console.error('Sign in failed:', error);
-    showError('Sign in failed: ' + error.message);
-    updateConnectionStatus('error');
-  } finally {
-    hideLoading();
-    elements.signInBtn.disabled = false;
-  }
-}
-
-/**
- * Handle user sign out
- */
-async function handleSignOut() {
-  try {
-    // Clear local state
-    currentUser = null;
-    currentAnalysis = null;
-
-    // Clear storage
-    await chrome.storage.sync.clear();
-    await chrome.storage.local.clear();
-
-    // Remove cached auth token
-    chrome.identity.clearAllCachedAuthTokens();
-
-    // Reset UI
-    showAuthSection();
-    updateConnectionStatus('disconnected');
-    hideAnalysisResults();
-    hideQuickActions();
-
-  } catch (error) {
-    console.error('Sign out error:', error);
   }
 }
 
