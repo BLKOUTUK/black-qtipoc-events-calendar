@@ -448,12 +448,12 @@ export const ModerationQueue: React.FC<ModerationQueueProps> = ({ onClose }) => 
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2 items-center">
                   <a
-                    href="https://news.blkoutuk.cloud/blkout-moderator-tools-v2.2.2-fixed.zip"
-                    download="blkout-moderator-tools-v2.2.2-fixed.zip"
+                    href="/extensions/blkout-events-curator-v1.2.1.zip"
+                    download="blkout-events-curator-v1.2.1.zip"
                     className="flex items-center text-sm bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 transition-colors font-medium"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download Extension v2.2.2
+                    Download Extension v1.2.1
                   </a>
                   <a
                     href="https://news.blkoutuk.cloud/admin"
