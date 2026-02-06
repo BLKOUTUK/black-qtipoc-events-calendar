@@ -6,8 +6,8 @@ const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL |
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
 console.log('[submit-event] Config:', {
-  hasUrl: \!\!SUPABASE_URL,
-  hasServiceKey: \!\!SUPABASE_SERVICE_ROLE_KEY
+  hasUrl: Boolean(SUPABASE_URL),
+  hasServiceKey: Boolean(SUPABASE_SERVICE_ROLE_KEY)
 });
 
 export default async function handler(req: Request, res: Response) {
@@ -19,11 +19,11 @@ export default async function handler(req: Request, res: Response) {
     return res.status(200).end();
   }
 
-  if (req.method \!== 'POST') {
+  if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
-  if (\!SUPABASE_URL || \!SUPABASE_SERVICE_ROLE_KEY) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     console.error('[submit-event] Missing env vars');
     return res.status(500).json({
       success: false,
@@ -36,7 +36,7 @@ export default async function handler(req: Request, res: Response) {
     console.log('[submit-event] Received:', data);
 
     const title = data.title || data.eventTitle || '';
-    if (\!title) {
+    if (!title) {
       return res.status(400).json({ success: false, error: 'Title is required' });
     }
 
@@ -93,7 +93,7 @@ export default async function handler(req: Request, res: Response) {
       }
     );
 
-    if (\!insertResponse.ok) {
+    if (!insertResponse.ok) {
       const errorText = await insertResponse.text();
       console.error('[submit-event] Insert failed:', insertResponse.status, errorText);
       return res.status(500).json({
