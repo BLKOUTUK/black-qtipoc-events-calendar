@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BLKOUT Content Curator",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Community-driven content curation for BLKOUT Liberation Platform - Events and news discovery for Black queer communities",
   "permissions": [
     "storage",

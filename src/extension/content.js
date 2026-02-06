@@ -9,6 +9,9 @@ let currentAnalysis = null;
 let floatingButton = null;
 let userTeam = null;
 let contentDetectionEnabled = true;
+let hasValidAnalysis = false;
+let lastAnalysisTime = 0;
+const ANALYSIS_COOLDOWN = 30000; // 30 seconds cooldown after successful analysis
 
 // Content detection patterns and thresholds
 const DETECTION_CONFIG = {
@@ -105,6 +108,8 @@ async function analyzeCurrentPage() {
       // Show floating button if content meets criteria
       if (shouldShowFloatingButton(currentAnalysis)) {
         showFloatingButton(currentAnalysis);
+        hasValidAnalysis = true;
+        lastAnalysisTime = Date.now();
       }
     } else {
       console.error('Analysis failed:', response?.error);
@@ -475,9 +480,18 @@ function hideFloatingButton() {
 
 /**
  * Observe page changes for dynamic content
+ * Only reanalyze if we don't already have valid results and enough time has passed
  */
 function observePageChanges() {
+  // Tags to ignore - these are typically dynamic content that doesn't affect event data
+  const IGNORED_TAGS = ['script', 'iframe', 'img', 'svg', 'style', 'link', 'noscript', 'ins'];
+
   const observer = new MutationObserver((mutations) => {
+    // Skip if we already have valid analysis and are within cooldown
+    if (hasValidAnalysis && (Date.now() - lastAnalysisTime) < ANALYSIS_COOLDOWN) {
+      return;
+    }
+
     let shouldReanalyze = false;
 
     mutations.forEach((mutation) => {
@@ -486,7 +500,21 @@ function observePageChanges() {
         const hasSignificantContent = Array.from(mutation.addedNodes).some(node => {
           if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node;
-            return element.innerHTML && element.innerHTML.length > 100;
+            const tagName = element.tagName?.toLowerCase();
+
+            // Ignore non-content elements (ads, tracking, images, scripts)
+            if (IGNORED_TAGS.includes(tagName)) {
+              return false;
+            }
+
+            // Ignore elements with common ad/tracking class patterns
+            const className = element.className?.toString() || '';
+            if (/ad|ads|tracking|analytics|pixel|banner|promo/i.test(className)) {
+              return false;
+            }
+
+            // Only consider substantial content additions
+            return element.innerText && element.innerText.length > 200;
           }
           return false;
         });
@@ -497,13 +525,13 @@ function observePageChanges() {
       }
     });
 
-    // Debounced reanalysis
-    if (shouldReanalyze && contentDetectionEnabled) {
+    // Debounced reanalysis with longer timeout
+    if (shouldReanalyze && contentDetectionEnabled && !hasValidAnalysis) {
       clearTimeout(observer.reanalysisTimer);
       observer.reanalysisTimer = setTimeout(() => {
-        console.log('Page content changed, reanalyzing...');
+        console.log('Significant page content changed, reanalyzing...');
         analyzeCurrentPage();
-      }, 2000);
+      }, 5000); // Increased to 5 seconds
     }
   });
 
@@ -593,11 +621,16 @@ let currentUrl = window.location.href;
 setInterval(() => {
   if (window.location.href !== currentUrl) {
     currentUrl = window.location.href;
-    console.log('URL changed, reanalyzing page...');
+    console.log('URL changed, resetting analysis state...');
+    // Reset analysis state for new page
+    hasValidAnalysis = false;
+    lastAnalysisTime = 0;
+    currentAnalysis = null;
+    hideFloatingButton();
     setTimeout(() => {
       if (contentDetectionEnabled) {
         analyzeCurrentPage();
       }
-    }, 1000);
+    }, 1500);
   }
-}, 1000);
+}, 2000); // Check every 2 seconds instead of 1
