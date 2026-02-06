@@ -11,6 +11,16 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Serve extension downloads from public/extensions
+app.use('/extensions', express.static(path.join(__dirname, 'public', 'extensions'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.zip')) {
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', 'attachment');
+    }
+  }
+}));
+
 // Serve static files from the 'dist' directory
 // Hashed assets (JS/CSS) get long-term caching; HTML always revalidates
 app.use(express.static(path.join(__dirname, 'dist'), {
