@@ -244,6 +244,7 @@ async function analyzePageContent(pageData) {
     console.log('Analyzing page content:', pageData.url);
 
     const analysis = {
+      url: pageData.url,  // Include the page URL in analysis result
       contentType: null,
       confidence: 0,
       liberationScore: 0,
@@ -330,8 +331,59 @@ function extractEventData(pageData) {
     tags: []
   };
 
-  // Extract date patterns
+  // First, try to extract from structured data (JSON-LD) which is most reliable
+  if (pageData.structured && Array.isArray(pageData.structured)) {
+    for (const item of pageData.structured) {
+      if (item && (item['@type'] === 'Event' || item.type === 'event')) {
+        if (item.name) data.title = item.name;
+        if (item.description) data.description = item.description;
+        if (item.startDate) {
+          // Parse ISO date
+          const dateObj = new Date(item.startDate);
+          if (!isNaN(dateObj)) {
+            data.date = dateObj.toISOString().split('T')[0];
+            data.time = dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+          }
+        }
+        if (item.location) {
+          if (typeof item.location === 'string') {
+            data.location = item.location;
+          } else if (item.location.name) {
+            data.location = item.location.name;
+            if (item.location.address) {
+              const addr = item.location.address;
+              if (typeof addr === 'string') {
+                data.location += ', ' + addr;
+              } else if (addr.streetAddress) {
+                data.location += ', ' + addr.streetAddress;
+              }
+            }
+          }
+        }
+        if (item.organizer) {
+          data.organizer = typeof item.organizer === 'string' ? item.organizer : item.organizer.name || '';
+        }
+        if (item.offers) {
+          const offers = Array.isArray(item.offers) ? item.offers : [item.offers];
+          const prices = offers.map(o => o.price).filter(Boolean);
+          if (prices.length > 0) {
+            const currency = offers[0].priceCurrency || '£';
+            data.cost = currency + prices.join(' - ' + currency);
+          }
+        }
+        // If we found structured event data, return early
+        if (data.date) {
+          console.log('Extracted from structured data:', data);
+          return data;
+        }
+      }
+    }
+  }
+
+  // Fallback: Extract from page content using patterns
+  // Extract date patterns (including abbreviated months like "Feb 22, 2026")
   const datePatterns = [
+    /(\w+,?\s+)?(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2},?\s+\d{4}/i,
     /(\w+,?\s+)?(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+\d{4}/i,
     /\d{1,2}\/\d{1,2}\/\d{2,4}/,
     /\d{4}-\d{2}-\d{2}/
