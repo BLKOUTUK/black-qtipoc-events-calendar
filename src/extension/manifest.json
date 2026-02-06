@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BLKOUT Content Curator",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Community-driven content curation for BLKOUT Liberation Platform - Events and news discovery for Black queer communities",
   "permissions": [
     "storage",
@@ -77,6 +77,7 @@
     "matches": [
       "https://events.blkoutuk.cloud/*",
       "https://blkout-events-calendar.netlify.app/*",
+      "https://ivor.blkoutuk.cloud/*",
       "https://browseract.com/*",
       "https://*.browseract.com/*"
     ]

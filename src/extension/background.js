@@ -5,8 +5,8 @@
 
 // Configuration constants
 const CONFIG = {
-  SUPABASE_URL: 'https://bgjengudzfickgomjqmz.supabase.co',
-  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0',
+  // Use server-side API to bypass RLS (don't submit directly to Supabase)
+  API_BASE_URL: 'https://events.blkoutuk.cloud',
   IVOR_API_URL: 'https://ivor.blkoutuk.cloud',
   GOOGLE_SHEET_ID: '', // Will be set from storage or environment
   TEAMS: {
@@ -530,7 +530,7 @@ function prepareSubmissionData(contentData, teamId) {
 }
 
 /**
- * Submit data to Supabase
+ * Submit data via server-side API (bypasses RLS)
  */
 async function submitToSupabase(data, teamId) {
   try {
@@ -538,8 +538,8 @@ async function submitToSupabase(data, teamId) {
     let payload;
 
     if (teamId === CONFIG.TEAMS.EVENTS) {
-      // Submit event to events table
-      endpoint = `${CONFIG.SUPABASE_URL}/rest/v1/events`;
+      // Submit event via server-side API
+      endpoint = `${CONFIG.API_BASE_URL}/api/submit-event`;
       payload = {
         title: data.eventTitle || data.title || '',
         date: data.eventDate || data.date || data.event_date || new Date().toISOString().split('T')[0],
@@ -550,48 +550,41 @@ async function submitToSupabase(data, teamId) {
         url: data.sourceUrl || data.url || data.source_url || '',
         cost: data.eventCost || data.cost || data.price || 'Free',
         tags: Array.isArray(data.tags) ? data.tags : [],
-        status: 'pending',
         submitted_by: data.submittedBy || 'chrome-extension'
       };
     } else if (teamId === CONFIG.TEAMS.NEWS) {
-      // Submit article to articles table
-      endpoint = `${CONFIG.SUPABASE_URL}/rest/v1/articles`;
-      payload = {
-        title: data.articleTitle || data.title || '',
-        content: data.excerpt || data.description || data.content || '',
-        author: data.articleAuthor || data.author || data.submittedBy || '',
-        source_url: data.sourceUrl || data.url || data.source_url || '',
-        status: 'draft',
-        submitted_by: data.submittedBy || 'chrome-extension',
-        published_at: data.publishDate || data.date || new Date().toISOString()
-      };
+      // News submissions not yet supported via API
+      throw new Error('News submissions not yet implemented. Please use Events team for now.');
     } else {
       throw new Error(`Unsupported team: ${teamId}`);
     }
 
+    console.log('Submitting to server API:', endpoint, payload);
+
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        'apikey': CONFIG.SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=representation'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`Supabase API error: ${response.status} - ${error}`);
+      throw new Error(`API error: ${response.status} - ${error}`);
     }
 
     const result = await response.json();
-    console.log('Supabase submission successful:', result);
+    console.log('Server API submission successful:', result);
 
-    return Array.isArray(result) ? result[0] : result;
+    if (!result.success) {
+      throw new Error(result.error || 'Submission failed');
+    }
+
+    return result;
 
   } catch (error) {
-    console.error('Supabase submission failed:', error);
+    console.error('Submission failed:', error);
     throw error;
   }
 }
