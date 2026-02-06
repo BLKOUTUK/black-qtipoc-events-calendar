@@ -145,16 +145,25 @@ function updateConnectionStatus(status) {
 async function analyzeCurrentPage() {
   try {
     showAnalysisLoading();
+    console.log('Starting page analysis...');
 
     // Get current tab data
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    console.log('Current tab:', tab?.url);
 
     if (!tab) {
       throw new Error('Unable to access current tab');
     }
 
     // Get page data from content script
-    const pageData = await chrome.tabs.sendMessage(tab.id, { type: 'GET_PAGE_DATA' });
+    let pageData;
+    try {
+      pageData = await chrome.tabs.sendMessage(tab.id, { type: 'GET_PAGE_DATA' });
+      console.log('Got page data:', pageData ? 'yes' : 'no');
+    } catch (e) {
+      console.error('Content script not responding - try refreshing the page');
+      throw new Error('Content script not loaded. Please refresh the page and try again.');
+    }
 
     if (!pageData) {
       throw new Error('Unable to analyze page content');
@@ -165,6 +174,7 @@ async function analyzeCurrentPage() {
       type: 'ANALYZE_CONTENT',
       data: pageData
     });
+    console.log('Analysis response:', response);
 
     if (response && !response.error) {
       currentAnalysis = response;
