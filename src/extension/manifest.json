@@ -1,17 +1,12 @@
 {
   "manifest_version": 3,
   "name": "BLKOUT Content Curator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Community-driven content curation for BLKOUT Liberation Platform - Events and news discovery for Black queer communities",
   "permissions": [
     "storage",
     "activeTab",
-    "scripting",
-    "identity",
-    "identity.email",
-    "https://sheets.googleapis.com/*",
-    "https://www.googleapis.com/*",
-    "https://accounts.google.com/*"
+    "scripting"
   ],
   "host_permissions": [
     "https://*/*",
@@ -80,13 +75,6 @@
       "https://ivor.blkoutuk.cloud/*",
       "https://browseract.com/*",
       "https://*.browseract.com/*"
-    ]
-  },
-  "oauth2": {
-    "client_id": "914448728713-rh7jb89d84oesik32me40cqjjbnrie3g.apps.googleusercontent.com",
-    "scopes": [
-      "https://www.googleapis.com/auth/spreadsheets",
-      "https://www.googleapis.com/auth/userinfo.email"
     ]
   }
 }

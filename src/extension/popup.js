@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   initializeElements();
   setupEventListeners();
-  await loadUserState();
+  updateConnectionStatus('connected');
   await loadSubmissionStats();
   await analyzeCurrentPage();
 
@@ -33,16 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
  */
 function initializeElements() {
   elements = {
-    // Authentication
-    authSection: document.getElementById('authSection'),
-    userProfile: document.getElementById('userProfile'),
-    signInBtn: document.getElementById('signInBtn'),
-    signOutBtn: document.getElementById('signOutBtn'),
-    userName: document.getElementById('userName'),
-    userEmail: document.getElementById('userEmail'),
-    userTeam: document.getElementById('userTeam'),
-    userAvatar: document.getElementById('userAvatar'),
-
     // Status
     connectionStatus: document.getElementById('connectionStatus'),
 
@@ -93,10 +83,6 @@ function initializeElements() {
  * Setup event listeners
  */
 function setupEventListeners() {
-  // Authentication
-  elements.signInBtn.addEventListener('click', handleSignIn);
-  elements.signOutBtn.addEventListener('click', handleSignOut);
-
   // Analysis
   elements.reanalyzeBtn.addEventListener('click', handleReanalyze);
 
@@ -282,8 +268,6 @@ async function handleSignOut() {
  * Analyze current page content
  */
 async function analyzeCurrentPage() {
-  if (!currentUser) return;
-
   try {
     showAnalysisLoading();
 

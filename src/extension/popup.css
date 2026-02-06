@@ -663,6 +663,20 @@ body {
   }
 }
 
+/* Info Banner (replaces auth section) */
+.info-banner {
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--blkout-gold) 0%, var(--blkout-orange) 100%);
+  color: var(--blkout-black);
+  text-align: center;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.info-banner p {
+  margin: 0;
+}
+
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   body {
