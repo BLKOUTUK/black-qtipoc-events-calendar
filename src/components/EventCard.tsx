@@ -112,11 +112,9 @@ export const EventCard: React.FC<EventCardProps> = ({
       name: event.name,
       description: event.description,
       event_date: event.event_date,
-      end_date: event.end_date,
-      start_time: event.start_time,
       location: locationStr,
       organizer_name: event.organizer_name,
-      url: event.url,
+      source_url: event.source_url || event.url,
       price: event.price || event.cost?.toString() || 'Free'
     });
   };
@@ -128,7 +126,20 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   const saveEdit = () => {
     if (onEdit) {
-      onEdit(event.id, editForm);
+      // Only send fields that exist in the database schema
+      const validFields: Partial<Event> = {};
+      if (editForm.name !== undefined) validFields.name = editForm.name;
+      if (editForm.description !== undefined) validFields.description = editForm.description;
+      if (editForm.event_date !== undefined) validFields.event_date = editForm.event_date;
+      if (editForm.location !== undefined) validFields.location = editForm.location;
+      if (editForm.organizer_name !== undefined) validFields.organizer_name = editForm.organizer_name;
+      if (editForm.price !== undefined) validFields.price = editForm.price;
+      if (editForm.source_url !== undefined) validFields.source_url = editForm.source_url;
+      if (editForm.tags !== undefined) validFields.tags = editForm.tags;
+      if (editForm.status !== undefined) validFields.status = editForm.status;
+
+      console.log('Saving valid fields:', validFields);
+      onEdit(event.id, validFields);
       setIsEditing(false);
       setEditForm({});
     }
@@ -167,49 +178,14 @@ export const EventCard: React.FC<EventCardProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Start Date</label>
-              <input
-                type="date"
-                value={editForm.event_date || ''}
-                onChange={(e) => setEditForm({ ...editForm, event_date: e.target.value })}
-                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">End Date (optional)</label>
-              <input
-                type="date"
-                value={editForm.end_date || ''}
-                onChange={(e) => setEditForm({ ...editForm, end_date: e.target.value })}
-                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
-                placeholder="Leave blank for single-day events"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Start Time</label>
-              <input
-                type="time"
-                value={editForm.start_time || ''}
-                onChange={(e) => setEditForm({ ...editForm, start_time: e.target.value })}
-                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">End Time (optional)</label>
-              <input
-                type="time"
-                value={editForm.end_time || ''}
-                onChange={(e) => setEditForm({ ...editForm, end_time: e.target.value })}
-                className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
-              />
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Event Date</label>
+            <input
+              type="date"
+              value={editForm.event_date || ''}
+              onChange={(e) => setEditForm({ ...editForm, event_date: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-md text-white focus:border-yellow-500 focus:outline-none"
+            />
           </div>
 
           <div>
