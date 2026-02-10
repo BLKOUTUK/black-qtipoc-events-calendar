@@ -23,9 +23,9 @@ export default async function handler(req: Request, res: Response) {
   }
 
   try {
-    // Fetch all events with just the status field using service role key
+    // Fetch title, date, and status — needed for deduplication
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/events?select=status`,
+      `${SUPABASE_URL}/rest/v1/events?select=title,date,status`,
       {
         headers: {
           'apikey': SUPABASE_SERVICE_ROLE_KEY,
@@ -45,9 +45,17 @@ export default async function handler(req: Request, res: Response) {
       });
     }
 
-    const events = await response.json();
+    const rawEvents = await response.json();
 
-    const stats = (events || []).reduce((acc: any, event: any) => {
+    // Deduplicate by title+date (same logic as pending-events.ts)
+    const events = Array.from(
+      new Map((rawEvents || []).map((e: any) => [
+        `${(e.title || '').toLowerCase().trim()}|${e.date || ''}`,
+        e
+      ])).values()
+    );
+
+    const stats = events.reduce((acc: any, event: any) => {
       if (event.status === 'draft' || event.status === 'reviewing' || event.status === 'pending') {
         acc.pending++;
       } else if (event.status === 'approved' || event.status === 'published') {
