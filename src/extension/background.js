@@ -7,6 +7,7 @@
 const CONFIG = {
   // Use server-side API to bypass RLS (don't submit directly to Supabase)
   API_BASE_URL: 'https://events.blkoutuk.cloud',
+  NEWS_API_URL: 'https://news.blkoutuk.cloud',
   IVOR_API_URL: 'https://ivor.blkoutuk.cloud',
   GOOGLE_SHEET_ID: '', // Will be set from storage or environment
   TEAMS: {
@@ -626,8 +627,17 @@ async function submitToSupabase(data, teamId) {
         submitted_by: data.submittedBy || 'chrome-extension'
       };
     } else if (teamId === CONFIG.TEAMS.NEWS) {
-      // News submissions not yet supported via API
-      throw new Error('News submissions not yet implemented. Please use Events team for now.');
+      // Submit news article via news-blkout server API
+      endpoint = `${CONFIG.NEWS_API_URL}/api/submit-article`;
+      payload = {
+        title: data.articleTitle || data.title || '',
+        url: data.sourceUrl || data.url || data.source_url || '',
+        excerpt: data.excerpt || data.articleDescription || '',
+        category: data.category || 'community',
+        content: data.content || data.excerpt || '',
+        submittedBy: data.submittedBy || 'chrome-extension',
+        type: 'story'
+      };
     } else {
       throw new Error(`Unsupported team: ${teamId}`);
     }
