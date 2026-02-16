@@ -5,8 +5,8 @@
  * Targets scene-oriented periodicals and listings platforms:
  * - QX Magazine (JSON-LD structured data + RSS feed)
  * - DIVA Magazine (JSON-LD structured data)
- * - Time Out London (JSON-LD structured data)
- * - Attitude Magazine (JSON-LD structured data)
+ * - Time Out London LGBTQ+ (JSON-LD structured data)
+ * - Attitude Magazine (RSS feed with event keyword filtering)
  * - Eventbrite (for Black LGBTQ+ specific searches)
  *
  * Rationale: Scene publications have higher-density, more relevant
@@ -26,7 +26,7 @@ const TRUSTED_SOURCES = [
   'QX Magazine Feed',
   'stonewall.org.uk',
   'Time Out London LGBTQ+',
-  'Attitude Magazine Events',
+  'Attitude Magazine Feed',
   'community-submission',
 ];
 
@@ -95,18 +95,19 @@ class EventScrapingService {
         id: 'timeout_london_lgbtq',
         name: 'Time Out London LGBTQ+',
         type: 'jsonld',
-        url: 'https://www.timeout.com/london/lgbtq/lgbtq-events-in-london',
-        description: 'Time Out London - curated LGBTQ+ event listings',
+        url: 'https://www.timeout.com/london/lgbt',
+        description: 'Time Out London LGBTQ+ hub - event guides, club nights, bars',
         trustScore: 0.9,
-        category: 'community'
+        category: 'nightlife'
       },
       {
-        id: 'attitude_magazine_events',
-        name: 'Attitude Magazine Events',
-        type: 'jsonld',
-        url: 'https://www.attitude.co.uk/culture/',
-        description: 'Attitude Magazine - leading UK gay magazine, culture and events',
-        trustScore: 0.9,
+        id: 'attitude_magazine_feed',
+        name: 'Attitude Magazine Feed',
+        type: 'rss',
+        url: 'https://www.attitude.co.uk/feed/',
+        description: 'Attitude Magazine RSS - UK leading gay magazine, culture and events',
+        relevanceKeywords: ['event', 'party', 'club', 'bar', 'cabaret', 'theatre', 'pride', 'festival', 'night', 'gig', 'concert', 'launch', 'awards'],
+        trustScore: 0.85,
         category: 'culture'
       },
       {
@@ -246,6 +247,13 @@ class EventScrapingService {
       const items = parsed?.rss?.channel?.item || parsed?.feed?.entry || []
 
       for (const item of (Array.isArray(items) ? items : [items])) {
+        // If source has relevanceKeywords, pre-filter items
+        if (source.relevanceKeywords && source.relevanceKeywords.length > 0) {
+          const itemText = `${item.title || ''} ${item.description || ''} ${item.summary || ''} ${item.content || ''}`.toLowerCase()
+          const hasRelevantKeyword = source.relevanceKeywords.some(kw => itemText.includes(kw.toLowerCase()))
+          if (!hasRelevantKeyword) continue
+        }
+
         const event = this.parseRSSItem(item, source)
         if (event) {
           events.push(event)
