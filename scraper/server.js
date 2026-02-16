@@ -116,25 +116,27 @@ function printHealthInfo() {
   `)
 }
 
-// Schedule cron jobs
-if (process.env.NODE_ENV !== 'test') {
-  // Weekly scrape on Sundays at 6 AM UTC
-  // Scene publications don't update frequently enough for daily scraping
-  cron.schedule('0 6 * * 0', async () => {
-    console.log('🔄 Starting weekly event scraping...')
-    await runScrapingJob()
-  })
-
-  console.log('📅 Scheduled weekly scrape: 0 6 * * 0 (Sundays at 6 AM UTC)')
-}
-
-// Print health info on startup
-printHealthInfo()
-
-// Run immediately on startup if RUN_NOW env is set
+// When RUN_NOW is set (GitHub Actions), run once and exit — don't start cron
 if (process.env.RUN_NOW === 'true') {
+  printHealthInfo()
   console.log('🚀 Running immediate scrape (RUN_NOW=true)...')
-  runScrapingJob()
+  runScrapingJob().then(() => {
+    console.log('🏁 Exiting after one-shot run.')
+    process.exit(0)
+  }).catch((err) => {
+    console.error('💥 Fatal error:', err)
+    process.exit(1)
+  })
+} else {
+  // Long-running server mode: schedule cron jobs
+  if (process.env.NODE_ENV !== 'test') {
+    cron.schedule('0 6 * * 0', async () => {
+      console.log('🔄 Starting weekly event scraping...')
+      await runScrapingJob()
+    })
+    console.log('📅 Scheduled weekly scrape: 0 6 * * 0 (Sundays at 6 AM UTC)')
+  }
+  printHealthInfo()
 }
 
 // Export for testing and manual runs
