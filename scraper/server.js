@@ -23,12 +23,17 @@ import { EventScrapingService } from './eventScrapingService.js'
 // Load environment variables
 dotenv.config()
 
-// Supabase configuration
+// Supabase configuration — use service role key to bypass RLS for inserts
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://bgjengudzfickgomjqmz.supabase.co'
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnamVuZ3VkemZpY2tnb21qcW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTI3NjcsImV4cCI6MjA3MTE4ODc2N30.kYQ2oFuQBGmu4V_dnj_1zDMDVsd-qpDZJwNvswzO6M0'
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
+
+if (!SUPABASE_KEY) {
+  console.error('❌ No Supabase key found. Set SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY.')
+  process.exit(1)
+}
 
 // Initialize Supabase client
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 // Initialize scraping service
 const eventScrapingService = new EventScrapingService(supabase)
