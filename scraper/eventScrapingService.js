@@ -2,9 +2,11 @@
  * Event Scraping Service
  * Community-focused event discovery for Black LGBTQ+ liberation
  *
- * Targets scene-oriented periodicals and civil society organisations:
+ * Targets scene-oriented periodicals and listings platforms:
  * - QX Magazine (JSON-LD structured data + RSS feed)
- * - DIVA Magazine (JSON-LD structured data + iCal)
+ * - DIVA Magazine (JSON-LD structured data)
+ * - Time Out London (JSON-LD structured data)
+ * - Attitude Magazine (JSON-LD structured data)
  * - Eventbrite (for Black LGBTQ+ specific searches)
  *
  * Rationale: Scene publications have higher-density, more relevant
@@ -23,7 +25,8 @@ const TRUSTED_SOURCES = [
   'QX Magazine Events',
   'QX Magazine Feed',
   'stonewall.org.uk',
-  'Consortium LGBT+',
+  'Time Out London LGBTQ+',
+  'Attitude Magazine Events',
   'community-submission',
 ];
 
@@ -89,13 +92,22 @@ class EventScrapingService {
         category: 'community'
       },
       {
-        id: 'consortium_lgbt',
-        name: 'Consortium LGBT+',
-        type: 'ical',
-        url: 'https://www.consortium.lgbt/?post_type=tribe_events&ical=1&eventDisplay=list',
-        description: 'National LGBT+ third sector membership body - civil society events',
-        trustScore: 0.95,
+        id: 'timeout_london_lgbtq',
+        name: 'Time Out London LGBTQ+',
+        type: 'jsonld',
+        url: 'https://www.timeout.com/london/lgbtq/lgbtq-events-in-london',
+        description: 'Time Out London - curated LGBTQ+ event listings',
+        trustScore: 0.9,
         category: 'community'
+      },
+      {
+        id: 'attitude_magazine_events',
+        name: 'Attitude Magazine Events',
+        type: 'jsonld',
+        url: 'https://www.attitude.co.uk/culture/',
+        description: 'Attitude Magazine - leading UK gay magazine, culture and events',
+        trustScore: 0.9,
+        category: 'culture'
       },
       {
         id: 'eventbrite_uk_black_lgbtq',
