@@ -347,8 +347,17 @@ class TavilyEventDiscovery {
     const title = titleHint || this.extractTitle(text)
     if (!title) return null
 
-    // Don't create events from generic pages
+    // Don't create events from generic/listing pages
     if (title.length < 5 || title.length > 300) return null
+
+    // Skip directory/listing pages (not individual events)
+    const listingPatterns = [
+      /^discover\s+.+events?\s+&\s+activities/i,
+      /events?\s+calendar\s+\d{4}/i,
+      /gay\s+pride\s+events?\s+calendar/i,
+      /events?\s+&\s+activities\s+in\s+/i,
+    ]
+    if (listingPatterns.some(p => p.test(title))) return null
 
     const date = this.extractDate(text)
     const location = this.extractLocation(text)
@@ -613,10 +622,30 @@ class TavilyEventDiscovery {
   }
 
   /**
-   * Check if event is in the UK
+   * Check if event is in the UK (and not in the US/elsewhere)
    */
   isUKEvent(event) {
-    const text = `${event.location || ''} ${event.title || ''} ${event.description || ''}`.toLowerCase()
+    const text = `${event.location || ''} ${event.title || ''} ${event.description || ''} ${event.url || ''}`.toLowerCase()
+
+    // Reject if US/non-UK indicators present
+    const nonUKIndicators = [
+      // US states & cities
+      'maryland', 'virginia', 'california', 'new york', 'texas', 'florida',
+      'georgia', 'illinois', 'massachusetts', 'connecticut', 'washington dc',
+      'dc metro', 'district of columbia', 'hampton roads', 'atlanta',
+      'los angeles', 'san francisco', 'chicago', 'boston', 'miami',
+      'brooklyn', 'queens', 'harlem', 'houston', 'philadelphia',
+      'bowie, md', 'everett, ma', 'branford', ', ct', ', ma', ', md',
+      ', ny', ', ca', ', tx', ', fl', ', ga', ', il', ', va', ', pa',
+      // Non-UK domains
+      'eventbrite.com/d/united-states', 'eventbrite.com/d/ca--',
+      'eventbrite.com/d/ny--', 'eventbrite.com/d/tx--',
+      // Other countries
+      'australia', 'canada', 'south africa',
+    ]
+    if (nonUKIndicators.some(indicator => text.includes(indicator))) return false
+
+    // Must have a UK indicator
     return this.ukLocations.some(loc => text.includes(loc))
   }
 
@@ -731,7 +760,8 @@ class TavilyEventDiscovery {
   }
 
   /**
-   * Submit discovered events to Supabase
+   * Submit discovered events to Supabase.
+   * Skips events without a date (Supabase requires it).
    */
   async submitToSupabase(events) {
     if (!this.supabase) {
@@ -742,6 +772,12 @@ class TavilyEventDiscovery {
     const results = { success: 0, skipped: 0, failed: 0, errors: [] }
 
     for (const event of events) {
+      // Skip events without a date — Supabase schema requires it
+      if (!event.date) {
+        results.skipped++
+        continue
+      }
+
       try {
         // Check for existing event by URL or title+date
         const { data: existing } = await this.supabase
