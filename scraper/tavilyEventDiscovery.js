@@ -17,6 +17,7 @@
  */
 
 import axios from 'axios'
+import { extractFromOutSavvyUrl } from './outsavvyJsonLdExtractor.js'
 
 // Trusted domains that get auto-approved (aligned with trustedEventSources.ts)
 const TRUSTED_DOMAINS = [
@@ -176,28 +177,48 @@ class TavilyEventDiscovery {
 
     for (let i = 0; i < urlBatches.length; i++) {
       const batch = urlBatches[i]
-      try {
-        const extracted = await this.tavilyExtract(batch.map(u => u.url))
-        results.extractedUrls += extracted.length
+      // Split: OutSavvy URLs go through the JSON-LD extractor (clean structured data,
+      // no boilerplate). Everything else still uses Tavily Extract.
+      const outsavvyBatch = batch.filter(u => /outsavvy\.com/i.test(u.url))
+      const tavilyBatch = batch.filter(u => !/outsavvy\.com/i.test(u.url))
 
-        for (const page of extracted) {
-          const matchingCandidate = candidateUrls.get(page.url)
-          const events = this.parseEventsFromContent(
-            page.url,
-            page.raw_content,
-            matchingCandidate?.title,
-            matchingCandidate?.snippet,
-          )
-          extractedEvents.push(...events)
+      // OutSavvy: parallel JSON-LD fetches (concurrency capped by batch size = 5)
+      if (outsavvyBatch.length > 0) {
+        const osResults = await Promise.all(outsavvyBatch.map(u => extractFromOutSavvyUrl(u.url)))
+        for (const ev of osResults) {
+          if (ev) {
+            extractedEvents.push(ev)
+            results.extractedUrls++
+          }
         }
-
-        console.log(`  📄 Batch ${i + 1}/${urlBatches.length}: extracted ${extracted.length} pages`)
-        await this.delay(1000)
-
-      } catch (error) {
-        results.errors.push({ batch: i + 1, error: error.message })
-        console.error(`  ❌ Extract batch ${i + 1} failed: ${error.message}`)
+        console.log(`  📄 Batch ${i + 1}/${urlBatches.length}: OutSavvy JSON-LD ${osResults.filter(Boolean).length}/${outsavvyBatch.length}`)
       }
+
+      // Non-OutSavvy: original Tavily Extract path
+      if (tavilyBatch.length > 0) {
+        try {
+          const extracted = await this.tavilyExtract(tavilyBatch.map(u => u.url))
+          results.extractedUrls += extracted.length
+
+          for (const page of extracted) {
+            const matchingCandidate = candidateUrls.get(page.url)
+            const events = this.parseEventsFromContent(
+              page.url,
+              page.raw_content,
+              matchingCandidate?.title,
+              matchingCandidate?.snippet,
+            )
+            extractedEvents.push(...events)
+          }
+
+          console.log(`  📄 Batch ${i + 1}/${urlBatches.length}: Tavily extracted ${extracted.length} pages`)
+        } catch (error) {
+          results.errors.push({ batch: i + 1, error: error.message })
+          console.error(`  ❌ Tavily extract batch ${i + 1} failed: ${error.message}`)
+        }
+      }
+
+      await this.delay(1000)
     }
 
     // Phase 4: Also parse events directly from search snippets
