@@ -1,14 +1,18 @@
 /**
  * Events Calendar - Tailwind Configuration
  *
- * One Platform Design pilot. Imports the shared design-system preset via
- * relative path (per DESIGN_COLOUR_ARCHITECTURE.md §10 fallback) — keeps
- * a single canonical preset without depending on workspace-dep resolution
- * which is currently messy (nested @blkout/design-system isn't a clean
- * workspace target). App-specific extensions stay here.
+ * One Platform Design pilot. PR #8's relative-path import was the §10 plan
+ * but Coolify's Docker build can't see outside the events-calendar repo
+ * (`../../packages/...` resolves outside container /app). Falling back to
+ * the documented §10 fallback: vendored local preset, kept manually in sync
+ * with packages/shared/design-system/tailwind.preset.js — same pattern as
+ * community-platform / news-blkout / comms-blkout.
+ *
+ * To re-sync after a shared-preset update:
+ *   cp ../../packages/shared/design-system/tailwind.preset.js ./tailwind.preset.js
  */
 
-import sharedPreset from '../../packages/shared/design-system/tailwind.preset.js'
+import sharedPreset from './tailwind.preset.js'
 
 /** @type {import('tailwindcss').Config} */
 export default {
