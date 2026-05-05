@@ -194,7 +194,7 @@ function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950 to-emerald-950">
+    <div className="min-h-screen bg-liberation-black-power noise">
       {/* Navigation Header */}
       <Header />
 
@@ -231,8 +231,8 @@ function HomePage() {
             />
           </div>
 
-          {/* WHAT'S ON Title with outline style */}
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-none tracking-tighter text-yellow-500 drop-shadow-2xl" style={{
+          {/* WHAT'S ON Title with outline style — events lemon section accent */}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-signature font-black mb-6 md:mb-8 leading-none tracking-tight text-events drop-shadow-2xl" style={{
             WebkitTextStroke: '2px currentColor',
             WebkitTextFillColor: 'transparent',
             paintOrder: 'stroke fill'
@@ -251,16 +251,16 @@ function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Admin Controls - Only show if authenticated */}
         {user && (
-          <div className="bg-gray-800 rounded-xl p-6 mb-8 border border-yellow-500/30">
+          <div className="bg-liberation-black-power rounded-xl p-6 mb-8 border-2 border-events">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="text-yellow-500">
+              <div className="text-events">
                 <h3 className="text-lg font-bold">Admin Controls</h3>
                 <p className="text-sm text-gray-200">Manage liberation events and community content</p>
               </div>
               <div className="flex items-center space-x-3">
                 <button
                   onClick={handleModerationClick}
-                  className="relative flex items-center px-4 py-2 bg-yellow-500 text-gray-900 rounded-lg hover:bg-yellow-400 transition-colors duration-200 font-medium"
+                  className="relative flex items-center px-4 py-2 bg-events text-liberation-black-power rounded-lg hover:bg-events/90 transition-colors duration-200 font-medium"
                 >
                   <Settings className="w-4 h-4 mr-2" />
                   Moderation
