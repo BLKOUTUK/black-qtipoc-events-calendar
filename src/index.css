@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ============================================================================
+   BLKOUT One Platform Design — events-calendar pilot
+   B2 base layer (per DESIGN_COLOUR_ARCHITECTURE.md §7).
+   Section: events. Accent: lemon yellow #FFE600 (the `events` token in the
+   shared preset). Mirrors the news-blkout / community-platform pattern.
+   ========================================================================== */
+
+@layer base {
+  html {
+    font-family: 'Work Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    background-color: #0a0a14; /* obsidian — One Platform Design canonical */
+    color: #f5f1e8;            /* cream */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Gold ::selection across the section — picks up the cross-section
+     connective-tissue accent regardless of body lemon. */
+  ::selection {
+    background: #FFD700;
+    color: #0a0a14;
+  }
+}
+
+@layer utilities {
+  /* Hero noise overlay — subtle radial purple-deep + gold accents.
+     Apply to a hero section as a backdrop layer.
+     (Same pattern as community-platform / news-blkout / comms-blkout.) */
+  .noise {
+    position: relative;
+    isolation: isolate;
+  }
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse at top left, rgba(255, 230, 0, 0.10), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(255, 215, 0, 0.06), transparent 60%);
+    pointer-events: none;
+  }
+}
