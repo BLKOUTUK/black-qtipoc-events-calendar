@@ -359,6 +359,20 @@ class TavilyEventDiscovery {
     ]
     if (listingPatterns.some(p => p.test(title))) return null
 
+    // Skip platform boilerplate. Tavily Extract on OutSavvy currently grabs
+    // the OutSavvy-app marketing footer ("Track your loved events in your
+    // profile or on the OutSavvy App…") rather than the actual event content.
+    // This produced a 36/47 noise rate in the moderation queue on 5 May 2026.
+    // Until we move OutSavvy to its API or fix Tavily's selector, drop these
+    // upfront so the queue isn't flooded with content-free events.
+    const trimmed = (text || '').trim()
+    if (trimmed.startsWith('Track your loved events') ||
+        (trimmed.includes('Track your loved events in your profile or on the OutSavvy App') &&
+         trimmed.length < 800)) {
+      console.log(`[Tavily] Skipping ${url} — OutSavvy boilerplate, not event content`)
+      return null
+    }
+
     const date = this.extractDate(text)
     const location = this.extractLocation(text)
     const organizer = this.extractOrganizer(text, url)
