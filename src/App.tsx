@@ -90,6 +90,16 @@ function HomePage() {
     loadFeaturedContent();
   }, []);
 
+  // Honour `?login=open` so MC and other admin entry points can deep-link straight
+  // into the auth flow regardless of session state. After successful sign-in,
+  // `?next=/path` (if present) navigates to that path.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('login') === 'open') {
+      setShowAuthModal(true);
+    }
+  }, []);
+
   useEffect(() => {
     const filtered = supabaseEventService.filterEvents(events, filters);
     // CRITICAL: Safety filter on filtered results too
@@ -167,6 +177,17 @@ function HomePage() {
       setUser(user);
       setShowAuthModal(false);
       await loadStats();
+      // If the deep-link asked us to go somewhere after auth (e.g. /moderation),
+      // honour that. Otherwise strip the ?login=open from the URL once we're in.
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next');
+      if (next && next.startsWith('/')) {
+        window.location.assign(next);
+      } else if (params.has('login')) {
+        params.delete('login');
+        const qs = params.toString();
+        window.history.replaceState({}, '', window.location.pathname + (qs ? `?${qs}` : ''));
+      }
     } catch (error) {
       throw error;
     }
