@@ -109,10 +109,10 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       disabled={disabled}
       className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
         isActive
-          ? 'bg-yellow-500 text-black'
+          ? 'bg-events text-black'
           : disabled
           ? 'text-gray-500 cursor-not-allowed'
-          : 'text-white hover:text-yellow-500 hover:bg-yellow-500/10'
+          : 'text-white hover:text-events hover:bg-events/10'
       }`}
     >
       {page}
@@ -167,7 +167,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
           className={`p-2 rounded-lg transition-all duration-200 ${
             currentPage === 1
               ? 'text-gray-500 cursor-not-allowed'
-              : 'text-white hover:text-yellow-500 hover:bg-yellow-500/10'
+              : 'text-white hover:text-events hover:bg-events/10'
           }`}
           aria-label="Previous page"
         >
@@ -182,7 +182,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
           className={`p-2 rounded-lg transition-all duration-200 ${
             currentPage === totalPages
               ? 'text-gray-500 cursor-not-allowed'
-              : 'text-white hover:text-yellow-500 hover:bg-yellow-500/10'
+              : 'text-white hover:text-events hover:bg-events/10'
           }`}
           aria-label="Next page"
         >
@@ -206,7 +206,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
             {/* Event cards skeleton */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(2)].map((_, cardIndex) => (
-                <div key={cardIndex} className="bg-gray-800 border border-yellow-500/30 rounded-lg shadow-md overflow-hidden animate-pulse">
+                <div key={cardIndex} className="bg-gray-800 border border-events/30 rounded-lg shadow-md overflow-hidden animate-pulse">
                   <div className="h-48 bg-gray-200"></div>
                   <div className="p-6">
                     <div className="h-6 bg-gray-200 rounded mb-3"></div>
@@ -247,7 +247,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
         <div className="text-white text-sm font-medium">
           Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, events.length)} of {events.length} events
         </div>
-        <div className="text-yellow-500 text-sm font-bold">
+        <div className="text-events text-sm font-bold">
           Page {currentPage} of {totalPages}
         </div>
       </div>
@@ -273,16 +273,16 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
                 setShowPastEvents(!showPastEvents);
                 setCurrentPage(1); // Reset to first page when toggling
               }}
-              className="flex items-center space-x-2 px-6 py-3 bg-gray-800/80 hover:bg-gray-700/80 border border-yellow-500/30 hover:border-yellow-500/50 rounded-lg transition-all duration-200"
+              className="flex items-center space-x-2 px-6 py-3 bg-gray-800/80 hover:bg-gray-700/80 border border-events/30 hover:border-events/50 rounded-lg transition-all duration-200"
             >
-              <svg className="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-events" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span className="text-white font-medium">
                 {showPastEvents ? 'Hide' : 'Show'} Past Events ({pastCount})
               </span>
               <svg
-                className={`w-4 h-4 text-yellow-500 transition-transform duration-200 ${showPastEvents ? 'rotate-180' : ''}`}
+                className={`w-4 h-4 text-events transition-transform duration-200 ${showPastEvents ? 'rotate-180' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -342,28 +342,29 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
 
             return (
               <div key={weekNumber} className="space-y-6">
-                {/* Week Header */}
+                {/* Week Header — Round 2 lemon section accent. Current week pops to lemon, others
+                    hold a quieter gold-divine. Gradients deprecated per One Platform Design. */}
                 <div className={`border-l-4 pl-6 py-4 ${
                   isCurrentWeek
-                    ? 'border-blkout-primary bg-gradient-to-r from-blkout-primary/5 to-transparent'
-                    : 'border-blkout-accent/50 bg-gradient-to-r from-blkout-accent/5 to-transparent'
+                    ? 'border-events bg-events/5'
+                    : 'border-liberation-gold-divine/40'
                 }`}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h2 className={`text-2xl font-bold ${
-                        isCurrentWeek ? 'text-blkout-primary' : 'text-white'
+                      <h2 className={`font-signature font-black text-2xl uppercase tracking-tight ${
+                        isCurrentWeek ? 'text-events' : 'text-white'
                       }`}>
                         {title}
                       </h2>
-                      <p className="text-sm text-gray-300 mt-1">
+                      <p className="text-sm text-gray-300 mt-1 font-disrupt italic">
                         {weekEvents.length} event{weekEvents.length !== 1 ? 's' : ''} this week
                       </p>
                     </div>
 
                     {isCurrentWeek && (
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-blkout-primary rounded-full animate-pulse"></div>
-                        <span className="text-sm font-medium text-blkout-primary">Happening Now</span>
+                        <div className="w-3 h-3 bg-events rounded-full animate-pulse"></div>
+                        <span className="text-sm font-bold uppercase tracking-wider text-events">Happening Now</span>
                       </div>
                     )}
                   </div>
@@ -403,16 +404,16 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
                   }).filter(Boolean)}
                 </div>
 
-                {/* Week Separator */}
+                {/* Week Separator — solid lemon strokes, sharp dots (gradients deprecated) */}
                 {weekNumber !== paginatedEvents[paginatedEvents.length - 1].weekNumber && (
                   <div className="flex items-center justify-center py-8">
-                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blkout-accent/30 to-transparent"></div>
+                    <div className="flex-1 h-px bg-events/30"></div>
                     <div className="mx-4 flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-blkout-accent/50 rounded-full"></div>
-                      <div className="w-1 h-1 bg-blkout-accent/30 rounded-full"></div>
-                      <div className="w-2 h-2 bg-blkout-accent/50 rounded-full"></div>
+                      <div className="w-2 h-2 bg-events/60"></div>
+                      <div className="w-1 h-1 bg-events/40"></div>
+                      <div className="w-2 h-2 bg-events/60"></div>
                     </div>
-                    <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blkout-accent/30 to-transparent"></div>
+                    <div className="flex-1 h-px bg-events/30"></div>
                   </div>
                 )}
               </div>
