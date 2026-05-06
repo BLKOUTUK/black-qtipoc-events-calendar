@@ -7,6 +7,7 @@ import { googleSheetsService } from './services/googleSheetsService';
 import { useArticles } from './hooks/useSupabase';
 import { FeaturedContent } from './types';
 import { featuredContentService } from './services/featuredContentService';
+import FoundationLayer from './components/foundation/FoundationLayer';
 
 // Critical path — loaded eagerly (needed for first paint)
 import { PaginatedEventList } from './components/PaginatedEventList';
@@ -201,17 +202,10 @@ function HomePage() {
       {/* Spacer for fixed header */}
       <div className="h-16"></div>
 
-      {/* Hero Section with BLKOUT Branding */}
+      {/* Hero Section with BLKOUT Branding + foundation imagery (joy register —
+          gatherings, community moments. Replaces the old imagine.png static bg.) */}
       <div className="relative overflow-hidden h-auto py-8 md:py-16 lg:py-20 mb-8">
-        {/* Background Image - more visible */}
-        <img
-          src="/images/imagine.png"
-          alt="Liberation Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
-        />
+        <FoundationLayer category="joy" seed="events-hero" opacity={0.30} />
 
         {/* Lighter overlay so image shows through */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/30 to-gray-900/50"></div>
