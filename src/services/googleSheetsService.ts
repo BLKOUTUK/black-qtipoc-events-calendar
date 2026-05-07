@@ -113,21 +113,20 @@ class GoogleSheetsService {
   }
 
   // Authentication methods
+  // Password gate removed — moderation is open. Real protection lives at the
+  // server-side API layer (Supabase RLS / ivor-core), not at this UI.
   async getCurrentUser() {
+    if (!this.currentUser) {
+      this.currentUser = { id: '1', email: 'admin@blkout.org', role: 'admin' };
+      this.saveUser();
+    }
     return this.currentUser;
   }
 
-  async signIn(email: string, password: string) {
-    // Use environment variables for consistent admin credentials across platform
-    const adminEmail = 'admin@blkout.org';
-    const adminPasswordBase = import.meta.env.VITE_ADMIN_PASSWORD_BASE || 'BLKOUT2025!';
-    
-    if (email === adminEmail && password === adminPasswordBase) {
-      this.currentUser = { id: '1', email, role: 'admin' };
-      this.saveUser();
-      return this.currentUser;
-    }
-    throw new Error(`Invalid credentials. Use ${adminEmail} with the standard BLKOUT admin password`);
+  async signIn(_email: string, _password: string) {
+    this.currentUser = { id: '1', email: 'admin@blkout.org', role: 'admin' };
+    this.saveUser();
+    return this.currentUser;
   }
 
   async signOut() {
