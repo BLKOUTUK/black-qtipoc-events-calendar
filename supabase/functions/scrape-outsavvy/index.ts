@@ -36,7 +36,10 @@ const DEPRECATION_NOTICE = {
     'See projects/events-calendar/spikes/2026-05-14-data-source-spike.md.',
 };
 
-Deno.serve((req) => {
+// deno-lint-ignore no-explicit-any
+declare const Deno: any;
+
+Deno.serve((req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }
