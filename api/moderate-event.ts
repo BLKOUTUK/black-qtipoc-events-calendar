@@ -50,6 +50,16 @@ export default async function handler(req: Request, res: Response) {
     // Database CHECK constraint only allows: pending, approved, rejected, published, past
     const newStatus = action === 'approve' ? 'approved' : 'rejected';
 
+    const updateBody: Record<string, unknown> = {
+      status: newStatus,
+      updated_at: new Date().toISOString(),
+    };
+    // Persist the chip taxonomy from the MC moderation tile so the weekly
+    // rejection-reason summarisation cron has signal to summarise.
+    if (action === 'reject' && reason) {
+      updateBody.rejection_reason = reason;
+    }
+
     const response = await fetch(
       `${SUPABASE_URL}/rest/v1/events?id=eq.${eventId}`,
       {
@@ -60,10 +70,7 @@ export default async function handler(req: Request, res: Response) {
           'Content-Type': 'application/json',
           'Prefer': 'return=representation'
         },
-        body: JSON.stringify({
-          status: newStatus,
-          updated_at: new Date().toISOString()
-        })
+        body: JSON.stringify(updateBody)
       }
     );
 
