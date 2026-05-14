@@ -377,6 +377,16 @@ class TavilyEventDiscovery {
       /events?\s+calendar\s+\d{4}/i,
       /gay\s+pride\s+events?\s+calendar/i,
       /events?\s+&\s+activities\s+in\s+/i,
+      // Listing-page titles surfaced by 15 May 2026 audit:
+      // "Events from 4th February 2025 - Consortium LGBT" (approved as event, was a listing page)
+      /^events?\s+(from|in|for|by|at)\s+/i,
+      // Platform-name title patterns (auto-approved noise, 15 May audit):
+      // "OutSavvy - Create, Share, Discover & Attend Events..."  → prefix
+      // "Little Rock BLACK PRIDE - Eventbrite"                   → suffix
+      // Restricted to hyphen separators only — pipes (e.g.
+      // "Event Title | Venue | £5 | OutSavvy") are legitimate metadata.
+      /^(outsavvy|eventbrite|meetup|gaycities)\s+[-—]\s/i,
+      /\s[-—]\s+(outsavvy|eventbrite|meetup|gaycities)\s*$/i,
     ]
     if (listingPatterns.some(p => p.test(title))) return null
 
@@ -394,11 +404,32 @@ class TavilyEventDiscovery {
       return null
     }
 
+    // Skip platform marketing copy in the body text (15 May audit:
+    // "OutSavvy - Create, Share, Discover & Attend Events. Help support..." was
+    // approved as an event because the URL came from a trusted domain).
+    const marketingCopy = [
+      /create,\s+share,\s+discover/i,
+      /help\s+support\s+outsavvy/i,
+    ]
+    if (marketingCopy.some(p => p.test(trimmed))) {
+      console.log(`[Tavily] Skipping ${url} — platform marketing copy, not event content`)
+      return null
+    }
+
     const date = this.extractDate(text)
     const location = this.extractLocation(text)
     const organizer = this.extractOrganizer(text, url)
     const cost = this.extractCost(text)
     const description = this.extractDescription(text, title)
+
+    // Skip if organizer is a bare domain — that means extractOrganizer
+    // fell back to the URL host, which usually means we scraped a site's
+    // landing page, not a real event page. (15 May audit: "BlackOut UK -
+    // Queer Croydon" was approved with organizer="queercroydon.com".)
+    if (organizer && /^[a-z0-9-]+\.(com|org|net|co\.uk|org\.uk)$/i.test(organizer.trim())) {
+      console.log(`[Tavily] Skipping ${url} — organizer is a bare domain (${organizer}), likely a listing page`)
+      return null
+    }
 
     return {
       title: this.cleanText(title),
