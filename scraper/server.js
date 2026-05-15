@@ -18,6 +18,7 @@ import dotenv from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
 import { EventScrapingService } from './eventScrapingService.js'
 import { TavilyEventDiscovery } from './tavilyEventDiscovery.js'
+import { extractMarlboroughEvents, submitMarlboroughToSupabase } from './marlboroughEventsScraper.js'
 
 dotenv.config()
 
@@ -74,6 +75,24 @@ async function runScrapingJob() {
 
         console.log(`  Added: ${submitResults.success}, Skipped: ${submitResults.skipped}, Failed: ${submitResults.failed}`)
       }
+    }
+
+    // ── Marlborough Productions (per-org scrape) ──
+    // Tavily's keyword search wasn't catching Marlborough's programme; per
+    // 15 May 2026 audit they have 12 confirmed events May–Nov 2026, none
+    // of which were being surfaced. Fetches /whats-on/ once per cron run.
+    try {
+      const marlboroughEvents = await extractMarlboroughEvents()
+      if (marlboroughEvents.length > 0) {
+        console.log(`Submitting ${marlboroughEvents.length} Marlborough events to Supabase...`)
+        const r = await submitMarlboroughToSupabase(supabase, marlboroughEvents)
+        totalEvents += marlboroughEvents.length
+        totalSubmitted += r.success
+        console.log(`  Added: ${r.success}, Skipped: ${r.skipped}, Failed: ${r.failed}`)
+      }
+    } catch (err) {
+      console.error(`Marlborough scrape failed: ${err.message}`)
+      allErrors.push({ source: 'Marlborough', error: err.message })
     }
 
     // ── Legacy Scraper (fallback — skip if TAVILY_ONLY) ──
