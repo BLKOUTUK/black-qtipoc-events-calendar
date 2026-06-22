@@ -294,7 +294,7 @@ class SupabaseEventService {
       console.log('🔍 Updating event status:', id, status);
 
       // Map status to what the database CHECK constraint allows:
-      // pending, approved, rejected, published, past
+      // pending, approved, rejected, cancelled
       let dbStatus: string = status;
       if (status === 'published') {
         dbStatus = 'approved';

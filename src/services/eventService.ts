@@ -222,9 +222,9 @@ class EventService {
       console.warn('Failed to get stats from API, calculating locally:', error);
       
       // Fallback to local calculation
-      const pending = this.events.filter(e => e.status === 'draft').length;
-      const approved = this.events.filter(e => e.status === 'published').length;
-      const rejected = this.events.filter(e => e.status === 'cancelled').length;
+      const pending = this.events.filter(e => e.status === 'pending').length;
+      const approved = this.events.filter(e => e.status === 'approved').length;
+      const rejected = this.events.filter(e => e.status === 'rejected').length;
       
       return {
         pending,
@@ -235,14 +235,17 @@ class EventService {
     }
   }
 
-  // Moderation methods (updated for new API status values)
+  // Moderation methods — write the canonical events.status vocabulary
+  // (pending | approved | rejected | cancelled per the DB CHECK constraint),
+  // matching the IVOR API and supabaseEventService so every moderation route
+  // updates the same field with the same values.
   async approveEvent(id: string): Promise<boolean> {
-    const event = await this.updateEvent(id, { status: 'published' });
+    const event = await this.updateEvent(id, { status: 'approved' });
     return event !== null;
   }
 
   async rejectEvent(id: string): Promise<boolean> {
-    const event = await this.updateEvent(id, { status: 'cancelled' });
+    const event = await this.updateEvent(id, { status: 'rejected' });
     return event !== null;
   }
 
