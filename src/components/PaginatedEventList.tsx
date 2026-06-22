@@ -39,9 +39,9 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
   };
 
   // Group events by week and flatten for pagination
-  const { paginatedEvents, totalPages } = useMemo(() => {
+  const { paginatedEvents, totalPages, displayedCount } = useMemo(() => {
     if (events.length === 0) {
-      return { paginatedEvents: [], totalPages: 0 };
+      return { paginatedEvents: [], totalPages: 0, displayedCount: 0 };
     }
 
     // Separate past and future events relative to today
@@ -89,7 +89,11 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
         weekNumber,
         ...paginatedWeeklyEvents[weekNumber]
       })),
-      totalPages: Math.ceil(validEvents.length / itemsPerPage)
+      // Paginate/count against the events actually being shown (future-only by
+      // default, future+past when the toggle is on) — NOT validEvents, which
+      // includes hidden past events and produced empty ghost pages + a wrong count.
+      totalPages: Math.ceil(sortedEvents.length / itemsPerPage),
+      displayedCount: sortedEvents.length
     };
   }, [events, currentPage, itemsPerPage, showPastEvents]);
 
@@ -245,7 +249,7 @@ export const PaginatedEventList: React.FC<PaginatedEventListProps> = ({
       {/* Page Info */}
       <div className="flex justify-between items-center mb-8 bg-gray-800/50 rounded-lg p-4">
         <div className="text-white text-sm font-medium">
-          Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, events.length)} of {events.length} events
+          Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, displayedCount)} of {displayedCount} events
         </div>
         <div className="text-events text-sm font-bold">
           Page {currentPage} of {totalPages}
