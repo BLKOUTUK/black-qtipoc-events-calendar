@@ -163,7 +163,11 @@ export function ModerationDashboardPage() {
     }
   };
 
-  const totalPending = stats.news.pending + stats.reports.pending + stats.events.flagged;
+  // events.pending was missing from this sum, so a queue of 33 pending events
+  // totalled 0 and the overview reported "All caught up!" — the one number that
+  // is routinely non-zero was the one left out.
+  const totalPending =
+    stats.events.pending + stats.news.pending + stats.reports.pending + stats.events.flagged;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
@@ -273,6 +277,14 @@ export function ModerationDashboardPage() {
                     </div>
                   ) : (
                     <div className="space-y-3">
+                      {stats.events.pending > 0 && (
+                        <ActionItem
+                          icon={Calendar}
+                          label={`${stats.events.pending} events awaiting moderation`}
+                          onClick={() => setActiveTab('events')}
+                          color="yellow"
+                        />
+                      )}
                       {stats.news.pending > 0 && (
                         <ActionItem
                           icon={Newspaper}
@@ -476,13 +488,17 @@ function ActionItem({
   const colors: Record<string, string> = {
     blue: 'bg-blue-500/10 hover:bg-blue-500/20 text-blue-300',
     red: 'bg-red-500/10 hover:bg-red-500/20 text-red-300',
-    orange: 'bg-orange-500/10 hover:bg-orange-500/20 text-orange-300'
+    orange: 'bg-orange-500/10 hover:bg-orange-500/20 text-orange-300',
+    yellow: 'bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-300'
   };
+
+  // An unmapped colour would render an unstyled button rather than fail loudly.
+  const tone = colors[color] || colors.blue;
 
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${colors[color]}`}
+      className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${tone}`}
     >
       <div className="flex items-center gap-3">
         <Icon className="w-5 h-5" />
