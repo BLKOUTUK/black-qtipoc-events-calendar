@@ -70,6 +70,18 @@ function HomePage() {
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
   const [featuredContent, setFeaturedContent] = useState<FeaturedContent[]>([]);
+
+  // Shareable submission link. The "Add Your Event" button is state-only, so partners could
+  // only be told "go to the site and find the button" — no URL to hand them. These paths let
+  // an invitation carry a link that opens the form directly.
+  useEffect(() => {
+    const path = window.location.pathname.replace(/\/+$/, '');
+    const opensForm =
+      path === '/submit' ||
+      path === '/add' ||
+      new URLSearchParams(window.location.search).has('submit');
+    if (opensForm) setShowEventForm(true);
+  }, []);
   const [filters, setFilters] = useState<FilterOptions>({
     dateRange: 'all',
     source: 'all',
