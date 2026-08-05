@@ -169,6 +169,21 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
             </div>
           </div>
           
+          {/* What happens after you submit — set expectations before the form, not after. */}
+          <div className="mb-6 p-4 bg-gray-50 border-l-4 border-gray-900 rounded-r-lg">
+            <p className="text-sm font-semibold text-gray-900 mb-1">
+              Allow up to 24 hours for your listing to appear.
+            </p>
+            <p className="text-sm text-gray-700">
+              A person reads every submission before it goes live. We keep a human in the loop to
+              protect our audience — and your reputation — from spam, misinformation and harm.
+              It is slower than an algorithm, and that is the point.
+            </p>
+            <p className="text-sm text-gray-700 mt-2">
+              Free for UK QTIPOC organisers. No account needed.
+            </p>
+          </div>
+
           {errors.submit && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-800 text-sm">{errors.submit}</p>
