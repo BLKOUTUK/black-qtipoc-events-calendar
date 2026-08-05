@@ -21,7 +21,8 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
     tags: '',
     price: '',
     contact_email: '',
-    image_url: ''
+    image_url: '',
+    adultOnly: false
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -58,6 +59,13 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
 
     try {
       const tags = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
+
+      // Adults-only is set by an explicit checkbox, not by hoping the organiser
+      // types a magic word into free-text tags. '18+' is the canonical marker the
+      // listing card looks for.
+      if (formData.adultOnly && !tags.some(t => t.toLowerCase() === '18+')) {
+        tags.push('18+');
+      }
 
       // Primary: Submit through IVOR Core API (Liberation Layer 3)
       console.log('🏴‍☠️ Submitting event through IVOR Core Liberation Layer...');
@@ -135,8 +143,11 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    // Checkboxes always report value="on", so read `checked` — otherwise unticking
+    // one leaves the old truthy value in place.
+    const next = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData(prev => ({ ...prev, [name]: next }));
     
     // Clear error when user starts typing
     if (errors[name]) {
@@ -403,6 +414,31 @@ export const EventForm: React.FC<EventFormProps> = ({ onSubmit, onCancel }) => {
                 placeholder="e.g., community, workshop, arts (comma-separated)"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
+            </div>
+
+            {/* Adults-only is declared, not guessed at from free-text tags. */}
+            <div className="border border-gray-300 rounded-lg p-4">
+              <label htmlFor="adultOnly" className="flex items-start cursor-pointer">
+                <input
+                  type="checkbox"
+                  id="adultOnly"
+                  name="adultOnly"
+                  checked={formData.adultOnly}
+                  onChange={handleChange}
+                  className="mt-1 mr-3 h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                />
+                <span>
+                  <span className="block text-sm font-medium text-gray-900">
+                    This is an adults-only event (18+)
+                  </span>
+                  <span className="block text-sm text-gray-600 mt-1">
+                    Tick this for sex-positive, kink, play or any strictly over-18s event. Your
+                    listing still goes up in full — it simply carries an 18+ marker so people can
+                    choose what they see. We list these events proudly; the marker is for consent,
+                    not censorship.
+                  </span>
+                </span>
+              </label>
             </div>
 
             <div className="bg-purple-50 p-4 rounded-lg">

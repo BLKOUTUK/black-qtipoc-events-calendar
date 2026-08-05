@@ -263,9 +263,15 @@ export const EventCard: React.FC<EventCardProps> = ({
     );
   }
 
-  // Check if event has adult content tags
+  // Adults-only marker. Set deliberately via the 18+ checkbox on the submission form.
+  //
+  // 'sex' and 'sexual' are NOT in this list, on purpose. They used to be, which stamped
+  // "SEX RATED" on any event tagged 'sexual health' — so a Naz Project or MESMAC clinic
+  // got flagged as adult content. Marking health information as porn is the opposite of
+  // sex-positive. Match adults-only intent, never subject matter.
   const isAdultContent = event.tags?.some(tag =>
-    ['adult', '18+', 'mature', 'nsfw', 'sex', 'sexual', 'xxx', '18 plus'].includes(tag.toLowerCase())
+    ['adult', 'adults only', '18+', '18 plus', 'over 18', 'mature', 'nsfw', 'xxx', 'kink', 'fetish', 'play party']
+      .includes(tag.toLowerCase())
   );
 
   return (
