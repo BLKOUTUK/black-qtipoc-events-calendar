@@ -102,3 +102,11 @@ jspm_packages/
 .temp
 .vercel
 dev-dist/
+graphify-out/
+
+# Real env files must never be tracked (added 6 Aug 2026).
+# The CRA-default list above misses names like .env.events.local and .env.staging.local,
+# which is how .env.events.local sat in this PUBLIC repo from 25 Nov 2025.
+# .env.example stays tracked deliberately — it holds placeholders, not values.
+.env*.local
+.env.*.local
