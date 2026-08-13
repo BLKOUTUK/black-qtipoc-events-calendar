@@ -1,0 +1,14 @@
+name: Security sweep
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sweep:
+    uses: BLKOUTUK/.github/.github/workflows/security-sweep.yml@main
