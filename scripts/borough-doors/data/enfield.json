@@ -1,0 +1,208 @@
+{
+  "slug": "enfield",
+  "brandForm": "BLKOUT in Enfield",
+  "title": "Black queer men in Enfield | BLKOUT in Enfield",
+  "metaDescription": "For Black queer men in and around Enfield — Edmonton, Enfield Town, Palmers Green: what exists, what's worth the journey, and a community-owned door into BLKOUT, the UK's co-operative for Black queer men.",
+  "canonicalUrl": "https://events.blkoutuk.com/enfield/",
+  "landmark": {
+    "src": "../images/enfield/enfield-dugdale.png",
+    "alt": "Pencil sketch of the Dugdale Arts Centre in Enfield Town with the BLKOUT roundel as a full moon above it"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Enfield's.",
+    "heading": "BLKOUT in Enfield",
+    "standfirst": "As far as we can find, nothing has ever been organised specifically for Black queer men in Enfield — and around fifty-eight thousand Black residents call the borough home. So this page starts it. You're not waiting for a community. It's been waiting for a door."
+  },
+  "lastChecked": "27 August 2026",
+  "quiz": {
+    "heading": "Know your Enfield?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Which co-founder of UK Black Pride grew up in this borough?",
+        "options": [
+          { "t": "Lady Phyll", "correct": true },
+          { "t": "No one — nothing ever starts in Enfield", "correct": false },
+          { "t": "The founder of Croydon Pride", "correct": false }
+        ],
+        "reveal": "Phyll Opoku-Gyimah — Lady Phyll — grew up here, and what she witnessed in 1983, pulled into an Enfield Town shopfront while a National Front march passed, became part of why UK Black Pride exists. The borough with nothing built for Black queer men raised the woman who built it for all of us."
+      },
+      {
+        "q": "How many dedicated queer venues does the borough have?",
+        "options": [
+          { "t": "Zero", "correct": true },
+          { "t": "Three", "correct": false },
+          { "t": "Twelve", "correct": false }
+        ],
+        "reveal": "Zero — a sourced fact, not a vibe. Between 1,300 and 1,800 Black queer men, and nothing built for them. That's not a gap. That's your opening — and the door below is where it starts."
+      }
+    ],
+    "scores": {
+      "three": "Enfield scholarship. Now help write the rest of it.",
+      "two": "Nearly there — the history's still being written, partly by you.",
+      "low": "All the more reason to walk through the door below."
+    }
+  },
+  "here": {
+    "heading": "Here in Enfield",
+    "intro": "What's organised for Black queer men in the borough, as we find it — and help us find it.",
+    "quietNote": "We searched two ways and found nothing organised specifically for Black queer men in Enfield — checked 27 August 2026. That's a report, not a verdict: if we're wrong, the panel at the bottom of this page is where you tell us, and this page changes. Meanwhile, the door below is open.",
+    "entries": []
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "The borough's queer civic life, as it stands. Use it — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Enfield LGBT Network",
+        "url": "https://lgbtenfield.org",
+        "note": "The borough's LGBT+ consortium — voluntary and statutory organisations and residents working to improve life for LGBTQ+ Enfield.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens — and Enfield men have always travelled for their people. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "UK Black Pride",
+        "url": "https://www.ukblackpride.org.uk",
+        "note": "Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent — co-founded by Lady Phyll, who grew up in this borough.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "COVEN",
+        "url": "https://www.instagram.com/coven.ldn",
+        "note": "Black-owned queer venue in Hackney Wick — down the line from the borough.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "House of Rainbow",
+        "url": "https://www.houseofrainbow.org",
+        "note": "Fellowship and support for Black LGBTQ+ people of faith.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Umoja — African & Caribbean HIV peer support",
+        "url": "https://www.northmid.nhs.uk",
+        "note": "Confidential peer support for African and Caribbean people living with HIV — twice monthly at the Alexander Pringle Centre, North Middlesex Hospital.",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "The borough's Black story is on record — its Black queer chapter is still being written. Start here, and add to the shelf below.",
+    "entries": [
+      {
+        "title": "Windrush Voices: 20 Stories of Determination and Triumph",
+        "author": "Enfield Caribbean Association",
+        "year": "2022",
+        "note": "The borough's Windrush generation in their own words — Edmonton and Ponders End's founding stories."
+      },
+      {
+        "title": "Lady Phyll on experiencing racism growing up in London",
+        "author": "Paula Akpan, Time Out",
+        "year": "2021",
+        "note": "The UK Black Pride co-founder on her Enfield childhood — including the 1983 National Front march in Enfield Town."
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 58,200 Black residents in Enfield — one of the largest Black communities in north London, bigger than Haringey's. On the estimates we publish, that's 1,300 to 1,800 Black queer men in the borough. Between those men and the nearest thing built for them lies the whole of the North Circular. These are working estimates and we welcome correction — but the point stands: we were never a niche. We were just never counted.",
+    "history": "Enfield's Black queer history hasn't been written down — but it made history anyway. Phyll Opoku-Gyimah — Lady Phyll — grew up here, and the day in 1983 she was pulled into an Enfield Town shopfront while a National Front march passed became part of the story of why UK Black Pride exists. The borough with nothing built for Black queer men raised the woman who built it for all of us.\n\nThe rest — the elders of Edmonton and Ponders End, the nights, the photographs in shoeboxes — is still to be written, and the panel below is where it starts. First stories in, first names on it."
+  },
+  "neighbours": [
+    { "name": "Haringey", "slug": "haringey" },
+    { "name": "Barnet", "slug": "barnet" },
+    { "name": "Waltham Forest", "slug": "waltham-forest" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Ten years of stories, 282,000 messages — and Enfield's chapter is still to be written. When the borough starts, the archive will be watching.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Enfield?",
+      "a": "Honestly: nothing borough-based exists yet — the door below is where that changes. BLKOUT's national community is open to you today, and when a few Enfield men want a table in the borough, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Enfield?",
+      "a": "Sexual Health London posts free test kits to any London address, every NHS clinic near you is searchable by postcode, and 56 Dean Street is a train ride south. No GP referral, no judgement."
+    },
+    {
+      "q": "Is BLKOUT an Enfield organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. Enfield included, as of today."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Enfield — what starts, when it starts, and how to be part of starting it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "enfield-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything — and tell me first when something starts in Enfield." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Enfield — a meet-up, a table, an occasion.",
+    "successMessage": "You're in — one of the first through this door. When something starts in Enfield, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page is honest about how little is written down — and Enfield knows more than any archive. The nights that happened, the rooms that held us, the elders who remember: that's this page's missing history section, and the borough writes it. Tell us what we should know. Contributions get credited, if you want the credit.",
+    "eventSlug": "enfield-door-intel",
+    "placeholder": "There used to be a night at… my uncle talks about… you've missed…",
+    "thanks": "Received — thank you. This page's history section just started with you.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Enfield's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}

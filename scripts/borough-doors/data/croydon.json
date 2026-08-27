@@ -1,0 +1,281 @@
+{
+  "slug": "croydon",
+  "brandForm": "BLKOUT in Croydon",
+  "title": "Black queer men in Croydon | BLKOUT in Croydon",
+  "metaDescription": "For Black queer men in and around Croydon: what's here, what's beside us, what's worth the journey — and a community-owned door into BLKOUT, the UK's co-operative for Black queer men.",
+  "canonicalUrl": "https://events.blkoutuk.com/croydon/",
+  "landmark": {
+    "src": "../images/croydon/croydon-clocktower.png",
+    "alt": "Pencil sketch of the Croydon Clocktower with the BLKOUT roundel as its clock face"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Croydon's.",
+    "heading": "BLKOUT in Croydon",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Croydon is our home borough. If you're a Black queer man in or near Croydon, you're not waiting for a community to arrive. You're already part of one. This page is the door."
+  },
+  "lastChecked": "27 August 2026",
+  "quiz": {
+    "heading": "Know your Croydon?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Ivor Cummings — the man BLKOUT carries the name of — was claimed as family by which Croydon household?",
+        "options": [
+          { "t": "The family of composer Samuel Coleridge-Taylor", "correct": true },
+          { "t": "The Whitgift Foundation's board of governors", "correct": false },
+          { "t": "A Crystal Palace FC director's family", "correct": false }
+        ],
+        "reveal": "Jessie Coleridge-Taylor, the composer's widow, sought out the Addiscombe schoolboy — a distant cousin through Sierra Leonean kinship — and claimed him. Three generations of Black British culture, one borough."
+      },
+      {
+        "q": "In 1948, that same Croydon boy stood at Tilbury docks to do what?",
+        "options": [
+          { "t": "Board the Empire Windrush for Kingston", "correct": false },
+          { "t": "Welcome the Windrush generation ashore", "correct": true },
+          { "t": "Cover the arrival for the BBC", "correct": false }
+        ],
+        "reveal": "Ivor Cummings — by then the openly gay civil servant historians call the gay father of the Windrush generation — met the ship and found the arrivals their first London beds."
+      },
+      {
+        "q": "Which London borough is home to the largest Black population?",
+        "options": [
+          { "t": "Hackney", "correct": false },
+          { "t": "Lambeth", "correct": false },
+          { "t": "Croydon", "correct": true }
+        ],
+        "reveal": "Around 88,500 at the 2021 Census — and on any reasonable estimate, more Black queer men than anywhere else in the capital. You were never a niche."
+      }
+    ],
+    "scores": {
+      "three": "Croydon royalty. The borough should be asking you the questions.",
+      "two": "Nearly native. One night at the Ballroom should do it.",
+      "low": "All the more reason to walk through the door below."
+    }
+  },
+  "here": {
+    "heading": "Here in Croydon",
+    "intro": "BLKOUT is registered in Croydon, and our making programme is growing here — and the borough has a queer life of its own, with our people in it.",
+    "quietNote": "Nothing is listed in Croydon right now — checked 27 August 2026. That's a report, not a silence: when something is on, it appears here, and when it's quiet, we say so. The door below is always open.",
+    "entries": [
+      {
+        "name": "Ballroom at Stanley Arts",
+        "url": "https://www.stanleyarts.org",
+        "note": "South Norwood's arts centre carries much of the borough's queer life — including a regular Ballroom night: Black queer performance culture, live, in Croydon.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ],
+    "recently": [
+      { "when": "Aug 2026", "what": "Croydon Pride, back in the borough at BoxPark" },
+      { "when": "Feb 2026", "what": "Croydon Pride's LGBT+ History Month talk with Bisi Alimi" },
+      { "when": "Feb 2026", "what": "Queer Frequencies community collaging workshop at Stanley Arts" },
+      { "when": "Dec 2025", "what": "Silver Pride Christmas social, Thornton Heath" },
+      { "when": "Sep–Oct 2025", "what": "Queer Croydon's meet-up and workshop strand at Stanley Arts, and the BITE club night" },
+      { "when": "Jul 2019", "what": "Croydon Pride — BLKOUT on the main stage with David McAlmont, and our flag flying over the park" }
+    ],
+    "recentlyNote": "From our own calendar's record. What has already happened here doesn't go stale — a borough's recent past is proof of life."
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Croydon holds more queer life than the search results suggest. These neighbours do good work — use them, and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Croydon Area Gay Society (CAGS)",
+        "url": "https://www.cags.org.uk",
+        "note": "One of the UK's longest-running LGBT social groups, meeting in Croydon since 1971.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Croydon Pride",
+        "url": "https://www.croydonpride.org.uk",
+        "note": "The borough's grassroots Pride charity — back on Croydon ground at BoxPark in August 2026, with year-round work between festivals.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Queer Croydon",
+        "url": "https://queercroydon.com",
+        "note": "The borough's community organisation amplifying queerness across Croydon and South London — free wellness sessions, creative programmes and campaigning, much of it at Stanley Arts. Active and funded through 2026/27.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Museum of Croydon — BlackOut",
+        "url": "https://www.museumofcroydon.com",
+        "note": "The borough's own museum has exhibited Black LGBTQ+ Croydon lives — including BLKOUT's story. The history is already on record here; this page is the living version.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens — most of us travel for our people, and East Croydon puts the whole city within reach. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "UK Black Pride",
+        "url": "https://www.ukblackpride.org.uk",
+        "note": "Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "Black, Queer & Thriving — Black Thrive Lambeth",
+        "url": "https://blackthrive.org",
+        "note": "Programmes and peer support for Black queer Lambeth — one stop up the line — including the Queer Minds peer group in Brixton.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "Melanin Vybz — London LGBTQ+ Community Centre",
+        "url": "https://londonlgbtqcentre.org",
+        "note": "Monthly group for LGBTQ+ Black people and people of colour over 50, at the Centre on Hopton Street, Southwark.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Croydon Sexual Health",
+        "url": "https://www.croydonsexualhealth.nhs.uk",
+        "note": "The borough's free NHS clinic — STI testing and treatment, contraception, PrEP — and free self-test kits posted to any Croydon address. 530 London Road, CR7 7YE. (Croydon runs its own service; the London-wide SHL scheme doesn't cover this borough.)",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "The Love Tank",
+        "url": "https://thelovetank.info",
+        "note": "Community health action by and for us — the team behind PrEPster, directed by Marc Thompson of the Black and Gay, Back in the Day archive.",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Croydon's own record, and the national album its chapters belong in — start here, and tell us what belongs on this shelf.",
+    "entries": [
+      {
+        "title": "BlackOut",
+        "author": "Museum of Croydon",
+        "year": "2024",
+        "note": "The borough's own museum on Black LGBTQ+ Croydon — BLKOUT's story among the exhibits.",
+        "url": "https://museumofcroydon.com/blackout",
+        "urlLabel": "Visit the exhibition"
+      },
+      {
+        "title": "About Samuel Coleridge-Taylor",
+        "author": "Culture Croydon",
+        "year": "2026",
+        "note": "The composer whose family claimed young Ivor Cummings — and whose 150th year funds the borough's Black creative heritage, Ivor's Compass included.",
+        "url": "https://www.culturecroydon.com/about-samuel-coleridge-taylor/",
+        "urlLabel": "Read more"
+      },
+      {
+        "title": "Black and Gay, Back in the Day",
+        "author": "Marc Thompson & Jason Okundaye",
+        "year": "2022",
+        "note": "The family photo album of Black queer Britain — the national album Croydon's chapters belong in."
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 88,500 Black residents in Croydon — the largest Black population of any London borough, which on any reasonable estimate makes Croydon home to more Black queer men than anywhere else in the capital. The same census counted over 9,000 Croydon adults who identify as LGB+ — and more than 28,000 who preferred not to answer the question at all. The closet has a census line. These are working estimates and we welcome correction — but the point stands: we were never a niche. We were just never counted.",
+    "history": "Croydon holds three generations of Black British cultural life in one family story. Samuel Coleridge-Taylor, the borough's internationally celebrated composer; his widow Jessie, who sought out a Whitgift schoolboy — a distant cousin through Sierra Leonean kinship networks — and claimed him into the family; and that boy, Ivor Cummings of Addiscombe, who grew up to be the openly gay civil servant welcoming the Windrush generation ashore at Tilbury in 1948. The name over every BLKOUT door belongs to a Croydon son, claimed by a Croydon family.\n\nThe line continues: David McAlmont, one of the great British voices, is Croydon's too. The Museum of Croydon's BlackOut exhibition keeps the borough's Black queer story on record, and BLKOUT's own heritage project, Ivor's Compass, is part of the borough's Coleridge-Taylor 150 year. This door is that story in the present tense."
+  },
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Croydon — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "croydon-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Croydon." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Croydon — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Croydon, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "gallery": {
+    "heading": "BLKOUT in the borough",
+    "intro": "As it happened — our own occasions, on Croydon ground.",
+    "consentNote": "Identifiable-person images (Croydon Pride 2019 set, supplied by Rob) cleared by Rob, 27 Aug 2026 — public BLKOUT events, consent given.",
+    "images": [
+      { "src": "../images/croydon/croydon-pride-2019-flag.jpg", "alt": "A young Black man waves a huge Philadelphia-stripes rainbow flag against the sky in a Croydon park", "caption": "The flag over the park — Croydon Pride, July 2019" },
+      { "src": "../images/croydon/croydon-pride-2019-mcalmont.jpg", "alt": "David McAlmont sings on stage beside the BLACK OUT UK flag at Croydon Pride", "caption": "David McAlmont on stage with the BLACK OUT UK flag — Croydon Pride, July 2019" },
+      { "src": "../images/croydon/croydon-pride-2019-crew.jpg", "alt": "Three smiling young people holding flags at the BLKOUT stand at Croydon Pride, one in a revolutionary love t-shirt", "caption": "Flag bearers at the BLKOUT stand — Croydon Pride, July 2019" },
+      { "src": "../images/croydon/compass-banner.jpg", "alt": "An Ivor's Compass banner hanging at Stanley Arts — a figure with suitcases climbing a red staircase through a crowd of Windrush arrivals, coloured light striking the wall", "caption": "The Compass banners at Stanley Arts — Ivor's journey in red and blue, April 2026" }
+    ]
+  },
+  "neighbours": [
+    { "name": "Lambeth", "slug": "lambeth" },
+    { "name": "Southwark", "slug": "southwark" },
+    { "name": "Bromley", "slug": "bromley" },
+    { "name": "Sutton", "slug": "sutton" },
+    { "name": "Merton", "slug": "merton" }
+  ],
+  "archive": {
+    "intro": "Our own writing on the borough's ancestor — from Ivor's Compass, BLKOUT's Croydon heritage project:",
+    "entries": [
+      { "title": "The Suitcase That Was Never Opened", "when": "Apr 2026", "url": "https://voices.blkoutuk.com/articles/the-suitcase-that-was-never-opened" },
+      { "title": "The Secret History of Harlem's Underground", "when": "Apr 2026", "url": "https://voices.blkoutuk.com/articles/the-secret-history-of-harlems-underground" }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Croydon?",
+      "a": "Start with the door on this page — you'll hear about everything as it happens. Stanley Arts carries much of the borough's queer life including Ballroom, and BLKOUT's national community is open the moment you knock."
+    },
+    {
+      "q": "Is there a Black queer night in Croydon?",
+      "a": "Stanley Arts in South Norwood hosts Ballroom — Black queer performance culture, in the borough. As more starts, it appears here first."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Croydon?",
+      "a": "Croydon Sexual Health at 530 London Road is free and confidential with PrEP available — and posts free self-test kits to any Croydon address. 56 Dean Street is thirty minutes up the line. No GP referral, no judgement."
+    },
+    {
+      "q": "Is BLKOUT a Croydon organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon, the borough our namesake grew up in, and we belong wherever our men are."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    }
+  ],
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page got truer four times in one afternoon because one Croydon man read it. That's how it works: we check what we publish, and the borough corrects us. Know a night, a room, a group we've missed — or something here that's wrong or gone? Tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "croydon-door-intel",
+    "placeholder": "The Ballroom night is monthly now… that group folded last year… you've missed…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Croydon's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [
+    { "name": "Metro Charity (The Bridge youth club)", "ended": "2026", "source": "Rob, 27 Aug 2026 — still listed on the council LGBT page; do not re-add from stale sources" },
+    { "name": "Croydon PrideFest", "ended": "2025", "source": "Rob, 27 Aug 2026 — croydon.gov.uk still lists it; Croydon Pride returned Aug 2026 at BoxPark in a new form" }
+  ],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}

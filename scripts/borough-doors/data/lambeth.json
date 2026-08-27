@@ -1,0 +1,329 @@
+{
+  "slug": "lambeth",
+  "brandForm": "BLKOUT in Lambeth",
+  "title": "Black queer men in Lambeth | BLKOUT in Lambeth",
+  "metaDescription": "For Black queer men in and around Lambeth — Brixton, Clapham, Vauxhall, Streatham: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT, the UK's co-operative for Black queer men.",
+  "canonicalUrl": "https://events.blkoutuk.com/lambeth/",
+  "landmark": {
+    "src": "../images/lambeth/lambeth-rvt.png",
+    "alt": "Pencil sketch of the Royal Vauxhall Tavern with the BLKOUT roundel as a full moon above it"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Lambeth's.",
+    "heading": "BLKOUT in Lambeth",
+    "standfirst": "Lambeth is where Black London put its bags down — and Black queer Lambeth has been part of the story since the first morning, told or untold. If you're a Black queer man in or near the borough, you're not new here. This page is the door."
+  },
+  "lastChecked": "27 August 2026",
+  "quiz": {
+    "heading": "Know your Lambeth?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Why did Brixton become the front room of Black London?",
+        "options": [
+          { "t": "The market sold plantain", "correct": false },
+          { "t": "The nearest labour exchange to the Windrush shelter was on Coldharbour Lane", "correct": true },
+          { "t": "The Victoria line ended there", "correct": false }
+        ],
+        "reveal": "When Ivor Cummings — the openly gay civil servant BLKOUT is named for — housed the Windrush arrivals in a south London deep shelter, the closest place to sign on for work was Coldharbour Lane. Black London grew where the work was."
+      },
+      {
+        "q": "Who kept a Brixton room open for Black gay men in the 1970s, when almost nowhere else would?",
+        "options": [
+          { "t": "Pearl Alcock, shebeen queen turned celebrated artist", "correct": true },
+          { "t": "The brewery that ran the high-street pubs", "correct": false },
+          { "t": "No one — it never happened", "correct": false }
+        ],
+        "reveal": "Pearl Alcock ran a shebeen off Railton Road that welcomed Black gay men — and was later celebrated as an outsider artist. The room has always existed. It just wasn't always listed."
+      },
+      {
+        "q": "How many Black queer men do we estimate live in Lambeth today?",
+        "options": [
+          { "t": "Around 250", "correct": false },
+          { "t": "1,700 to 2,400", "correct": true },
+          { "t": "About 15,000", "correct": false }
+        ],
+        "reveal": "Enough to fill the Academy's stalls — and still called 'too small' for a single specialist service. We think the men were never the wrong size. The map was."
+      }
+    ],
+    "scores": {
+      "three": "Brixton royalty. The front room is yours.",
+      "two": "Nearly native. One more night at the Ritzy should do it.",
+      "low": "All the more reason to walk through the door below."
+    }
+  },
+  "here": {
+    "heading": "Here in Lambeth",
+    "intro": "The richest Black queer ecosystem of any London borough — some of it ours to point at, all of it yours to use.",
+    "quietNote": "Nothing is listed in Lambeth right now — checked 27 August 2026. That's a report, not a silence. The door below is always open.",
+    "entries": [
+      {
+        "name": "Ajamu Studios",
+        "url": "https://www.ajamu-studio.com",
+        "note": "The Brixton studio of Dr Ajamu X — fine-art photographer, archivist and co-founder of the rukus! Black LGBTQ+ archive: three decades of celebrating Black queer men's bodies, desire and joy.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      },
+      {
+        "name": "Black, Queer & Thriving — Black Thrive Lambeth",
+        "url": "https://blackthrive.org",
+        "note": "Programmes and peer support for Black queer Lambeth — including the Queer Minds peer group in Brixton.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ],
+    "recently": [
+      { "when": "Nov 2025", "what": "The Congregation — an evening of conversation, film and audio at the Ritzy, Brixton" },
+      { "when": "Nov 2025", "what": "We Look Back, We Live On at the Royal Vauxhall Tavern" },
+      { "when": "Nov 2025", "what": "B8TS gathering for National Men's Circles Day, Minet Road, Brixton" },
+      { "when": "Nov 2025", "what": "A Breath of Fresh Air — spotlight on environmental racism, Brixton Library" },
+      { "when": "Sep 2021", "what": "Pearl's Return — BLKOUT's Black queer men's homecoming festival, named for Pearl Alcock, across Brixton Market" }
+    ],
+    "recentlyNote": "From our own calendar's record. What has already happened here doesn't go stale — a borough's recent past is proof of life."
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Lambeth's queer and Black civic life is deep. These neighbours do good work — use them, and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Lambeth Links",
+        "url": "https://www.lambethlinks.org.uk",
+        "note": "The borough's LGBTQ+ signposting and community network.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Black Men's Consortium — Mosaic Clubhouse",
+        "url": "https://www.mosaic-clubhouse.org",
+        "note": "Black men's mental health and community, Brixton.",
+        "centres": "black-men",
+        "currencyChecked": false
+      },
+      {
+        "name": "Brixton House",
+        "url": "https://brixtonhouse.co.uk",
+        "note": "The borough's theatre — a stage that carries Black and queer work all year.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Royal Vauxhall Tavern",
+        "url": "https://www.vauxhalltavern.com",
+        "note": "The grande dame of London's queer stages since the 1860s — Grade II listed for its LGBTQ+ history, still holding court on the Vauxhall roundabout.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Two Brewers",
+        "url": "https://www.thetwobrewers.com",
+        "note": "Clapham High Street's dancefloor-and-cabaret institution.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Eagle London",
+        "url": "https://www.eaglelondon.com",
+        "note": "Vauxhall's neighbourhood gay bar — home of Horse Meat Disco's Sunday service.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "The Cocoa Butter Club",
+        "url": "https://www.thecocoabutterclub.com",
+        "note": "Cabaret showcasing performers of colour — 'decolonise and moisturise' — regularly on the RVT's stage.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "UK Black Pride",
+        "url": "https://www.ukblackpride.org.uk",
+        "note": "Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "Melanin Vybz — London LGBTQ+ Community Centre",
+        "url": "https://londonlgbtqcentre.org",
+        "note": "Monthly group for LGBTQ+ Black people and people of colour over 50 — next door in Southwark, on Hopton Street.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "House of Rainbow",
+        "url": "https://www.houseofrainbow.org",
+        "note": "Fellowship and support for Black LGBTQ+ people of faith.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      },
+      {
+        "name": "Ballroom at Stanley Arts",
+        "url": "https://www.stanleyarts.org",
+        "note": "Black queer performance culture down the line in South Norwood — BLKOUT's home borough.",
+        "centres": "black-lgbtq",
+        "currencyChecked": false
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Black Psychotherapy",
+        "url": "https://www.blackpsychotherapy.org",
+        "note": "Intersectional, anti-oppressive therapy by and for Black and Global Majority communities — Brixton and online. The right to heal, on our own terms.",
+        "currencyChecked": true
+      },
+      {
+        "name": "NAZ",
+        "url": "https://www.naz.org.uk",
+        "note": "BAME-led sexual health agency — three decades of culturally specific support where the system falls short.",
+        "currencyChecked": false
+      },
+      {
+        "name": "BAATN — find a Black therapist",
+        "url": "https://www.baatn.org.uk/find-a-psych-therapist/",
+        "note": "The Black, African and Asian Therapy Network's directory of therapists of Black, African, Asian and Caribbean heritage, searchable across the UK.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 76,100 Black residents in Lambeth — nearly a quarter of the borough — and the borough's own LGBT+ forum calls Lambeth home to the largest LGBTIQ+ community in the UK. On the estimates we publish, that's 1,700 to 2,400 Black queer men: enough to fill the Academy's stalls, and still described as 'too small' for a single specialist service. We think the men were never the wrong size — the map was. These are working estimates and we welcome correction.",
+    "history": "When Ivor Cummings — the Croydon-raised, openly gay civil servant whose name is over every BLKOUT door — found the Windrush generation their first beds in the deep shelter under Clapham Common, the nearest labour exchange was on Coldharbour Lane. Brixton became Black London's front room because that's where the work was. And the room has always held us: beneath her Railton Road dress shop, Pearl Alcock ran the only gay bar in Brixton — a 1970s shebeen sheltering Black queer men from every borough — and ended her days a celebrated artist, hung at Tate Britain in 2005.\n\nThe record runs deep here: The Vox on Brighton Terrace, the first club of its kind run by and for Black queer people; the Brixtonian; Sistermatic's sound-system parties; Big Up's pioneering health work for Black gay and bisexual men. This door continues the story in the present tense."
+  },
+  "gallery": {
+    "heading": "BLKOUT in the borough",
+    "intro": "As it happened — our own occasions, on Lambeth ground.",
+    "consentNote": "Identifiable-person images (Pearl's Return film stills and photos, supplied by Rob 27 Aug 2026) cleared by Rob — public BLKOUT events, consent given.",
+    "images": [
+      { "src": "../images/lambeth/moonlight-ritzy.jpg", "alt": "The Ritzy Brixton marquee reading BLACKOUT UK PRESENTS MOONLIGHT", "caption": "Our name in lights — BLKOUT presents Moonlight at the Ritzy, Brixton, 2017" },
+      { "src": "../images/lambeth/pearls-wall-portrait.jpg", "alt": "A man in a purple bandana, dark fur stole and pearls poses at the BLACK OUT UK wall", "caption": "At the BLACK OUT wall — Pearl's Return, September 2021" },
+      { "src": "../images/lambeth/pearls-ball-drop.jpg", "alt": "A dancer drops low mid-vogue between rows of audience, phone lights up, at the Pearl's Return ball", "caption": "The ball in the aisles — Pearl's Return, September 2021" },
+      { "src": "../images/lambeth/pearls-singer.jpg", "alt": "A singer in double denim performs to a delighted crowd in a Brixton Market aisle", "caption": "Live in the market — Pearl's Return, September 2021" },
+      { "src": "../images/lambeth/pearls-popup-shop.jpg", "alt": "The Pearl's QTIPOC pop-up shop front in Brixton Market — pink Pearl's lettering and BLACK OUT UK banners in the windows", "caption": "Pearl's pop-up shop, Brixton Market — Black queer men's homecoming, September 2021" },
+      { "src": "../images/lambeth/each-one-teach-one-198.jpg", "alt": "Each One Teach One graphic, two Keith Haring style figures with arms around each other", "caption": "Each One Teach One — 198 Contemporary Arts & Learning, Railton Road" }
+    ]
+  },
+  "neighbours": [
+    { "name": "Croydon", "slug": "croydon" },
+    { "name": "Southwark", "slug": "southwark" },
+    { "name": "Wandsworth", "slug": "wandsworth" },
+    { "name": "Merton", "slug": "merton" }
+  ],
+  "bibliography": {
+    "intro": "The borough's Black queer story is being written down — start here, and tell us what belongs on this shelf.",
+    "entries": [
+      {
+        "title": "Revolutionary Acts: Love & Brotherhood in Black Gay Britain",
+        "author": "Jason Okundaye",
+        "year": "2024",
+        "note": "An oral history of Black gay Brixton — the elders, the scenes, the survival and the joy, told by the men who lived it. Ajamu among them.",
+        "url": "https://www.gq-magazine.co.uk/article/jason-okundaye-revolutionary-acts-book-extract",
+        "urlLabel": "Read an extract"
+      },
+      {
+        "title": "Black and Gay, Back in the Day",
+        "author": "Marc Thompson & Jason Okundaye",
+        "year": "2022",
+        "note": "The archive and podcast keeping the pre-digital scene alive — The Vox, the sound systems, the nights the internet never saw."
+      },
+      {
+        "title": "Beyond the Labels: Loushaé's Story",
+        "author": "Black Thrive Lambeth",
+        "year": "2024",
+        "note": "Black, bisexual, non-binary and disabled in Lambeth — on never being allowed to be 'the problem person' in two different ways."
+      }
+    ]
+  },
+  "archive": {
+    "intro": "Ten years of BLKOUT on Lambeth ground, in our own words:",
+    "entries": [
+      { "title": "BlackOut UK Lounge launched in Brixton!", "when": "Jul 2017", "url": "https://blkoutuk.com/stories/blackout-uk-lounge-launched-in-brixton" },
+      { "title": "Black Gay Ink 2, Brixton", "when": "Feb 2018", "url": "https://blkoutuk.com/stories/event-black-gay-ink-2-brixton-21-feb" },
+      { "title": "Pledge: Pearl's Return", "when": "Mar 2021", "url": "https://blkoutuk.com/stories/pledge-pearls-return" },
+      { "title": "Pearls Mixtape Stories 1 — Young Lloyd", "when": "Sep 2021", "url": "https://blkoutuk.com/stories/listen-mixtape-stories-1" }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Lambeth?",
+      "a": "Black, Queer & Thriving and the Queer Minds peer group meet in Brixton; Ajamu Studios has celebrated Black queer men in the borough for three decades; the queer rooms of Vauxhall and Clapham High Street are on the doorstep; and BLKOUT's national community opens the moment you knock on the door below."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Lambeth?",
+      "a": "Sexual Health London posts free test kits to any London address, 56 Dean Street is a short hop north of the river, and every NHS clinic near you is searchable by postcode. No GP referral, no judgement."
+    },
+    {
+      "q": "Is BLKOUT a Lambeth organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. Lambeth is where many of our members and much of our audience live; we belong wherever our men are."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Lambeth — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "lambeth-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Lambeth." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Lambeth — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Lambeth, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page was built from what we hold and what we could check — and Lambeth holds far more than any archive: nights, rooms, elders, whole histories. Know something we've missed, got wrong, or that's gone? Tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "lambeth-door-intel",
+    "placeholder": "Queer Minds moved… that night ended… you've missed…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Lambeth's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [
+    { "name": "The Brixtonian (Vincent Osborne, 'Lady O', from 1990)", "ended": "closed — confirmed Rob, 27 Aug 2026", "source": "Belongs in the history note only; never list as a live venue. Its founder is living Lambeth memory — see project_events_calendar_rebuild memory for the relationship." }
+  ],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
