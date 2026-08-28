@@ -48,17 +48,17 @@ export function GatheringCard({ gathering }: GatheringCardProps) {
           <img src={gathering.image_url} alt="" className="w-full h-full object-cover" />
         </div>
       )}
-      <div className="p-4 flex-1">
+      <div className="p-4">
         <p className="font-meta uppercase text-xs tracking-wide text-events/100 mb-2">
           {formatDateLine(gathering)}
           {adultsOnly && (
-            <span className="font-meta text-[10px] uppercase tracking-wide border border-events/50 px-1.5 py-0.5 text-[#f5f1e8]/70 ml-2">
+            <span className="font-meta text-xs uppercase tracking-wide border border-events/50 px-1.5 py-0.5 text-[#f5f1e8]/70 ml-2">
               18+
             </span>
           )}
         </p>
-        <h3 className="font-semibold text-[#f5f1e8] leading-snug line-clamp-2 mb-2">{gathering.title}</h3>
-        <p className="text-sm text-[#f5f1e8]/60 mb-2">{gathering.organizer}</p>
+        <h3 className="text-[18px] font-semibold text-[#f5f1e8] leading-snug line-clamp-2 mb-2">{gathering.title}</h3>
+        <p className="text-[13px] text-[#f5f1e8]/60 mb-2">{gathering.organizer}</p>
         <p className="text-sm text-[#f5f1e8]/60 mb-2">
           <MapPin size={14} className="inline-block -mt-0.5 mr-1 text-events/100" />
           {gathering.location}

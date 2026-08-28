@@ -128,19 +128,19 @@ export function Surface({
         <FoundationLayer category="joy" seed="events-surface-hero" opacity={0.25} />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a14]/40 via-[#0a0a14]/60 to-[#0a0a14]" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-meta text-xs uppercase tracking-widest text-[#f5f1e8]/60">
+          <p className="font-meta text-[13px] uppercase tracking-widest text-[#f5f1e8]/60">
             events.blkoutuk.com — checked by hand
           </p>
-          <h1 className="font-signature font-black uppercase tracking-tight leading-[0.9] text-5xl md:text-7xl mt-4">
-            <span className="block text-events/100">What's on.</span>
-            <span className="block text-[#f5f1e8]">What's open.</span>
-            <span className="block text-[#f5f1e8]">Where we are.</span>
+          <h1 className="font-signature font-black uppercase tracking-tight leading-[1.02] text-[2.25rem] sm:text-6xl lg:text-[6.25rem] mt-4">
+            <span className="block whitespace-nowrap text-events/100">What's on.</span>
+            <span className="block whitespace-nowrap text-[#f5f1e8]">What's open.</span>
+            <span className="block whitespace-nowrap text-[#f5f1e8]">Where we are.</span>
           </h1>
           <p className="font-disrupt italic text-[#f5f1e8]/70 mt-6 max-w-[58ch] text-lg">
             a short list you can trust beats a long one you can't. every listing here has been looked at by a
             person — and a quiet week is shown as a quiet week.
           </p>
-          <nav className="font-meta text-xs uppercase tracking-wide mt-8 flex flex-wrap gap-4 text-[#f5f1e8]/60">
+          <nav className="font-meta text-xs uppercase tracking-wide mt-8 flex flex-wrap gap-x-3 gap-y-2 text-[#f5f1e8]/60">
             <a href="#gatherings" className="hover:text-events/100 transition-colors">
               01 gatherings
             </a>
@@ -169,9 +169,19 @@ export function Surface({
           />
 
           {gatherings.length === 0 ? (
-            <p className="font-disrupt italic text-[#f5f1e8]/70 mt-8 max-w-[58ch]">
-              nothing listed for the next month — and we checked. know of something? add it below.
-            </p>
+            <div className="mt-8 max-w-[58ch]">
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">This month</p>
+              <p className="font-disrupt italic text-[#f5f1e8] text-xl">
+                nothing listed for the next month — and we checked. know of something? add it below.
+              </p>
+              <button
+                type="button"
+                onClick={onOpenEventForm}
+                className="appearance-none font-meta text-xs uppercase tracking-wide text-events/100 hover:underline mt-3 inline-flex items-center min-h-[44px]"
+              >
+                Add a gathering →
+              </button>
+            </div>
           ) : (
             <div className="mt-8 space-y-8">
               {showGroupLabels && thisMonth.length > 0 && (
@@ -223,40 +233,50 @@ export function Surface({
           />
 
           {openings.length === 0 ? (
-            <p className="font-disrupt italic text-[#f5f1e8]/70 mt-8 max-w-[58ch]">
-              the board is new. nothing listed yet — the first curators are being invited this month. found
-              one? it takes ten minutes.
-            </p>
+            <div className="mt-8 max-w-[58ch]">
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">Right now</p>
+              <p className="font-disrupt italic text-[#f5f1e8] text-xl">
+                the board is new. nothing listed yet — the first curators are being invited this month. found
+                one? it takes ten minutes.
+              </p>
+              <button
+                type="button"
+                onClick={onOpenOpeningForm}
+                className="appearance-none font-meta text-xs uppercase tracking-wide text-events/100 hover:underline mt-3 inline-flex items-center min-h-[44px]"
+              >
+                Add an opening →
+              </button>
+            </div>
           ) : (
             <div className="mt-8">
-              <div className="mb-3">
-                <button
-                  type="button"
-                  onClick={() => setActiveBeat('all')}
-                  className={`appearance-none inline-block mr-2 mb-2 font-meta text-xs uppercase tracking-wide px-3 py-1 border rounded-sharp transition-colors ${
-                    activeBeat === 'all' ? 'border-events/100 text-events/100' : 'border-events/30 text-[#f5f1e8]/60'
-                  }`}
-                >
-                  All
-                </button>
-                {BEATS.map((b) => (
+              <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
+                <div className="flex flex-wrap gap-2">
                   <button
-                    key={b.value}
                     type="button"
-                    onClick={() => setActiveBeat(b.value)}
-                    className={`appearance-none inline-block mr-2 mb-2 font-meta text-xs uppercase tracking-wide px-3 py-1 border rounded-sharp transition-colors ${
-                      activeBeat === b.value ? 'border-events/100 text-events/100' : 'border-events/30 text-[#f5f1e8]/60'
+                    onClick={() => setActiveBeat('all')}
+                    className={`appearance-none inline-flex items-center min-h-[44px] font-meta text-xs uppercase tracking-wide px-3 py-1 border rounded-sharp transition-colors ${
+                      activeBeat === 'all' ? 'border-events/100 text-events/100' : 'border-events/30 text-[#f5f1e8]/60'
                     }`}
                   >
-                    {b.label}
+                    All
                   </button>
-                ))}
-              </div>
-              <div className="text-right mb-4">
+                  {BEATS.map((b) => (
+                    <button
+                      key={b.value}
+                      type="button"
+                      onClick={() => setActiveBeat(b.value)}
+                      className={`appearance-none inline-flex items-center min-h-[44px] font-meta text-xs uppercase tracking-wide px-3 py-1 border rounded-sharp transition-colors ${
+                        activeBeat === b.value ? 'border-events/100 text-events/100' : 'border-events/30 text-[#f5f1e8]/60'
+                      }`}
+                    >
+                      {b.label}
+                    </button>
+                  ))}
+                </div>
                 <button
                   type="button"
                   onClick={onOpenOpeningForm}
-                  className="appearance-none font-meta text-xs uppercase tracking-wide text-events/100 hover:underline"
+                  className="appearance-none inline-flex items-center min-h-[44px] font-meta text-xs uppercase tracking-wide text-events/100 hover:underline whitespace-nowrap"
                 >
                   Add an opening →
                 </button>
@@ -287,10 +307,14 @@ export function Surface({
               nothing checked and current yet — know of somewhere? tell us what's changed.
             </p>
           ) : (
-            <div className="mt-8 space-y-8">
-              {placesByRegion.map(({ region, entries }) => (
+            <div className="mt-8">
+              {placesByRegion.map(({ region, entries }, i) => (
                 <div key={region}>
-                  <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-2">
+                  <p
+                    className={`font-meta text-[13px] uppercase tracking-[0.22em] text-events/100 mb-4 ${
+                      i === 0 ? 'mt-0' : 'mt-12'
+                    }`}
+                  >
                     {REGION_LABELS[region]}
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
@@ -300,7 +324,7 @@ export function Surface({
                   </div>
                 </div>
               ))}
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50">
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-12">
                 checked {checkedLabel(places)} · {places.length} places ·{' '}
                 <a href="mailto:info@blkout.org" className="text-events/100 hover:underline">
                   tell us what's changed →

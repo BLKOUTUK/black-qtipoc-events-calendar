@@ -55,13 +55,15 @@ export function OpeningRow({ opening }: OpeningRowProps) {
       <div className="flex-1 min-w-0 mb-2 md:mb-0">
         <h3 className="font-semibold text-[#f5f1e8]">{opening.title}</h3>
         <p className="text-sm text-[#f5f1e8]/60">{opening.organisation}</p>
+        {opening.pay && (
+          <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8] mt-1">{opening.pay}</p>
+        )}
         {opening.summary && <p className="text-sm text-[#f5f1e8]/60 mt-1 line-clamp-2">{opening.summary}</p>}
         {opening.open_to && (
           <p className="text-sm text-[#f5f1e8]/50 mt-1">
             <span className="text-[#f5f1e8]/70">open to:</span> {opening.open_to}
           </p>
         )}
-        {opening.pay && <p className="text-sm text-[#f5f1e8]/50 mt-1">{opening.pay}</p>}
       </div>
 
       {/* Right: kind, found by, apply */}
@@ -69,9 +71,9 @@ export function OpeningRow({ opening }: OpeningRowProps) {
         <span className="font-meta text-xs uppercase tracking-wide border border-events/50 px-2 py-0.5 text-[#f5f1e8]/70">
           {KIND_LABELS[opening.kind]}
         </span>
-        {opening.found_by && (
-          <span className="font-disrupt italic text-sm text-[#f5f1e8]/60">Found by {opening.found_by}</span>
-        )}
+        <span className="font-meta text-[11px] uppercase tracking-wide text-[#f5f1e8]/60 min-h-[1.25rem] flex items-center">
+          {opening.found_by ? `Found by ${opening.found_by}` : ''}
+        </span>
         <a
           href={opening.url}
           target="_blank"

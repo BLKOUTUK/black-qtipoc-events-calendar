@@ -14,24 +14,24 @@ export function FeedThePage({ onOpenEventForm, onOpenOpeningForm }: FeedThePageP
         the listing.
       </p>
 
-      <div className="mt-6">
+      <div className="mt-12 mb-10">
         <button
           type="button"
           onClick={onOpenEventForm}
-          className="appearance-none block sm:inline-block w-full sm:w-auto mb-4 sm:mb-0 sm:mr-4 bg-events/100 text-[#0a0a14] font-signature font-black uppercase tracking-tight px-6 py-3 rounded-sharp hover:bg-events/90 transition-colors"
+          className="appearance-none min-h-[44px] block sm:inline-block w-full sm:w-auto mb-4 sm:mb-0 sm:mr-4 bg-events/100 text-[#0a0a14] font-signature font-black uppercase tracking-tight text-[17px] px-8 py-4 rounded-sharp hover:bg-events/90 transition-colors"
         >
           Add a gathering
         </button>
         <button
           type="button"
           onClick={onOpenOpeningForm}
-          className="appearance-none block sm:inline-block w-full sm:w-auto bg-events/100 text-[#0a0a14] font-signature font-black uppercase tracking-tight px-6 py-3 rounded-sharp hover:bg-events/90 transition-colors"
+          className="appearance-none min-h-[44px] block sm:inline-block w-full sm:w-auto bg-events/100 text-[#0a0a14] font-signature font-black uppercase tracking-tight text-[17px] px-8 py-4 rounded-sharp hover:bg-events/90 transition-colors"
         >
           Add an opening
         </button>
       </div>
 
-      <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-4">
+      <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50">
         your name goes on the listing — "found by" is the credit.
       </p>
     </div>

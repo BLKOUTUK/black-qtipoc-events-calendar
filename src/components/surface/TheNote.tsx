@@ -23,7 +23,7 @@ export function TheNote({ note, noteError, placesCount, placesHeld }: TheNotePro
 
   return (
     <div id="the-note" className="border-4 border-events/100 bg-[#14141f] rounded-sharp p-6 md:p-8 scroll-mt-20">
-      <p className="font-meta text-xs uppercase tracking-widest text-events/100">How this page is kept</p>
+      <p className="font-meta text-[13px] uppercase tracking-widest text-events/100">How this page is kept</p>
 
       {failed ? (
         <p className="font-meta text-sm text-[#f5f1e8]/70 mt-6">
@@ -32,28 +32,36 @@ export function TheNote({ note, noteError, placesCount, placesHeld }: TheNotePro
       ) : (
         <>
           {/* Four numbers */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
-            <div>
-              <p className="font-signature font-black text-3xl text-[#f5f1e8]">{note.gatherings_live}</p>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50">gatherings live</p>
+          <div className="flex flex-wrap gap-6 mt-6">
+            <div className="min-w-[10rem]">
+              <p className="font-signature font-black text-[3.5rem] md:text-[4rem] leading-none text-[#f5f1e8]">
+                {note.gatherings_live}
+              </p>
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-1">gatherings live</p>
             </div>
-            <div>
-              <p className="font-signature font-black text-3xl text-[#f5f1e8]">{note.openings_open}</p>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50">openings open</p>
+            <div className="min-w-[10rem]">
+              <p className="font-signature font-black text-[3.5rem] md:text-[4rem] leading-none text-[#f5f1e8]">
+                {note.openings_open}
+              </p>
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-1">openings open</p>
             </div>
-            <div>
-              <p className="font-signature font-black text-3xl text-[#f5f1e8]">{placesCount}</p>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50">places</p>
+            <div className="min-w-[10rem]">
+              <p className="font-signature font-black text-[3.5rem] md:text-[4rem] leading-none text-[#f5f1e8]">
+                {placesCount}
+              </p>
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-1">places</p>
             </div>
-            <div>
-              <p className="font-signature font-black text-3xl text-[#f5f1e8]">{note.turned_away_30d}</p>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50">turned away in 30 days</p>
+            <div className="min-w-[10rem]">
+              <p className="font-signature font-black text-[3.5rem] md:text-[4rem] leading-none text-[#f5f1e8]">
+                {note.turned_away_30d}
+              </p>
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-1">turned away in 30 days</p>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-8 text-sm">
+          <div className="grid md:grid-cols-3 gap-6 text-sm">
             <div>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 mb-2">Checked</p>
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 mt-8 mb-3">Checked</p>
               <ul className="space-y-1 text-[#f5f1e8]/70">
                 <li>
                   <span className="text-events/100">—</span>{' '}
@@ -70,11 +78,11 @@ export function TheNote({ note, noteError, placesCount, placesHeld }: TheNotePro
             </div>
 
             <div>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 mb-2">
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 mt-8 mb-3">
                 Turned away, last 30 days
               </p>
               {note.turned_away_reasons.length > 0 ? (
-                <ul className="space-y-1 text-[#f5f1e8]/70">
+                <ul className="space-y-1 text-[#f5f1e8]/70 max-w-[42rem]">
                   {note.turned_away_reasons.map((r) => (
                     <li key={r.reason}>
                       <span className="text-events/100">—</span> {r.reason} · {r.n}
@@ -87,8 +95,8 @@ export function TheNote({ note, noteError, placesCount, placesHeld }: TheNotePro
             </div>
 
             <div>
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 mb-2">Feeds</p>
-              <ul className="space-y-1 text-[#f5f1e8]/70">
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 mt-8 mb-3">Feeds</p>
+              <ul className="space-y-1 text-[#f5f1e8]/70 max-w-[42rem]">
                 {note.feeds.map((f) => {
                   const stale = f.automated && (f.days_since ?? 0) > 21;
                   return (
