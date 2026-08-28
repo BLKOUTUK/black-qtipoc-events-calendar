@@ -238,7 +238,7 @@ export function Surface({
 
           {openings.length === 0 ? (
             <div className="mt-8 max-w-[58ch]">
-              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">Right now</p>
+              <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">This month</p>
               <p className="font-disrupt italic text-[#f5f1e8] text-xl">
                 the board is new. nothing listed yet — the first curators are being invited this month. found
                 one? it takes ten minutes.

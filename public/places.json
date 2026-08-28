@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-28T12:21:53.343Z",
+ "generated": "2026-08-28T12:39:38.411Z",
  "source": "https://events.blkoutuk.com/places",
  "places": [
   {
@@ -140,6 +140,16 @@
    "centres": "black-lgbtq"
   },
   {
+   "id": "imaan",
+   "name": "Imaan",
+   "what": "UK's oldest charity for LGBTQI+ Muslims — support groups, Ramadan/Eid/Pride events and schools outreach.",
+   "where": "London",
+   "region": "london",
+   "kind": "organisation",
+   "url": "https://imaanlondon.wordpress.com/",
+   "centres": "qtipoc"
+  },
+  {
    "id": "london-lgbtq-community-centre",
    "name": "London LGBTQ+ Community Centre",
    "what": "Sober community space in Bankside — hosts Melanin Vybz (POC 50+), sexual health and mental health support.",
@@ -163,6 +173,16 @@
    "centres": "qtipoc"
   },
   {
+   "id": "misery",
+   "name": "Misery",
+   "what": "Sober club night and mental health collective for QTIBPOC people in London",
+   "where": "London (various venues)",
+   "region": "london",
+   "kind": "collective",
+   "instagram": "miseryparty",
+   "centres": "qtipoc"
+  },
+  {
    "id": "naz-project-london",
    "name": "Naz Project London (NAZ)",
    "what": "BAME-focused sexual health charity — HIV support and culturally specific services in five languages.",
@@ -172,6 +192,15 @@
    "kind": "service",
    "url": "https://www.naz.org.uk",
    "instagram": "@nazprojectlondon",
+   "centres": "qtipoc"
+  },
+  {
+   "id": "qtipocs-london",
+   "name": "QTIPOCs London",
+   "what": "Facebook group for Queer, Trans and Intersex People of Colour in London to connect and share resources",
+   "where": "London (online, Facebook)",
+   "region": "london",
+   "kind": "network",
    "centres": "qtipoc"
   },
   {
@@ -335,6 +364,17 @@
    "centres": "qtipoc"
   },
   {
+   "id": "unmuted-birmingham",
+   "name": "UNMUTED",
+   "what": "Meetups, book club and advocacy network for LGBTQI people of colour in Birmingham and the West Midlands.",
+   "where": "Birmingham & West Midlands",
+   "region": "midlands",
+   "kind": "group",
+   "regular": "Monthly meetups (per directory)",
+   "url": "https://www.unmutedbrum.com/",
+   "centres": "qtipoc"
+  },
+  {
    "id": "bradford-black-and-brown-queers",
    "name": "Bradford Black and Brown Queers (BBBQ)",
    "what": "QTIPOC collective in Bradford — talking, walking, dancing; ran Queer Joy 2025, Bradford's first QTIPOC festival",
@@ -355,6 +395,26 @@
    "centres": "qtipoc"
   },
   {
+   "id": "house-of-ghetto",
+   "name": "House of Ghetto",
+   "what": "Manchester Vogue house and ballroom collective led by Darren Pritchard, for young Black women and queer POC.",
+   "where": "Manchester",
+   "region": "north",
+   "kind": "collective",
+   "instagram": "@houseofghetto",
+   "centres": "qtipoc"
+  },
+  {
+   "id": "house-of-noir-manchester",
+   "name": "House of Noir",
+   "what": "Voguing/ballroom house and fashion platform for QTIPOC performers in Manchester.",
+   "where": "Manchester",
+   "region": "north",
+   "kind": "collective",
+   "instagram": "houseofnoirmcr",
+   "centres": "qtipoc"
+  },
+  {
    "id": "house-of-suarez",
    "name": "House of Suarez",
    "what": "Vogue house and dance company running the annual Vogue Ball in Liverpool and Manchester since 2006.",
@@ -362,6 +422,16 @@
    "region": "north",
    "kind": "collective",
    "instagram": "@houseofsuarez",
+   "centres": "qtipoc"
+  },
+  {
+   "id": "noire-gayze",
+   "name": "Noire Gayze",
+   "what": "Inclusive platform for Black and other people of colour in Liverpool's LGBTQIA+ community.",
+   "where": "Liverpool",
+   "region": "north",
+   "kind": "group",
+   "instagram": "@noiregayze",
    "centres": "qtipoc"
   },
   {
@@ -383,6 +453,16 @@
    "region": "north",
    "kind": "service",
    "url": "https://www.sahir.org.uk",
+   "centres": "qtipoc"
+  },
+  {
+   "id": "the-proud-trust",
+   "name": "The Proud Trust",
+   "what": "Manchester youth charity — mentoring, counselling and QTIPOC-specific services for young LGBTQ+ people.",
+   "where": "Manchester",
+   "region": "north",
+   "kind": "service",
+   "url": "https://www.theproudtrust.org",
    "centres": "qtipoc"
   },
   {
@@ -461,6 +541,17 @@
    "centres": "black-lgbtq"
   },
   {
+   "id": "black-psychotherapy",
+   "name": "Black Psychotherapy",
+   "what": "Global Majority therapists giving decolonial therapy, explicitly welcoming LGBTQ+ and gender-diverse clients.",
+   "where": "UK-wide",
+   "region": "uk-wide",
+   "kind": "service",
+   "url": "https://www.blackpsychotherapy.org",
+   "instagram": "@blackpsychotherapy",
+   "centres": "qtipoc"
+  },
+  {
    "id": "brownton-abbey",
    "name": "Brownton Abbey",
    "what": "Afro-futurist performance party centring disabled, Black and QTIPOC people, touring UK-wide",
@@ -522,16 +613,6 @@
    "url": "https://houseofrainbow.org",
    "instagram": "@houseofrainbow_",
    "centres": "black-lgbtq"
-  },
-  {
-   "id": "jaivant-patel-dance",
-   "name": "Jaivant Patel Company",
-   "what": "Dance company blending Kathak and contemporary dance to tell South Asian queer men's stories, touring UK-wide",
-   "where": "Wolverhampton, touring UK-wide",
-   "region": "uk-wide",
-   "kind": "organisation",
-   "url": "https://jaivantpatelcompany.com/",
-   "centres": "qtipoc"
   },
   {
    "id": "prim",

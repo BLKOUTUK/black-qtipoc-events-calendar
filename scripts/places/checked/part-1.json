@@ -68,8 +68,8 @@
     "url": "https://www.unmutedbrum.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "unmutedbrum.com blocked direct fetch (403) and failed via Firecrawl (all engines); Impact Hub Birmingham event page unreachable (DNS); Waterstones QTIPOC Book Club event pages (Freshwater, The Colour Purple, Proud) found via search but blocked (403) so no date confirmed; web search surfaced only undated listings. No dated 2026 activity confirmed either way.",
-    "status": "unclear"
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live"
   },
   {
     "id": "colours-youth-network",
@@ -120,8 +120,8 @@
     "url": "https://imaanlondon.wordpress.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "imaanlondon.wordpress.com's News & Events section shows nothing newer than a 25 Jun 2023 Pride-march post; Imaan's Eventbrite organiser page (eventbrite.co.uk/o/imaan-lgbtqi-muslim-support-64611384743) says 'Nothing planned right now'. Web search confirms the charity still describes itself as running regular Positive East socials and Ramadan/Eid events, but no dated 2026 instance was found. No dated activity confirmed either way.",
-    "status": "unclear"
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live"
   },
   {
     "id": "hidayah-lgbt",
@@ -212,8 +212,8 @@
     "instagram": "houseofnoirmcr",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Factory International's 'House of Noir Presents... Kiki in Our House' page returned a 2020 date range, and other results (Manchester Pride, MIF Live tie-ins) were undated/historical press. No dated 2026 activity confirmed.",
-    "status": "unclear"
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live"
   },
   {
     "id": "rebeccaneverbecky",

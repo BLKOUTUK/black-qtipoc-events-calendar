@@ -22,8 +22,8 @@
     "instagram": "miseryparty",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "No dated 2025/26 activity confirmed — checked miseryparty.substack.com/about (undated), RA promoter page ra.co/promoters/90569 (403 blocked), web search for a 2026 event (none found); Instagram @miseryparty (11k followers) not fetchable",
-    "status": "unclear"
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live"
   },
   {
     "id": "mindout-brighton",
@@ -165,8 +165,8 @@
     "kind": "network",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "No dated 2025/26 activity found — the group is referenced only via a Purple Rain Collective listings page with 2018-dated metadata; not independently verifiable",
-    "status": "unclear"
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live"
   },
   {
     "id": "femmes-of-colour",
@@ -322,19 +322,6 @@
     "checked": "2026-08",
     "evidence": "No current organisation found — web search for 'ANTE' QTIPOC arts collective and co-founder RED REY returned no matching site or dated activity",
     "status": "unclear"
-  },
-  {
-    "id": "jaivant-patel-dance",
-    "name": "Jaivant Patel Company",
-    "what": "Dance company blending Kathak and contemporary dance to tell South Asian queer men's stories, touring UK-wide",
-    "where": "Wolverhampton, touring UK-wide",
-    "region": "uk-wide",
-    "kind": "organisation",
-    "url": "https://jaivantpatelcompany.com/",
-    "centres": "qtipoc",
-    "checked": "2026-08",
-    "evidence": "ASTITVA UK tour dated 3-4 Mar 2026 at The Place, London, per search results citing jaivantpatelcompany.com",
-    "status": "live"
   },
   {
     "id": "lcap-london-coalition-against-poverty",

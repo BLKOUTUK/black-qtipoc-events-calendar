@@ -412,9 +412,9 @@
     "url": "https://imaanlondon.wordpress.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "imaanlondon.wordpress.com's News & Events section shows nothing newer than a 25 Jun 2023 Pride-march post; Imaan's Eventbrite organiser page (eventbrite.co.uk/o/imaan-lgbtqi-muslim-support-64611384743) says 'Nothing planned right now'. Web search confirms the charity still describes itself as running regular Positive East socials and Ramadan/Eid events, but no dated 2026 instance was found. No dated activity confirmed either way.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "inclusive-mosque-initiative",
@@ -527,9 +527,9 @@
     "instagram": "miseryparty",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "No dated 2025/26 activity confirmed — checked miseryparty.substack.com/about (undated), RA promoter page ra.co/promoters/90569 (403 blocked), web search for a 2026 event (none found); Instagram @miseryparty (11k followers) not fetchable",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "naz-and-matt-foundation",
@@ -599,9 +599,9 @@
     "kind": "network",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "No dated 2025/26 activity found — the group is referenced only via a Purple Rain Collective listings page with 2018-dated metadata; not independently verifiable",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "queer-britain",
@@ -1273,9 +1273,9 @@
     "url": "https://www.unmutedbrum.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "unmutedbrum.com blocked direct fetch (403) and failed via Firecrawl (all engines); Impact Hub Birmingham event page unreachable (DNS); Waterstones QTIPOC Book Club event pages (Freshwater, The Colour Purple, Proud) found via search but blocked (403) so no date confirmed; web search surfaced only undated listings. No dated 2026 activity confirmed either way.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "adira",
@@ -1358,9 +1358,9 @@
     "instagram": "@houseofghetto",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Searched \"House of Ghetto Darren Pritchard Manchester 2026\" — sources cover historical work (2008 founding, 2019 Manchester Pride ball, 2021 interview); no dated 2025/26 activity confirmed.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "house-of-noir-manchester",
@@ -1372,9 +1372,9 @@
     "instagram": "houseofnoirmcr",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Factory International's 'House of Noir Presents... Kiki in Our House' page returned a 2020 date range, and other results (Manchester Pride, MIF Live tie-ins) were undated/historical press. No dated 2026 activity confirmed.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "house-of-suarez",
@@ -1457,9 +1457,9 @@
     "instagram": "@noiregayze",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Web search: still listed in Liverpool LGBTQ+ guides (queerplaces.co.uk) but no dated 2025/26 activity found; no website to check directly.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "out-together",
@@ -1595,9 +1595,9 @@
     "url": "https://www.theproudtrust.org",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Checked theproudtrust.org — blog references '2025 RSHE Guidance' and Trans Awareness Week without specific publish dates; nothing conclusively dated since Aug 2025.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "yorkshire-mesmac",
@@ -1908,9 +1908,9 @@
     "instagram": "@blackpsychotherapy",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Checked blackpsychotherapy.org — most recent visible reference is a 2024 award nomination and 2024 copyright footer; no clearly dated 2025/26 content found.",
-    "status": "unclear",
-    "published": false
+    "evidence": "Rob, 28 Aug 2026",
+    "status": "live",
+    "published": true
   },
   {
     "id": "black-trans-foundation",
@@ -2124,20 +2124,6 @@
     "evidence": "Bingham Cup 2026 finals held 22-23 Aug 2026, reported on igrugby.org; no specifically QTIPOC clubs identified",
     "status": "live",
     "published": false
-  },
-  {
-    "id": "jaivant-patel-dance",
-    "name": "Jaivant Patel Company",
-    "what": "Dance company blending Kathak and contemporary dance to tell South Asian queer men's stories, touring UK-wide",
-    "where": "Wolverhampton, touring UK-wide",
-    "region": "uk-wide",
-    "kind": "organisation",
-    "url": "https://jaivantpatelcompany.com/",
-    "centres": "qtipoc",
-    "checked": "2026-08",
-    "evidence": "ASTITVA UK tour dated 3-4 Mar 2026 at The Place, London, per search results citing jaivantpatelcompany.com",
-    "status": "live",
-    "published": true
   },
   {
     "id": "kaleidoscope-trust",
