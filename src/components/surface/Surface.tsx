@@ -14,6 +14,7 @@ import { OpeningRow } from './OpeningRow';
 import { PlaceRow } from './PlaceRow';
 import { TheNote } from './TheNote';
 import { FeedThePage } from './FeedThePage';
+import { AskAIvor } from './AskAIvor';
 import { Gathering, Opening, Place, PageNote, OpeningBeat, PlaceRegion } from '../../types/surface';
 
 export interface SurfaceProps {
@@ -157,6 +158,9 @@ export function Surface({
       </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-16">
+        {/* Ask AIvor — the front door for "what's happening?" */}
+        <AskAIvor />
+
         {/* 01 Gatherings */}
         <section>
           <StreamHeader
