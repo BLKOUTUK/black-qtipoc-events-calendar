@@ -23,7 +23,10 @@ const isNever = (p) => never.some((n) => n.id === p.id || (p.name ?? '').toLower
 const parts = readdirSync(checkedDir).filter((f) => /^part-\d+\.json$/.test(f)).sort();
 if (parts.length === 0) { console.error('NO-REPORT: no checked/part-*.json found'); process.exit(1); }
 
+const PLACE_KEYS = ['id','name','what','where','region','kind','regular','url','instagram','centres','checked','evidence','excludesMen','status'];
+const norm = (n) => n.toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z0-9]/g, '');
 const seen = new Map();
+const byName = new Map();
 const problems = [];
 for (const f of parts) {
   const arr = JSON.parse(readFileSync(join(checkedDir, f), 'utf8'));
@@ -39,7 +42,11 @@ for (const f of parts) {
       problems.push(`${where}: status live but evidence carries no date`);
     if (seen.has(p.id)) problems.push(`${where}: duplicate id`);
     if (isNever(p)) { console.log(`never-list: dropped ${p.id}`); continue; }
-    seen.set(p.id, p);
+    const clean = Object.fromEntries(PLACE_KEYS.filter((k) => p[k] !== undefined).map((k) => [k, p[k]]));
+    const nk = norm(p.name);
+    if (byName.has(nk)) { const prev = byName.get(nk); console.log(`name-dedupe: ${prev} superseded by ${p.id} (${f})`); seen.delete(prev); }
+    byName.set(nk, p.id);
+    seen.set(p.id, clean);
   }
 }
 if (problems.length) { console.error('FAILED — fix the JSON:\n' + problems.join('\n')); process.exit(1); }
