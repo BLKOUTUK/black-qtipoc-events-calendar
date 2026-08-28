@@ -112,3 +112,6 @@ graphify-out/
 # .env.example stays tracked deliberately — it holds placeholders, not values.
 .env*.local
 .env.*.local
+
+# review renders (scripts/render-fixture.mjs output) — regenerated, never committed
+render/

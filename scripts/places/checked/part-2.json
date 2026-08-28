@@ -243,8 +243,8 @@
     "url": "https://umbrellahealth.co.uk/",
     "centres": "general",
     "checked": "2026-08",
-    "evidence": "Live service page with current Mpox vaccination and clinic-availability advisories on umbrellahealth.co.uk; general NHS service, not LGBTQ-specific",
-    "status": "live"
+    "evidence": "Live service page with current Mpox vaccination and clinic-availability advisories on umbrellahealth.co.uk; general NHS service, not LGBTQ-specific — service page live but no dated activity found (downgraded at merge)",
+    "status": "unclear"
   },
   {
     "id": "all-east-sexual-health",
@@ -256,8 +256,8 @@
     "url": "https://www.alleast.nhs.uk/",
     "centres": "general",
     "checked": "2026-08",
-    "evidence": "Live NHS service page at alleast.nhs.uk/hiv-treatment-and-care; general sexual health service, not LGBTQ-specific",
-    "status": "live"
+    "evidence": "Live NHS service page at alleast.nhs.uk/hiv-treatment-and-care; general sexual health service, not LGBTQ-specific — service page live but no dated activity found (downgraded at merge)",
+    "status": "unclear"
   },
   {
     "id": "chelsea-westminster-sexual-health",
@@ -269,8 +269,8 @@
     "url": "https://www.chelwest.nhs.uk/services/hiv-sexual-health",
     "centres": "general",
     "checked": "2026-08",
-    "evidence": "Live NHS service page with active clinic-booking links at chelwest.nhs.uk/services/hiv-sexual-health; general service, though Sexual Health Hounslow runs a specific 'Sky Clinic' for LGBTQIA+ people",
-    "status": "live"
+    "evidence": "Live NHS service page with active clinic-booking links at chelwest.nhs.uk/services/hiv-sexual-health; general service, though Sexual Health Hounslow runs a specific 'Sky Clinic' for LGBTQIA+ people — service page live but no dated activity found (downgraded at merge)",
+    "status": "unclear"
   },
   {
     "id": "ghetto-fabulous",
