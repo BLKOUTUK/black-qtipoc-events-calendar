@@ -14,6 +14,7 @@ import {
   ChevronRight, FileText, Flag, Loader2
 } from 'lucide-react';
 import { EventModerationPanel } from '../components/EventModerationPanel';
+import { OpeningsQueue } from '../components/OpeningsQueue';
 
 const IVOR_API = import.meta.env.VITE_IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
 
@@ -57,7 +58,7 @@ interface ModerationStats {
 }
 
 export function ModerationDashboardPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'news' | 'events' | 'reports'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'news' | 'events' | 'reports' | 'openings'>('overview');
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<ModerationStats>({
     events: { pending: 0, approved: 0, rejected: 0, flagged: 0 },
@@ -237,7 +238,8 @@ export function ModerationDashboardPage() {
             { id: 'overview', label: 'Overview', icon: TrendingUp },
             { id: 'news', label: `News (${stats.news.pending})`, icon: Newspaper },
             { id: 'events', label: 'Events', icon: Calendar },
-            { id: 'reports', label: `Reports (${stats.reports.pending})`, icon: Flag }
+            { id: 'reports', label: `Reports (${stats.reports.pending})`, icon: Flag },
+            { id: 'openings', label: 'Openings', icon: FileText }
           ].map(tab => (
             <button
               key={tab.id}
@@ -426,6 +428,20 @@ export function ModerationDashboardPage() {
                       ))}
                     </div>
                   )}
+                </div>
+              </div>
+            )}
+
+            {/* Openings Tab */}
+            {activeTab === 'openings' && (
+              <div className="space-y-4">
+                <div className="bg-white/5 rounded-xl border border-white/10 p-6">
+                  <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-events" />
+                    Openings
+                  </h2>
+
+                  <OpeningsQueue />
                 </div>
               </div>
             )}
