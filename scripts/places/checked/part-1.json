@@ -184,7 +184,8 @@
     "centres": "qtipoc",
     "checked": "2026-08",
     "evidence": "'Fever x Shoga Shoga' listed as an Exclusively Black Event, Fri 28-Sat 29 Aug 2026, 26 Denmark Street, London (skiddle.com/artists/pxssy-palace-123571367). Pxssypalace.com's own 'upcoming events' section had no dates when fetched directly.",
-    "status": "live"
+    "status": "live",
+    "excludesMen": true
   },
   {
     "id": "bbz-london",

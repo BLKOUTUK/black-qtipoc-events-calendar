@@ -124,5 +124,7 @@ export interface Place {
   centres: PlaceCentres;
   checked: string; // 'YYYY-MM'
   evidence: string; // one line: dated activity inside the last 12 months + where seen
+  /** stated audience excludes men — never published on a page for Black queer men */
+  excludesMen?: boolean;
   status: 'live' | 'unclear' | 'dormant' | 'closed';
 }
