@@ -78,6 +78,8 @@ export const heldPlacesCount = (): number => places.length - publishedPlaces().l
 `;
 writeFileSync(out, ts);
 // The same data for the borough-door generator (plain JSON, published flag included).
+// Published entries only, served as a real file at events.blkoutuk.com/places.json — AIvor reads this.
+writeFileSync(join(here, '..', '..', 'public', 'places.json'), JSON.stringify({ generated: new Date().toISOString(), source: 'https://events.blkoutuk.com/places', places: published.map(({ id, name, what, where, region, borough, kind, regular, url, instagram, centres }) => ({ id, name, what, where, region, borough, kind, regular, url, instagram, centres })) }, null, 1));
 writeFileSync(join(here, 'places.json'), JSON.stringify(places.map((p) => ({ ...p, published: published.includes(p) })), null, 2));
 const byStatus = Object.fromEntries(STATUSES.map((s) => [s, places.filter((p) => p.status === s).length]));
 console.log(`wrote ${out}: ${places.length} entries, ${published.length} published`, byStatus);
