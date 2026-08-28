@@ -8,7 +8,7 @@
     "start": "node server.js",
     "scrape": "RUN_NOW=true node server.js",
     "scrape:tavily": "TAVILY_ONLY=true RUN_NOW=true node server.js",
-    "test": "echo \"Event scraper - no tests yet\" && exit 0"
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.0",

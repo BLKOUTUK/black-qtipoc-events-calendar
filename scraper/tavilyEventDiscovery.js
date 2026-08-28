@@ -470,13 +470,12 @@ class TavilyEventDiscovery {
   }
 
   /**
-   * Extract date from text — handles many formats
+   * Extract date from text — handles many formats.
+   * `now` is injectable (defaults to the real clock) so the year-rollover
+   * logic below is testable without mocking the system clock.
    */
-  extractDate(text) {
+  extractDate(text, now = new Date()) {
     if (!text) return null
-
-    const now = new Date()
-    const currentYear = now.getFullYear()
 
     // ISO date: 2026-03-20
     const isoMatch = text.match(/\b(20\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]))\b/)
@@ -515,15 +514,13 @@ class TavilyEventDiscovery {
       return `${mdyMatch[3]}-${month}-${day}`
     }
 
-    // "20 March" or "20th March" (no year — assume current/next occurrence)
+    // "20 March" or "20th March" (no year — check nearby context for an
+    // explicit year first, then fall back to the current/next-year heuristic)
     const dmMatch = text.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|oct|nov|dec)\b/i)
     if (dmMatch) {
       const day = dmMatch[1].padStart(2, '0')
       const month = months[dmMatch[2].toLowerCase()]
-      let year = currentYear
-      const candidate = new Date(`${year}-${month}-${day}`)
-      if (candidate < now) year++
-      return `${year}-${month}-${day}`
+      return this.resolveNoYearDate(text, dmMatch, day, month, now)
     }
 
     // "March 20" (no year)
@@ -531,10 +528,45 @@ class TavilyEventDiscovery {
     if (mdMatch) {
       const month = months[mdMatch[1].toLowerCase()]
       const day = mdMatch[2].padStart(2, '0')
-      let year = currentYear
-      const candidate = new Date(`${year}-${month}-${day}`)
-      if (candidate < now) year++
-      return `${year}-${month}-${day}`
+      return this.resolveNoYearDate(text, mdMatch, day, month, now)
+    }
+
+    return null
+  }
+
+  /**
+   * Resolve a day/month match that carried no adjacent year.
+   * - An explicit 4-digit year within ~40 characters of the match (e.g. a
+   *   page titled "Sugar & Spice 2026" whose body says "6 March") wins over
+   *   the heuristic below.
+   * - Otherwise: a candidate dated today or later (with a 1-day grace for
+   *   time-of-day noise around the scrape run) is this year's date.
+   * - A candidate more than 270 days in the past is a December→January
+   *   rollover — a real next-year event ("20 January" found in December).
+   * - A candidate in the past by 270 days or less is far more likely an
+   *   event that already happened than one exactly a year away — the
+   *   honest failure is to miss it, never to invent a phantom future date.
+   */
+  resolveNoYearDate(text, match, day, month, now) {
+    const contextStart = Math.max(0, match.index - 40)
+    const contextEnd = Math.min(text.length, match.index + match[0].length + 40)
+    const context = text.slice(contextStart, contextEnd)
+    const yearMatch = context.match(/\b(20\d{2})\b/)
+    if (yearMatch) {
+      return `${yearMatch[1]}-${month}-${day}`
+    }
+
+    const oneDayMs = 24 * 60 * 60 * 1000
+    const currentYear = now.getFullYear()
+    const candidate = new Date(`${currentYear}-${month}-${day}`)
+
+    if (candidate.getTime() > now.getTime() - oneDayMs) {
+      return `${currentYear}-${month}-${day}`
+    }
+
+    const daysPast = (now.getTime() - candidate.getTime()) / oneDayMs
+    if (daysPast > 270) {
+      return `${currentYear + 1}-${month}-${day}`
     }
 
     return null
@@ -836,10 +868,22 @@ class TavilyEventDiscovery {
     }
 
     const results = { success: 0, skipped: 0, failed: 0, errors: [] }
+    const HORIZON_DAYS = 366
+    const oneDayMs = 24 * 60 * 60 * 1000
 
     for (const event of events) {
       // Skip events without a date — Supabase schema requires it
       if (!event.date) {
+        results.skipped++
+        continue
+      }
+
+      // Skip events dated implausibly far in the future — a symptom of the
+      // year-rollover bug in extractDate(), not a real event that far out.
+      const reference = event.scrapedAt ? new Date(event.scrapedAt) : new Date()
+      const daysOut = (new Date(event.date).getTime() - reference.getTime()) / oneDayMs
+      if (daysOut > HORIZON_DAYS) {
+        console.warn(`[Tavily] Skipping "${event.title}" — date ${event.date} is more than ${HORIZON_DAYS} days out, likely a scraper artefact`)
         results.skipped++
         continue
       }

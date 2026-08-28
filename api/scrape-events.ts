@@ -796,8 +796,22 @@ async function submitEventsToSupabase(events: ScrapedEvent[]): Promise<{ success
   }
 
   const results = { success: 0, skipped: 0, failed: 0 };
+  const HORIZON_DAYS = 366;
+  const oneDayMs = 24 * 60 * 60 * 1000;
 
   for (const event of events) {
+    // Skip events dated implausibly far in the future — a symptom of the
+    // scraper's year-rollover bug, not a real event that far out.
+    if (event.date) {
+      const reference = new Date(event.scrapedAt);
+      const daysOut = (new Date(event.date).getTime() - reference.getTime()) / oneDayMs;
+      if (daysOut > HORIZON_DAYS) {
+        console.warn(`Skipping "${event.title}" — date ${event.date} is more than ${HORIZON_DAYS} days out, likely a scraper artefact`);
+        results.skipped++;
+        continue;
+      }
+    }
+
     try {
       // Check for duplicates by URL or title+date
       const checkUrl = event.url
