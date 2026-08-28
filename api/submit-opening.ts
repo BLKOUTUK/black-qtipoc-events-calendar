@@ -9,6 +9,12 @@ const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 // Must match the CHECK constraints in supabase/migrations/20260828_openings.sql
 const ALLOWED_KINDS = ['job', 'commission', 'residency', 'bursary', 'fund', 'call', 'panel', 'training', 'research', 'other'];
 const ALLOWED_BEATS = ['arts-film', 'writing-publishing', 'jobs-training', 'money', 'study-research', 'community-organising'];
+// Automated lanes: the Bayard2 Openings Gmail sweep and RSS feed pulls. These have no human
+// finder, so found_by/found_by_contact are optional for them and stored NULL — which also keeps
+// openings_gesture_on_approve from writing a first_gestures row for a machine find.
+// Anything not listed here is treated as the public form and still requires both.
+const MACHINE_SOURCES = ['bayard-email', 'feed'];
+const ALLOWED_SOURCES = ['form', ...MACHINE_SOURCES];
 
 console.log('[submit-opening] Config:', {
   hasUrl: Boolean(SUPABASE_URL),
@@ -60,6 +66,12 @@ export default async function handler(req: Request, res: Response) {
     const found_by = String(data.found_by || data.name || '').trim();
     const found_by_contact = String(data.found_by_contact || data.contact || '').trim();
 
+    const source = String(data.source || 'form').trim();
+    if (!ALLOWED_SOURCES.includes(source)) {
+      return res.status(400).json({ success: false, error: `source must be one of: ${ALLOWED_SOURCES.join(', ')}` });
+    }
+    const isMachineLane = MACHINE_SOURCES.includes(source);
+
     if (!title) {
       return res.status(400).json({ success: false, error: 'Title is required' });
     }
@@ -78,11 +90,14 @@ export default async function handler(req: Request, res: Response) {
     if (summary.length > 280) {
       return res.status(400).json({ success: false, error: 'Summary must be 280 characters or fewer' });
     }
-    if (!found_by) {
-      return res.status(400).json({ success: false, error: 'Your name is required' });
-    }
-    if (!found_by_contact) {
-      return res.status(400).json({ success: false, error: 'A way to reach you is required' });
+    // A machine lane has no finder to credit. A human submitting through the form still does.
+    if (!isMachineLane) {
+      if (!found_by) {
+        return res.status(400).json({ success: false, error: 'Your name is required' });
+      }
+      if (!found_by_contact) {
+        return res.status(400).json({ success: false, error: 'A way to reach you is required' });
+      }
     }
 
     const kind = String(data.kind || 'other').trim();
@@ -140,10 +155,10 @@ export default async function handler(req: Request, res: Response) {
       location: String(data.location || '').trim() || null,
       url,
       deadline,
-      found_by,
-      found_by_contact,
+      found_by: found_by || null,
+      found_by_contact: found_by_contact || null,
       status: 'pending',
-      source: 'form'
+      source
     };
 
     console.log('[submit-opening] Inserting:', { ...openingPayload, found_by_contact: '[redacted]' });
