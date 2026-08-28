@@ -108,7 +108,8 @@
     ],
     "org_type": "healthcare_provider",
     "geography_scope": "regional",
-    "notes_full": "One of longest-established sexual health charities focused on BAME communities. Services in five languages. HIV support, sexual health, culturally-specific services. BLKOUT co-founder Rob Berkeley was previously Chair."
+    "notes_full": "One of longest-established sexual health charities focused on BAME communities. Services in five languages. HIV support, sexual health, culturally-specific services. BLKOUT co-founder Rob Berkeley was previously Chair.",
+    "borough": "Hammersmith and Fulham"
   },
   {
     "id": "new-family-social",
@@ -536,7 +537,8 @@
     ],
     "org_type": "media_cultural",
     "geography_scope": "national",
-    "notes_full": "UK's first LGBTQ+ museum, based in King's Cross. Permanent and touring exhibitions. Already referenced in IVOR system prompt as verified org."
+    "notes_full": "UK's first LGBTQ+ museum, based in King's Cross. Permanent and touring exhibitions. Already referenced in IVOR system prompt as verified org.",
+    "borough": "Camden"
   },
   {
     "id": "queer-bruk",
@@ -579,7 +581,8 @@
     "org_type": "grassroots_community",
     "geography_scope": "local",
     "notes_full": "Grassroots LGBTQ+ community org. Started with Their Majesties (free monthly drag cabaret, 2022). National Lottery-funded programme (2025-26): inclusive swimming, archery, mindfulness, CV writing, self-defence. Volunteer collective.",
-    "regular": "monthly"
+    "regular": "monthly",
+    "borough": "Croydon"
   },
   {
     "id": "queer-mehndi-night",
@@ -1179,7 +1182,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "London's first consciously queer intersectional bookshop, cafe and events space. Opened 2021. Run by a group of queer BIPOC, trans, non-binary people and queer women — QTIPOC-led (confirmed Rob 5 Aug 2026). NOW TWO EAST LONDON SITES: 118 Bethnal Green Road E2 6DG plus Brick Lane. 7,000+ titles, of which ~1,500 on QTIPOC experience. 500+ events a year, ~18,000 customers annually. Shop also at thecommonpress.shop."
+    "notes_full": "London's first consciously queer intersectional bookshop, cafe and events space. Opened 2021. Run by a group of queer BIPOC, trans, non-binary people and queer women — QTIPOC-led (confirmed Rob 5 Aug 2026). NOW TWO EAST LONDON SITES: 118 Bethnal Green Road E2 6DG plus Brick Lane. 7,000+ titles, of which ~1,500 on QTIPOC experience. 500+ events a year, ~18,000 customers annually. Shop also at thecommonpress.shop.",
+    "borough": "Tower Hamlets"
   },
   {
     "id": "the-cookout",
@@ -1201,7 +1205,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Queer African collective celebrating and uplifting Black British LGBTQ+ culture through events and community building. First event 1 March 2025, Woodpecker Community Centre, Deptford. NAME: they use \"The CookOUT\" publicly and are building a brand on it. RESOLVED 5 Aug 2026 (Rob): BLKOUT will rename its own QTIPOC CookOut programme rather than raise it with them — they have precedence and active use, the vision is written down and the substance is what matters, so adapting is cheaper for us than contesting or coexisting confusingly. Do NOT frame this to them as a collision or ask them to negotiate. They were in the room at BQT, 26 May 2026."
+    "notes_full": "Queer African collective celebrating and uplifting Black British LGBTQ+ culture through events and community building. First event 1 March 2025, Woodpecker Community Centre, Deptford. NAME: they use \"The CookOUT\" publicly and are building a brand on it. RESOLVED 5 Aug 2026 (Rob): BLKOUT will rename its own QTIPOC CookOut programme rather than raise it with them — they have precedence and active use, the vision is written down and the substance is what matters, so adapting is cheaper for us than contesting or coexisting confusingly. Do NOT frame this to them as a collision or ask them to negotiate. They were in the room at BQT, 26 May 2026.",
+    "borough": "Lewisham"
   },
   {
     "id": "the-love-tank-prepster",

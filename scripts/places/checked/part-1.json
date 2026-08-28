@@ -10,7 +10,8 @@
     "centres": "qtipoc",
     "checked": "2026-08",
     "evidence": "Flagship annual festival paused for 2026 in favour of a 2027 return, but org confirmed continuing 2026 community-led events/activations (with UAL, Bleecker, DIVA) in a dated announcement 7 May 2026 (diva-magazine.com; ukblackpride.org.uk/news/uk-black-pride-announces-strategic-reset-ahead-of-landmark-return-in-2027). Directory's 2026-event claim is superseded — using the live site/press.",
-    "status": "live"
+    "status": "live",
+    "borough": "Newham"
   },
   {
     "id": "glitter-cymru",
@@ -38,7 +39,8 @@
     "centres": "qtipoc",
     "checked": "2026-08",
     "evidence": "Melanin Vybz (LGBTQ+ BPOC 50+ Meetup) session was scheduled for Thu 13 Aug 2026 — cancelled that day only due to a heatwave closure notice on londonlgbtqcentre.org/whats-on, which confirms the programme is currently running as part of the Centre's live August 2026 calendar (42 events listed).",
-    "status": "live"
+    "status": "live",
+    "borough": "Southwark"
   },
   {
     "id": "rainbow-noir-manchester",

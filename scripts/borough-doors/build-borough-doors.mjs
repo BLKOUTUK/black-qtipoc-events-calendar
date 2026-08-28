@@ -16,6 +16,20 @@ const here = dirname(fileURLToPath(import.meta.url));
 const dataDir = join(here, 'data');
 const appRoot = join(here, '..', '..');
 
+// Places directory (scripts/places/merge.mjs output) — the doors read the same data the Places page shows.
+const placesAll = JSON.parse(readFileSync(join(here, '..', 'places', 'places.json'), 'utf8'));
+const slugify = (b) => String(b ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const placesIn = (slug) => placesAll.filter((p) => p.published && slugify(p.borough) === slug);
+const directorySection = (d) => {
+  const ps = placesIn(d.slug);
+  if (!ps.length) return '';
+  return `<div class="recent">
+      <h3>In the directory — ${esc(d.brandForm ?? d.slug)}</h3>
+      <ul>${ps.map((p) => `<li><strong>${p.url ? `<a href="${esc(p.url)}" rel="noopener">${esc(p.name)}</a>` : esc(p.name)}</strong> — ${esc(p.what)}</li>`).join('\n      ')}</ul>
+      <p class="recent-note">From the BLKOUT Places directory — <a href="https://events.blkoutuk.com/places">every entry checked for activity in the last year</a>.</p>
+    </div>`;
+};
+
 const esc = (s) =>
   String(s ?? '')
     .replaceAll('&', '&amp;')
@@ -352,6 +366,7 @@ const page = (d) => `<!doctype html>
     </div>`
         : ''
     }
+    ${directorySection(d)}
     ${quizSection(d) ? '' : `<article class="card">
       <h3><a href="https://events.blkoutuk.com/?utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">Gatherings across London — the BLKOUT events calendar</a></h3>
       <p>Fewer and truer: what's actually on for Black queer London, checked by people, never padded.</p>

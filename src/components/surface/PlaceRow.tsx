@@ -1,4 +1,5 @@
 import { Place } from '../../types/surface';
+import { doorSlugs, boroughSlug } from '../../data/places';
 
 interface PlaceRowProps {
   place: Place;
@@ -24,6 +25,19 @@ export function PlaceRow({ place }: PlaceRowProps) {
         <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-1">{place.regular}</p>
       )}
       <p className="text-sm text-[#f5f1e8]/50">{place.where}</p>
+      {place.borough && (
+        <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mt-1">
+          {place.borough}
+          {doorSlugs.includes(boroughSlug(place.borough)) && (
+            <>
+              {' · '}
+              <a href={`/${boroughSlug(place.borough)}/`} className="text-events/100 hover:underline normal-case tracking-normal">
+                BLKOUT in {place.borough} →
+              </a>
+            </>
+          )}
+        </p>
+      )}
     </div>
   );
 }

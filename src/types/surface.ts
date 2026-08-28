@@ -124,6 +124,8 @@ export interface Place {
   centres: PlaceCentres;
   checked: string; // 'YYYY-MM'
   evidence: string; // one line: dated activity inside the last 12 months + where seen
+  /** London borough (or local authority) so the borough doors can read across — e.g. Ajamu Studios → Lambeth */
+  borough?: string;
   /** stated audience excludes men — never published on a page for Black queer men */
   excludesMen?: boolean;
   status: 'live' | 'unclear' | 'dormant' | 'closed';

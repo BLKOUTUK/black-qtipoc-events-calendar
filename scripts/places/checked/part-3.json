@@ -163,14 +163,14 @@
     "org_id": "56aa8858-5c73-4150-b260-57892ac23c0e",
     "name": "Ajamu Studios",
     "what": "Ajamu X's fine art photography studio exploring the Black male body and same-sex desire, open for hire.",
-    "where": "UK",
-    "region": "uk-wide",
+    "where": "Brixton, Lambeth",
+    "region": "london",
     "kind": "venue",
     "url": "https://www.ajamu-studio.com",
     "instagram": "@ajamustudios",
     "centres": "black-queer-men",
     "checked": "2026-08",
-    "evidence": "Checked ajamu-studio.com — site lists a 2025 exhibition \"Portraits and Nudes\" and forthcoming \"Fierce: Pittsburgh (2026)\"; dated 2025/26 activity confirmed.",
+    "evidence": "Checked ajamu-studio.com — site lists a 2025 exhibition \"Portraits and Nudes\" and forthcoming \"Fierce: Pittsburgh (2026)\"; dated 2025/26 activity confirmed. | studio is in Brixton (Rob, 28 Aug 2026)",
     "status": "live",
     "sector": [
       "arts & culture",
@@ -178,7 +178,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Ajamu X — fine art photography of the Black male body, same-sex desire and the darkroom, under the banner of pleasure activism. Born Huddersfield 1963. Co-founded the rukus! Federation Black LGBT archive with Topher Campbell in June 2005. Studio available for hire. Note a second handle @ajamuphoto also exists."
+    "notes_full": "Ajamu X — fine art photography of the Black male body, same-sex desire and the darkroom, under the banner of pleasure activism. Born Huddersfield 1963. Co-founded the rukus! Federation Black LGBT archive with Topher Campbell in June 2005. Studio available for hire. Note a second handle @ajamuphoto also exists.",
+    "borough": "Lambeth"
   },
   {
     "id": "albert-kennedy-trust",
@@ -224,7 +225,8 @@
     ],
     "org_type": "media_cultural",
     "geography_scope": "national",
-    "notes_full": "Photography and film charity working on cultural identity, race, representation, human rights. Originally Association of Black Photographers. Co-founded by Rotimi Fani-Kayode — pioneering Black gay photographer. Based at Rivington Place, London EC2A. Essential visual arts partner."
+    "notes_full": "Photography and film charity working on cultural identity, race, representation, human rights. Originally Association of Black Photographers. Co-founded by Rotimi Fani-Kayode — pioneering Black gay photographer. Based at Rivington Place, London EC2A. Essential visual arts partner.",
+    "borough": "Hackney"
   },
   {
     "id": "bare-radicals",
@@ -246,7 +248,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "QTIPOC group in London. Ran a Windrush Day 2026 event (21 June) at QUEERCIRCLE, 3 Barton Yard SE10 0BN. Publishes on Substack as \"Bare Radicals from Ends\". Contact Kelsea (address supplied by Nathan Lewis in his 28 May 2026 amendment to the BQT follow-up). IN THE ROOM at BQT: Black Queer Orgs Connect, Africa Centre, 26 May 2026. Named in LGBTQ+ Global Majority Week Day 5 (network). Handle and Substack supplied by Rob, 6 Aug 2026 — previously filed as \"no route found\", which was wrong."
+    "notes_full": "QTIPOC group in London. Ran a Windrush Day 2026 event (21 June) at QUEERCIRCLE, 3 Barton Yard SE10 0BN. Publishes on Substack as \"Bare Radicals from Ends\". Contact Kelsea (address supplied by Nathan Lewis in his 28 May 2026 amendment to the BQT follow-up). IN THE ROOM at BQT: Black Queer Orgs Connect, Africa Centre, 26 May 2026. Named in LGBTQ+ Global Majority Week Day 5 (network). Handle and Substack supplied by Rob, 6 Aug 2026 — previously filed as \"no route found\", which was wrong.",
+    "borough": "Greenwich"
   },
   {
     "id": "bbz",
@@ -379,7 +382,8 @@
     "org_type": "grassroots_community",
     "geography_scope": "local",
     "notes_full": "Meets at The Liberation Centre in Brixton. Active summer 2025+. Grassroots group for Black lesbians. Part of the broader Black queer organising ecosystem in Lambeth.",
-    "excludesMen": true
+    "excludesMen": true,
+    "borough": "Lambeth"
   },
   {
     "id": "black-men-walk-for-health",
@@ -468,7 +472,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "LGBTQIA+ workstream of Black Thrive Lambeth. Co-creating \"Black, Queer & Thriving\" programme. Black LGBTQ+ Working Group influences systems and identifies solutions. Strong racial justice + queer health intersection. BLKOUT Diaspora Rainbow Partner. — Handles taken from Nathan Lewis' email signature, 28 May 2026 (parent Black Thrive accounts, not LGBTQIA+-programme-specific)."
+    "notes_full": "LGBTQIA+ workstream of Black Thrive Lambeth. Co-creating \"Black, Queer & Thriving\" programme. Black LGBTQ+ Working Group influences systems and identifies solutions. Strong racial justice + queer health intersection. BLKOUT Diaspora Rainbow Partner. — Handles taken from Nathan Lewis' email signature, 28 May 2026 (parent Black Thrive accounts, not LGBTQIA+-programme-specific).",
+    "borough": "Lambeth"
   },
   {
     "id": "black-trans-foundation",
@@ -557,7 +562,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Long-running Black queer club night — Afrobeat, Amapiano, RnB, Dancehall. One of few consistent long-standing Black gay men's spaces in UK nightlife. BLKOUT has directly referenced historically."
+    "notes_full": "Long-running Black queer club night — Afrobeat, Amapiano, RnB, Dancehall. One of few consistent long-standing Black gay men's spaces in UK nightlife. BLKOUT has directly referenced historically.",
+    "borough": "Lambeth"
   },
   {
     "id": "bradford-black-and-brown-queers",
@@ -687,7 +693,8 @@
     "org_type": "grassroots_community",
     "geography_scope": "local",
     "notes_full": "Monthly programme at the Africa Centre connecting Black and African LGBTQ+ voices through workshops, dialogues and club nights (Roots n Rhythms, Queer Kizomba). Curated by Veronique \"Vee\" Belinga, who is already a BLKOUT contact via the IVOR/UKBP prize thread (Jul 2025). Chakula = \"food\" in Swahili. The model case for a QTIPOC-led programme inside a larger institution. Hosted the BQT: Black Queer Orgs Connect event, 26 May 2026. ⚠ Rob spelled it \"Chatakula\" once — correct spelling is Chakula.",
-    "regular": "monthly"
+    "regular": "monthly",
+    "borough": "Southwark"
   },
   {
     "id": "chiva",
@@ -775,7 +782,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Bar, cafe, community hub and five-floor venue at 30 Old Compton Street W1D 4UR — the former G-A-Y Bar site. COVEN: HEADQUARTERS opened 19 June 2026, the first new LGBTQ+ club on Old Compton Street in over a decade. Began as a club night in Hackney Wick in 2025. Founded by Matthew Jacobs Morgan. Cafe / community hub / artists salon by day; club, cabaret, live music, screenings, workshops by night. QTIPOC-led (confirmed Rob 5 Aug 2026). ⚠ No own website or social handle captured yet — find and add before using in outbound. — Handles found 5 Aug 2026: IG @worldwidecoven; covenhackney.com is the original Hackney Wick venue."
+    "notes_full": "Bar, cafe, community hub and five-floor venue at 30 Old Compton Street W1D 4UR — the former G-A-Y Bar site. COVEN: HEADQUARTERS opened 19 June 2026, the first new LGBTQ+ club on Old Compton Street in over a decade. Began as a club night in Hackney Wick in 2025. Founded by Matthew Jacobs Morgan. Cafe / community hub / artists salon by day; club, cabaret, live music, screenings, workshops by night. QTIPOC-led (confirmed Rob 5 Aug 2026). ⚠ No own website or social handle captured yet — find and add before using in outbound. — Handles found 5 Aug 2026: IG @worldwidecoven; covenhackney.com is the original Hackney Wick venue.",
+    "borough": "Westminster"
   },
   {
     "id": "dlplug-london",
@@ -798,7 +806,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Black-centred sex-positive party/community space for Black MSM. Created so \"Black people were not the minority\" in sexual/social spaces. Featured on BLKOUT's own website. Addresses exclusion in mainstream gay sex-positive spaces."
+    "notes_full": "Black-centred sex-positive party/community space for Black MSM. Created so \"Black people were not the minority\" in sexual/social spaces. Featured on BLKOUT's own website. Addresses exclusion in mainstream gay sex-positive spaces.",
+    "borough": "Hackney"
   },
   {
     "id": "dope-black-queers",
@@ -843,7 +852,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Creative media production CIC led by founder/CEO Blaise Singh (X: @BlaiseSingh). Elevate Studios is a fully equipped creative media facility in HOUNSLOW, west London — open to community members, artists and organisations to tell their own stories. Runs QUEER GLOBAL, a flagship heritage programme documenting the stories of QTIPOC and migrant Londoners. Commercial earnings fund free community-led work — trading-to-fund-mission model, directly comparable to BLKOUT CBS thinking. Works with LGBTQ+ and global majority communities on career readiness and representation. QTIPOC-led (confirmed Rob 5 Aug 2026). Note: fills a west London / outer-borough gap in the ecosystem map."
+    "notes_full": "Creative media production CIC led by founder/CEO Blaise Singh (X: @BlaiseSingh). Elevate Studios is a fully equipped creative media facility in HOUNSLOW, west London — open to community members, artists and organisations to tell their own stories. Runs QUEER GLOBAL, a flagship heritage programme documenting the stories of QTIPOC and migrant Londoners. Commercial earnings fund free community-led work — trading-to-fund-mission model, directly comparable to BLKOUT CBS thinking. Works with LGBTQ+ and global majority communities on career readiness and representation. QTIPOC-led (confirmed Rob 5 Aug 2026). Note: fills a west London / outer-borough gap in the ecosystem map.",
+    "borough": "Hounslow"
   },
   {
     "id": "english-collective-of-prostitutes",
@@ -1328,7 +1338,8 @@
     ],
     "org_type": "healthcare_provider",
     "geography_scope": "local",
-    "notes_full": "One of oldest LGBT+ charities in UK. Counselling, peer support, drug/alcohol support. Targeted programmes for people of colour."
+    "notes_full": "One of oldest LGBT+ charities in UK. Counselling, peer support, drug/alcohol support. Targeted programmes for people of colour.",
+    "borough": "Islington"
   },
   {
     "id": "london-lgbtq-community-centre",
@@ -1350,7 +1361,8 @@
     ],
     "org_type": "grassroots_community",
     "geography_scope": "local",
-    "notes_full": "Sober sanctuary and community space in Bankside, Southwark. Hosts multiple community groups including Melanin Vybz (55+ POC). Sexual health testing, mental health support. Key physical infrastructure for London LGBTQ+ groups without their own premises."
+    "notes_full": "Sober sanctuary and community space in Bankside, Southwark. Hosts multiple community groups including Melanin Vybz (55+ POC). Sexual health testing, mental health support. Key physical infrastructure for London LGBTQ+ groups without their own premises.",
+    "borough": "Southwark"
   },
   {
     "id": "melanin-vybz-london-lgbtq-centre",
@@ -1373,7 +1385,8 @@
     "org_type": "grassroots_community",
     "geography_scope": "local",
     "notes_full": "Based at the London LGBTQ+ Community Centre. 55+ organising for LGBTQ+ people of colour, all genders. Fills a critical gap — the only identified org serving older Black/POC queer people specifically. Directly addresses the documented absence of services for older Black queer people. — CORRECTED + ROUTED 6 Aug 2026 (Rob: \"run out of London LGBTQ Community Centre\"). Age is 50+, NOT 55+ — their own event name is \"Melanin Vybz (BPOC 50+ Meetup)\". Meets 3rd Friday monthly 17:30–19:30 IN PERSON at the London LGBTQ+ Community Centre, 60-62 Hopton Street, Bankside SE1 9JH, AND last Friday monthly 16:00–17:30 ONLINE — hybrid, which matters for this cohort. Contact route is the Centre: hello@londonlgbtqcentre.org. Also listed in the LGBT Consortium member directory; events on Eventbrite and londonlgbtqcentre.org. Previously filed by Claude as \"no route found\", which was wrong — the route was recorded in this very note.",
-    "regular": "monthly"
+    "regular": "monthly",
+    "borough": "Southwark"
   },
   {
     "id": "metro-charity",
