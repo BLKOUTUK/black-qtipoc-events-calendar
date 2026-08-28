@@ -1,5 +1,9 @@
 # Black and QTIPOC Organizations Directory - UK
 
+> ⚠ **DO NOT LIST — Pxssy Palace closed ~2024 (Rob, 28 Aug 2026).** Its entry below is kept only so a
+> re-parse cannot re-introduce it: `scripts/places/never-list.json` drops it mechanically. Never surface it anywhere.
+
+
 ## Major Annual Events & Festivals
 
 **UK Black Pride**  
@@ -85,7 +89,7 @@ Focus: LGBT+ Christians, anti-conversion therapy advocacy
 
 ## Club Nights & Cultural Collectives
 
-**Pxssy Palace**  
+**Pxssy Palace** — CLOSED ~2024, DO NOT LIST  
 Location: London (various venues including Colours Hoxton)  
 Website: pxssypalace.com  
 Email: hello@pxssypalace.com  
