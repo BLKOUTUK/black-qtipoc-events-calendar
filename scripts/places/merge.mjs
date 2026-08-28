@@ -16,6 +16,10 @@ const KINDS = ['organisation','group','venue','club-night','collective','service
 const CENTRES = ['black-queer-men','black-lgbtq','qtipoc','lgbtq-broad','general'];
 const STATUSES = ['live','unclear','dormant','closed'];
 
+// Rob's rulings outrank any checker. Anything in never-list.json is dropped before it can be published.
+const never = JSON.parse(readFileSync(join(here, 'never-list.json'), 'utf8')).never;
+const isNever = (p) => never.some((n) => n.id === p.id || (p.name ?? '').toLowerCase().includes(n.match));
+
 const parts = readdirSync(checkedDir).filter((f) => /^part-\d+\.json$/.test(f)).sort();
 if (parts.length === 0) { console.error('NO-REPORT: no checked/part-*.json found'); process.exit(1); }
 
@@ -34,6 +38,7 @@ for (const f of parts) {
     if (p.status === 'live' && !/20\d\d|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/i.test(p.evidence ?? ''))
       problems.push(`${where}: status live but evidence carries no date`);
     if (seen.has(p.id)) problems.push(`${where}: duplicate id`);
+    if (isNever(p)) { console.log(`never-list: dropped ${p.id}`); continue; }
     seen.set(p.id, p);
   }
 }

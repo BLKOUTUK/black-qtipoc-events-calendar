@@ -183,8 +183,8 @@
     "url": "https://www.pxssypalace.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "'Fever x Shoga Shoga' listed as an Exclusively Black Event, Fri 28-Sat 29 Aug 2026, 26 Denmark Street, London (skiddle.com/artists/pxssy-palace-123571367). Pxssypalace.com's own 'upcoming events' section had no dates when fetched directly.",
-    "status": "live",
+    "evidence": "CLOSED ~2024 per Rob (28 Aug 2026). The checker's 'Fever x Shoga Shoga 28-29 Aug 2026' line was wrong — stale listings. Never list; see scripts/places/never-list.json",
+    "status": "closed",
     "excludesMen": true
   },
   {
