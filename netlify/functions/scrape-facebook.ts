@@ -6,7 +6,6 @@ const KNOWN_QTIPOC_PAGES = [
   { id: 'UKBlackPride', name: 'UK Black Pride', type: 'advocacy' },
   { id: 'GlitterCymru', name: 'Glitter Cymru', type: 'advocacy' },
   { id: 'RainbowNoirMCR', name: 'Rainbow Noir Manchester', type: 'community_center' },
-  { id: 'PxssyPalace', name: 'Pxssy Palace', type: 'arts_collective' },
   { id: 'bbz_london', name: 'BBZ London', type: 'arts_collective' },
   { id: 'houseofnoirmcr', name: 'House of Noir', type: 'arts_collective' },
   { id: 'ColoursYouthUK', name: 'Colours Youth Network', type: 'youth' },
