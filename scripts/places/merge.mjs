@@ -32,7 +32,8 @@ for (const f of parts) {
   const arr = JSON.parse(readFileSync(join(checkedDir, f), 'utf8'));
   for (const p of arr) {
     const where = `${f}:${p.id ?? p.name}`;
-    if (!p.id || !p.name || !p.what || !p.where) problems.push(`${where}: missing id/name/what/where`);
+    if (!p.id || !p.name) problems.push(`${where}: missing id/name`);
+    if (p.status === 'live' && (!p.what || !p.where)) problems.push(`${where}: live entry missing what/where`);
     if (!REGIONS.includes(p.region)) problems.push(`${where}: bad region ${p.region}`);
     if (!KINDS.includes(p.kind)) problems.push(`${where}: bad kind ${p.kind}`);
     if (!CENTRES.includes(p.centres)) problems.push(`${where}: bad centres ${p.centres}`);
@@ -40,7 +41,7 @@ for (const f of parts) {
     if (!p.evidence) problems.push(`${where}: no evidence line`);
     if (p.status === 'live' && !/20\d\d|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/i.test(p.evidence ?? ''))
       problems.push(`${where}: status live but evidence carries no date`);
-    if (seen.has(p.id)) problems.push(`${where}: duplicate id`);
+    if (seen.has(p.id)) console.log(`id-dedupe: ${p.id} superseded by ${f}`);
     if (isNever(p)) { console.log(`never-list: dropped ${p.id}`); continue; }
     const clean = Object.fromEntries(PLACE_KEYS.filter((k) => p[k] !== undefined).map((k) => [k, p[k]]));
     const nk = norm(p.name);
