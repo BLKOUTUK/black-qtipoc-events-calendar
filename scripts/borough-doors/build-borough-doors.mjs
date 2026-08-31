@@ -44,11 +44,70 @@ import { fileURLToPath } from 'node:url';
 const HERE = dirname(fileURLToPath(import.meta.url));
 // Places directory (scripts/places/merge.mjs output) — doors read the same data the
 // Places page shows, which is also where the never-list gate is enforced.
+const boroughMapData = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'data', '_boroughs-map.json'), 'utf8'));
 const placesAll = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'places', 'places.json'), 'utf8'));
 const slugify = (b) => String(b ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const placesIn = (slug) => placesAll.filter((pl) => pl.published && slugify(pl.borough) === slug);
 const DATA = join(HERE, 'data');
 const OUT = join(HERE, '..', '..', 'public');
+
+
+// Per-borough photographic grounds. Images and anchors come from
+// src/components/foundation/FoundationLayer.tsx (33 curated, anchors audited
+// eyes-first). Chosen per borough so no two doors wear the same pictures:
+// a "power" frame under the history, a "joy" frame at the door.
+const GROUNDS = {
+  haringey: { history: ['power-09.jpg', '50% 25%'], door: ['joy-09.jpg', '50% 30%'] }, // MAKE SPACE FOR US · BLKOUT fan
+  croydon:  { history: ['power-05.jpg', '50% 35%'], door: ['joy-07.jpg', '50% 30%'] }, // flag onstage · 3 men laughing
+  lambeth:  { history: ['power-01.jpg', 'center'],  door: ['joy-08.jpg', '50% 30%'] }, // picket signs · selfie at Pride
+  enfield:  { history: ['power-10.jpg', '50% 25%'], door: ['joy-01.jpg', '50% 35%'] }, // 3 men in forest · 2 conversing
+};
+// A new borough with no entry still gets a distinct pair rather than a repeat.
+const POWER = ['power-09.jpg','power-05.jpg','power-01.jpg','power-10.jpg','power-03.jpg','power-06.jpg','power-02.jpg'];
+const JOY   = ['joy-09.jpg','joy-07.jpg','joy-08.jpg','joy-01.jpg','joy-04.jpg','joy-10.jpg','joy-03.jpg'];
+const ANCHOR = { 'power-01.jpg':'center','power-02.jpg':'50% 30%','power-03.jpg':'50% 25%','power-05.jpg':'50% 35%',
+  'power-06.jpg':'50% 30%','power-09.jpg':'50% 25%','power-10.jpg':'50% 25%',
+  'joy-01.jpg':'50% 35%','joy-03.jpg':'50% 25%','joy-04.jpg':'50% 30%','joy-07.jpg':'50% 30%',
+  'joy-08.jpg':'50% 30%','joy-09.jpg':'50% 30%','joy-10.jpg':'50% 40%' };
+const groundsFor = (slug) => {
+  if (GROUNDS[slug]) return GROUNDS[slug];
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+  const pw = POWER[h % POWER.length];
+  const jy = JOY[(h >>> 3) % JOY.length];
+  return { history: [pw, ANCHOR[pw] ?? 'center 30%'], door: [jy, ANCHOR[jy] ?? 'center 30%'] };
+};
+
+
+// London boroughs, ONS generalised boundaries projected to SVG once (data/_boroughs-map.json).
+// This borough is filled gold; neighbours are outlined; boroughs with a door open are
+// links. Everything else sits dark — the 32-borough ambition, drawn.
+const boroughMap = (d, openSlugs) => {
+  const slugOf = (nm) => String(nm).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const self = slugOf(boroughWordOf(d));
+  const neighbourSlugs = new Set((d.neighbours ?? []).map((n) => n.slug));
+  const entries = Object.entries(boroughMapData.paths);
+  const shapes = entries
+    .map(([name, path], i) => {
+      const sl = slugOf(name);
+      const isSelf = sl === self;
+      const isNb = neighbourSlugs.has(sl);
+      const hasDoor = openSlugs.has(sl);
+      const cls = ['b', isSelf ? 'self' : '', isNb ? 'nb' : '', hasDoor && !isSelf ? 'door' : ''].filter(Boolean).join(' ');
+      const shape = `<path class="${cls}" style="--i:${i}" d="${path}"><title>${esc(name)}${
+        isSelf ? ' — you are here' : hasDoor ? ' — door open' : ''
+      }</title></path>`;
+      return hasDoor && !isSelf ? `<a href="../${esc(sl)}/">${shape}</a>` : shape;
+    })
+    .join('');
+  return `      <div class="boroughmap reveal">
+        <svg viewBox="${boroughMapData.viewBox}" role="img" aria-label="Map of the 33 London boroughs with ${esc(
+    boroughWordOf(d)
+  )} highlighted">${shapes}</svg>
+        <p class="map-note">${esc(boroughMapData.attribution)}</p>
+      </div>`;
+};
+const boroughWordOf = (d) => d.brandForm.replace(/^BLKOUT in\s+/i, '');
 
 const esc = (s) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -133,7 +192,7 @@ function build(slug) {
         (d.numbers?.body ? `\n<p class="aside">${esc(d.numbers.body)}</p>` : ''),
       '',
       'the-record',
-      ['power-09.jpg', '50% 25%']
+      groundsFor(d.slug).history
     )
   );
 
@@ -309,7 +368,7 @@ ${d.bibliography.entries
 
   const doorN = ++n;
   const door = `  <section class="plate door has-bg" id="s-door">
-${ground('joy-09.jpg', '50% 30%')}
+${ground(...groundsFor(d.slug).door)}
     <div class="plate-head">
       <span class="numeral">(##)</span>
       <span class="kicker">The door</span>
@@ -340,6 +399,7 @@ ${d.door.options
   const nextDoor = d.neighbours?.length
     ? plate(++n, 'The other doors', 'Next door',
         `<p>The doors are opening borough by borough. Step through, or help us open the next one.</p>
+${boroughMap(d, existingSlugs)}
       <div class="pills">
 ${d.neighbours
   .map((nb) =>
@@ -852,6 +912,26 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   @media (prefers-reduced-motion:reduce){
     .reveal.armed .pills > *{opacity:1; transform:none; transition:none}
     .reveal.armed.in .pill.open{animation:none; border-color:var(--gold); color:var(--gold)}
+  }
+
+  /* The map holds this section's motion: boroughs settle in, then this one takes
+     the gold and its neighbours draw their edges. */
+  .boroughmap{margin:1.6rem 0 1.2rem; max-width:44rem}
+  .boroughmap svg{width:100%; height:auto; display:block; overflow:visible}
+  .boroughmap path.b{fill:#171512; stroke:#39342a; stroke-width:1.4; stroke-linejoin:round}
+  .boroughmap a:hover path.b{fill:#8a6c0a}
+  .boroughmap path.b.door{fill:#5a4708; stroke:var(--gold); stroke-width:1.8; cursor:pointer}
+  .boroughmap path.b.nb{stroke:#b39a4a; stroke-width:1.8}
+  .boroughmap path.b.self{fill:var(--gold); stroke:var(--gold-bright, #fff3a8); stroke-width:2}
+  .map-note{font-size:.72rem; color:var(--dim); margin-top:.7rem !important; max-width:44rem}
+  .reveal.armed .boroughmap path.b{opacity:0}
+  .reveal.armed.in .boroughmap path.b{opacity:1; transition:opacity .5s ease, fill .6s ease, stroke .6s ease;
+    transition-delay:calc(var(--i) * 14ms)}
+  .reveal.armed.in .boroughmap path.b.self{transition-delay:.62s}
+  .reveal.armed.in .boroughmap path.b.nb{transition-delay:.82s}
+  @media (prefers-reduced-motion:reduce){
+    .reveal.armed .boroughmap path.b{opacity:1}
+    .reveal.armed.in .boroughmap path.b{transition:none; transition-delay:0s}
   }
   .census-source{font-size:.82rem; margin-top:-1rem !important}
   code.listing{display:block; margin:.6rem 0 0; padding:.7rem .9rem; background:var(--shell);
