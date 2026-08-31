@@ -318,6 +318,69 @@
   .directory li{color:var(--dim); padding:.4rem 0; font-size:.95rem}
   .directory li strong{color:var(--ink)}
   .directory-note{font-size:.85rem; margin-top:.8rem !important}
+
+  /* The restored sections arrive a piece at a time rather than all at once:
+     the census table builds row by row, and the borough's own row lights after
+     it lands — you appear inside the table you are being shown. */
+  .reveal.armed table.census tbody tr,
+  .reveal.armed .gallery figure,
+  .reveal.armed .recently li,
+  .reveal.armed .directory li{opacity:0; transform:translateY(.6rem)}
+  .reveal.armed.in table.census tbody tr,
+  .reveal.armed.in .gallery figure,
+  .reveal.armed.in .recently li,
+  .reveal.armed.in .directory li{opacity:1; transform:none;
+    transition:opacity .55s ease, transform .55s ease}
+  .reveal.armed.in table.census tbody tr:nth-child(1){transition-delay:0.04s}
+  .reveal.armed.in table.census tbody tr:nth-child(2){transition-delay:0.08s}
+  .reveal.armed.in table.census tbody tr:nth-child(3){transition-delay:0.12s}
+  .reveal.armed.in table.census tbody tr:nth-child(4){transition-delay:0.16s}
+  .reveal.armed.in table.census tbody tr:nth-child(5){transition-delay:0.20s}
+  .reveal.armed.in table.census tbody tr:nth-child(6){transition-delay:0.24s}
+  .reveal.armed.in table.census tbody tr:nth-child(7){transition-delay:0.28s}
+  .reveal.armed.in table.census tbody tr:nth-child(8){transition-delay:0.32s}
+  .reveal.armed.in table.census tbody tr:nth-child(9){transition-delay:0.36s}
+  .reveal.armed.in table.census tbody tr:nth-child(10){transition-delay:0.40s}
+  .reveal.armed.in table.census tbody tr:nth-child(11){transition-delay:0.44s}
+  .reveal.armed.in table.census tbody tr:nth-child(12){transition-delay:0.48s}
+  .reveal.armed.in .gallery figure:nth-child(1){transition-delay:0.07s}
+  .reveal.armed.in .gallery figure:nth-child(2){transition-delay:0.14s}
+  .reveal.armed.in .gallery figure:nth-child(3){transition-delay:0.21s}
+  .reveal.armed.in .gallery figure:nth-child(4){transition-delay:0.28s}
+  .reveal.armed.in .gallery figure:nth-child(5){transition-delay:0.35s}
+  .reveal.armed.in .gallery figure:nth-child(6){transition-delay:0.42s}
+  .reveal.armed.in .gallery figure:nth-child(7){transition-delay:0.49s}
+  .reveal.armed.in .gallery figure:nth-child(8){transition-delay:0.56s}
+  .reveal.armed.in .recently li:nth-child(1),
+  .reveal.armed.in .directory li:nth-child(1){transition-delay:0.05s}
+  .reveal.armed.in .recently li:nth-child(2),
+  .reveal.armed.in .directory li:nth-child(2){transition-delay:0.10s}
+  .reveal.armed.in .recently li:nth-child(3),
+  .reveal.armed.in .directory li:nth-child(3){transition-delay:0.15s}
+  .reveal.armed.in .recently li:nth-child(4),
+  .reveal.armed.in .directory li:nth-child(4){transition-delay:0.20s}
+  .reveal.armed.in .recently li:nth-child(5),
+  .reveal.armed.in .directory li:nth-child(5){transition-delay:0.25s}
+  .reveal.armed.in .recently li:nth-child(6),
+  .reveal.armed.in .directory li:nth-child(6){transition-delay:0.30s}
+  .reveal.armed.in .recently li:nth-child(7),
+  .reveal.armed.in .directory li:nth-child(7){transition-delay:0.35s}
+  .reveal.armed.in .recently li:nth-child(8),
+  .reveal.armed.in .directory li:nth-child(8){transition-delay:0.40s}
+  /* the self row settles, then takes the gold */
+  .reveal.armed.in table.census tbody tr.self{animation:selfrow 1.6s ease .95s both}
+  @keyframes selfrow{
+    0%{background:rgba(255,215,0,0)}
+    35%{background:rgba(255,215,0,.22)}
+    100%{background:rgba(255,215,0,.07)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal.armed table.census tbody tr,
+    .reveal.armed .gallery figure,
+    .reveal.armed .recently li,
+    .reveal.armed .directory li{opacity:1; transform:none; transition:none}
+    .reveal.armed.in table.census tbody tr.self{animation:none; background:rgba(255,215,0,.07)}
+  }
   .census-source{font-size:.82rem; margin-top:-1rem !important}
   code.listing{display:block; margin:.6rem 0 0; padding:.7rem .9rem; background:var(--shell);
     border:1px solid var(--line); color:var(--ink); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
