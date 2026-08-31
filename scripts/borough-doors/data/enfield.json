@@ -67,18 +67,12 @@
     "intro": "Black queer men have never let a borough boundary decide where community happens — and Enfield men have always travelled for their people. Where you're centred, not just welcome:",
     "entries": [
       {
-        "name": "UK Black Pride",
-        "url": "https://www.ukblackpride.org.uk",
-        "note": "Europe's largest celebration for LGBTQ+ people of African, Asian, Caribbean, Middle Eastern and Latin American descent — co-founded by Lady Phyll, who grew up in this borough.",
-        "centres": "black-lgbtq",
-        "currencyChecked": false
-      },
-      {
         "name": "COVEN",
         "url": "https://www.instagram.com/coven.ldn",
-        "note": "Black-owned queer venue in Hackney Wick — down the line from the borough.",
+        "note": "Black-owned queer venue, now in Soho — straight down the Piccadilly line from the borough.",
         "centres": "black-lgbtq",
-        "currencyChecked": false
+        "currencyChecked": true,
+        "verifiedBy": "Rob, 31 August 2026 — moved from Hackney Wick to Soho"
       },
       {
         "name": "House of Rainbow",

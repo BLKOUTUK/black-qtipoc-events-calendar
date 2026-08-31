@@ -1,0 +1,321 @@
+{
+  "slug": "haringey",
+  "brandForm": "BLKOUT in Haringey",
+  "title": "Black queer men in Haringey | BLKOUT in Haringey",
+  "metaDescription": "For Black queer men in and around Haringey — Tottenham, Wood Green, Harringay, Seven Sisters: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/haringey/",
+  "landmark": {
+    "src": "../images/haringey/haringey-alexandra-palace.png",
+    "alt": "Pencil sketch of Alexandra Palace with the BLKOUT roundel set into its rose window"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Haringey's.",
+    "heading": "BLKOUT in Haringey",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and in Haringey we are arriving somewhere that was already doing this. The borough ran the country's first council lesbian and gay unit. The Black Lesbian and Gay Centre was founded here. In 1987 it put three and a half thousand people on the street for Black lesbians and gay men. Around 52,400 Black residents live here now. This door is for the Black queer men among them."
+  },
+  "lastChecked": "31 August 2026",
+  "quiz": {
+    "heading": "Know your Haringey?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "In 1986 one council opened the first lesbian and gay unit in the country. Which borough?",
+        "options": [
+          {
+            "t": "Haringey",
+            "correct": true
+          },
+          {
+            "t": "Lambeth",
+            "correct": false
+          },
+          {
+            "t": "Camden",
+            "correct": false
+          }
+        ],
+        "reveal": "Haringey — and it was run by Femi Otitoju. The first of its kind in Britain, in this borough, forty years ago. Everything that followed, including the backlash, started from that decision."
+      },
+      {
+        "q": "On 2 May 1987, three and a half thousand people marched from Duckett's Common to Bruce Castle Park. Under what banner?",
+        "options": [
+          {
+            "t": "Smash the Backlash",
+            "correct": true
+          },
+          {
+            "t": "Positive Images",
+            "correct": false
+          },
+          {
+            "t": "Haringey Pride",
+            "correct": false
+          }
+        ],
+        "reveal": "Smash the Backlash — organised together by the Positive Images Campaign and Haringey Black Action, and the first demonstration of its kind in Britain to put the lives of Black lesbians and gay men at its centre. It went down The Roundway. People still living here were on it."
+      },
+      {
+        "q": "Which Tottenham MP stood up against Section 28?",
+        "options": [
+          {
+            "t": "Bernie Grant",
+            "correct": true
+          },
+          {
+            "t": "David Lammy",
+            "correct": false
+          },
+          {
+            "t": "Diane Abbott",
+            "correct": false
+          }
+        ],
+        "reveal": "Bernie Grant, elected for Tottenham in 1987, opposed Clause 28 in Parliament. The arts centre on Tottenham Green carries his name, and it is still one of the borough's great Black cultural rooms."
+      }
+    ],
+    "scores": {
+      "three": "Haringey knows its own history. Now help us keep it current.",
+      "two": "Close. The borough has more history than most boroughs have streets.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Haringey",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [
+      {
+        "name": "Wise Thoughts",
+        "url": "https://wisethoughts.org",
+        "note": "Global Majority and LGBTQI+ arts charity, founded in Wood Green in 1999 and still running from the Creative Cultural Hub at Wood Green Central Library. Runs the gayWISE drop-in — housing and legal advice alongside the social — and GFEST, its cross-arts festival, every November since 2007.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Haringey. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Bernie Grant Arts Centre",
+        "url": "https://www.berniegrantcentre.co.uk",
+        "note": "Tottenham Green's home for Black creativity, named for the MP who opposed Section 28. BLKOUT screened here in 2017, during its James Baldwin season.",
+        "centres": "black-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Black Thrive Haringey",
+        "url": "https://www.mindinharingey.org.uk/our-services/black-thrive-in-haringey/",
+        "note": "The borough's arm of the Black Thrive movement, hosted by Mind in Haringey — peer-led research, cultural competency training, community assemblies and the Time2Heal app. Backed by ten years of Lottery funding. Where the borough's Black mental health work lives.",
+        "centres": "black-general",
+        "currencyChecked": true,
+        "verifiedBy": "Rob, 31 August 2026"
+      },
+      {
+        "name": "Mind in Haringey",
+        "url": "https://www.mindinharingey.org.uk",
+        "note": "Peer-led mental health support in the borough, including the Proud North London project for LGBTQ+ people, and the host of Black Thrive Haringey.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "The Love Tank — MAUREEN",
+        "url": "https://thelovetank.info",
+        "note": "Peer-led sexual health and community building for queer men of colour, with outreach across north London. PrEP, harm reduction, and rooms that don't need you to explain yourself.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      },
+      {
+        "name": "COVEN",
+        "url": "https://www.instagram.com/coven.ldn",
+        "note": "Black-owned queer venue, now in Soho — straight down the Piccadilly line from the borough.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true,
+        "verifiedBy": "Rob, 31 August 2026 — moved from Hackney Wick to Soho"
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Haringey sexual health services",
+        "url": "https://haringey.gov.uk/health-wellbeing/services-support/sexual-health/sti-testing-treatment",
+        "note": "The borough's own guide to free STI testing and treatment, including the clinics that serve Haringey residents.",
+        "currencyChecked": false
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Haringey's Black queer record is unusually well kept — because people here did the keeping. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "Haringey Vanguard",
+        "author": "Veronica McKenzie",
+        "year": "2019-2021",
+        "note": "Oral histories of the borough's Black and minority ethnic LGBTQ+ activists, 1970s to 1990s. The project closed with an exhibition at Bruce Castle in February 2021; its archive is held at Bruce Castle Museum and London Metropolitan Archives.",
+        "url": "https://haringeyvanguard.wordpress.com",
+        "urlLabel": "Visit the project"
+      },
+      {
+        "title": "LGBTQ+ timeline, 1967 to 1988",
+        "author": "Haringey Council",
+        "year": "2021",
+        "note": "The borough's own record of its activism, year by year — the Lesbian and Gay Unit, Positive Images, Smash the Backlash, and the people who carried them.",
+        "url": "https://haringey.gov.uk/leisure-parks-culture/culture/lgbtq-365/lgbtq-history-timeline-heritage-resources/lgbtq-timeline-1967-to-1988",
+        "urlLabel": "Read the timeline"
+      },
+      {
+        "title": "Challenging Heterosexism: The Haringey Experiment, 1986-1987",
+        "author": "NOTCHES",
+        "year": "2014",
+        "note": "How a borough's schools policy became the country's argument, and then its law."
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 52,400 Black residents in Haringey. On the estimates we publish, that's 1,200 to 1,700 Black queer men in the borough — roughly the crowd that filled Duckett's Common in 1987, living here right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Haringey's Black queer history isn't missing. It's foundational, and largely uncredited.\n\nThe Black Lesbian and Gay Centre was founded in 1985, and its northern base was an annex of Tottenham Town Hall on Somerset Road. The following year the borough opened the first council lesbian and gay unit in the country, run by Femi Otitoju. And on 2 May 1987 the Positive Images Campaign and Haringey Black Action marched three and a half thousand people from Duckett's Common to Bruce Castle Park under the banner Smash the Backlash — the first demonstration of its kind in Britain to put the lives of Black lesbians and gay men at its centre.\n\nSection 28 became law in 1988, and Haringey was the borough it was written against. That is usually where the story gets told from — the losing end. But the borough was doing the thing first, and people who were there are still here. The rest of it — the rooms, the nights, the photographs in shoeboxes — is still being gathered, and the panel below is where it continues."
+  },
+  "neighbours": [
+    {
+      "name": "Enfield",
+      "slug": "enfield"
+    },
+    {
+      "name": "Hackney",
+      "slug": "hackney"
+    },
+    {
+      "name": "Islington",
+      "slug": "islington"
+    },
+    {
+      "name": "Waltham Forest",
+      "slug": "waltham-forest"
+    },
+    {
+      "name": "Barnet",
+      "slug": "barnet"
+    },
+    {
+      "name": "Croydon — the first door",
+      "slug": "croydon"
+    }
+  ],
+  "archive": {
+    "intro": "Haringey runs through our own writing — Tottenham shops and Tottenham childhoods, a Baldwin screening at the Bernie Grant in 2017, and our work alongside Haringey Vanguard on the borough's archive. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Haringey?",
+      "a": "Start with the door on this page — you'll hear about everything as it happens. Wise Thoughts runs a regular LGBTQI+ drop-in at Wood Green, and BLKOUT's national community is open to you today. If a few Haringey men want a table in the borough, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Haringey?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. The borough's own clinics are listed above, and 56 Dean Street is a short run down the Piccadilly line."
+    },
+    {
+      "q": "Is BLKOUT a Haringey organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. Haringey has two of our directors living in it."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the borough's own record and the public archive, and dated so you can see when we last looked. If we've got something wrong — or missed something you were part of — the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Haringey — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "haringey-door",
+    "options": [
+      {
+        "value": "definitely",
+        "title": "I'm in",
+        "body": "Tell me everything happening in and around Haringey."
+      },
+      {
+        "value": "if-organised",
+        "title": "If something's on locally",
+        "body": "I'd come along if something got going in the borough."
+      },
+      {
+        "value": "keep-informed",
+        "title": "Just keep me posted",
+        "body": "Not sure yet — send me what's happening now and then."
+      }
+    ],
+    "holderLabel": "I could help hold something in Haringey — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Haringey, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This borough kept its own record better than most, and it is still the people here who know it best. If a group has folded, a night has moved, or we've missed something you were part of — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "haringey-door-intel",
+    "placeholder": "That group folded last year… the drop-in moved… my uncle was on that march…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Haringey's.",
+    "links": [
+      {
+        "label": "blkoutuk.com",
+        "url": "https://blkoutuk.com"
+      },
+      {
+        "label": "Events across the UK",
+        "url": "https://events.blkoutuk.com"
+      },
+      {
+        "label": "BLKOUTHUB",
+        "url": "https://blkouthub.com"
+      }
+    ]
+  },
+  "retired": [
+    {
+      "name": "Haringey Vanguard (as a live project)",
+      "ended": "2021",
+      "source": "Project concluded with its Bruce Castle exhibition, February 2021 — the archive lives on at Bruce Castle and London Metropolitan Archives. Listed in the bibliography, not as a live service."
+    }
+  ],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}

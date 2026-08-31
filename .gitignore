@@ -115,3 +115,6 @@ graphify-out/
 
 # review renders (scripts/render-fixture.mjs output) — regenerated, never committed
 render/
+
+# design-loop render artefacts (regenerable, multi-MB)
+index-render/
