@@ -42,6 +42,11 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+// Places directory (scripts/places/merge.mjs output) — doors read the same data the
+// Places page shows, which is also where the never-list gate is enforced.
+const placesAll = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'places', 'places.json'), 'utf8'));
+const slugify = (b) => String(b ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const placesIn = (slug) => placesAll.filter((pl) => pl.published && slugify(pl.borough) === slug);
 const DATA = join(HERE, 'data');
 const OUT = join(HERE, '..', '..', 'public');
 
@@ -145,7 +150,30 @@ function build(slug) {
         (d.here.intro ? `<p>${esc(d.here.intro)}</p>` : '') +
           (hereSplit.kept.length
             ? ringList(hereSplit.kept)
-            : `<p class="quiet">${esc(d.here.quietNote ?? '')}</p>`),
+            : `<p class="quiet">${esc(d.here.quietNote ?? '')}</p>`) +
+          // Past events are rot-proof: what already happened here never goes stale.
+          (d.here.recently?.length
+            ? `\n      <div class="recently">
+        <h3>Recently in the borough</h3>
+        <ul>
+${d.here.recently.map((r) => `          <li><span class="when">${esc(r.when)}</span> ${esc(r.what)}</li>`).join('\n')}
+        </ul>
+${d.here.recentlyNote ? `        <p class="recently-note">${esc(d.here.recentlyNote)}</p>` : ''}
+      </div>`
+            : '') +
+          ((pls) => pls.length
+            ? `\n      <div class="directory">
+        <h3>In the directory — ${esc(d.brandForm ?? d.slug)}</h3>
+        <ul>
+${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" rel="noopener">${esc(pl.name)}</a>` : esc(pl.name)}</strong> — ${esc(pl.what)}</li>`).join('\n')}
+        </ul>
+        <p class="directory-note">From the BLKOUT Places directory — <a href="https://events.blkoutuk.com/places">every entry checked for activity in the last year</a>.</p>
+      </div>`
+            : '')(placesIn(d.slug)) +
+          `\n      <div class="calendar-card">
+        <h3><a href="https://events.blkoutuk.com/?utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">Gatherings across London — the BLKOUT events calendar</a></h3>
+        <p>Fewer and truer: what's actually on for Black queer London, checked by people, never padded.</p>
+      </div>`,
         '',
         'in-the-borough'
       )
@@ -195,6 +223,14 @@ function build(slug) {
         boroughWord
       )} — between ${esc(fmt(estLower))} and ${esc(fmt(estUpper))} of us.</p>
       <div class="field" id="rollfield" data-total="${estUpper}"></div>
+      <div class="table-wrap"><table class="census">
+        <caption>${esc(census.note)}</caption>
+        <thead><tr><th>Borough</th><th>Black residents (2021)</th><th>Black queer men (est.)</th></tr></thead>
+        <tbody>
+${census.rows.map((r) => `          <tr${r.borough === boroughWord ? ' class="self"' : ''}><td>${esc(r.borough)}</td><td>${esc(r.blackResidents)}</td><td>${esc(r.estBqm)}</td></tr>`).join('\n')}
+        </tbody>
+      </table></div>
+      <p class="census-source">${esc(census.source)}</p>
       <p class="rollcall-note">Nobody keeps this number. Not the council, not the NHS, not the people who commission work in this borough. The estimate is ours, built from the 2021 Census, because a population nobody counts is a population nobody plans for.</p>
     </div>
   </section>`;
@@ -356,8 +392,12 @@ ${d.neighbours
       <ul class="reasons">
         <li><strong>Refer.</strong> Supporting a Black queer man who could use his people? Send him this page — that is a referral, and every knock gets answered by a human.</li>
         <li><strong>Commission or partner.</strong> Working on Black queer men's health, culture or connection in ${esc(boroughWord)}? We're the community-owned, by-and-for partner — and the evidence base is already on this page. Write to <a href="mailto:rob@blkoutuk.com">rob@blkoutuk.com</a>.</li>
-        <li><strong>List us.</strong> Maintain a directory, a support page, a signposting service? Our entry is ready to paste: <em>BLKOUT — community-owned co-operative for Black queer men in ${esc(boroughWord)} and across the UK. ${esc(d.canonicalUrl)}</em></li>
+        <li><strong>List us.</strong> Maintain a directory, a support page, a signposting service? Our entry, ready to paste:
+          <code class="listing">BLKOUT — the UK's community-owned co-operative for Black queer men. In your neighbourhood: ${esc(d.canonicalUrl)} · blkoutuk.com · rob@blkoutuk.com</code>
+        </li>
+        <li><strong>Run a room.</strong> A venue, night or group our men should know about? <a href="#s-truer">Tell us</a> — the page gets truer, and it points at you.</li>
       </ul>
+      <p class="closing-note">We list our neighbours and our neighbours list us. That's how a borough works.</p>
     </div>
   </section>`;
 
@@ -382,7 +422,15 @@ ${d.neighbours
   </section>`
     : '';
 
-  const assembled = [sections[0], ...rings, nextDoor, silence, rollcall, quiz, biblio, faq, door, hub, truer, workWithUs]
+  const gallery = d.gallery?.images?.length
+    ? plate(++n, 'On this ground', d.gallery.heading,
+        `<p>${esc(d.gallery.intro ?? '')}</p>
+      <div class="gallery">
+${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${esc(g.alt)}" loading="lazy"><figcaption>${esc(g.caption ?? '')}</figcaption></figure>`).join('\n')}
+      </div>`)
+    : '';
+
+  const assembled = [sections[0], ...rings, gallery, nextDoor, silence, rollcall, quiz, biblio, faq, door, hub, truer, workWithUs]
     .filter(Boolean)
     .join('\n\n');
   // Numerals are stamped here, in document order — never at construction time.
@@ -722,6 +770,42 @@ ${d.neighbours
   @media (prefers-reduced-motion:reduce){
     .mark{opacity:1; animation:none}
   }
+
+
+
+  .directory{border-top:1px solid var(--line); margin-top:1.8rem; padding-top:1.2rem}
+  .directory h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.14em; font-size:.72rem; color:var(--gold); margin:0 0 .8rem}
+  .directory ul{list-style:none; padding:0; margin:0}
+  .directory li{color:var(--dim); padding:.4rem 0; font-size:.95rem}
+  .directory li strong{color:var(--ink)}
+  .directory-note{font-size:.85rem; margin-top:.8rem !important}
+  .census-source{font-size:.82rem; margin-top:-1rem !important}
+  code.listing{display:block; margin:.6rem 0 0; padding:.7rem .9rem; background:var(--shell);
+    border:1px solid var(--line); color:var(--ink); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:.82rem; white-space:pre-wrap; word-break:break-word}
+  .plate.invert code.listing{background:rgba(0,0,0,.05); border-color:rgba(0,0,0,.15); color:#111}
+  .closing-note{font-size:.9rem; margin-top:1.2rem !important}
+  .calendar-card{border:1px solid var(--line); padding:1.1rem 1.3rem; margin-top:1.6rem}
+  .calendar-card h3{margin:0 0 .4rem; font-size:1.05rem}
+  .calendar-card p{margin:0; font-size:.92rem}
+  .recently{border-top:1px solid var(--line); margin-top:1.8rem; padding-top:1.2rem}
+  .recently h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.14em; font-size:.72rem; color:var(--gold); margin:0 0 .8rem}
+  .recently ul{list-style:none; padding:0; margin:0}
+  .recently li{color:var(--dim); padding:.35rem 0; font-size:.95rem}
+  .recently .when{color:var(--gold-deep); text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; margin-right:.6rem}
+  .recently-note{font-size:.88rem; margin-top:.8rem !important}
+  .table-wrap{overflow-x:auto; margin:1.8rem 0}
+  table.census{border-collapse:collapse; width:100%; min-width:30rem; font-size:.92rem}
+  table.census caption{text-align:left; color:var(--dim); font-size:.82rem; padding-bottom:.7rem}
+  table.census th{text-align:left; text-transform:uppercase; letter-spacing:.1em; font-size:.68rem; color:var(--dim); border-bottom:1px solid var(--line); padding:.5rem .8rem .5rem 0}
+  table.census td{color:var(--dim); border-bottom:1px solid var(--line); padding:.5rem .8rem .5rem 0}
+  table.census tr.self td{color:var(--gold); font-weight:600}
+  .gallery{display:flex; flex-wrap:wrap; margin-top:1.4rem}
+  .gallery figure{margin:0 1rem 1rem 0; flex:1 1 15rem; max-width:20rem}
+  .gallery img{width:100%; height:auto; display:block; border:1px solid var(--line)}
+  .gallery figcaption{color:var(--dim); font-size:.85rem; padding-top:.5rem}
   .rollcall-note{max-width:58ch}
   .rollcall .field{max-height:none}
 
