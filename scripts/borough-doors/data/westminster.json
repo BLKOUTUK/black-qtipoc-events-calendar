@@ -1,0 +1,230 @@
+{
+  "slug": "westminster",
+  "brandForm": "BLKOUT in Westminster",
+  "title": "Black queer men in Westminster | BLKOUT in Westminster",
+  "metaDescription": "For Black queer men in and around Westminster — Soho, Pimlico, Marylebone, Victoria: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/westminster/",
+  "landmark": {
+    "src": "../images/westminster/westminster-elizabeth-tower.png",
+    "alt": "Pencil sketch of the Elizabeth Tower with the BLKOUT roundel set into its clock face"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Westminster's.",
+    "heading": "BLKOUT in Westminster",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster is a borough we've stood in ourselves. In April 2018 Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT and 56 Dean Street, with Marc Thompson among the speakers. A Black-owned queer venue has just landed in the same postcode after a start in Hackney Wick. Around 16,500 Black residents live in the borough. This door is for the Black queer men among them."
+  },
+  "lastChecked": "31 August 2026",
+  "quiz": {
+    "heading": "Know your Westminster?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "In April 2018, 'Let's Talk: Black Boy Joy' ran in association with BLKOUT at which Soho venue?",
+        "options": [
+          { "t": "Ku Bar", "correct": true },
+          { "t": "The Colony Room", "correct": false },
+          { "t": "Molly Moggs", "correct": false }
+        ],
+        "reveal": "Ku Bar, Leicester Square — an open-mic night by and for queer people of colour, run with 56 Dean Street, with Marc Thompson among the speakers. Genuinely our own history in this borough."
+      },
+      {
+        "q": "Black-owned queer venue COVEN has just moved into Soho — which borough did it start in?",
+        "options": [
+          { "t": "Hackney (Hackney Wick)", "correct": true },
+          { "t": "Lambeth (Brixton)", "correct": false },
+          { "t": "Southwark (Peckham)", "correct": false }
+        ],
+        "reveal": "Hackney Wick — proof a night can start anywhere and still end up centring its people in the heart of London."
+      },
+      {
+        "q": "What share of Westminster's population identified as Black, Black British, Black Welsh, Caribbean or African in the 2021 Census?",
+        "options": [
+          { "t": "8.1%", "correct": true },
+          { "t": "2%", "correct": false },
+          { "t": "18%", "correct": false }
+        ],
+        "reveal": "8.1% — around 16,500 people, up from 7.5% in 2011. Small as a share of a very international borough, and still thousands of us."
+      }
+    ],
+    "scores": {
+      "three": "Westminster knows its own Soho. Now help us keep it current.",
+      "two": "Close. There's more here than the tourist map shows.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Westminster",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [
+      {
+        "name": "COVEN",
+        "url": "https://www.instagram.com/coven.ldn",
+        "note": "Black-owned queer venue, now in Soho — started life in Hackney Wick and kept its people when it moved into the heart of Westminster.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true,
+        "verifiedBy": "Rob, 31 August 2026 — moved from Hackney Wick to Soho"
+      }
+    ]
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Westminster. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Westminster City Archives — LGBTQ+ heritage programme",
+        "url": "https://www.westminster.gov.uk/libraries-and-archives/westminster-city-archives",
+        "note": "The council archive's growing LGBTQ+ collections and public talks — including, in 2025, a Black, Queer & Young event platforming Black queer artists alongside the Westminster Youth Foundation.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Beetle Health",
+        "url": "https://www.blackbeetlehealth.co.uk",
+        "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, seeing around 11,000 visitors a month, most of them gay and bisexual men. Right here in the borough.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Naz Project London",
+        "url": "https://www.naz.org.uk",
+        "note": "Sexual health, HIV support and wellbeing for Black, Global Majority and LGBTQ+ communities, working across Westminster, Kensington & Chelsea and Hammersmith & Fulham.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Westminster's Black queer record runs through Soho's nightlife — including a night that was genuinely ours. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "Let's Talk: Black Boy Joy",
+        "author": "In association with BLKOUT and 56 Dean Street",
+        "year": "2018",
+        "note": "An open-mic night by and for queer people of colour at Ku Bar, Soho — Marc Thompson was among the speakers. From our own social archive, 26 April 2018."
+      },
+      {
+        "title": "BLACKGAYSLAY: Jay Jay Revlon Giving Light",
+        "author": "BlackOutUK",
+        "year": "2018",
+        "note": "Our own profile of the ballroom scene builder behind English Breakfast and the House of Revlon — and a mention of the 2016 Soho vigil vogue battle."
+      },
+      {
+        "title": "A History of Soho's LGBTQ+ Bars",
+        "author": "Londonist",
+        "year": "ongoing",
+        "note": "How Soho became — and stayed — London's queer centre of gravity from the 1990s on."
+      },
+      {
+        "title": "How life has changed in Westminster: Census 2021",
+        "author": "Office for National Statistics",
+        "year": "2022",
+        "note": "The borough's own ethnicity breakdown, area by area.",
+        "url": "https://www.ons.gov.uk/visualisations/censusareachanges/E09000033/",
+        "urlLabel": "View the data"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census recorded 8.1% of Westminster's population — around 16,500 people — as Black, Black British, Black Welsh, Caribbean or African, up from 7.5% in 2011. Westminster doesn't rank among London's ten largest Black populations, so we don't have a dossier figure for it — but applying the same estimate we use elsewhere, that's roughly 350 to 550 Black queer men living in the borough right now. Small as a share of one of London's most international boroughs. Still thousands of us.",
+    "history": "Westminster's Black queer history is Soho's history, and we've had our own night there.\n\nThe gay scene wasn't always here — Earl's Court held that ground in the 1970s — but by the 1990s new bars had pulled it back to Soho, and it never really left. In April 2018, Let's Talk: Black Boy Joy ran downstairs at Ku Bar, Leicester Square, in association with BLKOUT and 56 Dean Street — an open-mic night by and for queer people of colour, with Marc Thompson among the speakers sharing the platform that evening. Black queer London has moved through Soho in other ways too: our own archive carries a 2018 profile of Jay Jay Revlon, the ballroom scene builder behind English Breakfast and the House of Revlon, and a mention of a 2016 vogue battle held as a vigil in Soho Square. In 2025 the council's own archive started platforming Black queer artists through events like Black, Queer & Young.\n\nMost recently: a Black-owned queer venue called COVEN, which started in Hackney Wick, has landed in Soho — keeping its people as it moved into the heart of the borough. If you were in that room at Ku Bar in 2018, or you know a chapter we've missed, the panel below is where you tell us."
+  },
+  "neighbours": [
+    { "name": "Camden", "slug": "camden" },
+    { "name": "Kensington and Chelsea", "slug": "kensington-and-chelsea" },
+    { "name": "Lambeth", "slug": "lambeth" },
+    { "name": "Wandsworth", "slug": "wandsworth" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Westminster runs through our own writing and our own nights out — Let's Talk: Black Boy Joy at Ku Bar in 2018, and a ballroom-scene profile carrying a Soho vigil. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Westminster?",
+      "a": "Start with the door on this page — you'll hear about everything as it happens. COVEN has just landed in Soho, and BLKOUT's national community is open to you today. If a few Westminster men want a table in the borough, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Westminster?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. 56 Dean Street is right here in Soho, and Naz Project London covers the borough for wider sexual health and wellbeing support."
+    },
+    {
+      "q": "Is BLKOUT a Westminster organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. We were part of a night in Soho back in 2018, before this page existed."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the public record and dated so you can see when we last looked. If we've got something wrong — or missed a chapter you were part of — the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Westminster — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "westminster-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Westminster." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Westminster — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Westminster, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "We've found one night that was genuinely ours — and the people here know the rest of this borough's story best. If a group has folded, a night has moved, or we've missed a chapter you were part of — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "westminster-door-intel",
+    "placeholder": "That night moved venues… there's a group you've missed… I was part of the Soho scene in…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Westminster's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}

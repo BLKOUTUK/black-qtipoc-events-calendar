@@ -1,0 +1,279 @@
+{
+  "slug": "hackney",
+  "brandForm": "BLKOUT in Hackney",
+  "title": "Black queer men in Hackney | BLKOUT in Hackney",
+  "metaDescription": "For Black queer men in and around Hackney — Dalston, Hackney Wick, Stoke Newington, Homerton: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/hackney/",
+  "landmark": {
+    "src": "../images/hackney/hackney-empire.png",
+    "alt": "Pencil sketch of the Hackney Empire's ornate rooftop cupolas with the BLKOUT roundel set as a moon above them"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Hackney's.",
+    "heading": "BLKOUT in Hackney",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Hackney is a borough we've already stood in. In 2018 BlackOutUK backed Faggamuffin Bloc Party, believed to be the first sound system run by and for queer people of colour, when it staked a claim on Hackney Carnival's stage after 23 years without one. That same year Hackney Museum partnered with us to start collecting the borough's QTIPOC oral histories. Around 59,300 Black residents live here now. This door is for the Black queer men among them."
+  },
+  "lastChecked": "31 August 2026",
+  "quiz": {
+    "heading": "Know your Hackney?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "In 2018, what launched at Hackney Carnival as (it's believed) the first sound system run by and for queer people of colour?",
+        "options": [
+          { "t": "Faggamuffin Bloc Party", "correct": true },
+          { "t": "Colour Factory", "correct": false },
+          { "t": "Hackney Pride 365", "correct": false }
+        ],
+        "reveal": "Faggamuffin Bloc Party — grown out of Hackney's QTIPOC community group, backed by BlackOutUK from day one, and still running its stage at Carnival years later."
+      },
+      {
+        "q": "Which now-Soho queer venue for people of colour first started life in Hackney Wick?",
+        "options": [
+          { "t": "COVEN", "correct": true },
+          { "t": "The Cocoa Butter Club", "correct": false },
+          { "t": "Colour Factory", "correct": false }
+        ],
+        "reveal": "COVEN began in Hackney Wick before it moved to Soho — proof a Hackney night can outgrow its first postcode and keep its people."
+      },
+      {
+        "q": "Which Hackney institution partnered with BlackOutUK in 2018 to start collecting oral histories from the borough's QTIPOC residents?",
+        "options": [
+          { "t": "Hackney Museum", "correct": true },
+          { "t": "Hackney Empire", "correct": false },
+          { "t": "Hackney Town Hall", "correct": false }
+        ],
+        "reveal": "Hackney Museum — the partnership went on to collect thirteen oral histories and train ten local volunteers to gather more, plus donated Bloolips drag performance artefacts. Some of that record is still being surfaced."
+      }
+    ],
+    "scores": {
+      "three": "Hackney knows its own history. Now help us keep it current.",
+      "two": "Close. There's more of this than most people ever hear about.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Hackney",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [
+      {
+        "name": "Faggamuffin Bloc Party",
+        "url": "https://www.instagram.com/faggamuffinblocparty/",
+        "note": "QTIBPoC carnival collective born at Hackney Carnival in 2018, backed by BlackOutUK from its first year. Believed to be the first sound system run by and for queer people of colour — still centring QTIBPoC lives at Carnival each year, with council cultural funding into 2025.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Hackney. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Hackney Pride 365",
+        "url": "https://hackney.gov.uk/pride-365/",
+        "note": "The council's year-round LGBTQIA+ programme, running since 2017 — history walks, drop-ins, film projects and club nights across the borough, not just one weekend in June. It's the programme Faggamuffin Bloc Party grew out of.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "City and Hackney LGBTQ+ Network",
+        "url": "https://hcvs.org.uk/city-and-hackney-lgbt-network/",
+        "note": "Hosted by Hackney CVS, bringing together LGBTQ+ people, groups and services across the borough and the City to improve safety, services and rights.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Colour Factory",
+        "url": "https://www.colourfactory.com",
+        "note": "Black-owned nightclub, live music venue and food court in Hackney Wick, known for spotlighting women, non-binary and queer artists.",
+        "centres": "black-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Project Indigo",
+        "url": "https://hcvs.org.uk/project-indigo/",
+        "note": "Family Action's weekly mental health, social and wellbeing group for LGBTQIA+ young people aged 13–25 in Hackney, run from Off Centre.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Connection",
+        "url": "https://www.instagram.com/blackconnection50/",
+        "note": "UK-wide social network for Black queer men aged 50+, formed in 2020 and run out of London — regular meet-ups and an active, growing community.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      },
+      {
+        "name": "African Rainbow Family",
+        "url": "https://africanrainbowfamily.org",
+        "note": "Charity by and for LGBTIQ+ people of African heritage, founded 2014 — community, mental health and practical support, with a London base alongside branches in Manchester, Birmingham and Leeds.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Homerton Sexual Health — Clifden Centre",
+        "url": "https://www.homerton.nhs.uk/sexual-health/",
+        "note": "The borough's NHS sexual health service, including a walk-in clinic for men who have sex with men every Thursday evening.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Hackney's Black queer record starts with the borough's own carnival stage — and the museum work still gathering the rest. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "Faggamuffins Step Out: Why Queering Carnival Matters",
+        "author": "The Quietus",
+        "year": "2018",
+        "note": "On the launch of Faggamuffin Bloc Party and why staking a claim on Hackney Carnival mattered.",
+        "url": "https://thequietus.com/articles/25249-faggamuffin-hackney-carnival-qtipoc",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "The QTIPOC project: Race and Community Care",
+        "author": "Djed Press",
+        "year": "2018",
+        "note": "On Hackney QTIPOC's formation and the community-care work behind the Carnival stage.",
+        "url": "https://djedpress.com/2018/06/27/the-qtipoc-project-race-and-community-care/",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "Coming out of the quiet in Hackney",
+        "author": "BlackOutUK",
+        "year": "2018",
+        "note": "Our own account of backing Hackney Carnival's first QTIPOC-curated stage — written before the event, in our own voice."
+      },
+      {
+        "title": "Hackney Pride 365",
+        "author": "Hackney Council",
+        "year": "2018",
+        "note": "The council's own record of the Hackney Museum × BlackOutUK oral history partnership, announced by the Mayor at that year's LGBT History Month event.",
+        "url": "https://news.hackney.gov.uk/news/hackney-pride-365",
+        "urlLabel": "Read the announcement"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 59,300 Black residents in Hackney. On the estimates we publish, that's 1,300 to 1,900 Black queer men in the borough — more than fill Hackney Empire's stalls twice over, living here right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Hackney's Black queer history is recent by the written record, but it didn't start quiet.\n\nHackney Carnival had run for 23 years before a group of Queer, Trans, Intersex and Non-binary People of Colour — invited by the council's year-old Pride 365 programme to think about inclusion — built the carnival's first QTIPOC-curated space. Faggamuffin Bloc Party launched there in September 2018, described by its organisers as a reclaiming of carnival's own tradition of resistance through celebration, for and by queer people of colour. BlackOutUK backed it from the start, and was there to dance.\n\nThat same year, Hackney Museum began working with us to collect the borough's QTIPOC oral histories — thirteen collected so far, ten local volunteers trained to gather more, and Bloolips drag performance artefacts added to the museum's own collection. And a Hackney Wick queer night called COVEN grew big enough to move to Soho and keep its people. That work continues, and it is still surfacing more of Hackney's story than any one page can hold."
+  },
+  "neighbours": [
+    { "name": "Islington", "slug": "islington" },
+    { "name": "Haringey", "slug": "haringey" },
+    { "name": "Tower Hamlets", "slug": "tower-hamlets" },
+    { "name": "Waltham Forest", "slug": "waltham-forest" },
+    { "name": "Newham", "slug": "newham" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Hackney runs through our own writing since 2018 — backing Faggamuffin Bloc Party's first year at Carnival, and the Hackney Museum oral history partnership we helped start. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Hackney?",
+      "a": "Start with the door on this page — you'll hear about everything as it happens. Faggamuffin Bloc Party runs its stage at Hackney Carnival every year, and BLKOUT's national community is open to you today. If a few Hackney men want a table in the borough, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Hackney?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. Homerton's Clifden Centre runs a weekly clinic for men who have sex with men, and 56 Dean Street is a short ride down the road in Soho."
+    },
+    {
+      "q": "Is BLKOUT a Hackney organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. One of our directors lives in Hackney, and we've been showing up here since 2018."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the borough's own record and the public archive, and dated so you can see when we last looked. If we've got something wrong — or missed something you were part of — the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Hackney — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "hackney-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Hackney." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Hackney — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Hackney, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page leans on one strong thread of Hackney's own record — and the people here know the rest of it. If a group has folded, a night has moved, or we've missed something you were part of — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "hackney-door-intel",
+    "placeholder": "That group folded last year… the drop-in moved… I was on that carnival stage…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Hackney's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "gallery": {
+    "heading": "BLKOUT in the borough",
+    "intro": "As it happened — our own occasion, on Hackney ground.",
+    "consentNote": "Identifiable-person images from Faggamuffin Bloc Party's first year at Hackney Carnival — cleared by Rob, 31 August 2026, public event.",
+    "images": [
+      {
+        "src": "../images/hackney/faggamuffin-2018-carnival-crowd.jpg",
+        "alt": "A large crowd gathered under a railway bridge near a FIERCE! stage banner at Hackney Carnival",
+        "caption": "The crowd at Faggamuffin Bloc Party's first year, Hackney Carnival, September 2018"
+      },
+      {
+        "src": "../images/hackney/faggamuffin-2018-i-love-hackney.jpg",
+        "alt": "Two women smiling closely together, both wearing white T-shirts printed with a rainbow heart and the words I LOVE HACKNEY, under a gazebo with balloons",
+        "caption": "I ❤ Hackney — at Faggamuffin Bloc Party, Hackney Carnival, September 2018"
+      }
+    ]
+  },
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
