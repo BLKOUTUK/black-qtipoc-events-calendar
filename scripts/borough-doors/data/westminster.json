@@ -11,13 +11,22 @@
   "hero": {
     "kicker": "One community. Many doors. This one is Westminster's.",
     "heading": "BLKOUT in Westminster",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster is a borough we've stood in ourselves. In April 2018 Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT and 56 Dean Street, with Marc Thompson among the speakers. A Black-owned queer venue has just landed in the same postcode after a start in Hackney Wick. Around 16,500 Black residents live in the borough. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster is a borough we've stood in ourselves. On 15 February 2019 we presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery — a sold-out night honouring Britain's first Black-led dance company, given by David McAlmont. A year earlier, Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT and 56 Dean Street, with Marc Thompson among the speakers. Around 16,500 Black residents live in the borough. This door is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
     "heading": "Know your Westminster?",
     "sub": "Three questions. No prizes except the stories.",
     "questions": [
+      {
+        "q": "In February 2019, BLKOUT presented the inaugural Berto Pasuka Lecture at which Westminster institution?",
+        "options": [
+          { "t": "The National Portrait Gallery", "correct": true },
+          { "t": "Westminster Abbey", "correct": false },
+          { "t": "The Royal Academy", "correct": false }
+        ],
+        "reveal": "The National Portrait Gallery — a sold-out night, 'Portrait of a Black Queer Briton', given by David McAlmont in honour of Berto Pasuka, the Jamaican-born dancer who co-founded Les Ballets Nègres, Britain's first Black-led dance company."
+      },
       {
         "q": "In April 2018, 'Let's Talk: Black Boy Joy' ran in association with BLKOUT at which Soho venue?",
         "options": [
@@ -34,16 +43,7 @@
           { "t": "Lambeth (Brixton)", "correct": false },
           { "t": "Southwark (Peckham)", "correct": false }
         ],
-        "reveal": "Hackney Wick — proof a night can start anywhere and still end up centring its people in the heart of London."
-      },
-      {
-        "q": "What share of Westminster's population identified as Black, Black British, Black Welsh, Caribbean or African in the 2021 Census?",
-        "options": [
-          { "t": "8.1%", "correct": true },
-          { "t": "2%", "correct": false },
-          { "t": "18%", "correct": false }
-        ],
-        "reveal": "8.1% — around 16,500 people, up from 7.5% in 2011. Small as a share of a very international borough, and still thousands of us."
+        "reveal": "Hackney Wick — COVEN opened its Soho headquarters on 30 Old Compton Street, the former G-A-Y Bar site, on 19 June 2026. Proof a night can start anywhere and still end up centring its people in the heart of London."
       }
     ],
     "scores": {
@@ -55,16 +55,8 @@
   "here": {
     "heading": "Here in Westminster",
     "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
-    "entries": [
-      {
-        "name": "COVEN",
-        "url": "https://www.instagram.com/coven.ldn",
-        "note": "Black-owned queer venue, now in Soho — started life in Hackney Wick and kept its people when it moved into the heart of Westminster.",
-        "centres": "black-lgbtq",
-        "currencyChecked": true,
-        "verifiedBy": "Rob, 31 August 2026 — moved from Hackney Wick to Soho"
-      }
-    ]
+    "quietNote": "Nothing is listed in Westminster right now beyond the directory below — checked 31 August 2026. That's a report, not a silence. The door below is always open.",
+    "entries": []
   },
   "besideUs": {
     "heading": "Beside us in the borough",
@@ -123,8 +115,14 @@
     ]
   },
   "bibliography": {
-    "intro": "Westminster's Black queer record runs through Soho's nightlife — including a night that was genuinely ours. Start with these, and tell us what belongs on the shelf.",
+    "intro": "Westminster's Black queer record runs through Soho's nightlife, the National Portrait Gallery, and two decades of Pride in London itself. Start with these, and tell us what belongs on the shelf.",
     "entries": [
+      {
+        "title": "Remembering Pasuka; celebrating us",
+        "author": "BlackOutUK",
+        "year": "2019",
+        "note": "Our own account of the inaugural Berto Pasuka Lecture at the National Portrait Gallery, given by David McAlmont — a fuller history of Berto Pasuka and BGMAG's Pride in London years is being prepared for our Voices heritage series."
+      },
       {
         "title": "Let's Talk: Black Boy Joy",
         "author": "In association with BLKOUT and 56 Dean Street",
@@ -156,7 +154,7 @@
   "numbers": {
     "heading": "The numbers nobody counts",
     "body": "The 2021 Census recorded 8.1% of Westminster's population — around 16,500 people — as Black, Black British, Black Welsh, Caribbean or African, up from 7.5% in 2011. Westminster doesn't rank among London's ten largest Black populations, so we don't have a dossier figure for it — but applying the same estimate we use elsewhere, that's roughly 350 to 550 Black queer men living in the borough right now. Small as a share of one of London's most international boroughs. Still thousands of us.",
-    "history": "Westminster's Black queer history is Soho's history, and we've had our own night there.\n\nThe gay scene wasn't always here — Earl's Court held that ground in the 1970s — but by the 1990s new bars had pulled it back to Soho, and it never really left. In April 2018, Let's Talk: Black Boy Joy ran downstairs at Ku Bar, Leicester Square, in association with BLKOUT and 56 Dean Street — an open-mic night by and for queer people of colour, with Marc Thompson among the speakers sharing the platform that evening. Black queer London has moved through Soho in other ways too: our own archive carries a 2018 profile of Jay Jay Revlon, the ballroom scene builder behind English Breakfast and the House of Revlon, and a mention of a 2016 vogue battle held as a vigil in Soho Square. In 2025 the council's own archive started platforming Black queer artists through events like Black, Queer & Young.\n\nMost recently: a Black-owned queer venue called COVEN, which started in Hackney Wick, has landed in Soho — keeping its people as it moved into the heart of the borough. If you were in that room at Ku Bar in 2018, or you know a chapter we've missed, the panel below is where you tell us."
+    "history": "Westminster's Black queer history includes one of our own proudest nights — and a much longer fight over who gets to be seen at Pride.\n\nPride in London's parade runs through Westminster every year, past Trafalgar Square and Whitehall. Black queer organising has been inside that history for two decades: in 2005, 'Proud to B ME' brought Black and minority ethnic Pride communities together, with an after-party at the Pitcher and Piano on William IV Street, by Trafalgar Square. By 2008, the Black Gay Men's Advisory Group (BGMAG) — chaired by our founder Rob Berkeley — was negotiating directly with Pride London over funding for Black and BME floats and a dedicated BME stage.\n\nOn 15 February 2019, BLKOUT presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery — sold out, part of LGBT History Month. Berto Pasuka, born Wilbert Passerley in Jamaica in 1911, moved to London and co-founded Les Ballets Nègres in 1946 with Richie Riley — Britain's first Black-led dance company. David McAlmont gave the lecture, 'Portrait of a Black Queer Briton', in five acts set to two centuries of music by Black composers. It was built as the first in a series, and it remains a genuine high point of our own record in this borough.\n\nA year earlier, in April 2018, Let's Talk: Black Boy Joy ran downstairs at Ku Bar, Leicester Square, in association with BLKOUT and 56 Dean Street — an open-mic night by and for queer people of colour, with Marc Thompson among the speakers. Black queer London has moved through Soho in other ways too: our own archive carries a 2018 profile of Jay Jay Revlon, the ballroom scene builder behind English Breakfast and the House of Revlon, and a mention of a 2016 vogue battle held as a vigil in Soho Square. In 2025 the council's own archive started platforming Black queer artists through events like Black, Queer & Young.\n\nMost recently: a Black-owned queer venue called COVEN, which started in Hackney Wick, opened its Soho headquarters — bar, café, community hub and five-floor club — at 30 Old Compton Street on 19 June 2026, on the former G-A-Y Bar site. Full details are in the directory below. If you were at the Gallery in 2019, in that room at Ku Bar in 2018, on a BME float, or you know a chapter we've missed, the panel further down is where you tell us."
   },
   "neighbours": [
     { "name": "Camden", "slug": "camden" },
@@ -172,7 +170,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Westminster?",
-      "a": "Start with the door on this page — you'll hear about everything as it happens. COVEN has just landed in Soho, and BLKOUT's national community is open to you today. If a few Westminster men want a table in the borough, we'll help hold it."
+      "a": "Start with the door on this page — you'll hear about everything as it happens. COVEN's new Soho headquarters is in the directory below, and BLKOUT's national community is open to you today. If a few Westminster men want a table in the borough, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Westminster?",
