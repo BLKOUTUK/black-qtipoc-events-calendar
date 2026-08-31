@@ -28,13 +28,13 @@
         "reveal": "Faggamuffin Bloc Party — grown out of Hackney's QTIPOC community group, backed by BlackOutUK from day one, and still running its stage at Carnival years later."
       },
       {
-        "q": "Which now-Soho queer venue for people of colour first started life in Hackney Wick?",
+        "q": "How many oral histories has Hackney Museum's partnership with BlackOutUK collected so far?",
         "options": [
-          { "t": "COVEN", "correct": true },
-          { "t": "The Cocoa Butter Club", "correct": false },
-          { "t": "Colour Factory", "correct": false }
+          { "t": "Thirteen", "correct": true },
+          { "t": "Three", "correct": false },
+          { "t": "Thirty", "correct": false }
         ],
-        "reveal": "COVEN began in Hackney Wick before it moved to Soho — proof a Hackney night can outgrow its first postcode and keep its people."
+        "reveal": "Thirteen — with ten local volunteers trained to gather more, and Bloolips drag performance artefacts added to the museum's own collection. Some of that record is still being surfaced."
       },
       {
         "q": "Which Hackney institution partnered with BlackOutUK in 2018 to start collecting oral histories from the borough's QTIPOC residents?",
@@ -194,7 +194,7 @@
   "numbers": {
     "heading": "The numbers nobody counts",
     "body": "The 2021 Census counted around 59,300 Black residents in Hackney. On the estimates we publish, that's 1,300 to 1,900 Black queer men in the borough — more than fill Hackney Empire's stalls twice over, living here right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
-    "history": "Hackney's Black queer history is recent by the written record, but it didn't start quiet.\n\nHackney Carnival had run for 23 years before a group of Queer, Trans, Intersex and Non-binary People of Colour — invited by the council's year-old Pride 365 programme to think about inclusion — built the carnival's first QTIPOC-curated space. Faggamuffin Bloc Party launched there in September 2018, described by its organisers as a reclaiming of carnival's own tradition of resistance through celebration, for and by queer people of colour. BlackOutUK backed it from the start, and was there to dance.\n\nThat same year, Hackney Museum began working with us to collect the borough's QTIPOC oral histories — thirteen collected so far, ten local volunteers trained to gather more, and Bloolips drag performance artefacts added to the museum's own collection. And a Hackney Wick queer night called COVEN grew big enough to move to Soho and keep its people. That work continues, and it is still surfacing more of Hackney's story than any one page can hold."
+    "history": "Hackney's Black queer history is recent by the written record, but it didn't start quiet.\n\nHackney Carnival had run for 23 years before a group of Queer, Trans, Intersex and Non-binary People of Colour — invited by the council's year-old Pride 365 programme to think about inclusion — built the carnival's first QTIPOC-curated space. Faggamuffin Bloc Party launched there in September 2018, described by its organisers as a reclaiming of carnival's own tradition of resistance through celebration, for and by queer people of colour. BlackOutUK backed it from the start, and was there to dance.\n\nThat same year, Hackney Museum began working with us to collect the borough's QTIPOC oral histories — thirteen collected so far, ten local volunteers trained to gather more, and Bloolips drag performance artefacts added to the museum's own collection. That work continues, and it is still surfacing more of Hackney's story than any one page can hold."
   },
   "neighbours": [
     { "name": "Islington", "slug": "islington" },
