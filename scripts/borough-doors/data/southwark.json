@@ -1,0 +1,250 @@
+{
+  "slug": "southwark",
+  "brandForm": "BLKOUT in Southwark",
+  "title": "Black queer men in Southwark | BLKOUT in Southwark",
+  "metaDescription": "For Black queer men in and around Southwark — Peckham, Camberwell, Bermondsey, Elephant and Castle: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/southwark/",
+  "landmark": {
+    "src": "../images/southwark/southwark-newington-causeway.png",
+    "alt": "Pencil sketch of the Newington Causeway building where Dr Cecil Belfield Clarke practised, with the BLKOUT roundel as a moon above it"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Southwark's.",
+    "heading": "BLKOUT in Southwark",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Southwark holds one of our history's clearest through-lines. Dr Cecil Belfield Clarke, a gay Barbadian doctor, ran his surgery on Newington Causeway for 45 years and helped found the League of Coloured Peoples. In 1992 the Black Lesbian and Gay Centre found its permanent home in a Peckham railway arch. And in November 2020, our own Assembly series asked Southwark directly: a Black queer hero — erased? Around 80,100 Black residents live in the borough. This door is for the Black queer men among them."
+  },
+  "lastChecked": "31 August 2026",
+  "quiz": {
+    "heading": "Know your Southwark?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Dr Cecil Belfield Clarke, a gay Barbadian doctor and civil rights pioneer, ran his GP surgery for 45 years at which Southwark address?",
+        "options": [
+          { "t": "112 Newington Causeway", "correct": true },
+          { "t": "Bellenden Road", "correct": false },
+          { "t": "Walworth Road", "correct": false }
+        ],
+        "reveal": "112 Newington Causeway, near Elephant and Castle — from 1920 until his retirement in 1965. He co-founded the League of Coloured Peoples in 1931 and was the only Black District Medical Officer in Britain by 1936. A blue plaque was unveiled on the site, now London South Bank University's Perry Library, in April 2023."
+      },
+      {
+        "q": "In 1992, the Black Lesbian and Gay Centre found its permanent home in a converted railway arch in which Southwark neighbourhood?",
+        "options": [
+          { "t": "Peckham", "correct": true },
+          { "t": "Bermondsey", "correct": false },
+          { "t": "Camberwell", "correct": false }
+        ],
+        "reveal": "Peckham, on Bellenden Road — Europe's first purpose-built Black lesbian and gay centre. It ran there until 2000, and a Rainbow Plaque was unveiled on the site in February 2024."
+      },
+      {
+        "q": "In November 2020, BLKOUT's own Sunday series 'Assembly' — with Southwark LGBT Network and Southwark Council — asked a pointed question about the borough. What was it?",
+        "options": [
+          { "t": "A Southwark Black queer hero — erased?", "correct": true },
+          { "t": "Where did Southwark's Pride go?", "correct": false },
+          { "t": "Who remembers the Centre?", "correct": false }
+        ],
+        "reveal": "'Southwark Black queer hero — erased?' — the Assembly session that put Dr Cecil Belfield Clarke's story back in front of the borough that had mostly forgotten it."
+      }
+    ],
+    "scores": {
+      "three": "Southwark knows its own record. Now help us keep it current.",
+      "two": "Close. This borough has more buried history than most.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Southwark",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more. Southwark's own scene is unusually strong; more of it is in the directory below.",
+    "quietNote": "Beyond the directory below, nothing further is listed in Southwark right now — checked 31 August 2026. That's a report, not a silence. The door below is always open.",
+    "entries": [
+      {
+        "name": "Black, Queer & Thriving — Black Thrive",
+        "url": "https://www.blackthrive.org/lambeth",
+        "note": "A Black-queer-centred mental health and community research programme run jointly across Lambeth and Southwark, including a 2025 community research report launch.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Southwark. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Southwark LGBT Network",
+        "url": "https://southwarklgbtnetwork.com",
+        "note": "Running since 2002 — builds and strengthens LGBTQ+ community life in the borough, and partnered with us directly on our 2020 Assembly series.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Mabadiliko CIC",
+        "url": "https://mabadiliko.org",
+        "note": "Trauma-informed, African-centred mental health and anti-stigma work for Black African and Caribbean communities, led by a Southwark Civic Award winner — currently running LGBTQIA+ health research with the London LGBTQ+ Community Centre.",
+        "centres": "black-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Loving Men+",
+        "url": "https://www.lovingmen.org",
+        "note": "A gay/bi men's connection and intimacy-skills group running pot-lucks, picnics and discussion nights across London, including sessions near Southwark.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Connection",
+        "url": "https://www.instagram.com/blackconnection50/",
+        "note": "UK-wide social network for Black queer men aged 50+, formed in 2020 and run out of London — regular meet-ups and an active, growing community.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone. Southwark takes part in full.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Southwark's Black queer record runs deeper than most boroughs' — start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "Dr Cecil Belfield Clarke (1894–1970)",
+        "author": "Southwark Heritage",
+        "year": "2020",
+        "note": "The borough's own account of the gay Barbadian doctor who served Southwark for 45 years.",
+        "url": "https://southwarkheritage.wordpress.com/2020/10/07/dr-cecil-belfield-clarke-1894-1970/",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "A forgotten hero",
+        "author": "The Doctor, BMA",
+        "year": "2023",
+        "note": "On Cecil Belfield Clarke's medical career, his politics, and his erasure from most histories of Black Britain.",
+        "url": "https://thedoctor.bma.org.uk/articles/health-society/a-forgotten-hero/",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "Cecil Belfield Clarke: Newington Causeway plaque honours Blitz GP",
+        "author": "SE1 News",
+        "year": "2023",
+        "note": "On the blue plaque unveiled at London South Bank University's Perry Library, on the site of his surgery.",
+        "url": "https://www.se1.news/cecil-belfield-clarke-plaque/",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "Assembly: A Southwark Black Queer Hero — Erased?",
+        "author": "BLKOUT, with Southwark LGBT Network and Southwark Council",
+        "year": "2020",
+        "note": "Our own Sunday Assembly session putting Dr Cecil Belfield Clarke's story back in front of the borough, for Black History Month."
+      },
+      {
+        "title": "Rainbow Plaque: Black Lesbian & Gay Centre",
+        "author": "Studio Voltaire",
+        "year": "2024",
+        "note": "On the Rainbow Plaque unveiled at the Centre's former Peckham home.",
+        "url": "https://studiovoltaire.org/whats-on/black-lesbian-gay-centre-rainbow-plaque/",
+        "urlLabel": "Read the piece"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 80,100 Black residents in Southwark. On the estimates we publish, that's 1,800 to 2,500 Black queer men in the borough, living here right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Southwark's Black queer history runs deeper than almost any other borough's — most of it is only now being told.\n\nDr Cecil Belfield Clarke came to Britain from Barbados in 1914 on a scholarship to Cambridge, and in 1920 opened a GP surgery at 112 Newington Causeway, near Elephant and Castle. He served the borough there for 45 years, co-founded the League of Coloured Peoples in 1931, became Britain's only Black District Medical Officer by 1936, and later advised the newly independent government of Ghana. He was gay, and largely written out of the history he helped make — until a blue plaque went up on the site, now London South Bank University's Perry Library, in April 2023.\n\nIn 1992, the Black Lesbian and Gay Centre — founded in Haringey in 1985 — found its permanent home in a converted railway arch on Bellenden Road, Peckham: Europe's first purpose-built Black lesbian and gay centre, running until 2000. A Rainbow Plaque marks the site since February 2024.\n\nAnd in November 2020, BLKOUT held our own Assembly there in spirit if not in person: a Sunday session with Southwark LGBT Network and Southwark Council, asking the borough directly — a Southwark Black queer hero, erased? It was about Dr Clarke. If you know more of this borough's story, or you were part of that 2020 Assembly, the panel below is where you tell us."
+  },
+  "neighbours": [
+    { "name": "Lambeth", "slug": "lambeth" },
+    { "name": "Lewisham", "slug": "lewisham" },
+    { "name": "Greenwich", "slug": "greenwich" },
+    { "name": "Tower Hamlets", "slug": "tower-hamlets" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Southwark runs through our own writing and our own Sundays — the 2020 Assembly session on Dr Cecil Belfield Clarke among them. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Southwark?",
+      "a": "Start with the door on this page — you'll hear about everything as it happens. Southwark's own scene, in the directory below, is stronger than most boroughs', and BLKOUT's national community is open to you today."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Southwark?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required, and 56 Dean Street is a short ride away in Soho."
+    },
+    {
+      "q": "Is BLKOUT a Southwark organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. We held our own Assembly session on Southwark's history in 2020."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the public record and dated so you can see when we last looked. If we've got something wrong — or missed something you were part of — the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Southwark — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "southwark-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Southwark." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Southwark — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Southwark, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page leans on one great story, and the people here know the rest of the borough's. If a group has folded, a night has moved, or we've missed something you were part of — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "southwark-door-intel",
+    "placeholder": "That group folded last year… the drop-in moved… I was at the 2020 Assembly…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Southwark's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
