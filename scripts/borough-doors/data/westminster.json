@@ -11,7 +11,7 @@
   "hero": {
     "kicker": "One community. Many doors. This one is Westminster's.",
     "heading": "BLKOUT in Westminster",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster is a borough we've stood in ourselves. On 15 February 2019 we presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery — a sold-out night honouring Britain's first Black-led dance company, given by David McAlmont. A year earlier, Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT and 56 Dean Street, with Marc Thompson among the speakers. Around 16,500 Black residents live in the borough. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster held Black queer life long before this door existed. In 1940, Ken 'Snakehips' Johnson — Britain's most popular Black bandleader — lived in Belgravia with his partner Gerald Hamilton, and led his orchestra nightly at the Café de Paris until the night in 1941 it was bombed mid-performance. Nearly eighty years later, on 15 February 2019, we presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery, and in 2018 Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT. Around 16,500 Black residents live in the borough. This door is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -37,13 +37,13 @@
         "reveal": "Ku Bar, Leicester Square — an open-mic night by and for queer people of colour, run with 56 Dean Street, with Marc Thompson among the speakers. Genuinely our own history in this borough."
       },
       {
-        "q": "Black-owned queer venue COVEN has just moved into Soho — which borough did it start in?",
+        "q": "In March 1941, which gay Black British bandleader was killed when the Café de Paris was bombed mid-performance?",
         "options": [
-          { "t": "Hackney (Hackney Wick)", "correct": true },
-          { "t": "Lambeth (Brixton)", "correct": false },
-          { "t": "Southwark (Peckham)", "correct": false }
+          { "t": "Ken 'Snakehips' Johnson", "correct": true },
+          { "t": "Leslie 'Hutch' Hutchinson", "correct": false },
+          { "t": "Joe Deniz", "correct": false }
         ],
-        "reveal": "Hackney Wick — COVEN opened its Soho headquarters on 30 Old Compton Street, the former G-A-Y Bar site, on 19 June 2026. Proof a night can start anywhere and still end up centring its people in the heart of London."
+        "reveal": "Ken 'Snakehips' Johnson — leader of Britain's most popular Black swing band, the West Indian Orchestra, resident at the Café de Paris on Coventry Street. He lived with his partner Gerald Hamilton at 91 Kinnerton Street, Belgravia. He died on stage on 8 March 1941, one of the best-loved bandleaders in the country."
       }
     ],
     "scores": {
@@ -115,8 +115,14 @@
     ]
   },
   "bibliography": {
-    "intro": "Westminster's Black queer record runs through Soho's nightlife, the National Portrait Gallery, and two decades of Pride in London itself. Start with these, and tell us what belongs on the shelf.",
+    "intro": "Westminster's Black queer record runs through Soho's nightlife, the National Portrait Gallery, a bombed nightclub, and two decades of Pride in London itself. Start with these, and tell us what belongs on the shelf.",
     "entries": [
+      {
+        "title": "Ken \"Snakehips\" Johnson",
+        "author": "Wikipedia / National Portrait Gallery",
+        "year": "ongoing",
+        "note": "On the bandleader's life, his home with Gerald Hamilton in Belgravia, and his death at the Café de Paris, 8 March 1941."
+      },
       {
         "title": "Remembering Pasuka; celebrating us",
         "author": "BLKOUT_UK",
@@ -154,7 +160,7 @@
   "numbers": {
     "heading": "The numbers nobody counts",
     "body": "The 2021 Census recorded 8.1% of Westminster's population — around 16,500 people — as Black, Black British, Black Welsh, Caribbean or African, up from 7.5% in 2011. Westminster doesn't rank among London's ten largest Black populations, so we don't have a dossier figure for it — but applying the same estimate we use elsewhere, that's roughly 350 to 550 Black queer men living in the borough right now. Small as a share of one of London's most international boroughs. Still thousands of us.",
-    "history": "Westminster's Black queer history includes one of our own proudest nights — and a much longer fight over who gets to be seen at Pride.\n\nPride in London's parade runs through Westminster every year, past Trafalgar Square and Whitehall. Black queer organising has been inside that history for two decades: in 2005, 'Proud to B ME' brought Black and minority ethnic Pride communities together, with an after-party at the Pitcher and Piano on William IV Street, by Trafalgar Square. By 2008, the Black Gay Men's Advisory Group (BGMAG) — chaired by our founder Rob Berkeley — was negotiating directly with Pride London over funding for Black and BME floats and a dedicated BME stage.\n\nOn 15 February 2019, BLKOUT presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery — sold out, part of LGBT History Month. Berto Pasuka, born Wilbert Passerley in Jamaica in 1911, moved to London and co-founded Les Ballets Nègres in 1946 with Richie Riley — Britain's first Black-led dance company. David McAlmont gave the lecture, 'Portrait of a Black Queer Briton', in five acts set to two centuries of music by Black composers. It was built as the first in a series, and it remains a genuine high point of our own record in this borough.\n\nA year earlier, in April 2018, Let's Talk: Black Boy Joy ran downstairs at Ku Bar, Leicester Square, in association with BLKOUT and 56 Dean Street — an open-mic night by and for queer people of colour, with Marc Thompson among the speakers. Black queer London has moved through Soho in other ways too: our own archive carries a 2018 profile of Jay Jay Revlon, the ballroom scene builder behind English Breakfast and the House of Revlon, and a mention of a 2016 vogue battle held as a vigil in Soho Square. In 2025 the council's own archive started platforming Black queer artists through events like Black, Queer & Young.\n\nMost recently: a Black-owned queer venue called COVEN, which started in Hackney Wick, opened its Soho headquarters — bar, café, community hub and five-floor club — at 30 Old Compton Street on 19 June 2026, on the former G-A-Y Bar site. Full details are in the directory below. If you were at the Gallery in 2019, in that room at Ku Bar in 2018, on a BME float, or you know a chapter we've missed, the panel further down is where you tell us."
+    "history": "Westminster's Black queer history includes one of our own proudest nights — and it reaches back further than we knew, to a bandleader who died on a Westminster stage.\n\nKen 'Snakehips' Johnson, born in British Guiana, led the West Indian Orchestra — Britain's most popular Black swing band — through a nightly residency at the Café de Paris on Coventry Street, off Piccadilly Circus. He lived in Belgravia, at 91 Kinnerton Street, with his partner Gerald Hamilton. On the night of 8 March 1941, mid-performance, the club took a direct hit in the Blitz, and Johnson was killed along with members of his band. He had made a whole country dance to a Black, gay bandleader without most of them ever knowing his name for what it was.\n\nPride in London's parade runs through Westminster every year, past Trafalgar Square and Whitehall. Black queer organising has been inside that history for two decades: in 2005, 'Proud to B ME' brought Black and minority ethnic Pride communities together, with an after-party at the Pitcher and Piano on William IV Street, by Trafalgar Square. By 2008, the Black Gay Men's Advisory Group (BGMAG) — chaired by our founder Rob Berkeley — was negotiating directly with Pride London over funding for Black and BME floats and a dedicated BME stage.\n\nOn 15 February 2019, BLKOUT presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery — sold out, part of LGBT History Month. Berto Pasuka, born Wilbert Passerley in Jamaica in 1911, moved to London and co-founded Les Ballets Nègres in 1946 with Richie Riley — Britain's first Black-led dance company. David McAlmont gave the lecture, 'Portrait of a Black Queer Briton', in five acts set to two centuries of music by Black composers. It was built as the first in a series, and it remains a genuine high point of our own record in this borough.\n\nA year earlier, in April 2018, Let's Talk: Black Boy Joy ran downstairs at Ku Bar, Leicester Square, in association with BLKOUT and 56 Dean Street — an open-mic night by and for queer people of colour, with Marc Thompson among the speakers. Black queer London has moved through Soho in other ways too: our own archive carries a 2018 profile of Jay Jay Revlon, the ballroom scene builder behind English Breakfast and the House of Revlon, and a mention of a 2016 vogue battle held as a vigil in Soho Square. In 2025 the council's own archive started platforming Black queer artists through events like Black, Queer & Young.\n\nMost recently: a Black-owned queer venue called COVEN, which started in Hackney Wick, opened its Soho headquarters — bar, café, community hub and five-floor club — at 30 Old Compton Street on 19 June 2026, on the former G-A-Y Bar site. Full details are in the directory below. If you were at the Gallery in 2019, in that room at Ku Bar in 2018, on a BME float, or you know a chapter we've missed, the panel further down is where you tell us."
   },
   "neighbours": [
     { "name": "Camden", "slug": "camden" },
