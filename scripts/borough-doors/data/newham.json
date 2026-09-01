@@ -1,0 +1,294 @@
+{
+  "slug": "newham",
+  "brandForm": "BLKOUT in Newham",
+  "title": "Black queer men in Newham | BLKOUT in Newham",
+  "metaDescription": "For Black queer men in and around Newham — Stratford, East Ham, West Ham, Forest Gate, Canning Town, the Royal Docks: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/newham/",
+  "landmark": {
+    "src": "../images/newham/london-stadium.png",
+    "alt": "Pencil sketch of the London Stadium's ring of floodlights and roof cables at Queen Elizabeth Olympic Park, with the BLKOUT roundel set as a small distant moon in the sky above it"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Newham's.",
+    "heading": "BLKOUT in Newham",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Newham is a borough we've already stood in. In February 2024, our co-director joined the panel for Newham Community Cinema's screening of Little Richard: I Am Everything at Stratford Library, part of the borough's LGBT+ History Month. Around 88,200 Black residents live here now — the second-largest Black population of any London borough. This door is for the Black queer men among them."
+  },
+  "lastChecked": "31 August 2026",
+  "quiz": {
+    "heading": "Know your Newham?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "In February 2024, which documentary did Newham Community Cinema screen at Stratford Library with a panel featuring BLKOUT's co-director?",
+        "options": [
+          { "t": "Little Richard: I Am Everything", "correct": true },
+          { "t": "Paris Is Burning", "correct": false },
+          { "t": "Tongues Untied", "correct": false }
+        ],
+        "reveal": "Little Richard: I Am Everything — a free screening and post-show discussion, part of Newham's LGBT+ History Month, with BLKOUT co-director Rob Berkeley on the panel."
+      },
+      {
+        "q": "What was the name of the Royal Docks pub — now lost, and rebuilt for the stage by Jonny Woo's 2026 play Silvertown — remembered for dockers, sailors and gay Mods dancing together in the 1960s?",
+        "options": [
+          { "t": "The Kent Arms", "correct": true },
+          { "t": "The Dockers Rest", "correct": false },
+          { "t": "The Anchor and Hope", "correct": false }
+        ],
+        "reveal": "The Kent Arms, on Albert Road — remembered first-hand by Gay Liberation Front activist Stuart Feather, and rebuilt from interviews with dock workers, LGBTQ+ residents, and the African and Caribbean communities who worked the Royal Docks."
+      },
+      {
+        "q": "UK Black Pride's very first gathering, in 2004, was a coach trip to which seaside town?",
+        "options": [
+          { "t": "Southend-on-Sea", "correct": true },
+          { "t": "Brighton", "correct": false },
+          { "t": "Margate", "correct": false }
+        ],
+        "reveal": "Southend-on-Sea — Lady Phyll and the group Black Lesbians in the UK took a day trip there in 2004; by 2005 it had grown to three coach-loads and become the first official UK Black Pride. Its flagship festival's home ground is Queen Elizabeth Olympic Park — right here in Newham — for its return in 2027."
+      }
+    ],
+    "scores": {
+      "three": "Newham knows its own history. Now help us keep it current.",
+      "two": "Close. There's more of this than most people ever hear about.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Newham",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [],
+    "quietNote": "We searched two ways and found nothing standing in Newham that centres Black queer men, or Black LGBTQ+ people specifically, as their own space — checked 31 August 2026. There's real LGBTQ+ life here (Forest Gate Pride's monthly night, the council's LGBT+ History Month programme) and real Black cultural life (Newham Community Cinema, The New Black Film Collective) — and BLKOUT has stood on this ground before. But nothing yet that's built for us specifically. That's a report, not a verdict: if we're wrong, the panel at the bottom of this page is where you tell us, and this page changes. Meanwhile, the door below is open.",
+    "recently": [
+      { "when": "Aug 2026", "what": "Queer Frequencies at Stratford Waterfront, Queen Elizabeth Olympic Park — a free weekend of Black queer music culture, part of V&A East's Music is Black festival; Faggamuffin Bloc Party ran a full-day pre-carnival party at Sadler's Wells East" },
+      { "when": "Feb 2026", "what": "Creative Workshop: LGBT+ Stories of Care at Canning Town Library — queer histories of health, disability and care through archives and oral history-making, part of Newham LGBT+ History Month" },
+      { "when": "Feb 2026", "what": "Jonny Woo's work-in-progress sharing of Silvertown at Tate Institute Silvertown — a new play set in the Kent Arms, a 1960s Royal Docks gay pub — followed by Q&A" },
+      { "when": "Feb 2026", "what": "Asylum Seekers Connection — an LGBTQ+ community meet-up for asylum seekers at Beckton Community Centre, run by Worcester LGBT" },
+      { "when": "Nov 2025", "what": "Industry Takeover Series: Supporting Queer Black Artists in Music — a seminar at Talent House, Stratford, run by UD Music" },
+      { "when": "Feb 2024", "what": "BLKOUT co-director Rob Berkeley on the panel for Newham Community Cinema's screening of Little Richard: I Am Everything, Stratford Library" }
+    ]
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Newham. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Forest Gate Pride",
+        "url": "https://www.forestgatepride.co.uk",
+        "note": "Grassroots LGBTQIA+ community interest company in Forest Gate — a free monthly disco, Kick Down The Closet, on the last Saturday of every month at the Forest Tavern, plus an annual Pride weekend (26–28 June 2026). Hosted the finale night of Newham's LGBT+ History Month 2026.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Newham LGBT+ History Month",
+        "url": "https://www.newhamlgbthistory.org",
+        "note": "The council's annual February programme across libraries, town halls and community venues. 2026's theme was Science and Innovation — a Queer Ecology talk, play-sharings, creative workshops, and Forest Gate Pride's finale. It's the programme that hosted BLKOUT's own appearance in 2024.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "The New Black Film Collective / Newham Community Cinema",
+        "url": "https://www.tnbfc.co.uk",
+        "note": "East London's Black film charity, running free community cinema nights in Stratford for over a decade, the PictureEast Film Festival (PEFF26 ran Jan–Feb 2026), and an annual convention. Screened Little Richard: I Am Everything with BLKOUT's co-director on the panel, February 2024.",
+        "centres": "black-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "East London LGBT+ Seniors — Coffee and Chat",
+        "url": "https://www.newhamlgbthistory.org/events/east-london-lgbt-seniors-coffee-and-chat/",
+        "note": "Monthly coffee-and-chat for LGBTQ+ people over 50 from Newham and neighbouring East London boroughs, third Wednesday, 11am–1pm, Stratford Library.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Pride of Irons",
+        "url": "https://prideofirons.com",
+        "note": "West Ham United's official LGBTQ+ and Allies Supporters' Group. Marched with the club at Pride in London, July 2026, and visited Rush Green training ground for LGBT+ History Month, February 2026 — a way into the borough's biggest football institution.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "DLPlug London",
+        "url": "https://www.dlplug.com",
+        "note": "Black-centred, sex-positive party space for gay, bi and DL men — monthly nights on City Road, Shoreditch, a short ride from Stratford. Running for over six years.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      },
+      {
+        "name": "House of Rainbow",
+        "url": "https://www.houseofrainbow.org",
+        "note": "Faith community and global network centring Black, African and Caribbean LGBTIQ+ people of faith, founded 2006. In-person service third Sunday of every month, Islington.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone. Newham takes part.",
+        "currencyChecked": true
+      },
+      {
+        "name": "All East Sexual Health (Barts Health)",
+        "url": "https://www.alleast.nhs.uk",
+        "note": "The NHS sexual health and HIV service for Newham and the rest of east London — testing, treatment and PrEP, no GP referral needed.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Newham's queer record runs through a lost dockside pub and a council programme that keeps growing. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "Step back into the Royal Docks in the 1960s with Jonny Woo's new play Silvertown",
+        "author": "Royal Docks",
+        "year": "2026",
+        "note": "On the Kent Arms, the lost Albert Road pub Stuart Feather remembered as full of dockers, sailors and gay Mods dancing together — and the play built from those memories.",
+        "url": "https://royaldocks.london/articles/step-back-into-the-royal-docks-in-the-1960s-with-jonny-woos-new-play-silvertown",
+        "urlLabel": "Read the article"
+      },
+      {
+        "title": "Jonny Woo steps back into 1960's queer East London for his new play Silvertown",
+        "author": "Queerguru",
+        "year": "2026",
+        "note": "More on Silvertown's community research — dock workers, LGBTQ+ residents, and the African and Caribbean communities who worked the Royal Docks.",
+        "url": "https://queerguru.com/jonny-woo-steps-back-into-1960s-queer-east-london-for-his-new-play-silvertown/",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "A Long Way from Home",
+        "author": "Claude McKay",
+        "year": "1937",
+        "note": "McKay's own account of reporting London's docks for Sylvia Pankhurst's Workers' Dreadnought, 1919–20 — read in full to check a lead that his ground was Newham. It wasn't: his paper's office was on Roman Road, Bow, and the sailor friend he names from those years was from Limehouse. Both Tower Hamlets, not here.",
+        "url": "https://www.gutenberg.org/ebooks/71744",
+        "urlLabel": "Read the memoir"
+      },
+      {
+        "title": "Here and Queer: A Brief History Lesson in Queer Theatre",
+        "author": "Theatre Royal Stratford East",
+        "year": "ongoing",
+        "note": "The theatre's own account of its queer productions, from Rikki Beadle-Blair's Bashment (2005) and Summer In London (2017) to Queer Lates x Queerstory.",
+        "url": "https://www.stratfordeast.com/news/here-and-queer-a-brief-history-lesson-in-queer-theatre",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "Our history",
+        "author": "UK Black Pride",
+        "year": "ongoing",
+        "note": "From a 2004 coach trip to Southend-on-Sea to Europe's largest celebration for LGBTQ+ people of colour, now home at Queen Elizabeth Olympic Park.",
+        "url": "https://www.ukblackpride.org.uk/history",
+        "urlLabel": "Read the history"
+      },
+      {
+        "title": "Newham LGBT+ History Month",
+        "author": "London Borough of Newham",
+        "year": "2026",
+        "note": "The council's own record of its annual February programme, including the Little Richard: I Am Everything screening our co-director spoke at in 2024.",
+        "url": "https://www.newhamlgbthistory.org",
+        "urlLabel": "Visit the site"
+      },
+      {
+        "title": "Little Richard: I Am Everything — screening and panel, Stratford Library",
+        "author": "Newham Community Cinema",
+        "year": "2024",
+        "note": "BLKOUT's own record: co-director Rob Berkeley on the panel, 23 February 2024, as part of Newham LGBT+ History Month."
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 88,200 Black residents in Newham — the second-largest Black population of any London borough, just behind Croydon. On the estimates we publish, that's 2,000 to 2,700 Black queer men living here right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Newham doesn't have a single named Black queer ancestral figure the way some of our other doors do — and we checked properly, including a lead into Claude McKay, the bisexual Jamaican-British poet who reported on London's docks for Sylvia Pankhurst's Workers' Dreadnought in 1919–20. His paper's office was on Roman Road in Bow, and the one sailor friend he names from those years was from Limehouse. Both are Tower Hamlets, across the border — not here. We're saying that plainly rather than forcing a fit.\n\nWhat the borough does hold is a lost pub on Albert Road in the Royal Docks. The Kent Arms was, by the 1960s, a byword for dockers, sailors and gay Mods dancing together — remembered first-hand by Gay Liberation Front activist Stuart Feather. Jonny Woo's 2026 play Silvertown rebuilds it from interviews with the people who were actually there: dock workers, the women who lived alongside them, the African and Caribbean communities who worked the docks, and the LGBTQ+ people among them. Nobody has yet named a Black queer man who drank there. That doesn't mean there wasn't one.\n\nStratford has its own queer stage record too. Theatre Royal Stratford East staged Rikki Beadle-Blair's Bashment in 2005, tackling homophobia in the hip-hop scene, and his Summer In London in 2017 — the first full-scale show with an all-trans cast on a mainstream UK stage. Its cabaret night Queer Lates x Queerstory has run since at least 2020. And Queen Elizabeth Olympic Park itself carries a thread back to UK Black Pride's own origin story: Lady Phyll and the group Black Lesbians in the UK took a coach trip to Southend-on-Sea in 2004, which grew by 2005 into the first UK Black Pride — and the festival's flagship home is now the Olympic Park, paused for 2026 but due back in 2027. In August 2026, the Park hosted Queer Frequencies, a free weekend of Black queer music as part of V&A East's Music is Black festival, with Faggamuffin Bloc Party — the same QTIBPoC collective behind BLKOUT's own Hackney Carnival stage — running a full pre-carnival party at Sadler's Wells East.\n\nBLKOUT's own history here is more recent, and it's ours outright. In February 2024, our co-director joined the panel for Newham Community Cinema's free screening of Little Richard: I Am Everything at Stratford Library, part of Newham's LGBT+ History Month — talking, on Newham's own ground, about one of the loudest, queerest Black icons American music ever produced.\n\nNewham keeps a full LGBT+ History Month programme running every February, and Forest Gate Pride has run a free night at the Forest Tavern every month since it became a community interest company in 2021. It's real, and it's growing. What's missing is a room built specifically for Black queer men to walk into. That's the door we're opening."
+  },
+  "neighbours": [
+    { "name": "Tower Hamlets", "slug": "tower-hamlets" },
+    { "name": "Waltham Forest", "slug": "waltham-forest" },
+    { "name": "Redbridge", "slug": "redbridge" },
+    { "name": "Barking and Dagenham", "slug": "barking-and-dagenham" },
+    { "name": "Greenwich", "slug": "greenwich" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Ten years of stories, 282,000 messages — and Newham's own chapter in the story archive is still to be written, even though we've already stood on its ground. When the borough starts, the archive will be watching.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Newham?",
+      "a": "Honestly: nothing borough-based exists yet — the door below is where that changes. BLKOUT's national community is open to you today, and when a few Newham men want a table in the borough, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Newham?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. All East Sexual Health runs Newham's own NHS service, and 56 Dean Street is a short ride away in Soho."
+    },
+    {
+      "q": "Is BLKOUT a Newham organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. We've already stood on Newham's ground once, at Stratford Library in February 2024, and this door means we're staying."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the borough's own record and the public archive, and dated so you can see when we last looked. We even chased down a lead that didn't hold up — Claude McKay's London was Bow and Limehouse, not here, and we said so rather than keep him. If we've got something wrong, or missed something you were part of, the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Newham — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "newham-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Newham." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Newham — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Newham, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page leans on a lost pub, a council programme, and one afternoon our co-director spent at Stratford Library — and the people here know the rest of it. If a group has folded, a night has moved, or we've missed something you were part of — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "newham-door-intel",
+    "placeholder": "That programme changed venue… the Kent Arms had a name I remember differently… I was at that screening…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Newham's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
