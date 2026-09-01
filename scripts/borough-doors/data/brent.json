@@ -1,0 +1,271 @@
+{
+  "slug": "brent",
+  "brandForm": "BLKOUT in Brent",
+  "title": "Black queer men in Brent | BLKOUT in Brent",
+  "metaDescription": "For Black queer men in and around Brent — Wembley, Kilburn, Willesden, Harlesden: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/brent/",
+  "landmark": {
+    "src": "../images/brent/wembley-stadium-arch.png",
+    "alt": "Pencil sketch of Wembley Stadium's arch against a night sky, with the BLKOUT roundel set as a small distant moon above it"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Brent's.",
+    "heading": "BLKOUT in Brent",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Brent doesn't yet have a chapter of our own history to point to here, so we're saying that plainly rather than inventing one. What's real: around 62,500 Black residents live in Brent, one of London's largest Black populations, and in 2026 Brent Council started mapping the borough's own queer networks for the first time, working with the charity LGBT HERO, because nobody yet has a clear picture of who's here. This door is for the Black queer men among that number, counted or not."
+  },
+  "lastChecked": "31 August 2026",
+  "quiz": {
+    "heading": "Know your Brent?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "What is currently the only Pride celebration held in the London Borough of Brent?",
+        "options": [
+          { "t": "Wembley Park Pride", "correct": true },
+          { "t": "Brent Pride", "correct": false },
+          { "t": "UK Black Pride", "correct": false }
+        ],
+        "reveal": "Wembley Park Pride — run in partnership with West London Queer Project. It's been running for several years as a sunset finale to London's Pride parade, and in 2026 it expanded into the borough's first full Pride Week."
+      },
+      {
+        "q": "In 1971, a lesbian and gay social group started meeting in the Harrow and Brent area under what name?",
+        "options": [
+          { "t": "Harrow & Brent Lesbian & Gay Group", "correct": true },
+          { "t": "Wembley Gay Liberation Front", "correct": false },
+          { "t": "Kilburn Social Club", "correct": false }
+        ],
+        "reveal": "Harrow & Brent Lesbian & Gay Group — now North West London LGBT. It still meets every week, more than fifty years on, though its fixed home moved to Harrow long ago."
+      },
+      {
+        "q": "In 2026, what did Brent Council start doing for the first time, working with the charity LGBT HERO?",
+        "options": [
+          { "t": "Mapping the borough's own LGBTQ+ networks", "correct": true },
+          { "t": "Opening a permanent LGBTQ+ community centre", "correct": false },
+          { "t": "Funding a Black Pride event", "correct": false }
+        ],
+        "reveal": "Mapping the borough's queer networks and surveying residents' experiences — because even the council doesn't yet have a full picture of who's here or where they meet. That's exactly the gap this door exists to help close."
+      }
+    ],
+    "scores": {
+      "three": "Brent knows more than it's usually given credit for. Now help us build a Black queer chapter of it.",
+      "two": "Close. Brent's queer record is real, if scattered.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Brent",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "quietNote": "Checked 31 August 2026 — nothing organised specifically for Black queer men or Black LGBTQ+ people in Brent turned up in our own project records, the events and story archives, or a direct search. Brent Council is only now starting to map the borough's own queer networks (2026, with LGBT HERO) — which tells you this isn't a gap in our search, it's a gap the borough itself is trying to close. That's a report, not a silence. The door below is always open.",
+    "entries": []
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Brent. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Wembley Park Pride",
+        "url": "https://wembleypark.com/pride/",
+        "note": "The only Pride celebration in the London Borough of Brent — run by the Wembley Park estate in partnership with West London Queer Project. 2026 was its first full Pride Week (28 June–5 July), building on years running as a sunset finale to London's Pride parade.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "West London Queer Project",
+        "url": "https://www.wlqp.org",
+        "note": "Community Interest Company connecting and supporting LGBTQ+ people across West London — co-delivers Wembley Park Pride's programme, including 2026's outdoor yoga session in the park.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Brent Council's LGBTQ+ Inclusion Programme",
+        "url": "https://wembleypark.com/documents/125/flyer_LGBTQ_Brent.pdf",
+        "note": "Launched in 2026 with the charity LGBT HERO — a borough-wide survey and the council's first attempt to map the LGBTQ+ networks already in Brent. If you're one of those networks, or want to be counted, this is the council actually asking.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "North West London LGBT",
+        "url": "https://nwlgay.com",
+        "note": "Founded in 1971 as the Harrow & Brent Lesbian & Gay Group — still meeting weekly, every Tuesday from 8pm, now at The Trinity in Harrow, with members from across Brent, Barnet, Hillingdon, Hounslow and beyond. The oldest LGBTQ+ social group with Brent in its name.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "100 Black Men of London",
+        "url": "https://100bmol.org.uk",
+        "note": "Black-led mentoring charity running community mentoring programmes for Black children and young people — listed in Brent's own community directory.",
+        "centres": "black-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Connection",
+        "url": "https://www.instagram.com/blackconnection50/",
+        "note": "UK-wide social network for Black queer men aged 50+, formed in 2020 and run out of London — regular meet-ups and an active, growing community.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      },
+      {
+        "name": "African Rainbow Family",
+        "url": "https://africanrainbowfamily.org",
+        "note": "Registered charity by and for LGBTIQ+ people of African heritage, founded 2014 — community, mental health and practical support, with a London base alongside branches in Manchester, Birmingham and Leeds.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone. Brent takes part in full, alongside Ealing and Harrow.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Patrick Clements Clinic — Central Middlesex Hospital",
+        "url": "https://shc.lnwh.nhs.uk/patrick-clements-clinic/",
+        "note": "The borough's NHS sexual health clinic, on the Brent/Ealing border — walk-in and booked appointments, HIV and STI testing, PrEP.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Brent's queer record is a general-borough one, not yet a Black-specific one — start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "London Borough of Brent",
+        "author": "LGBT History Project UK",
+        "year": "ongoing",
+        "note": "General borough queer history — the Barnet and Brent CHE Group, the Hampstead and Kilburn CHE Group, the Harrow & Brent Lesbian & Gay Group (est. 1971, now North West London LGBT), Mosaic Youth, and the West London LGBT Forum (est. 2006).",
+        "url": "https://lgbthistoryuk.org/wiki/Brent",
+        "urlLabel": "Read the entry"
+      },
+      {
+        "title": "Brent Biennial 2022: In the House of My Love",
+        "author": "Metroland Cultures",
+        "year": "2022",
+        "note": "An art biennial across Kilburn, Willesden and Harlesden exploring homemaking as a form of resistance and survival against racism, homophobia and austerity — the closest thing to a public exploration of Brent's queer history we found.",
+        "url": "https://metrolandcultures.com/brent-biennial-2022/",
+        "urlLabel": "Read about the biennial"
+      },
+      {
+        "title": "Gaps in the Archive: a day of events telling the LGBT+ (hi)story of Brent",
+        "author": "Metroland Cultures / DIVA Magazine",
+        "year": "2022",
+        "note": "A day at Willesden Green Library inviting residents to hand over their own LGBTQ+ memories and memorabilia — exactly the kind of record this page is trying to add to.",
+        "url": "https://diva-magazine.com/event/gaps-in-the-archive-a-day-of-events-telling-the-lgbt-history-of-brent/",
+        "urlLabel": "Read about the event"
+      },
+      {
+        "title": "Wembley Park Pride Week 2026",
+        "author": "Wembley Park",
+        "year": "2026",
+        "note": "Announces Brent Council's first LGBTQ+ community survey and network-mapping project, run with the charity LGBT HERO.",
+        "url": "https://wembleypark.com/pride/",
+        "urlLabel": "Read the announcement"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 62,500 Black residents in Brent — one of the largest Black populations of any London borough. On the estimates we publish, that's 1,400 to 2,000 Black queer men living here right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Brent's queer history goes back further than most people assume, but it's a general-borough record more than a Black-specific one — and nobody, including us, has yet put a name to a Black queer chapter of it.\n\nA lesbian and gay social group has been meeting in the Harrow and Brent area continuously since 1971 — it started as the Harrow & Brent Lesbian & Gay Group, and still runs today as North West London LGBT, weekly, though its fixed home moved to Harrow long ago. Mosaic, the borough's LGBT youth project, ran in Brent until 2016, when austerity cuts forced it to close its doors here and relocate to Camden as an independent charity — its archive is now held at Willesden Green Library. In September 2022, that same library hosted 'Gaps in the Archive', a day inviting residents to hand over their own LGBTQ+ memories and memorabilia, as part of that year's Brent Biennial — an art festival across Kilburn, Willesden and Harlesden explicitly themed around queer homemaking as a form of resistance.\n\nWhat's live now: Wembley Park Pride, the only Pride celebration the borough has, running its first full Pride Week in 2026 in partnership with West London Queer Project — and, that same year, Brent Council starting its first-ever attempt to map the borough's LGBTQ+ networks, working with LGBT HERO, because nobody yet has a clear picture of who's here or where they meet. None of that record names Black queer men specifically. This page is where that starts — if you're already meeting, tell us below, and we'll build the rest of this history around you rather than around a gap."
+  },
+  "neighbours": [
+    { "name": "Barnet", "slug": "barnet" },
+    { "name": "Harrow", "slug": "harrow" },
+    { "name": "Ealing", "slug": "ealing" },
+    { "name": "Hammersmith and Fulham", "slug": "hammersmith-and-fulham" },
+    { "name": "Kensington and Chelsea", "slug": "kensington-and-chelsea" },
+    { "name": "Camden", "slug": "camden" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Brent doesn't yet have a piece in our published story archive — nothing in our own records ties BLKOUT to the borough yet. If that's wrong, or you were part of something we've missed, tell us below and this box gets its first entry.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Brent?",
+      "a": "We don't have one to point you to yet — genuinely, and we've checked. Start with the door on this page: BLKOUT's national community is open to you today, and Wembley Park Pride (the borough's only Pride) and North West London LGBT's weekly meet-up are real, general LGBTQ+ spaces worth knowing about while we build something more specific together. If a few Brent men want a table, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Brent?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. Central Middlesex Hospital runs the borough's own NHS sexual health clinic, and 56 Dean Street is a short ride away in Soho."
+    },
+    {
+      "q": "Is BLKOUT a Brent organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are, including here, even before we had a Brent history of our own to tell."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the public record and dated so you can see when we last looked — and where we couldn't find something, including a Black-specific chapter in Brent, we've said so rather than guessed. If we've got something wrong, or you're part of a chapter we've missed, the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Brent — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "brent-door",
+    "options": [
+      { "value": "definitely", "title": "I'm in", "body": "Tell me everything happening in and around Brent." },
+      { "value": "if-organised", "title": "If something's on locally", "body": "I'd come along if something got going in the borough." },
+      { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
+    ],
+    "holderLabel": "I could help hold something in Brent — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Brent, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "We know this page is thinner than Brent deserves — and the people here know the rest of it. If there's a group we've missed, something building in Wembley, Kilburn, Willesden or Harlesden, or a chapter of our own history you were part of — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "brent-door-intel",
+    "placeholder": "There's a group in Wembley you've missed… I go to North West London LGBT… something's starting in Kilburn…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Brent's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [
+    {
+      "name": "Mosaic LGBT Youth Centre (Brent)",
+      "ended": "2016",
+      "source": "Ran in Brent until austerity cuts forced its closure here in 2016; reformed as an independent charity in Camden. Archive held at Willesden Green Library. Source: LGBT History Project UK and Brent Council's community directory."
+    }
+  ],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
