@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-28T12:39:38.411Z",
+ "generated": "2026-09-01T22:16:14.904Z",
  "source": "https://events.blkoutuk.com/places",
  "places": [
   {
@@ -81,18 +81,6 @@
    "url": "https://bootyldn.com",
    "instagram": "@bootyldn",
    "centres": "black-queer-men"
-  },
-  {
-   "id": "chakula",
-   "name": "Chakula (The Africa Centre)",
-   "what": "Monthly programme at the Africa Centre connecting Black and African LGBTQ+ voices — workshops, dialogues, club nights",
-   "where": "London — The Africa Centre, Southwark",
-   "region": "london",
-   "borough": "Southwark",
-   "kind": "group",
-   "regular": "monthly",
-   "url": "https://www.africacentre.org.uk/the-chakula-program",
-   "centres": "black-lgbtq"
   },
   {
    "id": "club-kali",

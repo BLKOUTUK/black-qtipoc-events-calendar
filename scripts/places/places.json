@@ -234,11 +234,11 @@
     "regular": "monthly",
     "url": "https://www.africacentre.org.uk/the-chakula-program",
     "centres": "black-lgbtq",
-    "checked": "2026-08",
-    "evidence": "Graded from CRM notes (Rob), which mention 2025: \"Monthly programme at the Africa Centre connecting Black and African LGBTQ+ voices through workshops, dialogues and club nights (Roots n Rhyt\"",
-    "status": "live",
+    "checked": "2026-09",
+    "evidence": "Graded from CRM notes (Rob), which mention 2025: \"Monthly programme at the Africa Centre connecting Black and African LGBTQ+ voices through workshops, dialogues and club nights (Roots n Rhyt\" On hold as at 1 Sep 2026: the Africa Centre's programmes, Chakula included, are paused by a crisis-level funding gap (Rob, 1 Sep 2026). Re-check when the Centre resumes programming.",
+    "status": "dormant",
     "borough": "Southwark",
-    "published": true
+    "published": false
   },
   {
     "id": "chelsea-westminster-sexual-health",
