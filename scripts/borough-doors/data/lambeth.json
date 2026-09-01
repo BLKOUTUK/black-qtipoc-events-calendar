@@ -208,7 +208,7 @@
   "numbers": {
     "heading": "The numbers nobody counts",
     "body": "The 2021 Census counted around 76,100 Black residents in Lambeth — nearly a quarter of the borough — and the borough's own LGBT+ forum calls Lambeth home to the largest LGBTIQ+ community in the UK. On the estimates we publish, that's 1,700 to 2,400 Black queer men: enough to fill the Academy's stalls, and still described as 'too small' for a single specialist service. We think the men were never the wrong size — the map was. These are working estimates and we welcome correction.",
-    "history": "When Ivor Cummings — the Croydon-raised, openly gay civil servant whose name is over every BLKOUT door — found the Windrush generation their first beds in the deep shelter under Clapham Common, the nearest labour exchange was on Coldharbour Lane. Brixton became Black London's front room because that's where the work was. And the room has always held us: beneath her Railton Road dress shop, Pearl Alcock ran the only gay bar in Brixton — a 1970s shebeen sheltering Black queer men from every borough — and ended her days a celebrated artist, hung at Tate Britain in 2005.\n\nThe record runs deep here: The Vox on Brighton Terrace, the first club of its kind run by and for Black queer people; the Brixtonian; Sistermatic's sound-system parties; Big Up's pioneering health work for Black gay and bisexual men. This door continues the story in the present tense."
+    "history": "When Ivor Cummings — the Croydon-raised, openly gay civil servant whose name is over every BLKOUT door — found the Windrush generation their first beds in the deep shelter under Clapham Common, the nearest labour exchange was on Coldharbour Lane. Brixton became Black London's front room because that's where the work was. And the room has always held us: beneath her Railton Road dress shop, Pearl Alcock ran the only gay bar in Brixton — a 1970s shebeen sheltering Black queer men from every borough — and ended her days a celebrated artist, hung at Tate Britain in 2005.\n\nThe record runs deep here: The Vox on Brighton Terrace, the first club of its kind run by and for Black queer people; the Brixtonian; Sistermatic's sound-system parties; Big Up's pioneering health work for Black gay and bisexual men — and Blackliners, the UK's first helpline and charity for Black people affected by HIV and AIDS. Arnold Gordon, who knew Ivor Cummings from Freetown to London, started it as a telephone line from his own spare room in 1988; within its first years the calls had outgrown the room and it moved into an office in Brixton. This door continues the story in the present tense."
   },
   "gallery": {
     "heading": "BLKOUT in the borough",
@@ -232,6 +232,14 @@
   "bibliography": {
     "intro": "The borough's Black queer story is being written down — start here, and tell us what belongs on this shelf.",
     "entries": [
+      {
+        "title": "Arnold Gordon",
+        "author": "The National HIV Story Trust",
+        "year": "ongoing",
+        "note": "Arnold Gordon's own account of founding Blackliners from his Balham flat in 1988, and the office in Brixton that followed.",
+        "url": "https://www.hivstory.org.uk/arnold-gordon/",
+        "urlLabel": "Read his story"
+      },
       {
         "title": "Revolutionary Acts: Love & Brotherhood in Black Gay Britain",
         "author": "Jason Okundaye",
@@ -313,7 +321,8 @@
     ]
   },
   "retired": [
-    { "name": "The Brixtonian (Vincent Osborne, 'Lady O', from 1990)", "ended": "closed — confirmed Rob, 27 Aug 2026", "source": "Belongs in the history note only; never list as a live venue. Its founder is living Lambeth memory — see project_events_calendar_rebuild memory for the relationship." }
+    { "name": "The Brixtonian (Vincent Osborne, 'Lady O', from 1990)", "ended": "closed — confirmed Rob, 27 Aug 2026", "source": "Belongs in the history note only; never list as a live venue. Its founder is living Lambeth memory — see project_events_calendar_rebuild memory for the relationship." },
+    { "name": "Blackliners", "ended": "2003 (removed from the Charity Commission register)", "source": "The UK's first helpline and charity for Black people affected by HIV and AIDS, founded 1988 by Arnold Gordon from his flat in Balham (Wandsworth) — its office moved to Brixton once it became a registered charity. Listed in the history note, not as a live service." }
   ],
   "supabase": {
     "url": "https://bgjengudzfickgomjqmz.supabase.co",
