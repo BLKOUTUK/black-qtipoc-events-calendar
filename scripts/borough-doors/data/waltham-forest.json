@@ -1,0 +1,239 @@
+{
+  "slug": "waltham-forest",
+  "brandForm": "BLKOUT in Waltham Forest",
+  "title": "Black queer men in Waltham Forest | BLKOUT in Waltham Forest",
+  "metaDescription": "For Black queer men in and around Waltham Forest — Walthamstow, Leyton, Leytonstone, Chingford: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/waltham-forest/",
+  "landmark": {
+    "src": "../images/waltham-forest/waltham-forest-william-morris-gallery.png",
+    "alt": "Pencil sketch of the William Morris Gallery's Georgian façade in Lloyd Park with the BLKOUT roundel set into a small moon above the roofline"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Waltham Forest's.",
+    "heading": "BLKOUT in Waltham Forest",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Waltham Forest already has a habit of getting there first: an LGBTQ+ centre running since 1995, a Pride that started in a park in 2000, same-sex ballroom dancing twenty years before Strictly noticed, and one of the most significant Black artists alive choosing this borough's own gallery for his first UK museum show. Around 46,700 Black residents live here now. This door is for the Black queer men among them."
+  },
+  "lastChecked": "2 September 2026",
+  "quiz": {
+    "heading": "Know your Waltham Forest?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Which internationally significant Black artist had his first UK museum solo show at the William Morris Gallery in Walthamstow?",
+        "options": [
+          { "t": "Kehinde Wiley", "correct": true },
+          { "t": "Yinka Shonibare", "correct": false },
+          { "t": "Chris Ofili", "correct": false }
+        ],
+        "reveal": "Kehinde Wiley — best known for painting Barack Obama's official portrait, and a gay man by his own public account — showed The Yellow Wallpaper at the gallery from February to July 2022: six large-scale portraits of women he street-cast on the streets of nearby Dalston. His biggest UK museum moment happened in this borough's own gallery."
+      },
+      {
+        "q": "Which Waltham Forest organisation has supported London's LGBTQ+ community from Grove Road, Walthamstow, since 1995?",
+        "options": [
+          { "t": "ELOP", "correct": true },
+          { "t": "Mind in Haringey", "correct": false },
+          { "t": "Black Thrive", "correct": false }
+        ],
+        "reveal": "ELOP — the East London Out Project. In 2000 it organised the borough's first Pride, in Lloyd Park, the same year Waltham Forest hosted one of the earliest same-sex ballroom dance competitions anywhere."
+      },
+      {
+        "q": "In 2000, Waltham Forest hosted a same-sex ballroom and Latin dance competition — how far ahead of Strictly Come Dancing recognising queer dancers was that, according to the organiser who received a British Empire Medal for the campaign?",
+        "options": [
+          { "t": "Twenty years", "correct": true },
+          { "t": "Five years", "correct": false },
+          { "t": "Forty years", "correct": false }
+        ],
+        "reveal": "Twenty years, says Jacqueline Logan, who spent thirty years campaigning to make queer expression acceptable in ballroom venues and received a British Empire Medal for it in 2020. The competition ran as part of the UK Gay Sports Festival, in Lloyd Park and Chestnuts Field, with an opening ceremony at Hollow Ponds."
+      }
+    ],
+    "scores": {
+      "three": "Waltham Forest gets there first, again and again. Now help us find out who else was in the room.",
+      "two": "Close. The borough has more firsts than most boroughs have festivals.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Waltham Forest",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [],
+    "quietNote": "Checked 2 September 2026 — we haven't found a space run by and for Black queer men in Waltham Forest yet, genuinely. If one exists, or you want to start one, the panel below is where that begins."
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Waltham Forest. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "ELOP — East London Out Project",
+        "url": "https://elop.org",
+        "note": "Running from Grove Road, Walthamstow since 1995 — counselling, mental health support and youth groups for London's LGBTQ+ community. Organised the borough's first Pride, in Lloyd Park, in 2000.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "William Morris Gallery",
+        "url": "https://www.wmgallery.org.uk",
+        "note": "The borough's own museum, in Lloyd Park — and the venue that gave Kehinde Wiley his first UK museum solo show in 2022. Worth knowing as a room that has already centred major Black work.",
+        "centres": "black-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Melanin Vybz — London LGBTQ+ Community Centre",
+        "url": "https://londonlgbtqcentre.org",
+        "note": "Bankside's community centre runs Melanin Vybz, a social space for Black and POC LGBTQ+ people — a Victoria line ride from Walthamstow Central.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      },
+      {
+        "name": "Ballroom at Stanley Arts",
+        "url": "https://www.stanleyarts.org",
+        "note": "Croydon's ballroom scene, on the other side of London — a fitting echo of Waltham Forest's own claim to the dancefloor: this borough ran a same-sex ballroom competition in 2000, twenty years before the mainstream caught up.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Waltham Forest sexual health services",
+        "url": "https://www.walthamforest.gov.uk/health-and-wellbeing/sexual-health",
+        "note": "The borough's own guide to STI testing, treatment and contraception.",
+        "currencyChecked": false
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Waltham Forest's record is thinner than some boroughs' — start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "The Yellow Wallpaper",
+        "author": "Kehinde Wiley, William Morris Gallery",
+        "year": "2022",
+        "note": "Wiley's first solo show in a UK museum — six large-scale portraits of women, street-cast in nearby Dalston, responding to Charlotte Perkins Gilman's story. Ran 22 February to 12 July 2022.",
+        "url": "https://www.wmgallery.org.uk/event/kehinde-wiley/",
+        "urlLabel": "Read about the exhibition"
+      },
+      {
+        "title": "How Waltham Forest led the way for gay ballroom dancers",
+        "author": "Waltham Forest Echo",
+        "year": "2025",
+        "note": "The story of the UK Gay Sports Festival's 2000 dance competition, and Jacqueline Logan's thirty-year campaign for queer ballroom dancing.",
+        "url": "https://walthamforestecho.co.uk/2025/08/29/how-waltham-forest-led-the-way-for-gay-ballroom-dancers/",
+        "urlLabel": "Read the article"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census counted around 46,700 Black residents in Waltham Forest. On the estimates we publish, that's 1,000 to 1,500 Black queer men in the borough. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Waltham Forest's queer history doesn't centre Black lives yet in the public record — but the borough has form as a place that gets there first.\n\nIn 2000, as part of the UK Gay Sports Festival, the borough hosted one of the earliest same-sex ballroom and Latin dance competitions anywhere — twenty years before Strictly Come Dancing recognised the same thing, according to veteran organiser Jacqueline Logan, who received a British Empire Medal for her thirty-year campaign in 2020. The same year, ELOP — running from Grove Road, Walthamstow since 1995 — organised the borough's first Pride, in Lloyd Park.\n\nAnd in 2022, the William Morris Gallery gave Kehinde Wiley — the Black gay American artist who painted Barack Obama's official portrait — his first solo show in a UK museum: six large-scale portraits, of women he found on the streets of nearby Dalston. One of the most significant Black artists working today had his biggest UK museum moment in this borough's own gallery.\n\nWhat we haven't found yet is a documented history of Black queer men specifically organising here — nothing playing the role Haringey's Black Lesbian and Gay Centre or Croydon's Ivor Cummings plays on those doors. That may be a real gap, or a gap in what's been written down. If you know different, the panel below is where the page changes."
+  },
+  "neighbours": [
+    { "name": "Enfield", "slug": "enfield" },
+    { "name": "Haringey", "slug": "haringey" },
+    { "name": "Hackney", "slug": "hackney" },
+    { "name": "Newham", "slug": "newham" },
+    { "name": "Redbridge", "slug": "redbridge" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Waltham Forest doesn't yet have a piece in our published story archive — nothing in our own records ties BLKOUT to the borough yet. If that's wrong, or you were part of something we've missed, tell us below and this box gets its first entry.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Waltham Forest?",
+      "a": "We don't have one to point you to yet — genuinely, and we've checked. Start with the door on this page: BLKOUT's national community is open to you today, and ELOP's LGBTQ+ groups are a real, general space worth knowing about while we build something more specific together. If a few Waltham Forest men want a table, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Waltham Forest?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. The borough's own sexual health service is listed above, and 56 Dean Street is a short ride away in Soho."
+    },
+    {
+      "q": "Is BLKOUT a Waltham Forest organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are, including here, even before we had a Waltham Forest history of our own to tell."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against the public record and dated so you can see when we last looked — and where we couldn't find something, including a Black-specific chapter in Waltham Forest, we've said so rather than guessed. If we've got something wrong, or you're part of a chapter we've missed, the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Waltham Forest — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "waltham-forest-door",
+    "options": [
+      {
+        "value": "definitely",
+        "title": "I'm in",
+        "body": "Tell me everything happening in and around Waltham Forest."
+      },
+      {
+        "value": "if-organised",
+        "title": "If something's on locally",
+        "body": "I'd come along if something got going in the borough."
+      },
+      {
+        "value": "keep-informed",
+        "title": "Just keep me posted",
+        "body": "Not sure yet — send me what's happening now and then."
+      }
+    ],
+    "holderLabel": "I could help hold something in Waltham Forest — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Waltham Forest, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page is thinner than we'd like, and it is the people here who know it best. If a group exists that we've missed, a night has moved, or you were part of something that belongs above — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "waltham-forest-door-intel",
+    "placeholder": "There's a group you missed… the gallery show wasn't the only one… my group meets in Leyton…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Waltham Forest's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
