@@ -1,0 +1,277 @@
+{
+  "slug": "camden",
+  "brandForm": "BLKOUT in Camden",
+  "title": "Black queer men in Camden | BLKOUT in Camden",
+  "metaDescription": "For Black queer men in and around Camden — Camden Town, Kentish Town, Euston, Kilburn: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/camden/",
+  "landmark": {
+    "src": "../images/camden/camden-roundhouse.png",
+    "alt": "Pencil sketch of the Roundhouse's circular brick facade in Chalk Farm with the BLKOUT roundel set into a small moon above the roofline"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Camden's.",
+    "heading": "BLKOUT in Camden",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Camden is where a good part of our own story was written. Black Men Who Brunch ran monthly from Old Diorama Arts Centre and Regent's Place from December 2019. A picnic first nurtured by one of our own, in Regent's Park, has grown into our biggest gathering of the year. Around 18,900 Black residents live in the borough now. This door is for the Black queer men among them."
+  },
+  "lastChecked": "3 September 2026",
+  "quiz": {
+    "heading": "Know your Camden?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Black Men Who Brunch — BLKOUT's own monthly gathering — started in Camden in which month?",
+        "options": [
+          { "t": "December 2019", "correct": true },
+          { "t": "December 2021", "correct": false },
+          { "t": "June 2022", "correct": false }
+        ],
+        "reveal": "December 2019 — a taster event to \"bring some realness to break up the Christmas schmaltz.\" It grew into a monthly fixture, reaching at least twelve editions by summer 2022, hosted at Old Diorama Arts Centre on Drummond Street and at Regent's Place, where British Land named BLKOUT an LGBT+ Community Partner."
+      },
+      {
+        "q": "The BLKOUT Annual Picnic — now a Regent's Park fixture — began as whose event, before BLKOUT took on co-hosting it?",
+        "options": [
+          { "t": "Nzube Ufodike's", "correct": true },
+          { "t": "UK Black Pride's", "correct": false },
+          { "t": "Old Diorama Arts Centre's", "correct": false }
+        ],
+        "reveal": "Nzube Ufodike had nurtured the picnic for several years before asking BLKOUT to co-host in 2022. It's run every year since — 2026's edition, on the Camden side of Regent's Park near the zoo, raised money for LGBT+ Rights Ghana and closed with karaoke at Zodiac Bar."
+      },
+      {
+        "q": "Old Diorama Arts Centre, home to Black Men Who Brunch, sits on which Camden street?",
+        "options": [
+          { "t": "Drummond Street", "correct": true },
+          { "t": "Camden High Street", "correct": false },
+          { "t": "Chalk Farm Road", "correct": false }
+        ],
+        "reveal": "Drummond Street, NW1 — a few minutes from Euston station. Today it's Euston's centre for community arts, hosting more than 50 local groups rent-free, including several LGBTQ+ ones."
+      }
+    ],
+    "scores": {
+      "three": "Camden knows its own history — because a good part of it is ours. Now help us write what's next.",
+      "two": "Close. Camden holds more of our own record than most boroughs ever will.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Camden",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [],
+    "quietNote": "Checked 3 September 2026 — we haven't found a space currently run by and for Black queer men in Camden, genuinely. Our own history here runs deep; a live, standing space doesn't yet. If one exists, or you want to start one, the panel below is where that begins.",
+    "recently": [
+      {
+        "when": "Aug 2026",
+        "what": "BLKOUT Annual Picnic, Regent's Park — Camden side, near the zoo"
+      },
+      {
+        "when": "Jun 2022",
+        "what": "Black Men Who Brunch — Welcomes the Summer Kitchen (its twelfth edition), Old Diorama Arts Centre"
+      },
+      {
+        "when": "Jul 2022",
+        "what": "BLKOUTside Summer Picnic, Regent's Park, with Slay Storiez, The Black Experience and the Black Boy Joy Collective"
+      },
+      {
+        "when": "Feb 2022",
+        "what": "Black Men Who Brunch 8 — Future History, Old Diorama Arts Centre"
+      },
+      {
+        "when": "Dec 2019",
+        "what": "The first Black Men Who Brunch — a founding taster event"
+      }
+    ],
+    "recentlyNote": "From our own calendar's record. What has already happened here doesn't go stale — a borough's recent past is proof of life."
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Camden. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Old Diorama Arts Centre",
+        "url": "https://olddiorama.com",
+        "note": "Euston's community arts hub on Drummond Street, where Black Men Who Brunch ran for years — today it hosts 50+ local groups rent-free, including the London Trans Choir and Yas Queen! Chess Club.",
+        "centres": "black-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "London Trans Choir",
+        "url": "https://londontranschoir.com",
+        "note": "London's first trans choir, non-auditioned and open to all, rehearsing at Old Diorama Arts Centre.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Yas Queen! Chess Club",
+        "url": "https://www.meetup.com/yasqueen-chessclub/",
+        "note": "Women-led, LGBTQ+-friendly chess club at Old Diorama Arts Centre, open to all.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Beetle Health",
+        "url": "https://www.blackbeetlehealth.co.uk",
+        "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      },
+      {
+        "name": "Melanin Vybz — London LGBTQ+ Community Centre",
+        "url": "https://londonlgbtqcentre.org",
+        "note": "Bankside's community centre runs Melanin Vybz, a social space for Black and POC LGBTQ+ people — a short ride down the Northern line.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London — order online, nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Mortimer Market Centre",
+        "url": "https://www.cnwl.nhs.uk/services/sexual-health-services/mortimer-market-centre",
+        "note": "Camden's own NHS sexual health and HIV clinic, on Mortimer Market off Tottenham Court Road — walk-in and booked appointments, PrEP, testing and treatment.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and a short walk from Camden's southern edge.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Camden's record is, in large part, our own record. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "For Black Men Who Brunch (the founding event)",
+        "author": "BLKOUT",
+        "year": "2019",
+        "note": "The first edition, December 2019 — \"a brand new monthly event that will be shaped for us, by us,\" launched in partnership with Shade Free and Arboretum."
+      },
+      {
+        "title": "Black Men Who Brunch — Welcomes the Summer Kitchen",
+        "author": "BLKOUT, Old Diorama Arts Centre",
+        "year": "2022",
+        "note": "The twelfth edition, June 2022 — by then the series had \"built and strengthened friendships and connections, put the world to rights, challenged loneliness and isolation.\""
+      },
+      {
+        "title": "BLKOUTside Summer Picnic",
+        "author": "BLKOUT, with Nzube Ufodike",
+        "year": "2021–present",
+        "note": "The picnic's own record, from a 2021 post-lockdown gathering through BLKOUT's 2022 co-hosting to the 2026 Annual Picnic — a continuous thread in Regent's Park."
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "body": "The 2021 Census recorded 9.0% of Camden's population — around 18,900 people — as Black, Black British, Black Welsh, Caribbean or African, up from 8.2% in 2011. Camden doesn't rank among London's ten largest Black populations, so we don't have a dossier figure for it — but applying the same estimate we use elsewhere, that's roughly 400 to 630 Black queer men living in the borough right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Camden's Black queer history, for BLKOUT, isn't something we went looking for. It's something we made.\n\nIn December 2019 we launched Black Men Who Brunch — \"a brand new monthly event that will be shaped for us, by us\" — with founding partners Shade Free (the UK's Black-owned LGBT+ events brand) and Arboretum, a members' club. It grew fast: a February 2020 sequel, a run of themed editions through 2020 and 2021, and by February 2022 an eighth edition billed \"Future History.\" Brunch found its home at Old Diorama Arts Centre on Drummond Street, and at Regent's Place — the Euston Road business estate where British Land named BLKOUT an LGBT+ Community Partner, with Triton Café hosting our monthly gatherings. By June 2022's twelfth edition, \"Welcomes the Summer Kitchen,\" the series had, in our own words, \"built and strengthened friendships and connections, put the world to rights, challenged loneliness and isolation, learned new skills from filmmaking to knitting.\"\n\nAlongside it, a second Camden tradition took root outdoors. Nzube Ufodike had nurtured a summer picnic in Regent's Park for several years before asking BLKOUT to co-host in 2022 as the BLKOUTside Summer Picnic — new partners Slay Storiez, The Black Experience and the Black Boy Joy Collective joined that year, and a 'best dressed' theme became a running joke worth dressing up for. The tradition has run every year since. In 2026 it became the BLKOUT Annual Picnic: Sunday 16 August, on the Camden side of Regent's Park near the zoo, an unproduced day built to flex from a usual ~65 to hundreds — bring your crew, bring your sound — closing with karaoke at Zodiac Bar and a community collection for LGBT+ Rights Ghana.\n\nWe haven't found a space currently run by and for Black queer men in the borough — the panel below is where that gets built. But the ground has already been walked. If you were at a Brunch, or you've been coming to the picnic since before we were involved, the panel further down is where you tell us, and the page changes."
+  },
+  "neighbours": [
+    { "name": "Brent", "slug": "brent" },
+    { "name": "Haringey", "slug": "haringey" },
+    { "name": "Islington", "slug": "islington" },
+    { "name": "Westminster", "slug": "westminster" },
+    { "name": "Barnet", "slug": "barnet" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Our own story archive is being brought back online — the Brunch and picnic pieces referenced above are in our records but not yet republished with working links. When they are, they'll be listed here.",
+    "entries": []
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Camden?",
+      "a": "We don't have a standing one to point you to yet — genuinely, and we've checked. What we do have is history: BLKOUT's own Black Men Who Brunch ran here for years, and the BLKOUT Annual Picnic happens every August in Regent's Park. Start with the door on this page, and if a few Camden men want a table, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Camden?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. Camden's own Mortimer Market Centre runs the borough's NHS sexual health clinic, and 56 Dean Street is a short walk away in Soho."
+    },
+    {
+      "q": "Is BLKOUT a Camden organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon, but Camden is where a good part of our own history was made: Black Men Who Brunch and the picnic that became our Annual Picnic both started here."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against our own records and the public record, and dated so you can see when we last looked — and where we couldn't find something current, including a standing Black-queer-men's space in Camden today, we've said so rather than guessed. If we've got something wrong, or you were part of a Brunch or a picnic we've missed, the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Camden — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "camden-door",
+    "options": [
+      {
+        "value": "definitely",
+        "title": "I'm in",
+        "body": "Tell me everything happening in and around Camden."
+      },
+      {
+        "value": "if-organised",
+        "title": "If something's on locally",
+        "body": "I'd come along if something got going in the borough."
+      },
+      {
+        "value": "keep-informed",
+        "title": "Just keep me posted",
+        "body": "Not sure yet — send me what's happening now and then."
+      }
+    ],
+    "holderLabel": "I could help hold something in Camden — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Camden, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This is our own history more than most doors' — and it is still the people who were there who know it best. If you were at a Brunch, you're part of the picnic's older story, or a group's moved or folded — tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "camden-door-intel",
+    "placeholder": "I was at Brunch No.5… the picnic used to meet somewhere else… there's a group you've missed…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Camden's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [
+    {
+      "name": "Black Men Who Brunch (as a running series)",
+      "ended": "2022",
+      "source": "Last confirmed edition: \"Welcomes the Summer Kitchen,\" June 2022, its twelfth — no evidence of further editions since. The record lives in the bibliography and history above, not as a live listing."
+    }
+  ],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
