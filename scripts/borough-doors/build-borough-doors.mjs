@@ -158,7 +158,7 @@ ${bodyHtml}
 function build(slug) {
   const d = JSON.parse(readFileSync(join(DATA, `${slug}.json`), 'utf8'));
   const census = JSON.parse(readFileSync(join(DATA, '_census.json'), 'utf8'));
-  const row = census.rows.find((r) => r.borough.toLowerCase() === slug.toLowerCase());
+  const row = census.rows.find((r) => r.borough.toLowerCase().replace(/\s+/g, '-') === slug.toLowerCase());
 
   const split = (entries = []) => {
     const kept = [], skipped = [];
@@ -173,8 +173,14 @@ function build(slug) {
   );
 
   // THE ROLL CALL — signature move. Upper bound of the published estimate.
-  const estUpper = row ? parseInt(String(row.estBqm).split('–').pop().replace(/[^0-9]/g, ''), 10) : 0;
-  const estLower = row ? parseInt(String(row.estBqm).split('–')[0].replace(/[^0-9]/g, ''), 10) : 0;
+  // Boroughs outside the census top-10 table aren't in _census.json's rows — they carry
+  // their own estLower/estUpper in numbers{}, computed with the same ratio as the dossier.
+  const estUpper = row
+    ? parseInt(String(row.estBqm).split('–').pop().replace(/[^0-9]/g, ''), 10)
+    : d.numbers?.estUpper ?? 0;
+  const estLower = row
+    ? parseInt(String(row.estBqm).split('–')[0].replace(/[^0-9]/g, ''), 10)
+    : d.numbers?.estLower ?? 0;
   const namedHere = hereSplit.kept.length;
 
   const boroughWord = d.brandForm.replace(/^BLKOUT in\s+/i, '');
