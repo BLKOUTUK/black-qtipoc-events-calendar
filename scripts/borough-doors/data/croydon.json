@@ -13,7 +13,7 @@
     "heading": "BLKOUT in Croydon",
     "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Croydon is our home borough. If you're a Black queer man in or near Croydon, you're not waiting for a community to arrive. You're already part of one. This page is the door."
   },
-  "lastChecked": "27 August 2026",
+  "lastChecked": "5 September 2026",
   "quiz": {
     "heading": "Know your Croydon?",
     "sub": "Three questions. No prizes except the stories.",
@@ -58,15 +58,16 @@
     "quietNote": "Nothing is listed in Croydon right now — checked 27 August 2026. That's a report, not a silence: when something is on, it appears here, and when it's quiet, we say so. The door below is always open.",
     "entries": [
       {
-        "name": "Ballroom at Stanley Arts",
+        "name": "Stanley Arts",
         "url": "https://www.stanleyarts.org",
-        "note": "South Norwood's arts centre carries much of the borough's queer life — including a regular Ballroom night: Black queer performance culture, live, in Croydon.",
+        "note": "South Norwood's arts centre, the borough's leading host of LGBTQ+ arts. Check their site for what's on.",
         "centres": "black-lgbtq",
-        "currencyChecked": false
+        "currencyChecked": true
       }
     ],
     "recently": [
       { "when": "Aug 2026", "what": "Croydon Pride, back in the borough at BoxPark" },
+      { "when": "Jun 2026", "what": "Seasoned SZN, a Black queer night at Boxpark Croydon" },
       { "when": "Feb 2026", "what": "Croydon Pride's LGBT+ History Month talk with Bisi Alimi" },
       { "when": "Feb 2026", "what": "Queer Frequencies community collaging workshop at Stanley Arts" },
       { "when": "Dec 2025", "what": "Silver Pride Christmas social, Thornton Heath" },
@@ -228,11 +229,11 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Croydon?",
-      "a": "Start with the door on this page — you'll hear about everything as it happens. Stanley Arts carries much of the borough's queer life including Ballroom, and BLKOUT's national community is open the moment you knock."
+      "a": "Start with the door on this page — you'll hear about everything as it happens. Stanley Arts is the borough's leading host of LGBTQ+ arts, and BLKOUT's national community is open the moment you knock."
     },
     {
       "q": "Is there a Black queer night in Croydon?",
-      "a": "Stanley Arts in South Norwood hosts Ballroom — Black queer performance culture, in the borough. As more starts, it appears here first."
+      "a": "Not on a regular schedule right now — Seasoned SZN held a Black queer night at Boxpark Croydon recently, and Stanley Arts has hosted Ballroom before. As more starts, it appears here first."
     },
     {
       "q": "Where can I get an STI test or PrEP in Croydon?",
