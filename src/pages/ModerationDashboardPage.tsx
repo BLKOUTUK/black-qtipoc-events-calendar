@@ -4,19 +4,49 @@
  *
  * Liberation Feature: Community safety and content governance
  * URL: /moderation
+ *
+ * Auth: ivor-core now requires a Supabase session bearer on the news-moderate
+ * and event-moderation endpoints. Every call from this page carries
+ * `Authorization: Bearer <access_token>` from supabase.auth.getSession(), the
+ * same pattern OpeningsQueue.tsx already uses for /api/pending-openings. With
+ * no session the page renders a sign-in form instead of the dashboard.
  */
 
 import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Shield, Newspaper, Calendar, Clock, CheckCircle, XCircle,
   AlertTriangle, TrendingUp, Users, Home, RefreshCw, Eye,
-  ChevronRight, FileText, Flag, Loader2
+  ChevronRight, FileText, Flag, Loader2, LogIn
 } from 'lucide-react';
 import { EventModerationPanel } from '../components/EventModerationPanel';
 import { OpeningsQueue } from '../components/OpeningsQueue';
+import { supabase, supabaseHelpers } from '../lib/supabase';
 
 const IVOR_API = import.meta.env.VITE_IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
+
+/**
+ * The signed-in moderator's session. Returns null when nobody is signed in.
+ * The no-op fallback client (used when Supabase env vars are missing) doesn't
+ * implement getSession — cast rather than touch src/lib/supabase.ts.
+ */
+async function getSession(): Promise<{ token: string; userId: string } | null> {
+  try {
+    const auth = supabase.auth as unknown as {
+      getSession: () => Promise<{
+        data: { session: { access_token: string; user: { id: string } } | null };
+      }>;
+    };
+    const { data } = await auth.getSession();
+    const session = data?.session;
+    if (!session?.access_token || !session.user?.id) return null;
+    return { token: session.access_token, userId: session.user.id };
+  } catch (err) {
+    console.error('[Moderation] getSession failed:', err);
+    return null;
+  }
+}
 
 interface NewsArticle {
   id: string;
@@ -68,6 +98,8 @@ export function ModerationDashboardPage() {
   const [pendingNews, setPendingNews] = useState<NewsArticle[]>([]);
   const [eventReports, setEventReports] = useState<EventReport[]>([]);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  // null = not checked yet; false = signed out, render the sign-in form.
+  const [session, setSession] = useState<{ token: string; userId: string } | null | false>(null);
 
   useEffect(() => {
     loadAllData();
@@ -75,11 +107,19 @@ export function ModerationDashboardPage() {
 
   const loadAllData = async () => {
     setLoading(true);
+    const current = await getSession();
+    if (!current) {
+      setSession(false);
+      setLoading(false);
+      return;
+    }
+    setSession(current);
+    const authHeaders = { Authorization: `Bearer ${current.token}` };
     try {
       const [newsRes, eventModRes, reportsRes] = await Promise.all([
-        fetch(`${IVOR_API}/api/news/pending`).then(r => r.json()).catch(() => ({ articles: [] })),
-        fetch(`${IVOR_API}/api/event-moderation/dashboard`).then(r => r.json()).catch(() => ({ dashboard: { stats: {} } })),
-        fetch(`${IVOR_API}/api/event-moderation/reports`).then(r => r.json()).catch(() => ({ reports: [], stats: {} }))
+        fetch(`${IVOR_API}/api/news/pending`, { headers: authHeaders }).then(r => r.json()).catch(() => ({ articles: [] })),
+        fetch(`${IVOR_API}/api/event-moderation/dashboard`, { headers: authHeaders }).then(r => r.json()).catch(() => ({ dashboard: { stats: {} } })),
+        fetch(`${IVOR_API}/api/event-moderation/reports`, { headers: authHeaders }).then(r => r.json()).catch(() => ({ reports: [], stats: {} }))
       ]);
 
       setPendingNews(newsRes.articles || []);
@@ -111,17 +151,32 @@ export function ModerationDashboardPage() {
   };
 
   const handleNewsAction = async (articleId: string, action: 'approve' | 'reject') => {
+    const current = await getSession();
+    if (!current) {
+      setSession(false);
+      return;
+    }
     setActionLoading(articleId);
     try {
       const response = await fetch(`${IVOR_API}/api/news/${articleId}/moderate`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${current.token}`
+        },
         body: JSON.stringify({
           action,
-          moderatorId: 'admin',
+          // The session user id, not the hardcoded admin string this used to
+          // send. ivor-core ignores this field and records the verified user.
+          moderatorId: current.userId,
           notes: action === 'approve' ? 'Approved via moderation dashboard' : 'Rejected via moderation dashboard'
         })
       });
+
+      if (response.status === 401) {
+        setSession(false);
+        return;
+      }
 
       if (response.ok) {
         setPendingNews(prev => prev.filter(a => a.id !== articleId));
@@ -142,17 +197,30 @@ export function ModerationDashboardPage() {
   };
 
   const handleReportAction = async (reportId: string, status: 'resolved' | 'dismissed') => {
+    const current = await getSession();
+    if (!current) {
+      setSession(false);
+      return;
+    }
     setActionLoading(reportId);
     try {
       const response = await fetch(`${IVOR_API}/api/event-moderation/reports/${reportId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${current.token}`
+        },
         body: JSON.stringify({
           status,
-          moderatorId: 'admin',
+          moderatorId: current.userId,
           resolutionNotes: `Report ${status} via moderation dashboard`
         })
       });
+
+      if (response.status === 401) {
+        setSession(false);
+        return;
+      }
 
       if (response.ok) {
         setEventReports(prev => prev.filter(r => r.id !== reportId));
@@ -169,6 +237,10 @@ export function ModerationDashboardPage() {
   // is routinely non-zero was the one left out.
   const totalPending =
     stats.events.pending + stats.news.pending + stats.reports.pending + stats.events.flagged;
+
+  if (session === false) {
+    return <ModerationSignIn onSignedIn={loadAllData} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
@@ -460,6 +532,86 @@ export function ModerationDashboardPage() {
 }
 
 // Helper Components
+
+/**
+ * Sign-in gate. AuthModal.tsx is the app's other login surface but it hardcodes
+ * admin@blkout.org and its only caller signs in against googleSheetsService,
+ * not Supabase — it cannot produce the session token ivor-core verifies. This
+ * is a minimal email+password form over the existing supabaseHelpers.signIn
+ * (supabase.auth.signInWithPassword). No new dependency.
+ */
+function ModerationSignIn({ onSignedIn }: { onSignedIn: () => void }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const submit = async (e: FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+    setError(null);
+    const { error: signInError } = await supabaseHelpers.signIn(email, password);
+    setBusy(false);
+    if (signInError) {
+      setError(signInError.message || 'Sign in failed');
+      return;
+    }
+    onSignedIn();
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center p-4">
+      <form onSubmit={submit} className="w-full max-w-sm bg-white/5 border border-white/10 p-6 space-y-4">
+        <div className="flex items-center gap-2 text-white">
+          <Shield className="w-5 h-5 text-purple-400" />
+          <h1 className="text-lg font-bold">Moderator sign in</h1>
+        </div>
+        <p className="text-white/60 text-sm">
+          Moderation acts on community content, so it needs a signed-in account.
+        </p>
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/30 text-red-300 p-3 text-sm">{error}</div>
+        )}
+        <div>
+          <label htmlFor="moderator-email" className="block text-sm text-white/70 mb-1">Email</label>
+          <input
+            id="moderator-email"
+            type="email"
+            required
+            autoComplete="username"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 text-white placeholder-white/30 focus:outline-none focus:border-purple-400"
+          />
+        </div>
+        <div>
+          <label htmlFor="moderator-password" className="block text-sm text-white/70 mb-1">Password</label>
+          <input
+            id="moderator-password"
+            type="password"
+            required
+            autoComplete="current-password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 text-white placeholder-white/30 focus:outline-none focus:border-purple-400"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={busy}
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-purple-500/30 text-purple-200 border border-purple-500/50 hover:bg-purple-500/40 disabled:opacity-50"
+        >
+          {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
+          Sign in
+        </button>
+        <Link to="/" className="block text-center text-white/40 text-sm hover:text-white/70">
+          Back to calendar
+        </Link>
+      </form>
+    </div>
+  );
+}
+
 function StatCard({
   icon: Icon,
   label,
