@@ -34,6 +34,62 @@ app.use('/extensions', express.static(path.join(__dirname, 'public', 'extensions
   }
 }));
 
+// Event schema (14 Sep 2026): the root and /gatherings are prerendered at build time, but the
+// listings change daily, so the Event JSON-LD is added at request time from gatherings_live and
+// cached for ten minutes. Any failure serves the prerendered file untouched and logs why.
+import { createClient } from '@supabase/supabase-js';
+const eventsDb = createClient(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '', process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '');
+let eventLdCache: { at: number; json: string } | null = null;
+async function eventJsonLd(): Promise<string> {
+  if (eventLdCache && Date.now() - eventLdCache.at < 10 * 60 * 1000) return eventLdCache.json;
+  const today = new Date().toISOString().slice(0, 10);
+  const { data, error } = await eventsDb.from('gatherings_live')
+    .select('title, slug, description, date, start_time, end_time, end_date, location, virtual_link, organizer, cost, url, image_url')
+    .gte('date', today).order('date', { ascending: true }).limit(60);
+  if (error) throw error;
+  // Health-check and smoke-test rows must never reach a search engine (a live one is titled
+  // "API health check", organizer/location "test", url example.com — 14 Sep 2026).
+  const isTestRow = (e: { title?: string | null; location?: string | null; organizer?: string | null; url?: string | null }) =>
+    /^test$/i.test(String(e.location || '').trim()) || /^test$/i.test(String(e.organizer || '').trim()) || /(^|\.)example\.com/i.test(String(e.url || '')) || /health check/i.test(String(e.title || ''));
+  const rows = (data || []).filter((e) => e.title && e.date);
+  const skipped = rows.filter(isTestRow).length;
+  if (skipped) console.warn(`event schema: skipped ${skipped} test row(s)`);
+  const items = rows.filter((e) => !isTestRow(e)).map((e, i) => {
+    const start = `${e.date}${e.start_time ? `T${String(e.start_time).slice(0, 8)}` : ''}`;
+    const end = e.end_date || e.end_time ? `${e.end_date || e.date}${e.end_time ? `T${String(e.end_time).slice(0, 8)}` : ''}` : undefined;
+    const isVirtual = !!e.virtual_link && !e.location;
+    const ev: Record<string, unknown> = {
+      '@type': 'Event', name: e.title, startDate: start, ...(end ? { endDate: end } : {}),
+      ...(e.description ? { description: String(e.description).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 500) } : {}),
+      eventAttendanceMode: isVirtual ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: isVirtual ? { '@type': 'VirtualLocation', url: e.virtual_link } : { '@type': 'Place', name: e.location || 'To be announced', address: e.location || undefined },
+      ...(e.organizer ? { organizer: { '@type': 'Organization', name: e.organizer } } : {}),
+      ...(e.url ? { url: e.url } : {}), ...(e.image_url ? { image: e.image_url } : {}),
+      ...(e.cost ? (/free/i.test(String(e.cost)) ? { isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP', ...(e.url ? { url: e.url } : {}) } } : { offers: { '@type': 'Offer', description: String(e.cost), priceCurrency: 'GBP', ...(e.url ? { url: e.url } : {}) } }) : {}),
+    };
+    return { '@type': 'ListItem', position: i + 1, item: ev };
+  });
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: 'Gatherings for Black queer people in the UK', numberOfItems: items.length, itemListElement: items }).replace(/</g, '\\u003c');
+  eventLdCache = { at: Date.now(), json };
+  return json;
+}
+app.get(['/', '/gatherings'], async (req, res, next) => {
+  try {
+    const file = path.join(__dirname, 'dist', req.path === '/' ? 'index.html' : 'gatherings/index.html');
+    if (!fs.existsSync(file)) return next();
+    const html = fs.readFileSync(file, 'utf8');
+    if (!html.includes('name="prerendered"')) return next(); // not a prerendered build: leave the shell alone
+    const json = await eventJsonLd();
+    res.setHeader('Cache-Control', 'no-store, must-revalidate');
+    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+    res.send(html.replace('</head>', `<script type="application/ld+json">${json}</script>\n</head>`));
+  } catch (error) {
+    console.error('EVENT SCHEMA INJECTION FAILED — serving prerendered file untouched:', error);
+    next();
+  }
+});
+
 // Serve static files from the 'dist' directory
 // Hashed assets (JS/CSS) get long-term caching; HTML always revalidates
 app.use(express.static(path.join(__dirname, 'dist'), {

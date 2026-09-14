@@ -60,7 +60,7 @@ function serveDist() {
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
 
-function setHead(html, { title, description, canonical, prerenderedAt }) {
+function setHead(html, { title, description, canonical, prerenderedAt, jsonld }) {
   let out = html;
   // <title>
   if (/<title>[\s\S]*?<\/title>/i.test(out)) out = out.replace(/<title>[\s\S]*?<\/title>/i, `<title>${esc(title)}</title>`);
@@ -78,6 +78,12 @@ function setHead(html, { title, description, canonical, prerenderedAt }) {
   out = out.replace(/<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i, `<meta property="og:url" content="${esc(canonical)}" />`);
   // identity stamp so verification can assert "this is the prerendered file", not just a 200
   out = out.replace(/<\/title>/i, (m) => `${m}\n<meta name="prerendered" content="${prerenderedAt}">`);
+  // structured data: a route's `jsonld` (object or array) becomes one JSON-LD block; any stale block
+  // captured from the page with the same @type set is left alone (pages rarely carry their own).
+  if (jsonld) {
+    const json = JSON.stringify(jsonld).replace(/</g, '\\u003c');
+    out = out.replace(/<\/head>/i, (m) => `<script type="application/ld+json">${json}</script>\n${m}`);
+  }
   return out;
 }
 
@@ -150,6 +156,7 @@ async function main() {
         description: route.description,
         canonical: `${origin}${route.canonical || path}`,
         prerenderedAt,
+        jsonld: route.jsonld,
       });
       const outDir = path === '/' ? DIST : join(DIST, path.replace(/^\//, ''));
       mkdirSync(outDir, { recursive: true });
