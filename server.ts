@@ -11,6 +11,19 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Canonical host (14 Sep 2026): events.blkoutuk.cloud answers this app too. Page requests on
+// the alias 301 to the canonical host; /api stays reachable on every host because other apps
+// call it there. GET/HEAD only — a 301 would turn a POST into a GET.
+const CANONICAL_HOST = 'events.blkoutuk.com';
+const HOST_ALIASES = new Set(['events.blkoutuk.cloud']);
+app.use((req, res, next) => {
+  const host = String(req.headers.host || '').toLowerCase().replace(/:\d+$/, '');
+  if (HOST_ALIASES.has(host) && (req.method === 'GET' || req.method === 'HEAD') && !req.path.startsWith('/api/')) {
+    return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
+  }
+  next();
+});
+
 // Serve extension downloads from public/extensions
 app.use('/extensions', express.static(path.join(__dirname, 'public', 'extensions'), {
   setHeaders: (res, filePath) => {
