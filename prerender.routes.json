@@ -1,0 +1,9 @@
+{
+  "origin": "https://events.blkoutuk.com",
+  "routes": [
+    { "path": "/", "title": "BLKOUT Events — what's on, what's open, where we are", "description": "Gatherings, openings and places for Black queer people in the UK, every listing checked by a person, and a community-owned door in every borough." },
+    { "path": "/gatherings", "title": "Gatherings — what's on for Black queer people in the UK", "description": "Events and gatherings for Black queer people across the UK, checked by a person. Quiet weeks shown as quiet weeks." },
+    { "path": "/openings", "title": "Openings — opportunities for Black queer people in the UK", "description": "Jobs, calls, commissions and opportunities open to Black queer people in the UK, checked and current." },
+    { "path": "/places", "title": "Places — spaces run by and for Black queer people", "description": "Venues, groups and spaces run by and for Black queer people in the UK, borough by borough." }
+  ]
+}

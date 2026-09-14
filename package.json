@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "prerender": "node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "echo \"No tests specified\" && exit 0"
@@ -45,6 +46,7 @@
     "googleapis": "^128.0.0",
     "postcss": "^8.4.35",
     "puppeteer": "^24.11.1",
+    "puppeteer-core": "^25.11.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",

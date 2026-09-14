@@ -5,6 +5,10 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+# Headless Chromium for the build-time prerender (scripts/prerender.mjs). Builder stage only.
+RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
 # Copy package files
 COPY package*.json ./
 
@@ -16,6 +20,9 @@ COPY . .
 
 # Build the Vite frontend
 RUN npm run build
+
+# Prerender the root and listing routes into dist/<route>/index.html (keeps dist/shell.html for the SPA fallback)
+RUN npm run prerender
 
 # Production stage - Node.js to run Express server
 FROM node:22-alpine AS runner
