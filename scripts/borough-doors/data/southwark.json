@@ -71,6 +71,13 @@
     "intro": "Neighbours doing good work in Southwark. Use them — and tell them we sent you.",
     "entries": [
       {
+        "name": "London LGBTQ+ Community Centre",
+        "url": "https://londonlgbtqcentre.org",
+        "note": "The sober community space on Hopton Street, Bankside — home to Melanin Vybz, the monthly group for LGBTQ+ people of colour over 55, with sexual health and mental health support on site. Marked its fifth year in August 2026.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
         "name": "Southwark LGBT Network",
         "url": "https://southwarklgbtnetwork.com",
         "note": "Running since 2002 — builds and strengthens LGBTQ+ community life in the borough, and partnered with us directly on our 2020 Assembly series.",

@@ -996,7 +996,7 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   <div class="hero-row">
     <div class="hero-type">
       <p class="eyebrow">${esc(d.hero.kicker)}</p>
-      <h1 class="mega"><span class="of">BLKOUT in</span>${esc(boroughWord)}</h1>
+      <h1 class="mega"><span class="of">BLKOUT in</span> ${esc(boroughWord)}</h1>
     </div>
 ${
   d.landmark
