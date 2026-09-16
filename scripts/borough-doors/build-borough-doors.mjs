@@ -528,7 +528,7 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
       ? [{ '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }]
       : []),
     { '@type': 'Organization', '@id': 'https://blkoutuk.com/#org', name: 'BLKOUT UK', url: 'https://blkoutuk.com',
-      description: 'Community-owned co-operative (Community Benefit Society) for Black queer men in the UK.',
+      description: "BLKOUT is the Black Queer Men's Liberation Collective. We host gatherings, build space for dialogue, and create community-owned technology for the health, wealth and happiness of Black gay, bi and trans men across the UK. Through local chapters, cooperative membership, creative events, shared learning, and digital media, we turn connection into individual well-being and collective power — owned by and accountable to the people we serve.",
       sameAs: ['https://events.blkoutuk.com', 'https://blkouthub.com'] },
     { '@type': 'WebPage', '@id': d.canonicalUrl, url: d.canonicalUrl, name: d.title,
       description: d.metaDescription, about: { '@id': 'https://blkoutuk.com/#org' },
