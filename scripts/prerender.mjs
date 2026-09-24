@@ -99,7 +99,8 @@ async function main() {
   const browser = await puppeteer.launch({
     executablePath: EXECUTABLE,
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--window-size=1280,900'],
+    // Software WebGL (SwiftShader) so pages with three.js / canvas scenes still mount without a GPU.
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--window-size=1280,900', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'],
   });
 
   const failures = [];
@@ -118,6 +119,10 @@ async function main() {
       await page.setViewport({ width: 1280, height: 900 });
       await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) BLKOUT-prerender/1.0 Chrome/120');
       let navErr = '';
+      const pageLog = [];
+      page.on('pageerror', (e) => pageLog.push(`pageerror: ${e.message}`));
+      page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') pageLog.push(`console.${m.type()}: ${m.text()}`); });
+      page.on('requestfailed', (r) => pageLog.push(`requestfailed: ${r.url()} ${r.failure()?.errorText || ''}`));
       try {
         await page.goto(`http://127.0.0.1:${port}${path}`, { waitUntil: 'networkidle0', timeout: NAV_TIMEOUT_MS });
       } catch (e) { navErr = e.message; }
@@ -149,6 +154,7 @@ async function main() {
       if (text.length < MIN_TEXT) {
         failures.push(`${path}: rendered ${text.length} chars of text (min ${MIN_TEXT})${navErr ? ` — nav: ${navErr}` : ''}`);
         console.error(`FAIL ${path}: ${text.length} chars`);
+        for (const line of pageLog.slice(0, 12)) console.error(`     ${line.slice(0, 300)}`);
         continue;
       }
       html = setHead(html, {
