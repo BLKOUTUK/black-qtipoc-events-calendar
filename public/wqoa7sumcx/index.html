@@ -6,7 +6,6 @@
 <title>Black queer men in Birmingham | BLKOUT in Birmingham</title>
 <meta name="description" content="For Black queer men in and around Birmingham — Handsworth, Lozells, Digbeth, Balsall Heath: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.">
 <link rel="canonical" href="https://events.blkoutuk.com/wqoa7sumcx/">
-<meta name="robots" content="noindex,nofollow">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is BLKOUT based in Birmingham?","acceptedAnswer":{"@type":"Answer","text":"No — BLKOUT is registered in Croydon, with doors in boroughs across London. This would be our first door outside London, and it's still a draft."}},{"@type":"Question","name":"Where can I meet other Black queer men in Birmingham?","acceptedAnswer":{"@type":"Answer","text":"Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend, checked 23 Sep 2026. Not yet confirmed by a direct message to the organisers."}}]},{"@type":"Organization","@id":"https://blkoutuk.com/#org","name":"BLKOUT UK","url":"https://blkoutuk.com","description":"BLKOUT is the Black Queer Men's Liberation Collective. We host gatherings, build space for dialogue, and create community-owned technology for the health, wealth and happiness of Black gay, bi and trans men across the UK. Through local chapters, cooperative membership, creative events, shared learning, and digital media, we turn connection into individual well-being and collective power — owned by and accountable to the people we serve.","sameAs":["https://events.blkoutuk.com","https://blkouthub.com"]},{"@type":"WebPage","@id":"https://events.blkoutuk.com/wqoa7sumcx/","url":"https://events.blkoutuk.com/wqoa7sumcx/","name":"Black queer men in Birmingham | BLKOUT in Birmingham","description":"For Black queer men in and around Birmingham — Handsworth, Lozells, Digbeth, Balsall Heath: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.","about":{"@id":"https://blkoutuk.com/#org"},"dateModified":"2026-09-24"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,6 +159,14 @@
   .plate.invert a:hover{color:#111}
   .plate.invert .aside{border-left-color:#6b5300}
   .plate.invert .reasons li strong{color:#111}
+  /* The guess widget's own text hardcoded var(--ink)/var(--gold) — correct on the
+     default dark plates, invisible once the rollcall section became .invert (bone
+     background), 24 Sep 2026: Rob read the live page and reported "white on white".
+     Missed in the earlier invert conversion because the whole .guess box is
+     JS-revealed (hidden until scripted), so it never appears in a static
+     (JS-less) render check. */
+  .plate.invert .guess-q{color:#111}
+  .plate.invert .guess-read output{color:#6b5300}
   .plate.gold{background:var(--gold); color:#000; margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
   .plate.gold h2.display,.plate.gold p,.plate.gold li,.plate.gold .kicker{color:#000}
   .plate.gold .numeral{color:#000}
@@ -388,6 +395,12 @@
   .guess input[type=range]::-moz-range-track{height:4px; background:#3a352b; border-radius:2px}
 
   .guess-read{margin:.2rem 0 1rem !important}
+  /* Rob, 24 Sep 2026, reading the live page cold: "guess what, which number
+     where?" — the readout was a bare number with nothing saying it was the
+     slider's current value. */
+  .guess-label{display:block; font-family:'Work Sans',system-ui,sans-serif;
+    text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; color:var(--dim)}
+  .plate.invert .guess-label{color:#6b6355}
   .guess-read output{font-family:'Work Sans',system-ui,sans-serif; font-weight:900;
     font-size:2.4rem; color:var(--gold); letter-spacing:-.02em}
   .guess-note{font-size:.85rem; margin-top:1rem !important}
@@ -595,7 +608,7 @@
       <div class="guess" id="guess" hidden>
         <label class="guess-q" for="guess-input">Before you look — how many Black queer men do you think live in Birmingham?</label>
         <input type="range" id="guess-input" min="0" max="6000" step="25" value="750">
-        <p class="guess-read"><output id="guess-out">750</output></p>
+        <p class="guess-read"><span class="guess-label">Your guess so far</span><output id="guess-out">750</output></p>
         <button class="submit" type="button" id="guess-go">Show me the estimate</button>
         <p class="guess-note">Your guess stays in this browser.</p>
       </div>

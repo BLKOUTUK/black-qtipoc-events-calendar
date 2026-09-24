@@ -365,7 +365,7 @@ ${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" re
         <input type="range" id="guess-input" min="0" max="${estUpper * 2}" step="25" value="${Math.round(
     estUpper / 4
   )}">
-        <p class="guess-read"><output id="guess-out">${fmt(Math.round(estUpper / 4))}</output></p>
+        <p class="guess-read"><span class="guess-label">Your guess so far</span><output id="guess-out">${fmt(Math.round(estUpper / 4))}</output></p>
         <button class="submit" type="button" id="guess-go">Show me the estimate</button>
         <p class="guess-note">Your guess stays in this browser.</p>
       </div>
@@ -812,6 +812,14 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   .plate.invert a:hover{color:#111}
   .plate.invert .aside{border-left-color:#6b5300}
   .plate.invert .reasons li strong{color:#111}
+  /* The guess widget's own text hardcoded var(--ink)/var(--gold) — correct on the
+     default dark plates, invisible once the rollcall section became .invert (bone
+     background), 24 Sep 2026: Rob read the live page and reported "white on white".
+     Missed in the earlier invert conversion because the whole .guess box is
+     JS-revealed (hidden until scripted), so it never appears in a static
+     (JS-less) render check. */
+  .plate.invert .guess-q{color:#111}
+  .plate.invert .guess-read output{color:#6b5300}
   .plate.gold{background:var(--gold); color:#000; margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
   .plate.gold h2.display,.plate.gold p,.plate.gold li,.plate.gold .kicker{color:#000}
   .plate.gold .numeral{color:#000}
@@ -1040,6 +1048,12 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   .guess input[type=range]::-moz-range-track{height:4px; background:#3a352b; border-radius:2px}
 
   .guess-read{margin:.2rem 0 1rem !important}
+  /* Rob, 24 Sep 2026, reading the live page cold: "guess what, which number
+     where?" — the readout was a bare number with nothing saying it was the
+     slider's current value. */
+  .guess-label{display:block; font-family:'Work Sans',system-ui,sans-serif;
+    text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; color:var(--dim)}
+  .plate.invert .guess-label{color:#6b6355}
   .guess-read output{font-family:'Work Sans',system-ui,sans-serif; font-weight:900;
     font-size:2.4rem; color:var(--gold); letter-spacing:-.02em}
   .guess-note{font-size:.85rem; margin-top:1rem !important}
