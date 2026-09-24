@@ -111,7 +111,80 @@ const boroughWordOf = (d) => d.brandForm.replace(/^BLKOUT in\s+/i, '');
 
 const esc = (s) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const paras = (s) => String(s ?? '').split('\n\n').map((p) => `<p>${esc(p)}</p>`).join('\n');
+// A paragraph starting "## " marks an era/date subhead. 24 Sep 2026: upgraded
+// again, from a click-to-reveal <details> accordion (23 Sep, per "the more that
+// can be click to reveal like the FAQs the better") to a horizontal scroll-snap
+// rail — Rob: "use the scroll skill [scrollcraft] and generate a horizontal
+// scroll for the history section... a couple of pictures to break up the text
+// if we can find copyright [-cleared] pics of the borough in the past". Uses
+// scrollcraft's own documented REDUCED-MOTION FALLBACK shape (native
+// overflow-x:auto + scroll-snap + proximity), not its vertical-scroll-hijack
+// `pan` device — this environment has no working browser to verify scroll-
+// jacking behaviour in, and the fallback shape is simpler, more robust, and
+// genuinely click-through via the prev/next buttons Rob asked for, with zero
+// JS required for the core interaction (buttons are pure enhancement).
+// `eraImages` is optional: { [era label]: { src, alt, credit } } — a door only
+// attaches images it has actually sourced and verified the licence of; a card
+// with no image just doesn't render a <figure>. Fully opt-in as before: a
+// door's history with no "## " markers renders as flat <p> tags, unchanged.
+// A block starting "» " is a closing line that bridges to the next section —
+// added 24 Sep 2026 (Rob: "it's okay to end a section with a linking sentence
+// or two, in standfirst size italics"). Same lightweight-prefix convention as
+// "## " for eras: opt-in, author it where it earns its place, not every section.
+const renderP = (p) => (p.startsWith('» ') ? `<p class="bridge">${esc(p.slice(2))}</p>` : `<p>${esc(p)}</p>`);
+const paras = (s, eraImages) => {
+  const blocks = String(s ?? '').split('\n\n');
+  if (!blocks.some((b) => b.startsWith('## '))) {
+    return blocks.map(renderP).join('\n');
+  }
+  const eras = [];
+  for (const b of blocks) {
+    if (b.startsWith('## ')) eras.push({ label: b.slice(3), body: [] });
+    else if (eras.length) eras.at(-1).body.push(b);
+    else eras.push({ label: null, body: [b] }); // text before any "## " marker
+  }
+  // A trailing "» " block belongs to the section as a whole, not inside the
+  // last card — pull it out and place it after the rail closes.
+  const lastEra = eras.at(-1);
+  const bridgeBlock =
+    lastEra?.body.length && lastEra.body.at(-1).startsWith('» ') ? lastEra.body.pop() : null;
+  const pre = eras[0]?.label ? '' : `${eras.shift().body.map(renderP).join('\n')}\n`;
+  const cards = eras
+    .map(({ label, body }, i) => {
+      const img = eraImages?.[label];
+      const figure = img
+        ? `<figure class="era-figure"><img src="${esc(img.src)}" alt="${esc(img.alt)}" loading="lazy">${
+            img.credit ? `<figcaption>${esc(img.credit)}</figcaption>` : ''
+          }</figure>`
+        : '';
+      return `      <article class="era-card" id="era-${i}" data-era-index="${i}">
+        <h3>${esc(label)}</h3>
+        ${figure}
+        ${body.map(renderP).join('\n        ')}
+      </article>`;
+    })
+    .join('\n');
+  // Rob, 24 Sep 2026: "fine to opt for a click over a scroll but the arrows
+  // then need to be more inviting — a set at the top and bottom and a dot
+  // indication of how many more to go." Bigger, filled (not just outlined)
+  // buttons with a text label, not just a glyph; a control bar above AND
+  // below the rail; dot pagination that's also a direct jump, kept in sync
+  // by an IntersectionObserver watching which card is actually in view (so
+  // it updates correctly whether the reader clicked, scrolled or swiped).
+  const dots = eras.map((_, i) => `<button type="button" class="era-dot${i === 0 ? ' active' : ''}" data-era-index="${i}" aria-label="Go to era ${i + 1} of ${eras.length}"></button>`).join('');
+  const controls = `<div class="era-rail-controls">
+        <button type="button" class="era-nav era-prev" aria-label="Previous era">&#8249; Previous</button>
+        <div class="era-dots">${dots}</div>
+        <button type="button" class="era-nav era-next" aria-label="Next era">Next &#8250;</button>
+      </div>`;
+  return `${pre}<div class="era-rail-wrap">
+      ${controls}
+      <div class="era-rail" tabindex="0" role="region" aria-label="History, by era — scroll or use the arrows">
+${cards}
+      </div>
+      ${controls}
+    </div>${bridgeBlock ? `\n${renderP(bridgeBlock)}` : ''}`;
+};
 const DESTINATION_GRADES = new Set(['black-queer-men', 'black-lgbtq']);
 const num = (n) => String(n).padStart(2, '0');
 const fmt = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -141,7 +214,14 @@ ${entries
 const ground = (img, anchor) => `      <div class="ground" aria-hidden="true" style="background-image:url('../images/foundation/${img}'); background-position:${anchor}"></div>
       <div class="scrim" aria-hidden="true"></div>`;
 
-function plate(n, kicker, heading, bodyHtml, extraClass = '', id = null, bg = null) {
+// `subtitle` added 24 Sep 2026 — Rob, reading the headings cold: "if you didn't
+// know the content these would be more mysterious/enigmatic than descriptive/
+// engaging - they all need a subtitle or reframing." The poetic H2 stays
+// (it's on-brand and does real work once you're reading), but a stranger
+// shouldn't have to read the body copy to find out what a section IS. Plain,
+// literal, one line. Required in practice, not just optional decoration —
+// every call site below supplies one.
+function plate(n, kicker, heading, subtitle, bodyHtml, extraClass = '', id = null, bg = null) {
   return `  <section class="plate ${extraClass}${bg ? ' has-bg' : ''}" id="${id ?? `s-${n}`}">
 ${bg ? ground(bg[0], bg[1]) : ''}
     <div class="plate-head reveal">
@@ -149,6 +229,7 @@ ${bg ? ground(bg[0], bg[1]) : ''}
       <span class="kicker">${esc(kicker)}</span>
     </div>
     <h2 class="display reveal">${esc(heading)}</h2>
+    ${subtitle ? `<p class="subtitle reveal">${esc(subtitle)}</p>` : ''}
     <div class="plate-body reveal">
 ${bodyHtml}
     </div>
@@ -194,8 +275,8 @@ function build(slug) {
       ++n,
       'The record',
       'It started here',
-      paras(d.numbers?.history) +
-        (d.numbers?.body ? `\n<p class="aside">${esc(d.numbers.body)}</p>` : ''),
+      `Where it started, verified: real people, real dates in ${boroughWord}.`,
+      paras(d.numbers?.history, d.numbers?.eraImages),
       '',
       'the-record',
       groundsFor(d.slug).history
@@ -205,13 +286,21 @@ function build(slug) {
   // authored silence before the peak (scrollcraft: one peak, silence before it)
   const silence = `  <section class="silence" aria-hidden="true"></section>`;
 
-  const rings = [];
+  // Named separately (not one shared `rings` array) so the map ("Next door")
+  // can sit directly after "Worth the journey" — Rob, 24 Sep 2026: "the map
+  // should be adjacent to worth the journey". Both are about other places;
+  // Services and the gallery come after, not between them.
+  let hereRing = '';
+  let besideUsRing = '';
+  let worthTheJourneyRing = '';
+  let servicesRing = '';
   if (hereSplit.kept.length || d.here?.quietNote) {
-    rings.push(
+    hereRing =
       plate(
         ++n,
         'In the borough',
         d.here.heading,
+        'Nights, groups and spaces, checked one by one.',
         (d.here.intro ? `<p>${esc(d.here.intro)}</p>` : '') +
           (hereSplit.kept.length
             ? ringList(hereSplit.kept)
@@ -241,36 +330,33 @@ ${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" re
       </div>`,
         '',
         'in-the-borough'
-      )
-    );
+      );
   }
   if (d.besideUs?.entries?.length) {
-    rings.push(
-      plate(++n, 'Neighbours', d.besideUs.heading, `<p>${esc(d.besideUs.intro)}</p>` + ringList(d.besideUs.entries))
-    );
+    besideUsRing =
+      plate(++n, 'Neighbours', d.besideUs.heading, 'Not us, but worth knowing about.', `<p>${esc(d.besideUs.intro)}</p>` + ringList(d.besideUs.entries));
   }
   if (journeySplit.kept.length) {
-    rings.push(
+    worthTheJourneyRing =
       plate(
         ++n,
         'Further out',
         d.worthTheJourney.heading,
+        'Elsewhere, but worth the journey to reach.',
         `<p>${esc(d.worthTheJourney.intro)}</p>` + ringList(journeySplit.kept)
-      )
-    );
+      );
   }
   if (d.services?.entries?.length) {
-    rings.push(
-      plate(++n, 'Health', d.services.heading, `<p>${esc(d.services.intro)}</p>` + ringList(d.services.entries), 'invert')
-    );
+    servicesRing =
+      plate(++n, 'Health', d.services.heading, 'Sexual health services, NHS and community-run.', `<p>${esc(d.services.intro)}</p>` + ringList(d.services.entries), 'invert');
   }
 
-  const rollcall = `  <section class="plate rollcall" id="the-count">
+  const rollcall = `  <section class="plate rollcall invert" id="the-count">
     <div class="plate-head reveal">
       <span class="numeral">(##)</span>
       <span class="kicker">The count nobody keeps</span>
     </div>
-    <h2 class="display reveal" id="count-figure" data-figure="${esc(fmt(estUpper))}">${esc(fmt(estUpper))}</h2>
+    <p class="subtitle reveal">The count nobody keeps — so guess first, then see it.</p>
     <div class="plate-body reveal">
       <div class="guess" id="guess" hidden>
         <label class="guess-q" for="guess-input">Before you look — how many Black queer men do you think live in ${esc(
@@ -283,6 +369,7 @@ ${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" re
         <button class="submit" type="button" id="guess-go">Show me the estimate</button>
         <p class="guess-note">Your guess stays in this browser.</p>
       </div>
+      <h2 class="display reveal" id="count-figure" data-figure="${esc(fmt(estUpper))}">${esc(fmt(estUpper))}</h2>
       <p class="guess-result" id="guess-result" hidden></p>
       <p class="rollcall-lede" id="count-lede">One dot for every Black queer man the census estimate puts in ${esc(
         boroughWord
@@ -297,6 +384,7 @@ ${census.rows.map((r) => `          <tr${r.borough === boroughWord ? ' class="se
       </table></div>
       <p class="census-source">${esc(census.source)}</p>
       <p class="rollcall-note">Nobody keeps this number. Not the council, not the NHS, not the people who commission work in this borough. The estimate is ours, built from the 2021 Census, because a population nobody counts is a population nobody plans for.</p>
+      ${d.numbers?.body ? `<p class="aside">${esc(d.numbers.body)}</p>` : ''}
     </div>
   </section>`;
 
@@ -306,6 +394,7 @@ ${census.rows.map((r) => `          <tr${r.borough === boroughWord ? ' class="se
         ++n,
         'Test yourself',
         d.quiz.heading,
+        'Everything on this page, turned into a game.',
         `<p>${esc(d.quiz.sub)}</p>
 ${d.quiz.questions
   .map(
@@ -328,6 +417,7 @@ ${q.options.map((o) => `          <button type="button" data-correct="${o.correc
         ++n,
         'Read further',
         'Reading the borough',
+        'What we read to write this, and what you can read next.',
         `<p>${esc(d.bibliography.intro)}</p>
       <ul class="biblio">
 ${d.bibliography.entries
@@ -364,6 +454,7 @@ ${d.bibliography.entries
         ++n,
         'Questions',
         'Asked, answered',
+        'What people actually ask us, answered plainly.',
         d.faq
           .map(
             (f) => `      <details class="faq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`
@@ -380,6 +471,7 @@ ${ground(...groundsFor(d.slug).door)}
       <span class="kicker">The door</span>
     </div>
     <h2 class="display">${esc(d.door.heading)}</h2>
+    <p class="subtitle">The first step, if you want one.</p>
     <p class="tender">${esc(d.door.tender)}</p>
     <p>${esc(d.door.intro)}</p>
     <form id="door-form" novalidate>
@@ -403,7 +495,7 @@ ${d.door.options
   // These were missing from the first draft of this template and restored from v1;
   // a section dropped here is a section that silently vanishes from every door.
   const nextDoor = d.neighbours?.length
-    ? plate(++n, 'The other doors', 'Next door',
+    ? plate(++n, 'The other doors', 'Next door', 'Every door that\'s open so far, and the one next to this.',
         `<p>The doors are opening borough by borough. Step through, or help us open the next one.</p>
 ${boroughMap(d, existingSlugs)}
       <div class="pills">
@@ -424,6 +516,7 @@ ${d.neighbours
       <span class="kicker">The members' room</span>
     </div>
     <h2 class="display reveal">Step inside</h2>
+    <p class="subtitle reveal">Step inside: BLKOUTHUB, the room behind this door.</p>
     <div class="plate-body reveal">
       <p class="tender">The door is how we find each other. BLKOUTHUB is where we live.</p>
       <p>The members' room: Black queer men across the UK, owned by the men in it. Why knock:</p>
@@ -453,6 +546,7 @@ ${d.neighbours
       <span class="kicker">For professionals</span>
     </div>
     <h2 class="display reveal">If you work here</h2>
+    <p class="subtitle reveal">For NHS, council and community-sector partners.</p>
     <div class="plate-body reveal">
       <p>This page is for Black queer men first. But if you serve this borough — NHS, social prescribing, council, community sector, creative health, or you run a room — there's a door for you too.</p>
       <ul class="reasons">
@@ -474,6 +568,7 @@ ${d.neighbours
       <span class="kicker">Corrections</span>
     </div>
     <h2 class="display">${esc(d.truer.heading)}</h2>
+    <p class="subtitle">Help make it truer — tell us what's wrong or missing.</p>
     <p>${esc(d.truer.intro)}</p>
     <form id="truer-form" novalidate>
       <label class="field-l" for="t-note">What should we know?</label>
@@ -489,14 +584,44 @@ ${d.neighbours
     : '';
 
   const gallery = d.gallery?.images?.length
-    ? plate(++n, 'On this ground', d.gallery.heading,
+    ? plate(++n, 'On this ground', d.gallery.heading, 'Real BLKOUT photos, taken right here.',
         `<p>${esc(d.gallery.intro ?? '')}</p>
       <div class="gallery">
 ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${esc(g.alt)}" loading="lazy"><figcaption>${esc(g.caption ?? '')}</figcaption></figure>`).join('\n')}
       </div>`)
     : '';
 
-  const assembled = [sections[0], ...rings, gallery, nextDoor, silence, rollcall, quiz, biblio, faq, door, hub, truer, workWithUs]
+  // Moved silence+rollcall (the one interactive, animated, inverted-palette moment)
+  // to directly after the hero, 23 Sep 2026 — retrofitted from the Birmingham build.
+  // The original "one peak, silence before it" placement (31 Aug 2026) put it after
+  // 6 static sections; the Croydon and Lambeth review meetings both fed back that
+  // readers weren't getting that far before hitting the page's only game.
+  // nextDoor (the map) placed directly after worthTheJourneyRing, 24 Sep 2026
+  // — Rob: "the map should be adjacent to worth the journey". Both are about
+  // other places; services follows, not sitting between them.
+  // Gallery moved up to directly after the history section, 24 Sep 2026 — Rob:
+  // "the gallery brings the page to life... should be used to break up
+  // text-heavy blocks." History (sections[0]) is the single densest block on
+  // the page; the gallery was sitting five sections later, past all the text
+  // it was meant to interrupt.
+  const assembled = [
+    silence,
+    rollcall,
+    sections[0],
+    gallery,
+    hereRing,
+    besideUsRing,
+    worthTheJourneyRing,
+    nextDoor,
+    servicesRing,
+    quiz,
+    biblio,
+    faq,
+    door,
+    hub,
+    truer,
+    workWithUs,
+  ]
     .filter(Boolean)
     .join('\n\n');
   // Numerals are stamped here, in document order — never at construction time.
@@ -505,9 +630,9 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
 
   // index/nav — composition scale, jumps. Derek Aidoo's note, answered.
   const indexItems = [
+    ['the-count', 'The count'],
     ['the-record', 'The record'],
     ...(hereSplit.kept.length || d.here?.quietNote ? [['in-the-borough', 'In the borough']] : []),
-    ['the-count', 'The count'],
     ['s-door', 'The door'],
     ['join', 'BLKOUTHUB'],
     ['working-with-us', 'If you work here'],
@@ -548,7 +673,11 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   body{
     background:var(--bg); color:var(--ink);
     font-family:'Work Sans',system-ui,-apple-system,sans-serif;
-    font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+    /* Bumped 18px/1.7 from 17px/1.62, 23 Sep 2026 — Rob: "text seems small and more
+       daunting as a result". The headline scale runs to 127px with nothing between
+       it and body text except each section's one italic lede line; that cliff, more
+       than the base size alone, is most of what reads as daunting. Small, safe lift. */
+    font-size:18px; line-height:1.7; -webkit-font-smoothing:antialiased;
     overflow-x:hidden; overflow-x:clip;
   }
   a{color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(255,215,0,.35)}
@@ -588,6 +717,15 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   img.landmark{position:absolute; right:-4%; bottom:-3%; width:42rem; height:52.1rem;
     max-width:none; object-fit:contain; opacity:.95; z-index:0; pointer-events:none}
   .standfirst{position:relative; z-index:1}
+  /* Optional split, added 23 Sep 2026 (Birmingham build, retrofitted): a door
+     can supply hero.standfirstMore, a second paragraph rendered full-width below
+     the header, entirely clear of the landmark image. Rob's steer: "split the
+     standfirst — 35 words and then a paragraph below to protect the image" — a
+     long standfirst otherwise grows tall enough to fight the image regardless of
+     the 56ch width cap. Optional — a door without it renders exactly as before. */
+  .standfirst-more{font-family:'Fraunces',Georgia,serif; font-style:italic;
+    font-size:1.1rem; font-size:clamp(1rem,1.5vw,1.2rem); color:var(--dim); max-width:66ch;
+    margin:0 0 3rem; padding-top:.5rem}
   @media (max-width:760px){
     .hero-type{max-width:100%}
     img.landmark{width:19rem; height:23.6rem; opacity:.45; right:-12%; bottom:0}
@@ -609,8 +747,31 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
     letter-spacing:-.02em; line-height:1.0; font-size:2.6rem; font-size:clamp(1.8rem,4.6vw,3.3rem); margin:0 0 1.6rem; color:var(--ink);
   }
   .plate-body{max-width:66ch}
-  .plate p{margin:0 0 1.1rem; color:var(--dim); max-width:66ch}
-  .plate-body > p:first-child{color:var(--ink); font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:1.2rem}
+  /* Plain-language clarifier between the poetic H2 and the body copy, 24 Sep
+     2026 — see plate()'s own note. Rob, 24 Sep: "the subtitles are repeated —
+     is there a way to make them distinctive". Given its own colour (gold, the
+     same register as the kicker/numeral — wayfinding text, not body prose) so
+     it reads as a distinct layer rather than blending into the paragraph
+     underneath it. */
+  /* Sized up, 24 Sep 2026 — Rob: "you went smaller, i thought bigger would be
+     better". Now clearly bigger than the lede paragraph below it (1.2rem),
+     reading as a real sub-heading tier rather than a quiet caption. */
+  .plate p.subtitle{font-size:1.5rem; font-size:clamp(1.2rem,2.6vw,1.7rem);
+    font-weight:600; line-height:1.25; margin:-.4rem 0 1.8rem; max-width:34ch; color:var(--gold)}
+  .plate.invert p.subtitle{color:#6b5300}
+  .plate.gold p.subtitle{color:#000}
+  .plate p{margin:0 0 1.4rem; color:var(--dim); max-width:66ch}
+  /* Sized up alongside the subtitle, 24 Sep 2026, so the sequence reads as a
+     clear descending hierarchy (subtitle > lede > body) rather than a big bold
+     line dropping straight to body size — Rob noticed the lede reading as if
+     it had vanished, right after the subtitle got bigger. */
+  .plate-body > p:first-child{color:var(--ink); font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:1.4rem; font-size:clamp(1.15rem,2vw,1.4rem)}
+  /* A closing line that bridges to the next section, 24 Sep 2026 — Rob: "it's
+     okay to end a section with a linking sentence or two, in standfirst size
+     italics." Authored with a "» " prefix (see paras()); same treatment as the
+     opening lede, sized to match .standfirst exactly as asked. */
+  p.bridge{color:var(--ink); font-family:'Fraunces',Georgia,serif; font-style:italic;
+    font-size:clamp(1.05rem,1.7vw,1.35rem); margin-top:1.8rem}
   .aside{border-left:3px solid var(--gold); padding-left:1.2rem}
   .quiet{border:1px solid var(--line); padding:1.2rem 1.4rem; color:var(--dim)}
 
@@ -625,17 +786,31 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   /* Inverted plates mark progress through the page — and, for "If you work here",
      signal a different reader. Tokens flip; gold stays gold. */
   .plate.invert{background:var(--bone); color:#111; margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
-  .plate.invert h2.display,.plate.invert .plate-body > p:first-child{color:#111}
+  /* The count, added 23 Sep 2026: an early, animated, inverted-palette moment
+     (Rob's feedback — the doors read as too uniformly dark/sombre; Sound Ethics'
+     own site uses an early palette break plus real movement to the same end).
+     h2.display and .numeral already go dark via the generic invert rules above;
+     these two are additional gold-on-cream spots the generic rules don't reach. */
+  .plate.invert.rollcall table.census tr.self td{color:#6b5300; background:rgba(138,109,0,.08)}
+  .plate.invert.rollcall .mark.guessed{background:#6b5300}
+  /* Rob, 23 Sep 2026: "grey on white or cream won't work" — table.census and the
+     masked count figure both set an explicit --dim (light warm-grey) colour that
+     no generic invert rule reaches, since neither is a bare <p>. */
+  .plate.invert.rollcall table.census caption,
+  .plate.invert.rollcall table.census th,
+  .plate.invert.rollcall table.census td{color:#6b6355}
+  .plate.invert #count-figure.masked{color:#6b6355}
+  .plate.invert h2.display,.plate.invert .plate-body > p:first-child,.plate.invert p.bridge{color:#111}
   .plate.invert p,.plate.invert li{color:#3a352c}
   .plate.invert .kicker{color:#6b6355}
-  .plate.invert .numeral{color:#8a6d00}
+  .plate.invert .numeral{color:#6b5300}
   .plate.invert .ring-name{color:#111; border-bottom-color:rgba(0,0,0,.3)}
-  .plate.invert .ring-name:hover{color:#8a6d00}
+  .plate.invert .ring-name:hover{color:#6b5300}
   .plate.invert ul.ring li{border-top-color:rgba(0,0,0,.14)}
-  .plate.invert .stamp{color:#8a6d00}
-  .plate.invert a{color:#8a6d00; border-bottom-color:rgba(138,109,0,.4)}
+  .plate.invert .stamp{color:#6b5300}
+  .plate.invert a{color:#6b5300; border-bottom-color:rgba(138,109,0,.4)}
   .plate.invert a:hover{color:#111}
-  .plate.invert .aside{border-left-color:#8a6d00}
+  .plate.invert .aside{border-left-color:#6b5300}
   .plate.invert .reasons li strong{color:#111}
   .plate.gold{background:var(--gold); color:#000; margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
   .plate.gold h2.display,.plate.gold p,.plate.gold li,.plate.gold .kicker{color:#000}
@@ -700,26 +875,35 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
      body scrolls under it, so a section grips instead of flowing past. Needs a
      higher-specificity selector than .plate > *, and needs the section NOT to
      clip its overflow — overflow:hidden kills position:sticky in a descendant. */
-  /* Sticky headings only on the DARK plates. A pinned heading needs a background
-     so body copy does not scroll through it — and on a gradient ground any such
-     background reads as a mismatched rectangle, whatever colour you pick. On black
-     it fades to transparent invisibly. The colour plates are short, self-contained
-     blocks; they do not need the grip. */
-  .plate:not(.gold):not(.invert):not(.has-bg) > h2.display{
+  /* Sticky headings, extended 23 Sep 2026 to invert/gold too (Rob: "the scrolling
+     titles are really good, they should be applied consistently") — previously
+     dark plates only, because a pinned heading needs a solid-enough background so
+     body copy doesn't scroll through it, and only .has-bg (real photo grounds)
+     genuinely has no colour that blends. Invert and gold are flat-ish gradients of
+     one hue, so a matching solid backing works the same way the black one does. */
+  .plate:not(.has-bg) > h2.display{
     position:sticky; position:-webkit-sticky; top:.5rem; z-index:2;
-    background-image:linear-gradient(180deg, rgba(0,0,0,.92) 62%, rgba(0,0,0,0) 100%);
     padding-top:.6rem; padding-bottom:1rem}
+  .plate:not(.has-bg) > div.plate-head{
+    position:sticky; position:-webkit-sticky; top:0; z-index:3}
+  .plate:not(.gold):not(.invert):not(.has-bg) > h2.display{
+    background-image:linear-gradient(180deg, rgba(0,0,0,.92) 62%, rgba(0,0,0,0) 100%)}
   .plate:not(.gold):not(.invert):not(.has-bg) > div.plate-head{
-    position:sticky; position:-webkit-sticky; top:0; z-index:3;
     background-color:rgba(0,0,0,.92)}
+  .plate.invert > h2.display{
+    background-image:linear-gradient(180deg, var(--bone) 62%, rgba(244,241,234,0) 100%)}
+  .plate.invert > div.plate-head{background-color:var(--bone)}
+  .plate.gold > h2.display{
+    background-image:linear-gradient(180deg, var(--gold) 62%, rgba(255,215,0,0) 100%)}
+  .plate.gold > div.plate-head{background-color:var(--gold)}
 
   /* the photographic grounds sit still while the page moves over them */
   .plate > div.ground{background-attachment:fixed}
   @media (max-width:760px){
     /* fixed attachment is unreliable on mobile engines; fall back to normal */
     .plate > div.ground{background-attachment:scroll}
-    .plate:not(.gold):not(.invert):not(.has-bg) > h2.display,
-    .plate:not(.gold):not(.invert):not(.has-bg) > div.plate-head{position:static}
+    .plate:not(.has-bg) > h2.display,
+    .plate:not(.has-bg) > div.plate-head{position:static}
   }
 
   /* ---- SILENCE before the peak ---- */
@@ -766,6 +950,41 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   details.faq summary::-webkit-details-marker{display:none}
   details.faq summary::before{content:'▸ '; color:var(--gold)}
   details.faq[open] summary::before{content:'▾ '}
+
+  /* A long history's "## era" markers, 24 Sep 2026 — a horizontal scroll-snap
+     rail (Rob: "use the scroll skill and generate a horizontal scroll for the
+     history section"). scrollcraft's own documented reduced-motion FALLBACK
+     shape, used as the primary implementation: native overflow-x:auto, no
+     scroll-hijacking JS, so it needs none of that device's span-tuning or
+     dead-scroll-zone verification — genuinely click-through via the prev/next
+     buttons below, and works with zero JS by trackpad/touch/shift-wheel too. */
+  .era-rail-wrap{margin:2.2rem 0 0; max-width:100%; overflow-x:hidden}
+  .era-rail{display:flex; gap:1.6rem; overflow-x:auto; scroll-snap-type:x mandatory;
+    padding:.3rem .1rem 1.6rem; margin:0 -.1rem;
+    -ms-overflow-style:none; scrollbar-width:none}
+  .era-rail::-webkit-scrollbar{display:none}
+  .era-card{flex:0 0 auto; width:27rem; scroll-snap-align:start;
+    border:1px solid var(--line); padding:1.5rem 1.7rem 1.7rem}
+  .era-card h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.14em; font-size:.85rem; font-weight:700; color:var(--gold); margin:0 0 1rem}
+  .era-card p{max-width:none}
+  .era-figure{margin:0 0 1.1rem}
+  .era-figure img{width:100%; height:auto; display:block; border:1px solid var(--line)}
+  .era-figure figcaption{font-size:.72rem; color:var(--dim); margin-top:.5rem}
+  .era-rail-controls{display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:0 0 1.3rem}
+  .era-rail-controls:last-child{margin:1.3rem 0 0}
+  .era-nav{border:1px solid var(--gold); background:var(--gold); color:#000;
+    font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase; letter-spacing:.08em;
+    font-weight:700; font-size:.82rem; padding:.7rem 1.2rem; cursor:pointer; white-space:nowrap}
+  .era-nav:hover{background:none; color:var(--gold)}
+  .era-dots{display:flex; align-items:center; gap:.55rem}
+  .era-dot{width:.6rem; height:.6rem; border-radius:50%; border:1px solid var(--gold);
+    background:none; padding:0; cursor:pointer}
+  .era-dot.active{background:var(--gold)}
+  @media (max-width:760px){
+    .era-card{width:88vw}
+    .era-nav{padding:.6rem .8rem; font-size:.72rem}
+  }
 
   /* ---- forms ---- */
   form{margin-top:1.4rem; max-width:44rem}
@@ -1007,7 +1226,11 @@ ${
   <p class="standfirst">${esc(d.hero.standfirst)}</p>
 </header>
 
-<nav class="index">
+${
+  d.hero.standfirstMore
+    ? `<p class="standfirst-more">${esc(d.hero.standfirstMore)}</p>\n\n`
+    : ''
+}<nav class="index">
 ${indexItems.map(([id, label]) => `  <a href="#${id}">${esc(label)}</a>`).join('\n')}
   <a class="home" href="https://blkoutuk.com" rel="noopener">BLKOUT home &rarr;</a>
 </nav>
@@ -1126,6 +1349,55 @@ ${
     });
   } else {
     paintDots(total, 'mark');
+  }
+
+  // ---- ERA RAIL: click-through, with dots tracking whichever card is
+  // actually in view — however it got there (button, dot, trackpad, touch,
+  // shift+wheel all work; the rail needs none of them to function). Two
+  // control bars (top + bottom) share the same buttons/dots by class, so
+  // everything below queries ALL of them and keeps both sets in sync. ----
+  var eraRail = document.querySelector('.era-rail');
+  if (eraRail) {
+    var eraCards = Array.prototype.slice.call(eraRail.querySelectorAll('.era-card'));
+    var eraDots = Array.prototype.slice.call(document.querySelectorAll('.era-dot'));
+    var eraCurrent = 0;
+    // scrollIntoView({inline:'start'}) was here originally and is the likely
+    // cause of a real bug Rob hit live: it can walk up and scroll ANY
+    // scrollable ancestor, not just the rail, leaving the whole page's
+    // horizontal alignment stuck. scrollTo() on the rail itself only ever
+    // touches the rail's own scroll position — it cannot leak to an ancestor.
+    var goToEra = function (i) {
+      i = Math.max(0, Math.min(eraCards.length - 1, i));
+      eraRail.scrollTo({ left: eraCards[i].offsetLeft, behavior: 'smooth' });
+    };
+    var setActive = function (i) {
+      eraCurrent = i;
+      for (var d = 0; d < eraDots.length; d++) {
+        eraDots[d].className = 'era-dot' + (parseInt(eraDots[d].getAttribute('data-era-index'), 10) === i ? ' active' : '');
+      }
+    };
+    var eraPrevBtns = document.querySelectorAll('.era-prev');
+    var eraNextBtns = document.querySelectorAll('.era-next');
+    for (var p = 0; p < eraPrevBtns.length; p++) eraPrevBtns[p].addEventListener('click', function () { goToEra(eraCurrent - 1); });
+    for (var nx = 0; nx < eraNextBtns.length; nx++) eraNextBtns[nx].addEventListener('click', function () { goToEra(eraCurrent + 1); });
+    for (var dt = 0; dt < eraDots.length; dt++) {
+      eraDots[dt].addEventListener('click', function () { goToEra(parseInt(this.getAttribute('data-era-index'), 10)); });
+    }
+    if ('IntersectionObserver' in window) {
+      var eraIo = new IntersectionObserver(
+        function (entries) {
+          var best = null;
+          for (var e = 0; e < entries.length; e++) {
+            if (!best || entries[e].intersectionRatio > best.intersectionRatio) best = entries[e];
+          }
+          if (best && best.intersectionRatio > 0.5) {
+            setActive(parseInt(best.target.getAttribute('data-era-index'), 10));
+          }
+        },
+        { root: eraRail, threshold: [0.5, 0.75, 1] }
+      );
+      for (var c = 0; c < eraCards.length; c++) eraIo.observe(eraCards[c]);
+    }
   }
 
   // ---- reveals ----
