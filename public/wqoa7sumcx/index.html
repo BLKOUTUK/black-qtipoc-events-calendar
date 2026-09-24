@@ -1,0 +1,1228 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black queer men in Birmingham | BLKOUT in Birmingham</title>
+<meta name="description" content="For Black queer men in and around Birmingham — Handsworth, Lozells, Digbeth, Balsall Heath: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.">
+<link rel="canonical" href="https://events.blkoutuk.com/wqoa7sumcx/">
+<meta name="robots" content="noindex,nofollow">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is BLKOUT based in Birmingham?","acceptedAnswer":{"@type":"Answer","text":"No — BLKOUT is registered in Croydon, with doors in boroughs across London. This would be our first door outside London, and it's still a draft."}},{"@type":"Question","name":"Where can I meet other Black queer men in Birmingham?","acceptedAnswer":{"@type":"Answer","text":"Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend, checked 23 Sep 2026. Not yet confirmed by a direct message to the organisers."}}]},{"@type":"Organization","@id":"https://blkoutuk.com/#org","name":"BLKOUT UK","url":"https://blkoutuk.com","description":"BLKOUT is the Black Queer Men's Liberation Collective. We host gatherings, build space for dialogue, and create community-owned technology for the health, wealth and happiness of Black gay, bi and trans men across the UK. Through local chapters, cooperative membership, creative events, shared learning, and digital media, we turn connection into individual well-being and collective power — owned by and accountable to the people we serve.","sameAs":["https://events.blkoutuk.com","https://blkouthub.com"]},{"@type":"WebPage","@id":"https://events.blkoutuk.com/wqoa7sumcx/","url":"https://events.blkoutuk.com/wqoa7sumcx/","name":"Black queer men in Birmingham | BLKOUT in Birmingham","description":"For Black queer men in and around Birmingham — Handsworth, Lozells, Digbeth, Balsall Heath: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.","about":{"@id":"https://blkoutuk.com/#org"},"dateModified":"2026-09-24"}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,800;0,900;1,400&family=Fraunces:ital,wght@1,400;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#ffffff; --bg:#000000; --gold:#FFD700; --gold-deep:#D4AF37;
+    --dim:#b9b4a8; --line:#2a2721; --shell:#0b0b0b; --bone:#f4f1ea;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Work Sans',system-ui,-apple-system,sans-serif;
+    /* Bumped 18px/1.7 from 17px/1.62, 23 Sep 2026 — Rob: "text seems small and more
+       daunting as a result". The headline scale runs to 127px with nothing between
+       it and body text except each section's one italic lede line; that cliff, more
+       than the base size alone, is most of what reads as daunting. Small, safe lift. */
+    font-size:18px; line-height:1.7; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden; overflow-x:clip;
+  }
+  a{color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(255,215,0,.35)}
+  a:hover{color:#fff; border-bottom-color:#fff}
+
+  /* animated film grain — Sound Ethics' signature texture, brand palette */
+  .grain{position:fixed; inset:0; pointer-events:none; z-index:90; opacity:.05;
+    background-image:radial-gradient(circle at 1px 1px, #fff 1px, transparent 0);
+    background-size:3px 3px; animation:grain .6s steps(3) infinite}
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)} 33%{transform:translate(-1px,1px)} 66%{transform:translate(1px,-1px)}
+  }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 5vw}
+
+  /* ---- HERO: type as architecture ---- */
+  header.hero{padding:7rem 0 3.5rem; border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.16em; font-size:.9rem; color:var(--gold); margin:0 0 1rem}
+  h1.mega{
+    font-family:'Work Sans',system-ui,sans-serif; font-weight:900;
+    text-transform:uppercase; letter-spacing:-.025em; line-height:.9;
+    font-size:5.5rem; font-size:clamp(2.6rem,10vw,7.5rem); margin:0; color:var(--ink);
+  }
+  h1.mega .of{display:block; font-size:.24em; letter-spacing:.06em; color:var(--gold); line-height:1.1; margin-bottom:.4em}
+  .standfirst{font-family:'Fraunces',Georgia,serif; font-style:italic;
+    font-size:1.2rem; font-size:clamp(1.05rem,1.7vw,1.35rem); color:var(--dim); max-width:56ch; margin:7.5rem 0 0}
+  /* minimal media: the one drawing this grammar allows, and it stays subordinate to type */
+  header.hero{position:relative; overflow:hidden; min-height:44rem}
+  /* Scrim between the palace and the type: same z-index as the image but later in
+     paint order, so it darkens the drawing without touching the copy above it. */
+  header.hero::after{content:''; position:absolute; left:0; top:0; right:0; bottom:0;
+    z-index:0; pointer-events:none;
+    background-image:linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.86) 34%, rgba(0,0,0,.45) 62%, rgba(0,0,0,0) 88%)}
+  .hero-row{}
+  .hero-type{position:relative; z-index:1; max-width:56%}
+  img.landmark{position:absolute; right:-4%; bottom:-3%; width:42rem; height:52.1rem;
+    max-width:none; object-fit:contain; opacity:.95; z-index:0; pointer-events:none}
+  .standfirst{position:relative; z-index:1}
+  /* Optional split, added 23 Sep 2026 (Birmingham build, retrofitted): a door
+     can supply hero.standfirstMore, a second paragraph rendered full-width below
+     the header, entirely clear of the landmark image. Rob's steer: "split the
+     standfirst — 35 words and then a paragraph below to protect the image" — a
+     long standfirst otherwise grows tall enough to fight the image regardless of
+     the 56ch width cap. Optional — a door without it renders exactly as before. */
+  .standfirst-more{font-family:'Fraunces',Georgia,serif; font-style:italic;
+    font-size:1.1rem; font-size:clamp(1rem,1.5vw,1.2rem); color:var(--dim); max-width:66ch;
+    margin:0 0 3rem; padding-top:.5rem}
+  @media (max-width:760px){
+    .hero-type{max-width:100%}
+    img.landmark{width:19rem; height:23.6rem; opacity:.45; right:-12%; bottom:0}
+  }
+
+  /* ---- INDEX: nav at composition scale, and it jumps ---- */
+  nav.index{display:flex; flex-wrap:wrap; padding:1.6rem 0; border-bottom:1px solid var(--line)}
+  nav.index a{margin:0 2rem .4rem 0; font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    font-size:1.05rem; font-size:clamp(.95rem,1.5vw,1.15rem); font-weight:600; letter-spacing:.01em; border:0; color:var(--dim)}
+  nav.index a:hover{color:var(--gold)}
+
+  /* ---- PLATES ---- */
+  .plate{padding:5.5rem 0; border-bottom:1px solid var(--line)}
+  .plate-head{display:flex; align-items:baseline; gap:1rem; margin-bottom:.8rem}
+  .numeral{font-family:'Work Sans',system-ui,sans-serif; color:var(--gold); font-size:1.1rem; letter-spacing:.08em}
+  .kicker{text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; color:var(--dim)}
+  h2.display{
+    font-family:'Work Sans',system-ui,sans-serif; font-weight:900; text-transform:uppercase;
+    letter-spacing:-.02em; line-height:1.0; font-size:2.6rem; font-size:clamp(1.8rem,4.6vw,3.3rem); margin:0 0 1.6rem; color:var(--ink);
+  }
+  .plate-body{max-width:66ch}
+  /* Plain-language clarifier between the poetic H2 and the body copy, 24 Sep
+     2026 — see plate()'s own note. Rob, 24 Sep: "the subtitles are repeated —
+     is there a way to make them distinctive". Given its own colour (gold, the
+     same register as the kicker/numeral — wayfinding text, not body prose) so
+     it reads as a distinct layer rather than blending into the paragraph
+     underneath it. */
+  /* Sized up, 24 Sep 2026 — Rob: "you went smaller, i thought bigger would be
+     better". Now clearly bigger than the lede paragraph below it (1.2rem),
+     reading as a real sub-heading tier rather than a quiet caption. */
+  .plate p.subtitle{font-size:1.5rem; font-size:clamp(1.2rem,2.6vw,1.7rem);
+    font-weight:600; line-height:1.25; margin:-.4rem 0 1.8rem; max-width:34ch; color:var(--gold)}
+  .plate.invert p.subtitle{color:#6b5300}
+  .plate.gold p.subtitle{color:#000}
+  .plate p{margin:0 0 1.4rem; color:var(--dim); max-width:66ch}
+  /* Sized up alongside the subtitle, 24 Sep 2026, so the sequence reads as a
+     clear descending hierarchy (subtitle > lede > body) rather than a big bold
+     line dropping straight to body size — Rob noticed the lede reading as if
+     it had vanished, right after the subtitle got bigger. */
+  .plate-body > p:first-child{color:var(--ink); font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:1.4rem; font-size:clamp(1.15rem,2vw,1.4rem)}
+  /* A closing line that bridges to the next section, 24 Sep 2026 — Rob: "it's
+     okay to end a section with a linking sentence or two, in standfirst size
+     italics." Authored with a "» " prefix (see paras()); same treatment as the
+     opening lede, sized to match .standfirst exactly as asked. */
+  p.bridge{color:var(--ink); font-family:'Fraunces',Georgia,serif; font-style:italic;
+    font-size:clamp(1.05rem,1.7vw,1.35rem); margin-top:1.8rem}
+  .aside{border-left:3px solid var(--gold); padding-left:1.2rem}
+  .quiet{border:1px solid var(--line); padding:1.2rem 1.4rem; color:var(--dim)}
+
+  ul.ring{list-style:none; padding:0; margin:1.1rem 0 0; display:flex; flex-direction:column}
+  ul.ring li{border-top:1px solid var(--line); padding:1.4rem 0}
+  .ring-name{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    font-size:1.3rem; font-size:clamp(1.1rem,1.9vw,1.4rem); font-weight:700; border:0; display:inline-block}
+  ul.ring p{margin:.4rem 0 .5rem}
+  .stamp{text-transform:uppercase; letter-spacing:.14em; font-size:.65rem; color:var(--gold-deep)}
+
+
+  /* Inverted plates mark progress through the page — and, for "If you work here",
+     signal a different reader. Tokens flip; gold stays gold. */
+  .plate.invert{background:var(--bone); color:#111; margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
+  /* The count, added 23 Sep 2026: an early, animated, inverted-palette moment
+     (Rob's feedback — the doors read as too uniformly dark/sombre; Sound Ethics'
+     own site uses an early palette break plus real movement to the same end).
+     h2.display and .numeral already go dark via the generic invert rules above;
+     these two are additional gold-on-cream spots the generic rules don't reach. */
+  .plate.invert.rollcall table.census tr.self td{color:#6b5300; background:rgba(138,109,0,.08)}
+  .plate.invert.rollcall .mark.guessed{background:#6b5300}
+  /* Rob, 23 Sep 2026: "grey on white or cream won't work" — table.census and the
+     masked count figure both set an explicit --dim (light warm-grey) colour that
+     no generic invert rule reaches, since neither is a bare <p>. */
+  .plate.invert.rollcall table.census caption,
+  .plate.invert.rollcall table.census th,
+  .plate.invert.rollcall table.census td{color:#6b6355}
+  .plate.invert #count-figure.masked{color:#6b6355}
+  .plate.invert h2.display,.plate.invert .plate-body > p:first-child,.plate.invert p.bridge{color:#111}
+  .plate.invert p,.plate.invert li{color:#3a352c}
+  .plate.invert .kicker{color:#6b6355}
+  .plate.invert .numeral{color:#6b5300}
+  .plate.invert .ring-name{color:#111; border-bottom-color:rgba(0,0,0,.3)}
+  .plate.invert .ring-name:hover{color:#6b5300}
+  .plate.invert ul.ring li{border-top-color:rgba(0,0,0,.14)}
+  .plate.invert .stamp{color:#6b5300}
+  .plate.invert a{color:#6b5300; border-bottom-color:rgba(138,109,0,.4)}
+  .plate.invert a:hover{color:#111}
+  .plate.invert .aside{border-left-color:#6b5300}
+  .plate.invert .reasons li strong{color:#111}
+  .plate.gold{background:var(--gold); color:#000; margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
+  .plate.gold h2.display,.plate.gold p,.plate.gold li,.plate.gold .kicker{color:#000}
+  .plate.gold .numeral{color:#000}
+  .plate.gold a{color:#000; border-bottom-color:rgba(0,0,0,.4)}
+  .plate.gold .q-options button{border-color:rgba(0,0,0,.25); color:#000}
+  .plate.gold .q-options button.right{background:rgba(0,0,0,.12); border-color:#000}
+  .plate.gold .q-reveal{border-left-color:#000}
+  .plate.gold .q-score{color:#000}
+  .plate.gold .q-n{color:#000}
+
+
+  /* Flat planes get a wash and a splash so the colour has weather in it.
+     Layered background-image over background-color: an engine that ignores
+     gradients or SVG still gets the flat brand colour, never a broken surface. */
+  .plate.gold{
+    background-color:var(--gold);
+    background-image:
+      radial-gradient(70% 55% at 14% 6%, #FFF0A6 0%, rgba(255,240,166,0) 62%),
+      linear-gradient(146deg, #FFE45C 0%, #FFD700 40%, #F0BC06 74%, #D9A303 100%);
+  }
+  .plate.invert{
+    background-color:var(--bone);
+    background-image:
+      radial-gradient(66% 52% at 86% 8%, #FFFCF4 0%, rgba(255,252,244,0) 60%),
+      linear-gradient(146deg, #FBF8F0 0%, #F4F1EA 38%, #E7E0CE 76%, #DAD0B6 100%);
+  }
+  /* .q-q, .tender and .q-reveal carry !important for the dark ground, so an
+     inverted plate must out-shout them or the type goes white-on-gold / white-on-cream.
+     This block was lost once in a CSS rewrite — keep it adjacent to the invert rules. */
+  .plate.gold .q-q,.plate.gold .tender,.plate.gold .q-reveal,
+  .plate.gold .q-score,.plate.gold .q-n{color:#000 !important}
+  .plate.invert .q-q,.plate.invert .tender,.plate.invert .q-reveal{color:#111 !important}
+  .plate.invert .guess-result,.plate.gold .guess-result{color:#111 !important}
+  /* Blurred hard, so it reads as weather in the colour rather than a shape
+     sitting on top of it. Sized and pushed off-edge so only part of it lands. */
+  /* NOTE: .plate.gold > * is two classes, so it outranks a bare element+class
+     selector and was forcing the splash back into normal flow, pushing every
+     section down by its own height. Match the parent to win on specificity.
+     The svg is wrapped in a div because old engines do not position inline svg. */
+  .plate{position:relative}
+
+  /* Photographic ground + scrim. Higher specificity than .plate > * so these are
+     not dragged back into normal flow. Scrim is left-heavy because the type
+     column sits left; the picture stays readable on the right. */
+  .plate.has-bg{position:relative}
+  .plate > div.ground{position:absolute; left:0; right:0; top:0; bottom:0; z-index:0;
+    background-size:cover; background-repeat:no-repeat; opacity:.30; pointer-events:none}
+  .plate > div.scrim{position:absolute; left:0; right:0; top:0; bottom:0; z-index:0;
+    pointer-events:none;
+    background-image:linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.78) 42%, rgba(0,0,0,.30) 78%, rgba(0,0,0,.12) 100%)}
+  @media (max-width:760px){
+    .plate > div.ground{opacity:.20}
+    .plate > div.scrim{background-image:linear-gradient(180deg, rgba(0,0,0,.80) 0%, rgba(0,0,0,.88) 60%)}
+  }
+
+  .plate > *{position:relative; z-index:1}
+
+
+  /* ---- STICK ----
+     Each section's display heading holds at the top of the viewport while its
+     body scrolls under it, so a section grips instead of flowing past. Needs a
+     higher-specificity selector than .plate > *, and needs the section NOT to
+     clip its overflow — overflow:hidden kills position:sticky in a descendant. */
+  /* Sticky headings, extended 23 Sep 2026 to invert/gold too (Rob: "the scrolling
+     titles are really good, they should be applied consistently") — previously
+     dark plates only, because a pinned heading needs a solid-enough background so
+     body copy doesn't scroll through it, and only .has-bg (real photo grounds)
+     genuinely has no colour that blends. Invert and gold are flat-ish gradients of
+     one hue, so a matching solid backing works the same way the black one does. */
+  .plate:not(.has-bg) > h2.display{
+    position:sticky; position:-webkit-sticky; top:.5rem; z-index:2;
+    padding-top:.6rem; padding-bottom:1rem}
+  .plate:not(.has-bg) > div.plate-head{
+    position:sticky; position:-webkit-sticky; top:0; z-index:3}
+  .plate:not(.gold):not(.invert):not(.has-bg) > h2.display{
+    background-image:linear-gradient(180deg, rgba(0,0,0,.92) 62%, rgba(0,0,0,0) 100%)}
+  .plate:not(.gold):not(.invert):not(.has-bg) > div.plate-head{
+    background-color:rgba(0,0,0,.92)}
+  .plate.invert > h2.display{
+    background-image:linear-gradient(180deg, var(--bone) 62%, rgba(244,241,234,0) 100%)}
+  .plate.invert > div.plate-head{background-color:var(--bone)}
+  .plate.gold > h2.display{
+    background-image:linear-gradient(180deg, var(--gold) 62%, rgba(255,215,0,0) 100%)}
+  .plate.gold > div.plate-head{background-color:var(--gold)}
+
+  /* the photographic grounds sit still while the page moves over them */
+  .plate > div.ground{background-attachment:fixed}
+  @media (max-width:760px){
+    /* fixed attachment is unreliable on mobile engines; fall back to normal */
+    .plate > div.ground{background-attachment:scroll}
+    .plate:not(.has-bg) > h2.display,
+    .plate:not(.has-bg) > div.plate-head{position:static}
+  }
+
+  /* ---- SILENCE before the peak ---- */
+  .silence{height:14rem}
+
+  /* ---- THE COUNT NOBODY KEEPS: census scale, not a tally of us ---- */
+  .rollcall{border-bottom:1px solid var(--line)}
+  .rollcall h2.display{color:var(--gold); font-size:6rem; font-size:clamp(3rem,11vw,8rem)}
+  .rollcall-lede{max-width:60ch}
+  .field{display:flex; flex-wrap:wrap; margin:2.2rem 0; max-width:100%}
+  .mark{display:block; width:7px; height:7px; margin:0 3px 3px 0; background:#1e1c18; border-radius:50%}
+  .mark.guessed{background:var(--gold-deep); opacity:.85}
+  .rollcall-cut{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    font-size:1.25rem; font-size:clamp(1.05rem,1.9vw,1.4rem); color:var(--ink); letter-spacing:.01em; line-height:1.1; margin:.4rem 0}
+  .rollcall-cut strong{color:var(--gold)}
+  .rollcall-cut.dim{color:var(--dim)}
+
+  /* ---- quiz ---- */
+  .q{border-top:1px solid var(--line); padding:1.6rem 0}
+  .q-q{color:var(--ink) !important; font-weight:600}
+  .q-n{color:var(--gold); font-family:'Work Sans',system-ui,sans-serif; margin-right:.5rem}
+  .q-options{display:flex; flex-direction:column; gap:.5rem; margin:.8rem 0}
+  .q-options button{background:transparent; border:1px solid var(--line); color:var(--ink);
+    font:inherit; text-align:left; padding:.7rem 1rem; cursor:pointer}
+  .q-options button:hover{border-color:var(--gold)}
+  .q-options button.right{border-color:var(--gold); background:rgba(255,215,0,.1)}
+  .q-options button.wrong{opacity:.45}
+  .q-reveal{display:none; border-left:3px solid var(--gold); padding-left:1.2rem}
+  .q.done .q-reveal{display:block}
+  .q-score{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    font-size:1.4rem; color:var(--gold)}
+
+  ul.biblio{list-style:none; padding:0}
+  ul.biblio li{color:var(--dim); margin-bottom:.9rem; padding-left:1.2rem; text-indent:-1.2rem}
+  ul.biblio li::before{content:'— '; color:var(--gold)}
+  ul.biblio em{color:var(--ink); font-family:'Fraunces',Georgia,serif}
+  .archive{border:2px solid var(--gold); padding:1.4rem; margin-top:2rem}
+  .archive h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.12em; color:var(--gold); margin:0 0 .5rem; font-size:1rem}
+  .ghost{display:inline-block; border:1px solid var(--gold); padding:.5rem 1.2rem; margin-top:.6rem}
+
+  details.faq{border-top:1px solid var(--line); padding:.9rem 0}
+  details.faq summary{cursor:pointer; font-weight:600; list-style:none}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::before{content:'▸ '; color:var(--gold)}
+  details.faq[open] summary::before{content:'▾ '}
+
+  /* A long history's "## era" markers, 24 Sep 2026 — a horizontal scroll-snap
+     rail (Rob: "use the scroll skill and generate a horizontal scroll for the
+     history section"). scrollcraft's own documented reduced-motion FALLBACK
+     shape, used as the primary implementation: native overflow-x:auto, no
+     scroll-hijacking JS, so it needs none of that device's span-tuning or
+     dead-scroll-zone verification — genuinely click-through via the prev/next
+     buttons below, and works with zero JS by trackpad/touch/shift-wheel too. */
+  .era-rail-wrap{margin:2.2rem 0 0; max-width:100%; overflow-x:hidden}
+  .era-rail{display:flex; gap:1.6rem; overflow-x:auto; scroll-snap-type:x mandatory;
+    padding:.3rem .1rem 1.6rem; margin:0 -.1rem;
+    -ms-overflow-style:none; scrollbar-width:none}
+  .era-rail::-webkit-scrollbar{display:none}
+  .era-card{flex:0 0 auto; width:27rem; scroll-snap-align:start;
+    border:1px solid var(--line); padding:1.5rem 1.7rem 1.7rem}
+  .era-card h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.14em; font-size:.85rem; font-weight:700; color:var(--gold); margin:0 0 1rem}
+  .era-card p{max-width:none}
+  .era-figure{margin:0 0 1.1rem}
+  .era-figure img{width:100%; height:auto; display:block; border:1px solid var(--line)}
+  .era-figure figcaption{font-size:.72rem; color:var(--dim); margin-top:.5rem}
+  .era-rail-controls{display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:0 0 1.3rem}
+  .era-rail-controls:last-child{margin:1.3rem 0 0}
+  .era-nav{border:1px solid var(--gold); background:var(--gold); color:#000;
+    font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase; letter-spacing:.08em;
+    font-weight:700; font-size:.82rem; padding:.7rem 1.2rem; cursor:pointer; white-space:nowrap}
+  .era-nav:hover{background:none; color:var(--gold)}
+  .era-dots{display:flex; align-items:center; gap:.55rem}
+  .era-dot{width:.6rem; height:.6rem; border-radius:50%; border:1px solid var(--gold);
+    background:none; padding:0; cursor:pointer}
+  .era-dot.active{background:var(--gold)}
+  @media (max-width:760px){
+    .era-card{width:88vw}
+    .era-nav{padding:.6rem .8rem; font-size:.72rem}
+  }
+
+  /* ---- forms ---- */
+  form{margin-top:1.4rem; max-width:44rem}
+  .option{display:flex; align-items:flex-start; border:1px solid var(--line); padding:.9rem 1.1rem; margin-bottom:.55rem; cursor:pointer}
+  .option:hover{border-color:var(--gold)}
+  .option input{flex:none; margin:.25rem .8rem 0 0}
+  .opt-text{display:block}
+  .opt-text strong{display:block; text-transform:uppercase; letter-spacing:.05em; font-size:.9rem}
+  .opt-text span{color:var(--dim); font-size:.92rem}
+  input[type=radio],input[type=checkbox]{-webkit-appearance:none; appearance:none; width:17px; height:17px;
+    border:2px solid var(--dim); background:transparent; cursor:pointer}
+  input[type=radio]{border-radius:50%}
+  input[type=radio]:checked{border-color:var(--gold); background:var(--gold); box-shadow:inset 0 0 0 3px #000}
+  input[type=checkbox]:checked{border-color:var(--gold); background:var(--gold)}
+  .field-l{display:block; margin:1.1rem 0 .35rem; text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; color:var(--dim)}
+  input[type=text],input[type=email],textarea{width:100%; padding:.75rem .9rem; background:var(--shell);
+    border:1px solid var(--line); color:var(--ink); font:inherit}
+  input:focus,textarea:focus{outline:2px solid var(--gold)}
+  .holder{display:block; margin:1.1rem 0; color:var(--dim); font-size:.93rem; cursor:pointer}
+  button.submit{background:var(--gold); color:#000; border:0; padding:.85rem 2.2rem;
+    font-family:'Work Sans',system-ui,sans-serif; font-size:1.25rem; text-transform:uppercase;
+    letter-spacing:.06em; font-weight:900; cursor:pointer}
+  button.submit:hover{background:#fff}
+  button.submit:disabled{opacity:.5; cursor:wait}
+  .msg{display:none; margin-top:1rem; padding:.9rem 1.1rem}
+  .msg.ok{display:block; border-left:4px solid var(--gold); color:var(--ink)}
+  .msg.err{display:block; border:1px solid #7a2b2b; color:#f0b9b9}
+  .tender{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:1.25rem; color:var(--ink) !important}
+
+
+  ul.reasons{list-style:none; padding:0; margin:1.4rem 0}
+  ul.reasons li{border-top:1px solid var(--line); padding:.9rem 0; color:var(--dim)}
+  ul.reasons li strong{color:var(--ink); display:block}
+  .pills{display:flex; flex-wrap:wrap; margin-top:1rem}
+  .pill{display:inline-block; margin:0 .5rem .5rem 0; border:1px solid var(--line); padding:.45rem 1rem; font-size:.9rem; color:var(--dim)}
+  a.pill:hover{border-color:var(--gold); color:var(--gold)}
+  .pill.closed{opacity:.55}
+  .aivor{border-top:1px solid var(--line); margin-top:1.6rem; padding-top:1.4rem}
+  .aivor video{width:100%; max-width:34rem; height:auto; display:block; margin:1.2rem 0; background:#000}
+  .aivor-more{font-size:.9rem}
+  nav.index a.home{color:var(--gold); border-bottom:1px solid rgba(255,215,0,.4)}
+
+  .guess{border:1px solid var(--line); padding:1.5rem; margin-bottom:2rem; max-width:38rem}
+  .guess-q{display:block; font-family:'Fraunces',Georgia,serif; font-style:italic;
+    font-size:1.2rem; color:var(--ink); margin-bottom:1.2rem}
+
+  .guess input[type=range]{-webkit-appearance:none; appearance:none; accent-color:var(--gold);
+    width:100%; height:4px; background:#3a352b; border-radius:2px; outline:none; margin:1rem 0}
+  .guess input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; appearance:none;
+    width:22px; height:22px; border-radius:50%; background:var(--gold); border:0; cursor:pointer}
+  .guess input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%;
+    background:var(--gold); border:0; cursor:pointer}
+  .guess input[type=range]::-moz-range-track{height:4px; background:#3a352b; border-radius:2px}
+
+  .guess-read{margin:.2rem 0 1rem !important}
+  .guess-read output{font-family:'Work Sans',system-ui,sans-serif; font-weight:900;
+    font-size:2.4rem; color:var(--gold); letter-spacing:-.02em}
+  .guess-note{font-size:.85rem; margin-top:1rem !important}
+  .guess-result{border-left:3px solid var(--gold); padding-left:1.2rem;
+    font-family:'Work Sans',system-ui,sans-serif; font-weight:600;
+    font-size:1.1rem; color:var(--ink) !important; margin-bottom:1.6rem !important}
+  #count-figure.masked{color:var(--dim)}
+
+  /* Dots arrive rather than appear — the fill is the animation. */
+  .mark{opacity:0; animation:dotin .5s ease forwards}
+  @keyframes dotin{from{opacity:0; transform:scale(.4)} to{opacity:1; transform:scale(1)}}
+  #count-figure{transition:color .4s ease}
+  @media (prefers-reduced-motion:reduce){
+    .mark{opacity:1; animation:none}
+  }
+
+
+
+  .directory{border-top:1px solid var(--line); margin-top:1.8rem; padding-top:1.2rem}
+  .directory h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.14em; font-size:.72rem; color:var(--gold); margin:0 0 .8rem}
+  .directory ul{list-style:none; padding:0; margin:0}
+  .directory li{color:var(--dim); padding:.4rem 0; font-size:.95rem}
+  .directory li strong{color:var(--ink)}
+  .directory-note{font-size:.85rem; margin-top:.8rem !important}
+
+  /* The restored sections arrive a piece at a time rather than all at once:
+     the census table builds row by row, and the borough's own row lights after
+     it lands — you appear inside the table you are being shown. */
+  .reveal.armed .gallery figure,
+  .reveal.armed .recently li,
+  .reveal.armed .directory li{opacity:0; transform:translateY(.6rem)}
+  .reveal.armed.in .gallery figure,
+  .reveal.armed.in .recently li,
+  .reveal.armed.in .directory li{opacity:1; transform:none;
+    transition:opacity .55s ease, transform .55s ease}
+  .reveal.armed.in .gallery figure:nth-child(1){transition-delay:0.07s}
+  .reveal.armed.in .gallery figure:nth-child(2){transition-delay:0.14s}
+  .reveal.armed.in .gallery figure:nth-child(3){transition-delay:0.21s}
+  .reveal.armed.in .gallery figure:nth-child(4){transition-delay:0.28s}
+  .reveal.armed.in .gallery figure:nth-child(5){transition-delay:0.35s}
+  .reveal.armed.in .gallery figure:nth-child(6){transition-delay:0.42s}
+  .reveal.armed.in .gallery figure:nth-child(7){transition-delay:0.49s}
+  .reveal.armed.in .gallery figure:nth-child(8){transition-delay:0.56s}
+  .reveal.armed.in .recently li:nth-child(1),
+  .reveal.armed.in .directory li:nth-child(1){transition-delay:0.05s}
+  .reveal.armed.in .recently li:nth-child(2),
+  .reveal.armed.in .directory li:nth-child(2){transition-delay:0.10s}
+  .reveal.armed.in .recently li:nth-child(3),
+  .reveal.armed.in .directory li:nth-child(3){transition-delay:0.15s}
+  .reveal.armed.in .recently li:nth-child(4),
+  .reveal.armed.in .directory li:nth-child(4){transition-delay:0.20s}
+  .reveal.armed.in .recently li:nth-child(5),
+  .reveal.armed.in .directory li:nth-child(5){transition-delay:0.25s}
+  .reveal.armed.in .recently li:nth-child(6),
+  .reveal.armed.in .directory li:nth-child(6){transition-delay:0.30s}
+  .reveal.armed.in .recently li:nth-child(7),
+  .reveal.armed.in .directory li:nth-child(7){transition-delay:0.35s}
+  .reveal.armed.in .recently li:nth-child(8),
+  .reveal.armed.in .directory li:nth-child(8){transition-delay:0.40s}
+  @media (prefers-reduced-motion:reduce){
+      .reveal.armed .gallery figure,
+    .reveal.armed .recently li,
+    .reveal.armed .directory li{opacity:1; transform:none; transition:none}
+  }
+
+  /* Next door: the pills arrive one at a time — doors that exist land and take
+     the gold, doors that do not stay dark. The section is about opening them
+     borough by borough, so it is the one that should move. */
+  .reveal.armed .pills > *{opacity:0; transform:translateY(.5rem) scale(.97)}
+  .reveal.armed.in .pills > *{opacity:1; transform:none;
+    transition:opacity .5s ease, transform .5s ease, border-color .5s ease, color .5s ease}
+  .reveal.armed.in .pills > *:nth-child(1){transition-delay:0.10s}
+  .reveal.armed.in .pills > *:nth-child(2){transition-delay:0.20s}
+  .reveal.armed.in .pills > *:nth-child(3){transition-delay:0.30s}
+  .reveal.armed.in .pills > *:nth-child(4){transition-delay:0.40s}
+  .reveal.armed.in .pills > *:nth-child(5){transition-delay:0.50s}
+  .reveal.armed.in .pills > *:nth-child(6){transition-delay:0.60s}
+  .reveal.armed.in .pills > *:nth-child(7){transition-delay:0.70s}
+  .reveal.armed.in .pills > *:nth-child(8){transition-delay:0.80s}
+  .reveal.armed.in .pill.open{animation:dooropen 1.1s ease both}
+  .reveal.armed.in .pill.open:nth-child(1){animation-delay:0.40s}
+  .reveal.armed.in .pill.open:nth-child(2){animation-delay:0.50s}
+  .reveal.armed.in .pill.open:nth-child(3){animation-delay:0.60s}
+  .reveal.armed.in .pill.open:nth-child(4){animation-delay:0.70s}
+  .reveal.armed.in .pill.open:nth-child(5){animation-delay:0.80s}
+  .reveal.armed.in .pill.open:nth-child(6){animation-delay:0.90s}
+  .reveal.armed.in .pill.open:nth-child(7){animation-delay:1.00s}
+  .reveal.armed.in .pill.open:nth-child(8){animation-delay:1.10s}
+  @keyframes dooropen{
+    0%{border-color:var(--line); color:var(--dim)}
+    45%{border-color:var(--gold); color:var(--gold); box-shadow:0 0 12px rgba(255,215,0,.35)}
+    100%{border-color:var(--gold); color:var(--gold); box-shadow:0 0 0 rgba(255,215,0,0)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal.armed .pills > *{opacity:1; transform:none; transition:none}
+    .reveal.armed.in .pill.open{animation:none; border-color:var(--gold); color:var(--gold)}
+  }
+
+  /* The map holds this section's motion: boroughs settle in, then this one takes
+     the gold and its neighbours draw their edges. */
+  .boroughmap{margin:1.6rem 0 1.2rem; max-width:44rem}
+  .boroughmap svg{width:100%; height:auto; display:block; overflow:visible}
+  .boroughmap path.b{fill:#171512; stroke:#39342a; stroke-width:1.4; stroke-linejoin:round}
+  .boroughmap a:hover path.b{fill:#8a6c0a}
+  .boroughmap path.b.door{fill:#5a4708; stroke:var(--gold); stroke-width:1.8; cursor:pointer}
+  .boroughmap path.b.nb{stroke:#b39a4a; stroke-width:1.8}
+  .boroughmap path.b.self{fill:var(--gold); stroke:var(--gold-bright, #fff3a8); stroke-width:2}
+  .map-note{font-size:.72rem; color:var(--dim); margin-top:.7rem !important; max-width:44rem}
+  .reveal.armed .boroughmap path.b{opacity:0}
+  .reveal.armed.in .boroughmap path.b{opacity:1; transition:opacity .5s ease, fill .6s ease, stroke .6s ease;
+    transition-delay:calc(var(--i) * 14ms)}
+  .reveal.armed.in .boroughmap path.b.self{transition-delay:.62s}
+  .reveal.armed.in .boroughmap path.b.nb{transition-delay:.82s}
+  @media (prefers-reduced-motion:reduce){
+    .reveal.armed .boroughmap path.b{opacity:1}
+    .reveal.armed.in .boroughmap path.b{transition:none; transition-delay:0s}
+  }
+  .census-source{font-size:.82rem; margin-top:-1rem !important}
+  code.listing{display:block; margin:.6rem 0 0; padding:.7rem .9rem; background:var(--shell);
+    border:1px solid var(--line); color:var(--ink); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:.82rem; white-space:pre-wrap; word-break:break-word}
+  .plate.invert code.listing{background:rgba(0,0,0,.05); border-color:rgba(0,0,0,.15); color:#111}
+  .closing-note{font-size:.9rem; margin-top:1.2rem !important}
+  .calendar-card{border:1px solid var(--line); padding:1.1rem 1.3rem; margin-top:1.6rem}
+  .calendar-card h3{margin:0 0 .4rem; font-size:1.05rem}
+  .calendar-card p{margin:0; font-size:.92rem}
+  .recently{border-top:1px solid var(--line); margin-top:1.8rem; padding-top:1.2rem}
+  .recently h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
+    letter-spacing:.14em; font-size:.72rem; color:var(--gold); margin:0 0 .8rem}
+  .recently ul{list-style:none; padding:0; margin:0}
+  .recently li{color:var(--dim); padding:.35rem 0; font-size:.95rem}
+  .recently .when{color:var(--gold-deep); text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; margin-right:.6rem}
+  .recently-note{font-size:.88rem; margin-top:.8rem !important}
+  .table-wrap{overflow-x:auto; margin:1.8rem 0}
+  table.census{border-collapse:collapse; width:100%; min-width:30rem; font-size:.92rem}
+  table.census caption{text-align:left; color:var(--dim); font-size:.82rem; padding-bottom:.7rem}
+  table.census th{text-align:left; text-transform:uppercase; letter-spacing:.1em; font-size:.68rem; color:var(--dim); border-bottom:1px solid var(--line); padding:.5rem .8rem .5rem 0}
+  table.census td{color:var(--dim); border-bottom:1px solid var(--line); padding:.5rem .8rem .5rem 0}
+  table.census tr.self td{color:var(--gold); font-weight:600; background:rgba(255,215,0,.07)}
+  .gallery{display:flex; flex-wrap:wrap; margin-top:1.4rem}
+  .gallery figure{margin:0 1rem 1rem 0; flex:1 1 15rem; max-width:20rem}
+  .gallery img{width:100%; height:auto; display:block; border:1px solid var(--line)}
+  .gallery figcaption{color:var(--dim); font-size:.85rem; padding-top:.5rem}
+  .rollcall-note{max-width:58ch}
+  .rollcall .field{max-height:none}
+
+  footer{padding:4.5rem 0 7rem; color:var(--dim)}
+  footer .line{max-width:60ch}
+  footer nav{display:flex; flex-wrap:wrap; gap:1.4rem; margin:1.5rem 0}
+  .checked{font-size:.8rem; text-transform:uppercase; letter-spacing:.1em}
+  .neighbours{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem}
+  .neighbours a,.neighbours span{border:1px solid var(--line); padding:.35rem .9rem; font-size:.85rem; color:var(--dim)}
+
+  /* Reveals are armed BY JS, per element, only after the observer is live.
+     Nothing is hidden by CSS alone — if the script throws, or the engine lacks
+     IntersectionObserver, every .reveal simply stays visible. Hiding content
+     that needs working JS to come back is how a page silently ships blank. */
+  .reveal.armed{opacity:0; filter:blur(6px); transform:translateY(1.4rem)}
+  .reveal.armed.in{opacity:1; filter:blur(0); transform:none;
+    transition:opacity .7s ease, filter .7s ease, transform .7s ease}
+  @media (prefers-reduced-motion:reduce){
+    .reveal.armed{opacity:1; filter:none; transform:none}
+    .grain{animation:none}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-row">
+    <div class="hero-type">
+      <p class="eyebrow">One community. Many doors. This is BLKOUT's first outside London.</p>
+      <h1 class="mega"><span class="of">BLKOUT in</span> Birmingham</h1>
+    </div>
+    <img class="landmark" src="../images/birmingham/birmingham-bullring-bull.png" alt="Pencil sketch of the Bullring Bull statue outside Birmingham's Bullring shopping centre, with the BLKOUT roundel set into a full moon above" width="760" height="943">
+  </div>
+  <p class="standfirst">BLKOUT is a community-owned co-operative for Black queer men across the UK. In London the community came first and the door followed; here it's the other way round — and Handsworth already has the numbers.</p>
+</header>
+
+<p class="standfirst-more">Handsworth and Lozells hold the second-largest Black population of any city in the country. What's missing isn't the men — it's the surface where we become visible to each other. This door starts that: real nights running, real history already here, told properly below.</p>
+
+<nav class="index">
+  <a href="#the-count">The count</a>
+  <a href="#the-record">The record</a>
+  <a href="#in-the-borough">In the borough</a>
+  <a href="#s-door">The door</a>
+  <a href="#join">BLKOUTHUB</a>
+  <a href="#working-with-us">If you work here</a>
+  <a class="home" href="https://blkoutuk.com" rel="noopener">BLKOUT home &rarr;</a>
+</nav>
+
+<main>
+  <section class="silence" aria-hidden="true"></section>
+
+  <section class="plate rollcall invert" id="the-count">
+    <div class="plate-head reveal">
+      <span class="numeral">(01)</span>
+      <span class="kicker">The count nobody keeps</span>
+    </div>
+    <p class="subtitle reveal">The count nobody keeps — so guess first, then see it.</p>
+    <div class="plate-body reveal">
+      <div class="guess" id="guess" hidden>
+        <label class="guess-q" for="guess-input">Before you look — how many Black queer men do you think live in Birmingham?</label>
+        <input type="range" id="guess-input" min="0" max="6000" step="25" value="750">
+        <p class="guess-read"><output id="guess-out">750</output></p>
+        <button class="submit" type="button" id="guess-go">Show me the estimate</button>
+        <p class="guess-note">Your guess stays in this browser.</p>
+      </div>
+      <h2 class="display reveal" id="count-figure" data-figure="3,000">3,000</h2>
+      <p class="guess-result" id="guess-result" hidden></p>
+      <p class="rollcall-lede" id="count-lede">One dot for every Black queer man the census estimate puts in Birmingham — between 2,000 and 3,000 of us.</p>
+      <div class="field" id="rollfield" data-total="3000"></div>
+      <div class="table-wrap"><table class="census">
+        <caption>The ten London boroughs with the largest Black populations, with our working estimates of Black queer men in each. These are estimates and we welcome correction — the point is the scale nobody counts.</caption>
+        <thead><tr><th>Borough</th><th>Black residents (2021)</th><th>Black queer men (est.)</th></tr></thead>
+        <tbody>
+          <tr><td>Croydon</td><td>88,500</td><td>2,000–2,800</td></tr>
+          <tr><td>Newham</td><td>88,200</td><td>2,000–2,700</td></tr>
+          <tr><td>Lewisham</td><td>81,900</td><td>1,800–2,600</td></tr>
+          <tr><td>Southwark</td><td>80,100</td><td>1,800–2,500</td></tr>
+          <tr><td>Lambeth</td><td>76,100</td><td>1,700–2,400</td></tr>
+          <tr><td>Brent</td><td>62,500</td><td>1,400–2,000</td></tr>
+          <tr><td>Hackney</td><td>59,300</td><td>1,300–1,900</td></tr>
+          <tr><td>Enfield</td><td>58,200</td><td>1,300–1,800</td></tr>
+          <tr><td>Haringey</td><td>52,400</td><td>1,200–1,700</td></tr>
+          <tr><td>Waltham Forest</td><td>46,700</td><td>1,000–1,500</td></tr>
+        </tbody>
+      </table></div>
+      <p class="census-source">2021 Census analysis — Who Are the UK's Black Queer Men? (BLKOUT's Critical Frequency dossier)</p>
+      <p class="rollcall-note">Nobody keeps this number. Not the council, not the NHS, not the people who commission work in this borough. The estimate is ours, built from the 2021 Census, because a population nobody counts is a population nobody plans for.</p>
+      <p class="aside">Critical Frequency's own national dossier — the same demographic analysis behind every other door's figure — puts the West Midlands (Birmingham) estimate at 2,000-3,000 Black queer men, drawn from a UK-wide working estimate of 50,000-65,000, built from Census data, asylum statistics and age demographics. It's a regional figure, not a Birmingham-city-only one — Handsworth and Lozells hold the second-largest Black population of any UK city, but the estimate itself is counted at West Midlands scale.</p>
+    </div>
+  </section>
+
+  <section class="plate  has-bg" id="the-record">
+      <div class="ground" aria-hidden="true" style="background-image:url('../images/foundation/power-05.jpg'); background-position:50% 35%"></div>
+      <div class="scrim" aria-hidden="true"></div>
+    <div class="plate-head reveal">
+      <span class="numeral">(02)</span>
+      <span class="kicker">The record</span>
+    </div>
+    <h2 class="display reveal">It started here</h2>
+    <p class="subtitle reveal">Where it started, verified: real people, real dates in Birmingham.</p>
+    <div class="plate-body reveal">
+<div class="era-rail-wrap">
+      <div class="era-rail-controls">
+        <button type="button" class="era-nav era-prev" aria-label="Previous era">&#8249; Previous</button>
+        <div class="era-dots"><button type="button" class="era-dot active" data-era-index="0" aria-label="Go to era 1 of 6"></button><button type="button" class="era-dot" data-era-index="1" aria-label="Go to era 2 of 6"></button><button type="button" class="era-dot" data-era-index="2" aria-label="Go to era 3 of 6"></button><button type="button" class="era-dot" data-era-index="3" aria-label="Go to era 4 of 6"></button><button type="button" class="era-dot" data-era-index="4" aria-label="Go to era 5 of 6"></button><button type="button" class="era-dot" data-era-index="5" aria-label="Go to era 6 of 6"></button></div>
+        <button type="button" class="era-nav era-next" aria-label="Next era">Next &#8250;</button>
+      </div>
+      <div class="era-rail" tabindex="0" role="region" aria-label="History, by era — scroll or use the arrows">
+      <article class="era-card" id="era-0" data-era-index="0">
+        <h3>1948 — a company passing through</h3>
+        
+        <p>In 1948, Berto Pasuka's Les Ballets Nègres — Europe's first Black-led dance company, and the anchor of BLKOUT's own Westminster door — played Birmingham to reviews calling it 'vital and compelling'. A touring company passing through, not a resident — colour here, not the anchor.</p>
+      </article>
+      <article class="era-card" id="era-1" data-era-index="1">
+        <h3>1968–1979 — Stuart Hall</h3>
+        <figure class="era-figure"><img src="../images/birmingham/history/bull-ring-1966.jpg" alt="Black and white photograph of Birmingham's Bull Ring in the 1960s, crowds and market stalls" loading="lazy"><figcaption>The Bull Ring, Birmingham, 1966 — John Ball, CC BY-SA 4.0, via Wikimedia Commons. General period texture, not a photograph of Hall or the CCCS specifically.</figcaption></figure>
+        <p>From 1968 to 1979, Professor Stuart Hall — Jamaican-British, one of the most consequential Black British intellectuals of the century — directed the University of Birmingham's Centre for Contemporary Cultural Studies, the founding institution of British Cultural Studies. Not a queer figure in this history, but a foundational one for how Black Britain has thought about representation ever since.</p>
+      </article>
+      <article class="era-card" id="era-2" data-era-index="2">
+        <h3>1968–1992 — Handsworth's magazine</h3>
+        
+        <p>Hall's own thread leads to this door's strongest anchor. From 1978, a room above a Grove Lane terrace in Handsworth held Ten.8, a quarterly photography magazine. In 1987, Ten.8 published Rotimi Fani-Kayode's homoerotic portraits after a London magazine rejected them as 'too controversial' — and Fani-Kayode went on to co-found Autograph, which still champions Black photographers today. Ten.8's own final issue (1992) was co-edited by Stuart Hall. A Handsworth magazine gave a young Black queer photographer the platform London wouldn't.</p>
+      </article>
+      <article class="era-card" id="era-3" data-era-index="3">
+        <h3>2016–2018 — BLKOUT's own record</h3>
+        
+        <p>BLKOUT's own record starts in October 2016: Raurie 'Rawzilla' Williams — the 'First Gay Grime MC', viral in 2013 — was one of our writers, Birmingham-based. He wrote about Birmingham's Hurst Street: 'Where are my dark skin brothers?' Two years later, BLKOUT backed a different Birmingham member: Aaron Lambert's debut one-man show, Candid, at Canada Water Theatre, 9 November 2018. Rob designed the promotional images; asked where he was 'really' from, Aaron answered: 'Lol. My grandparents were born in Jamaica.' It played to a full house.</p>
+      </article>
+      <article class="era-card" id="era-4" data-era-index="4">
+        <h3>Today</h3>
+        
+        <p>By 2018, Suriya Roberts-Grey had founded UNMUTED, a QTIPOC group meeting monthly at Impact Hub Birmingham. A Black queer drag lineage took root too: Yshee Black mentored newcomer Black Peppa, who went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK. Today, Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend — real nights, running now.</p>
+      </article>
+      <article class="era-card" id="era-5" data-era-index="5">
+        <h3>What's still missing</h3>
+        
+        <p>One thing this door is still looking for: a figure who lived and organised here across a life, the way Ivor Cummings anchors Croydon. Ten.8's Handsworth moment is real, but Fani-Kayode lived and worked in London. The search continues — literally: Dr Nathaniel Adam Tobias Coleman, born in Birmingham, is writing a fresh history of Section 28 and the Black Queer activists who resisted it. His work sits exactly where this door does.</p>
+      </article>
+      </div>
+      <div class="era-rail-controls">
+        <button type="button" class="era-nav era-prev" aria-label="Previous era">&#8249; Previous</button>
+        <div class="era-dots"><button type="button" class="era-dot active" data-era-index="0" aria-label="Go to era 1 of 6"></button><button type="button" class="era-dot" data-era-index="1" aria-label="Go to era 2 of 6"></button><button type="button" class="era-dot" data-era-index="2" aria-label="Go to era 3 of 6"></button><button type="button" class="era-dot" data-era-index="3" aria-label="Go to era 4 of 6"></button><button type="button" class="era-dot" data-era-index="4" aria-label="Go to era 5 of 6"></button><button type="button" class="era-dot" data-era-index="5" aria-label="Go to era 6 of 6"></button></div>
+        <button type="button" class="era-nav era-next" aria-label="Next era">Next &#8250;</button>
+      </div>
+    </div>
+<p class="bridge">None of this happens without the people already building it — see who's here in Birmingham right now.</p>
+    </div>
+  </section>
+
+  <section class="plate " id="in-the-borough">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(03)</span>
+      <span class="kicker">In the borough</span>
+    </div>
+    <h2 class="display reveal">Here in Birmingham</h2>
+    <p class="subtitle reveal">Nights, groups and spaces, checked one by one.</p>
+    <div class="plate-body reveal">
+<p>What's organised in the city for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.</p><ul class="ring">
+      <li class="reveal">
+        <a class="ring-name" href="https://www.instagram.com/fruitpunchbrum" rel="noopener">Fruit Punch</a>
+        <p>Black &amp; POC Queer-led collective — monthly Black and POC LGBTQIA+ Social at The Night Owl, 17-18 Lower Trinity Street, Deritend.</p>
+        <span class="stamp">checked</span>
+      </li>
+    </ul>
+      <div class="calendar-card">
+        <h3><a href="https://events.blkoutuk.com/?utm_source=borough-door&utm_campaign=birmingham" rel="noopener">Gatherings across London — the BLKOUT events calendar</a></h3>
+        <p>Fewer and truer: what's actually on for Black queer London, checked by people, never padded.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plate " id="s-3">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(04)</span>
+      <span class="kicker">Neighbours</span>
+    </div>
+    <h2 class="display reveal">Beside us in the city</h2>
+    <p class="subtitle reveal">Not us, but worth knowing about.</p>
+    <div class="plate-body reveal">
+<p>Neighbours doing good work in Birmingham. Use them — and tell them we sent you.</p><ul class="ring">
+      <li class="reveal">
+        <a class="ring-name" href="https://www.unmutedbrum.com" rel="noopener">UNMUTED</a>
+        <p>A voluntary group providing safe space for QTIPOC in Birmingham since at least 2018 — monthly meetups at Impact Hub Birmingham, a QTIPOC book club at Waterstones, a POC contingent at Birmingham Pride, group travel to UK Black Pride. Founded by Suriya Roberts-Grey.</p>
+        <span class="stamp">listed, not yet re-checked</span>
+      </li>
+      <li class="reveal">
+        <a class="ring-name" href="https://coloursyouthnetwork.com" rel="noopener">Colours Youth Network</a>
+        <p>UK-wide network supporting LGBTQ+ young people of colour (16-25) — co-led by UNMUTED's founder, Suriya Roberts-Grey.</p>
+        <span class="stamp">listed, not yet re-checked</span>
+      </li>
+      <li class="reveal">
+        <a class="ring-name" href="https://blgbt.org" rel="noopener">Birmingham LGBT</a>
+        <p>The city's main LGBTQ+ centre — runs sexual health clinics, a community directory (via BVSC), and general support services.</p>
+        <span class="stamp">checked</span>
+      </li>
+      <li class="reveal">
+        <a class="ring-name" href="https://shoutfestival.co.uk" rel="noopener">CineQ / SHOUT Festival</a>
+        <p>SHOUT is Birmingham's queer arts festival (~15 years running); CineQ, founded by Rico Johnson-Sinclair, is its QTIPOC-focused film strand — its 'Black Magic' shorts programme is specifically about Black queer experience.</p>
+        <span class="stamp">checked</span>
+      </li>
+    </ul>
+    </div>
+  </section>
+
+  <section class="plate " id="s-4">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(05)</span>
+      <span class="kicker">Further out</span>
+    </div>
+    <h2 class="display reveal">Worth the journey</h2>
+    <p class="subtitle reveal">Elsewhere, but worth the journey to reach.</p>
+    <div class="plate-body reveal">
+<p>Black queer men have never let a city boundary decide where community happens. Where you're centred, not just welcome:</p><ul class="ring">
+      <li class="reveal">
+        <a class="ring-name" href="https://www.blackbeetlehealth.co.uk" rel="noopener">Black Beetle Health</a>
+        <p>The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.</p>
+        <span class="stamp">checked</span>
+      </li>
+    </ul>
+    </div>
+  </section>
+
+  <section class="plate invert" id="s-5">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(06)</span>
+      <span class="kicker">Health</span>
+    </div>
+    <h2 class="display reveal">Look after yourself</h2>
+    <p class="subtitle reveal">Sexual health services, NHS and community-run.</p>
+    <div class="plate-body reveal">
+<p>Free, confidential, no GP needed, no judgement — and your business stays yours.</p><ul class="ring">
+      <li class="reveal">
+        <a class="ring-name" href="https://blgbt.org" rel="noopener">Birmingham LGBT Centre Sexual Health Services</a>
+        <p>LGBT sexual health clinics Wed/Thu 9am-5pm — rapid HIV testing, assisted testing, free STI kits.</p>
+        <span class="stamp">listed, not yet re-checked</span>
+      </li>
+      <li class="reveal">
+        <a class="ring-name" href="https://umbrellahealth.co.uk" rel="noopener">Umbrella Health Birmingham</a>
+        <p>NHS sexual health services, run in partnership with Birmingham LGBT Centre.</p>
+        <span class="stamp">listed, not yet re-checked</span>
+      </li>
+      <li class="reveal">
+        <a class="ring-name" href="https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/" rel="noopener">Find your nearest NHS clinic</a>
+        <p>Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.</p>
+        <span class="stamp">checked</span>
+      </li>
+    </ul>
+    </div>
+  </section>
+
+  <section class="plate gold" id="s-6">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(07)</span>
+      <span class="kicker">Test yourself</span>
+    </div>
+    <h2 class="display reveal">Know your Birmingham?</h2>
+    <p class="subtitle reveal">Everything on this page, turned into a game.</p>
+    <div class="plate-body reveal">
+<p>Three questions. No prizes except the stories.</p>
+      <div class="q">
+        <p class="q-q"><span class="q-n">01</span> Birmingham's oldest surviving gay venue, the Nightingale Club, started life in 1967 as what?</p>
+        <div class="q-options">
+          <button type="button" data-correct="1">A rundown Indian restaurant on Camp Hill</button>
+          <button type="button" data-correct="0">A disused cinema in Digbeth</button>
+          <button type="button" data-correct="0">A members' billiard hall</button>
+        </div>
+        <p class="q-reveal">Laurie Williams and Derek Pemberton paid £600 for it — and ran it as a member-owned club from the start, not just a business, so every member had a say in what happened to it.</p>
+      </div>
+      <div class="q">
+        <p class="q-q"><span class="q-n">02</span> Yshee Black, on why she mentored Black Peppa into drag in Birmingham: &quot;We don't have that many Black queer acts on the Birmingham scene, so to see someone as...&quot; what?</p>
+        <div class="q-options">
+          <button type="button" data-correct="1">&quot;talented, passionate and unapologetically Black&quot;</button>
+          <button type="button" data-correct="0">&quot;fierce, fabulous and ready to compete&quot;</button>
+          <button type="button" data-correct="0">&quot;new to the scene and hungry to learn&quot;</button>
+        </div>
+        <p class="q-reveal">&quot;...I just knew I had to give them any knowledge and wisdom I had.&quot; Black Peppa went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK.</p>
+      </div>
+      <div class="q">
+        <p class="q-q"><span class="q-n">03</span> UNMUTED, Birmingham's QTIPOC community group, was founded by someone who also co-leads which national organisation?</p>
+        <div class="q-options">
+          <button type="button" data-correct="1">Colours Youth Network</button>
+          <button type="button" data-correct="0">UK Black Pride</button>
+          <button type="button" data-correct="0">Stonewall</button>
+        </div>
+        <p class="q-reveal">Suriya Roberts-Grey founded UNMUTED and co-leads Colours Youth Network, which supports LGBTQ+ young people of colour (16-25) UK-wide.</p>
+      </div>
+      <p class="q-score" id="q-score"></p>
+    </div>
+  </section>
+
+  <section class="plate " id="s-7">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(08)</span>
+      <span class="kicker">Read further</span>
+    </div>
+    <h2 class="display reveal">Reading the borough</h2>
+    <p class="subtitle reveal">What we read to write this, and what you can read next.</p>
+    <div class="plate-body reveal">
+<p>Birmingham's record, as far as open sourcing found it in one recon pass. Thinner than most doors, honestly — help us fill the gaps.</p>
+      <ul class="biblio">
+        <li><em>The Story of the Nightingale, Birmingham's Longest-running Gay Club</em> — Historic England Blog, 2024. Founding history: Laurie Williams and Derek Pemberton, 1967, Camp Hill. <a href="https://heritagecalling.com/2024/07/09/the-story-of-the-nightingale-birminghams-longest-running-gay-club/" rel="noopener">Read the history</a></li>
+        <li><em>Birmingham Lesbian and Gay Community Centre</em> — Wikipedia, n/d. The UK's first LGBT community centre, opened Dec 1976; headquartered at the Nightingale Club 1981-84. <a href="https://en.wikipedia.org/wiki/Birmingham_Lesbian_and_Gay_Community_Centre" rel="noopener">Read the history</a></li>
+        <li><em>Black Peppa: 'I can be crazy, but I also have a great story to tell'</em> — Dazed, 2022. Confirms Black Peppa's move to Birmingham in 2018 and the start of their drag career there. <a href="https://www.dazeddigital.com/music/article/57477/1/black-peppa-i-can-be-crazy-but-i-also-have-a-great-story-to-tell" rel="noopener">Read the profile</a></li>
+        <li><em>Brilliant Brummies: Meet Yshee Black</em> — I Am Birmingham, 2019. Source of the 'we don't have that many Black queer acts on the Birmingham scene' quote. <a href="https://iambirmingham.co.uk/2019/05/22/brilliant-brummies-pride-special-meet-yshee-black-star-rise/" rel="noopener">Read the profile</a></li>
+        <li><em>Demographics of Birmingham</em> — Wikipedia, citing ONS 2021 Census, 2021. 125,760 (10.9%) Black/Black British residents city-wide, up from 96,360 (8.98%) in 2011. <a href="https://en.wikipedia.org/wiki/Demographics_of_Birmingham" rel="noopener">Read the figures</a></li>
+        <li><em>Who Are the UK's Black Queer Men? — A Critical Demographic Analysis</em> — Critical Frequency, 2026. Regional estimate: West Midlands (Birmingham) 2,000-3,000 Black queer men.</li>
+        <li><em>Centre for Contemporary Cultural Studies</em> — Wikipedia, n/d. Stuart Hall directed the Centre, University of Birmingham, 1968/69-1979 — the founding institution of British Cultural Studies. Included for his scholarly legacy on identity, representation and media, not as a queer figure. <a href="https://en.wikipedia.org/wiki/Centre_for_Contemporary_Cultural_Studies" rel="noopener">Read the history</a></li>
+        <li><em>The legacy of Ten.8</em> — Derek Bishton (Ten.8 co-founder), n/d. Founded 1978/79 by Derek Bishton, Brian Homer and John Reardon, above a terrace on Grove Lane, Handsworth. Primary source for the magazine's history and its Rotimi Fani-Kayode connection. <a href="https://derekbishton.com/other-stuff/legacy-ten8/" rel="noopener">Read the history</a></li>
+        <li><em>Rotimi Fani-Kayode, Ten.8 and Critical Decade</em> — Derek Bishton, n/d. How 'Traces of Ecstasy' came to Ten.8 after being rejected elsewhere as 'too controversial,' and the Critical Decade (1992) editorial team. <a href="https://derekbishton.com/rotimi-fani-kayode-ten-8-and-critical-decade/" rel="noopener">Read the account</a></li>
+        <li><em>Rotimi Fani-Kayode</em> — Autograph, n/d. Yoruba, Nigerian-British, gay photographer (1955-1989); co-founded Autograph (the Association of Black Photographers) in 1988. <a href="https://autograph.org.uk/blog/texts/introducing-the-studio-staging-desire/" rel="noopener">Read more</a></li>
+        <li><em>Contract to Closet</em> — Dr Nathaniel Adam Tobias Coleman, TORCH (University of Oxford), 2026. Born in Birmingham. Forthcoming chapter 'Die of Ignorance' re-examines Section 28 through Black Queer activists' resistance to Thatcher-era attacks on anti-heterosexist and anti-apartheid education alike. <a href="https://www.torch.ox.ac.uk/event/contract-to-closet-nathaniel-adam-tobias-coleman-0" rel="noopener">Read more</a></li>
+      </ul>
+      <div class="archive"><h3>From the BLKOUT archive</h3><p>From the BLKOUT archive.</p><ul class="biblio"><li><em><a href="https://blkoutuk.com/stories/read-i-wont-settle-for-gary-and-his-cats" rel="noopener">I won't settle for Gary and his cats</a></em> — Oct 2016</li></ul><a class="ghost" href="https://blkoutuk.com/?tab=stories&utm_source=borough-door&utm_campaign=birmingham" rel="noopener">Browse the story archive</a></div>
+    </div>
+  </section>
+
+  <section class="plate " id="s-8">
+
+    <div class="plate-head reveal">
+      <span class="numeral">(09)</span>
+      <span class="kicker">Questions</span>
+    </div>
+    <h2 class="display reveal">Asked, answered</h2>
+    <p class="subtitle reveal">What people actually ask us, answered plainly.</p>
+    <div class="plate-body reveal">
+      <details class="faq"><summary>Is BLKOUT based in Birmingham?</summary><p>No — BLKOUT is registered in Croydon, with doors in boroughs across London. This would be our first door outside London, and it's still a draft.</p></details>
+      <details class="faq"><summary>Where can I meet other Black queer men in Birmingham?</summary><p>Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend, checked 23 Sep 2026. Not yet confirmed by a direct message to the organisers.</p></details>
+    </div>
+  </section>
+
+  <section class="plate door has-bg" id="s-door">
+      <div class="ground" aria-hidden="true" style="background-image:url('../images/foundation/joy-04.jpg'); background-position:50% 30%"></div>
+      <div class="scrim" aria-hidden="true"></div>
+    <div class="plate-head">
+      <span class="numeral">(10)</span>
+      <span class="kicker">The door</span>
+    </div>
+    <h2 class="display">Be met</h2>
+    <p class="subtitle">The first step, if you want one.</p>
+    <p class="tender">Come as you are. We answer.</p>
+    <p>Leave your name and we'll keep you posted about Birmingham — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.</p>
+    <form id="door-form" novalidate>
+      <label class="option"><input type="radio" name="interest" value="definitely" checked><span class="opt-text"><strong>I'm in</strong><span>Tell me everything happening in and around Birmingham.</span></span></label>
+      <label class="option"><input type="radio" name="interest" value="if-organised"><span class="opt-text"><strong>If something's on locally</strong><span>I'd come along if something got going in the city.</span></span></label>
+      <label class="option"><input type="radio" name="interest" value="keep-informed"><span class="opt-text"><strong>Just keep me posted</strong><span>Not sure yet — send me what's happening now and then.</span></span></label>
+      <label class="field-l" for="f-name">Your name</label>
+      <input id="f-name" type="text" autocomplete="name" required>
+      <label class="field-l" for="f-email">Your email</label>
+      <input id="f-email" type="email" autocomplete="email" required>
+      <label class="holder"><input id="f-holder" type="checkbox"> I could help hold something in Birmingham — a meet-up, a table, an occasion.</label>
+      <button class="submit" type="submit">Walk through</button>
+      <p class="msg" id="door-msg"></p>
+    </form>
+  </section>
+
+  <section class="plate invert" id="join">
+    <div class="plate-head reveal">
+      <span class="numeral">(11)</span>
+      <span class="kicker">The members' room</span>
+    </div>
+    <h2 class="display reveal">Step inside</h2>
+    <p class="subtitle reveal">Step inside: BLKOUTHUB, the room behind this door.</p>
+    <div class="plate-body reveal">
+      <p class="tender">The door is how we find each other. BLKOUTHUB is where we live.</p>
+      <p>The members' room: Black queer men across the UK, owned by the men in it. Why knock:</p>
+      <ul class="reasons">
+        <li><strong>Real connection.</strong> Nearly four in five members say they came to find it — and found it.</li>
+        <li><strong>No algorithm, no ads, nothing sold onward.</strong> A room that doesn't monetise you. Your attention is yours; we're after your company.</li>
+        <li><strong>Where things actually start.</strong> Occasions, groups, and the knowledge that never gets written down — passed man to man, the way it always has been.</li>
+        <li><strong>Owned by us.</strong> A co-operative with an asset lock: what we build together stays ours, and passes to the men who come after.</li>
+      </ul>
+      <a class="ghost" href="https://blkouthub.com/?utm_source=borough-door&utm_campaign=birmingham" rel="noopener">Join BLKOUTHUB</a>
+      <div class="aivor">
+        <p>And don't just read about <strong>AIvor</strong> — talk with him. Our own voice, named for the man whose name is over every door. Ask him about BLKOUT, about Black queer life, about Birmingham — he answers.</p>
+        <a class="ghost" href="https://blkoutuk.com/?chat=open&utm_source=borough-door&utm_campaign=birmingham" rel="noopener">Talk with AIvor now</a>
+        <video controls preload="none" playsinline poster="../images/aivor-poster.jpg">
+          <source src="https://blkoutuk.com/videos/onboarding/Ask%20Ivor%20%E2%80%91%20Made%20with%20FlexClip.mp4" type="video/mp4">
+          Your browser doesn't support video — <a href="https://blkoutuk.com/intro" rel="noopener">meet AIvor at blkoutuk.com/intro</a>.
+        </video>
+        <p class="aivor-more"><a href="https://blkoutuk.com/intro" rel="noopener">Prefer to meet him first? The full introduction</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plate truer" id="s-truer">
+    <div class="plate-head">
+      <span class="numeral">(12)</span>
+      <span class="kicker">Corrections</span>
+    </div>
+    <h2 class="display">Make it truer</h2>
+    <p class="subtitle">Help make it truer — tell us what's wrong or missing.</p>
+    <p>This is our thinnest door's history yet, and it needs Birmingham's own record more than most. If you know UNMUTED, Fruit Punch, DLPlug's Birmingham nights, or a piece of this city's Black queer history we haven't found — tell us.</p>
+    <form id="truer-form" novalidate>
+      <label class="field-l" for="t-note">What should we know?</label>
+      <textarea id="t-note" rows="4" placeholder="There's a group you've missed... UNMUTED is/isn't still running... here's a name from before 2016..." required></textarea>
+      <label class="field-l" for="t-name">Your name</label>
+      <input id="t-name" type="text" autocomplete="name">
+      <label class="field-l" for="t-email">Your email</label>
+      <input id="t-email" type="email" autocomplete="email">
+      <button class="submit" type="submit">Send it</button>
+      <p class="msg" id="truer-msg"></p>
+    </form>
+  </section>
+
+  <section class="plate invert" id="working-with-us">
+    <div class="plate-head reveal">
+      <span class="numeral">(13)</span>
+      <span class="kicker">For professionals</span>
+    </div>
+    <h2 class="display reveal">If you work here</h2>
+    <p class="subtitle reveal">For NHS, council and community-sector partners.</p>
+    <div class="plate-body reveal">
+      <p>This page is for Black queer men first. But if you serve this borough — NHS, social prescribing, council, community sector, creative health, or you run a room — there's a door for you too.</p>
+      <ul class="reasons">
+        <li><strong>Refer.</strong> Supporting a Black queer man who could use his people? Send him this page — that is a referral, and every knock gets answered by a human.</li>
+        <li><strong>Commission or partner.</strong> Working on Black queer men's health, culture or connection in Birmingham? We're the community-owned, by-and-for partner — and the evidence base is already on this page. Write to <a href="mailto:rob@blkoutuk.com">rob@blkoutuk.com</a>.</li>
+        <li><strong>List us.</strong> Maintain a directory, a support page, a signposting service? Our entry, ready to paste:
+          <code class="listing">BLKOUT — the UK's community-owned co-operative for Black queer men. In your neighbourhood: https://events.blkoutuk.com/wqoa7sumcx/ · blkoutuk.com · rob@blkoutuk.com</code>
+        </li>
+        <li><strong>Run a room.</strong> A venue, night or group our men should know about? <a href="#s-truer">Tell us</a> — the page gets truer, and it points at you.</li>
+      </ul>
+      <p class="closing-note">We list our neighbours and our neighbours list us. That's how a borough works.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="line">BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this would be the first outside London.</p>
+  <nav><a href="https://blkoutuk.com">blkoutuk.com</a> <a href="https://events.blkoutuk.com">Events across the UK</a> <a href="https://blkouthub.com">BLKOUTHUB</a></nav>
+
+  <p class="checked">Listings checked 23 September 2026. When it's quiet, we say so — nothing here is padded.</p>
+</footer>
+
+</div>
+<script>
+(function () {
+  var SB_URL = "https://bgjengudzfickgomjqmz.supabase.co";
+  var SB_KEY = "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB";
+
+  // ---- THE COUNT NOBODY KEEPS ----
+  // Draws the census estimate as dots, and offers a guess first. Reads no data about
+  // real people and writes none: the total comes from _census.json and the guess never
+  // leaves the browser. Enhancement only — with JS off, the figure and the whole
+  // argument are already in the HTML and simply stay visible.
+  var fieldEl = document.getElementById('rollfield');
+  var total = fieldEl ? parseInt(fieldEl.getAttribute('data-total'), 10) || 0 : 0;
+
+  var raf = window.requestAnimationFrame
+    ? function (f) { window.requestAnimationFrame(f); }
+    : function (f) { setTimeout(f, 16); };
+
+  // The field FILLS rather than appearing — the accumulation is the point.
+  function paintDots(upTo, cls, done) {
+    if (!fieldEl || upTo <= 0) { if (done) done(); return; }
+    var placed = 0;
+    var batch = Math.max(6, Math.round(upTo / 55));
+    function step() {
+      var frag = document.createDocumentFragment();
+      var end = Math.min(upTo, placed + batch);
+      for (; placed < end; placed++) {
+        var sp = document.createElement('span');
+        sp.className = cls;
+        frag.appendChild(sp);
+      }
+      fieldEl.appendChild(frag);
+      if (placed < upTo) raf(step);
+      else if (done) done();
+    }
+    step();
+  }
+
+  function countUp(el, to, ms) {
+    var t0 = null;
+    function frame() {
+      if (t0 === null) t0 = Date.now();
+      var t = Math.min(1, (Date.now() - t0) / ms);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = group(Math.round(to * eased));
+      if (t < 1) raf(frame);
+    }
+    raf(frame);
+  }
+
+  var figure = document.getElementById('count-figure');
+  var guessBox = document.getElementById('guess');
+  var slider = document.getElementById('guess-input');
+  var out = document.getElementById('guess-out');
+  var go = document.getElementById('guess-go');
+  var result = document.getElementById('guess-result');
+
+  function group(v) { return String(v).replace(/B(?=(d{3})+(?!d))/g, ','); }
+
+  if (fieldEl && figure && guessBox && slider && out && go && result) {
+    // arm the guess: mask the answer, reveal the question
+    figure.textContent = '?';
+    figure.className += ' masked';
+    // the lede states the range, so it would give the answer away before the guess
+    var lede = document.getElementById('count-lede');
+    if (lede) lede.hidden = true;
+    guessBox.hidden = false;
+    out.textContent = group(slider.value);
+    slider.addEventListener('input', function () { out.textContent = group(slider.value); });
+
+    go.addEventListener('click', function () {
+      var guessed = parseInt(slider.value, 10) || 0;
+      guessBox.hidden = true;
+      figure.className = figure.className.replace(' masked', '');
+      countUp(figure, total, 1100);
+      if (lede) lede.hidden = false;
+      var mine = Math.min(guessed, total);
+      paintDots(mine, 'mark guessed', function () {
+        paintDots(Math.max(0, total - guessed), 'mark');
+      });
+      var diff = total - guessed;
+      result.textContent =
+        diff > 0
+          ? 'You guessed ' + group(guessed) + '. The estimate is up to ' + group(total) +
+            ' — ' + group(diff) + ' more of us than you pictured.'
+          : diff < 0
+            ? 'You guessed ' + group(guessed) + '. The estimate is up to ' + group(total) +
+              '. Higher than most people manage — and still nobody counts it.'
+            : 'You guessed ' + group(guessed) + '. That is the estimate exactly.';
+      result.hidden = false;
+    });
+  } else {
+    paintDots(total, 'mark');
+  }
+
+  // ---- ERA RAIL: click-through, with dots tracking whichever card is
+  // actually in view — however it got there (button, dot, trackpad, touch,
+  // shift+wheel all work; the rail needs none of them to function). Two
+  // control bars (top + bottom) share the same buttons/dots by class, so
+  // everything below queries ALL of them and keeps both sets in sync. ----
+  var eraRail = document.querySelector('.era-rail');
+  if (eraRail) {
+    var eraCards = Array.prototype.slice.call(eraRail.querySelectorAll('.era-card'));
+    var eraDots = Array.prototype.slice.call(document.querySelectorAll('.era-dot'));
+    var eraCurrent = 0;
+    // scrollIntoView({inline:'start'}) was here originally and is the likely
+    // cause of a real bug Rob hit live: it can walk up and scroll ANY
+    // scrollable ancestor, not just the rail, leaving the whole page's
+    // horizontal alignment stuck. scrollTo() on the rail itself only ever
+    // touches the rail's own scroll position — it cannot leak to an ancestor.
+    var goToEra = function (i) {
+      i = Math.max(0, Math.min(eraCards.length - 1, i));
+      eraRail.scrollTo({ left: eraCards[i].offsetLeft, behavior: 'smooth' });
+    };
+    var setActive = function (i) {
+      eraCurrent = i;
+      for (var d = 0; d < eraDots.length; d++) {
+        eraDots[d].className = 'era-dot' + (parseInt(eraDots[d].getAttribute('data-era-index'), 10) === i ? ' active' : '');
+      }
+    };
+    var eraPrevBtns = document.querySelectorAll('.era-prev');
+    var eraNextBtns = document.querySelectorAll('.era-next');
+    for (var p = 0; p < eraPrevBtns.length; p++) eraPrevBtns[p].addEventListener('click', function () { goToEra(eraCurrent - 1); });
+    for (var nx = 0; nx < eraNextBtns.length; nx++) eraNextBtns[nx].addEventListener('click', function () { goToEra(eraCurrent + 1); });
+    for (var dt = 0; dt < eraDots.length; dt++) {
+      eraDots[dt].addEventListener('click', function () { goToEra(parseInt(this.getAttribute('data-era-index'), 10)); });
+    }
+    if ('IntersectionObserver' in window) {
+      var eraIo = new IntersectionObserver(
+        function (entries) {
+          var best = null;
+          for (var e = 0; e < entries.length; e++) {
+            if (!best || entries[e].intersectionRatio > best.intersectionRatio) best = entries[e];
+          }
+          if (best && best.intersectionRatio > 0.5) {
+            setActive(parseInt(best.target.getAttribute('data-era-index'), 10));
+          }
+        },
+        { root: eraRail, threshold: [0.5, 0.75, 1] }
+      );
+      for (var c = 0; c < eraCards.length; c++) eraIo.observe(eraCards[c]);
+    }
+  }
+
+  // ---- reveals ----
+  // Plain index loops throughout: NodeList.prototype.forEach does not exist in
+  // older engines, and a throw here used to leave every plate body hidden.
+  try {
+    if ('IntersectionObserver' in window) {
+      var rev = document.querySelectorAll('.reveal');
+      var io = new IntersectionObserver(function (es) {
+        for (var k = 0; k < es.length; k++) {
+          if (es[k].isIntersecting) { es[k].target.className += ' in'; io.unobserve(es[k].target); }
+        }
+      }, { rootMargin: '0px 0px -12% 0px' });
+      for (var r = 0; r < rev.length; r++) { rev[r].className += ' armed'; io.observe(rev[r]); }
+      setTimeout(function () {
+        for (var q = 0; q < rev.length; q++) { rev[q].className += ' in'; }
+      }, 3000);
+    }
+  } catch (err) { /* nothing was armed, so everything stays visible */ }
+
+  function submitRow(row, form, msg, texts, hideOnSuccess, onOk) {
+    var btn = form.querySelector('button.submit');
+    btn.disabled = true; msg.className = 'msg';
+    fetch(SB_URL + '/rest/v1/event_interest', {
+      method: 'POST',
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify(row),
+    }).then(function (r) {
+      if (r.ok) {
+        if (hideOnSuccess) {
+          form.querySelectorAll('.option, .field-l, input, textarea, .holder, button').forEach(function (el) { el.style.display = 'none'; });
+        } else {
+          form.querySelectorAll('input, textarea').forEach(function (el) { el.value = ''; });
+          btn.disabled = false;
+        }
+        msg.textContent = texts.ok; msg.className = 'msg ok';
+        if (onOk) onOk();
+      } else if (r.status === 409) {
+        msg.textContent = texts.dup; msg.className = 'msg ok'; btn.disabled = false;
+        if (onOk) onOk();
+      } else { throw new Error('insert failed: ' + r.status); }
+    }).catch(function () {
+      msg.textContent = texts.err; msg.className = 'msg err'; btn.disabled = false;
+    });
+  }
+
+  var params = new URLSearchParams(location.search);
+  var utm = { utm_source: params.get('utm_source'), utm_medium: params.get('utm_medium'), utm_campaign: params.get('utm_campaign') };
+
+  var doorForm = document.getElementById('door-form');
+  doorForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitRow(
+      Object.assign({
+        event_slug: "birmingham-door",
+        name: document.getElementById('f-name').value.trim(),
+        email: document.getElementById('f-email').value.trim().toLowerCase(),
+        interest_level: doorForm.querySelector('input[name=interest]:checked').value,
+        could_help_organise: document.getElementById('f-holder').checked,
+        notes: null,
+      }, utm),
+      doorForm, document.getElementById('door-msg'),
+      { ok: "You're in. We'll be in touch — and when something's on in Birmingham, you'll hear it here first.", dup: "You're already on the list — we'll be in touch.", err: "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves." },
+      true
+    );
+  });
+
+  var truerForm = document.getElementById('truer-form');
+  if (truerForm) {
+    truerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitRow(
+        Object.assign({
+          event_slug: "birmingham-door-intel",
+          name: document.getElementById('t-name').value.trim(),
+          email: document.getElementById('t-email').value.trim().toLowerCase(),
+          interest_level: 'keep-informed', could_help_organise: false,
+          notes: document.getElementById('t-note').value.trim(),
+        }, utm),
+        truerForm, document.getElementById('truer-msg'),
+        { ok: "Received — thank you. The page gets truer because of exactly this.", dup: "Received — thank you. The page gets truer because of exactly this.", err: "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way." },
+        false
+      );
+    });
+  }
+
+  var score = 0, answered = 0;
+  var qs = document.querySelectorAll('.q');
+  var scores = {"three":"You know Birmingham's own record. Now help us find what we're still missing.","two":"Close — and honestly, there's more we haven't found yet than we have.","low":"Fair enough — this is BLKOUT's first door outside London, and the history below is thinner than we'd like. Help us fill it in."};
+  qs.forEach(function (q) {
+    q.querySelectorAll('.q-options button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (q.classList.contains('done')) return;
+        q.classList.add('done');
+        answered++;
+        var correct = btn.getAttribute('data-correct') === '1';
+        if (correct) score++;
+        q.querySelectorAll('.q-options button').forEach(function (b) {
+          b.className = b.getAttribute('data-correct') === '1' ? 'right' : (b === btn ? 'wrong' : '');
+        });
+        if (answered === qs.length && scores) {
+          var el = document.getElementById('q-score');
+          el.textContent = score === qs.length ? scores.three : (score === qs.length - 1 ? scores.two : scores.low);
+        }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

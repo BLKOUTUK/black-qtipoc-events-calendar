@@ -1,0 +1,355 @@
+{
+  "slug": "birmingham",
+  "brandForm": "BLKOUT in Birmingham",
+  "title": "Black queer men in Birmingham | BLKOUT in Birmingham",
+  "metaDescription": "For Black queer men in and around Birmingham — Handsworth, Lozells, Digbeth, Balsall Heath: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/wqoa7sumcx/",
+  "landmark": {
+    "src": "../images/birmingham/birmingham-bullring-bull.png",
+    "alt": "Pencil sketch of the Bullring Bull statue outside Birmingham's Bullring shopping centre, with the BLKOUT roundel set into a full moon above"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This is BLKOUT's first outside London.",
+    "heading": "BLKOUT in Birmingham",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK. In London the community came first and the door followed; here it's the other way round — and Handsworth already has the numbers.",
+    "standfirstMore": "Handsworth and Lozells hold the second-largest Black population of any city in the country. What's missing isn't the men — it's the surface where we become visible to each other. This door starts that: real nights running, real history already here, told properly below."
+  },
+  "lastChecked": "23 September 2026",
+  "quiz": {
+    "heading": "Know your Birmingham?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "Birmingham's oldest surviving gay venue, the Nightingale Club, started life in 1967 as what?",
+        "options": [
+          {
+            "t": "A rundown Indian restaurant on Camp Hill",
+            "correct": true
+          },
+          {
+            "t": "A disused cinema in Digbeth",
+            "correct": false
+          },
+          {
+            "t": "A members' billiard hall",
+            "correct": false
+          }
+        ],
+        "reveal": "Laurie Williams and Derek Pemberton paid £600 for it — and ran it as a member-owned club from the start, not just a business, so every member had a say in what happened to it."
+      },
+      {
+        "q": "Yshee Black, on why she mentored Black Peppa into drag in Birmingham: \"We don't have that many Black queer acts on the Birmingham scene, so to see someone as...\" what?",
+        "options": [
+          {
+            "t": "\"talented, passionate and unapologetically Black\"",
+            "correct": true
+          },
+          {
+            "t": "\"fierce, fabulous and ready to compete\"",
+            "correct": false
+          },
+          {
+            "t": "\"new to the scene and hungry to learn\"",
+            "correct": false
+          }
+        ],
+        "reveal": "\"...I just knew I had to give them any knowledge and wisdom I had.\" Black Peppa went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK."
+      },
+      {
+        "q": "UNMUTED, Birmingham's QTIPOC community group, was founded by someone who also co-leads which national organisation?",
+        "options": [
+          {
+            "t": "Colours Youth Network",
+            "correct": true
+          },
+          {
+            "t": "UK Black Pride",
+            "correct": false
+          },
+          {
+            "t": "Stonewall",
+            "correct": false
+          }
+        ],
+        "reveal": "Suriya Roberts-Grey founded UNMUTED and co-leads Colours Youth Network, which supports LGBTQ+ young people of colour (16-25) UK-wide."
+      }
+    ],
+    "scores": {
+      "three": "You know Birmingham's own record. Now help us find what we're still missing.",
+      "two": "Close — and honestly, there's more we haven't found yet than we have.",
+      "low": "Fair enough — this is BLKOUT's first door outside London, and the history below is thinner than we'd like. Help us fill it in."
+    }
+  },
+  "here": {
+    "heading": "Here in Birmingham",
+    "intro": "What's organised in the city for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [
+      {
+        "name": "Fruit Punch",
+        "url": "https://www.instagram.com/fruitpunchbrum",
+        "note": "Black & POC Queer-led collective — monthly Black and POC LGBTQIA+ Social at The Night Owl, 17-18 Lower Trinity Street, Deritend.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ],
+    "quietNote": "Checked 23 September 2026 (open-source only, not yet confirmed by a direct message to the organisers) — Fruit Punch looks current and real. DLPlug's Stripped Birmingham is not listed here: checked directly against dlplug.com's own Birmingham page, which shows 'no events at the moment' and still names Just For You Sauna, 40 Summer Hill Rd — a venue that has since closed (the same team opened Yumbo, Hockley Hill, 14 Aug 2026, in its place). DLPlug itself is very much live nationally (Shoreditch, elsewhere); its Birmingham chapter is quiet right now, not gone — worth a direct check before ruling it out for good.",
+    "recently": [],
+    "recentlyNote": "No BLKOUT-run event has ever happened in Birmingham, as far as this recon found (checked the events table, the story archive, and the internal archive DB — all clean). Unlike Camden or Croydon, there's no 'recently' strip to draw on yet — that's the honest state, not a gap in the search."
+  },
+  "besideUs": {
+    "heading": "Beside us in the city",
+    "intro": "Neighbours doing good work in Birmingham. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "UNMUTED",
+        "url": "https://www.unmutedbrum.com",
+        "note": "A voluntary group providing safe space for QTIPOC in Birmingham since at least 2018 — monthly meetups at Impact Hub Birmingham, a QTIPOC book club at Waterstones, a POC contingent at Birmingham Pride, group travel to UK Black Pride. Founded by Suriya Roberts-Grey.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Colours Youth Network",
+        "url": "https://coloursyouthnetwork.com",
+        "note": "UK-wide network supporting LGBTQ+ young people of colour (16-25) — co-led by UNMUTED's founder, Suriya Roberts-Grey.",
+        "centres": "lgbtq-general",
+        "currencyChecked": false
+      },
+      {
+        "name": "Birmingham LGBT",
+        "url": "https://blgbt.org",
+        "note": "The city's main LGBTQ+ centre — runs sexual health clinics, a community directory (via BVSC), and general support services.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "CineQ / SHOUT Festival",
+        "url": "https://shoutfestival.co.uk",
+        "note": "SHOUT is Birmingham's queer arts festival (~15 years running); CineQ, founded by Rico Johnson-Sinclair, is its QTIPOC-focused film strand — its 'Black Magic' shorts programme is specifically about Black queer experience.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a city boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Beetle Health",
+        "url": "https://www.blackbeetlehealth.co.uk",
+        "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Birmingham LGBT Centre Sexual Health Services",
+        "url": "https://blgbt.org",
+        "note": "LGBT sexual health clinics Wed/Thu 9am-5pm — rapid HIV testing, assisted testing, free STI kits.",
+        "currencyChecked": false
+      },
+      {
+        "name": "Umbrella Health Birmingham",
+        "url": "https://umbrellahealth.co.uk",
+        "note": "NHS sexual health services, run in partnership with Birmingham LGBT Centre.",
+        "currencyChecked": false
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Birmingham's record, as far as open sourcing found it in one recon pass. Thinner than most doors, honestly — help us fill the gaps.",
+    "entries": [
+      {
+        "title": "The Story of the Nightingale, Birmingham's Longest-running Gay Club",
+        "author": "Historic England Blog",
+        "year": "2024",
+        "note": "Founding history: Laurie Williams and Derek Pemberton, 1967, Camp Hill.",
+        "url": "https://heritagecalling.com/2024/07/09/the-story-of-the-nightingale-birminghams-longest-running-gay-club/",
+        "urlLabel": "Read the history"
+      },
+      {
+        "title": "Birmingham Lesbian and Gay Community Centre",
+        "author": "Wikipedia",
+        "year": "n/d",
+        "note": "The UK's first LGBT community centre, opened Dec 1976; headquartered at the Nightingale Club 1981-84.",
+        "url": "https://en.wikipedia.org/wiki/Birmingham_Lesbian_and_Gay_Community_Centre",
+        "urlLabel": "Read the history"
+      },
+      {
+        "title": "Black Peppa: 'I can be crazy, but I also have a great story to tell'",
+        "author": "Dazed",
+        "year": "2022",
+        "note": "Confirms Black Peppa's move to Birmingham in 2018 and the start of their drag career there.",
+        "url": "https://www.dazeddigital.com/music/article/57477/1/black-peppa-i-can-be-crazy-but-i-also-have-a-great-story-to-tell",
+        "urlLabel": "Read the profile"
+      },
+      {
+        "title": "Brilliant Brummies: Meet Yshee Black",
+        "author": "I Am Birmingham",
+        "year": "2019",
+        "note": "Source of the 'we don't have that many Black queer acts on the Birmingham scene' quote.",
+        "url": "https://iambirmingham.co.uk/2019/05/22/brilliant-brummies-pride-special-meet-yshee-black-star-rise/",
+        "urlLabel": "Read the profile"
+      },
+      {
+        "title": "Demographics of Birmingham",
+        "author": "Wikipedia, citing ONS 2021 Census",
+        "year": "2021",
+        "note": "125,760 (10.9%) Black/Black British residents city-wide, up from 96,360 (8.98%) in 2011.",
+        "url": "https://en.wikipedia.org/wiki/Demographics_of_Birmingham",
+        "urlLabel": "Read the figures"
+      },
+      {
+        "title": "Who Are the UK's Black Queer Men? — A Critical Demographic Analysis",
+        "author": "Critical Frequency",
+        "year": "2026",
+        "note": "Regional estimate: West Midlands (Birmingham) 2,000-3,000 Black queer men.",
+        "url": null,
+        "urlLabel": null
+      },
+      {
+        "title": "Centre for Contemporary Cultural Studies",
+        "author": "Wikipedia",
+        "year": "n/d",
+        "note": "Stuart Hall directed the Centre, University of Birmingham, 1968/69-1979 — the founding institution of British Cultural Studies. Included for his scholarly legacy on identity, representation and media, not as a queer figure.",
+        "url": "https://en.wikipedia.org/wiki/Centre_for_Contemporary_Cultural_Studies",
+        "urlLabel": "Read the history"
+      },
+      {
+        "title": "The legacy of Ten.8",
+        "author": "Derek Bishton (Ten.8 co-founder)",
+        "year": "n/d",
+        "note": "Founded 1978/79 by Derek Bishton, Brian Homer and John Reardon, above a terrace on Grove Lane, Handsworth. Primary source for the magazine's history and its Rotimi Fani-Kayode connection.",
+        "url": "https://derekbishton.com/other-stuff/legacy-ten8/",
+        "urlLabel": "Read the history"
+      },
+      {
+        "title": "Rotimi Fani-Kayode, Ten.8 and Critical Decade",
+        "author": "Derek Bishton",
+        "year": "n/d",
+        "note": "How 'Traces of Ecstasy' came to Ten.8 after being rejected elsewhere as 'too controversial,' and the Critical Decade (1992) editorial team.",
+        "url": "https://derekbishton.com/rotimi-fani-kayode-ten-8-and-critical-decade/",
+        "urlLabel": "Read the account"
+      },
+      {
+        "title": "Rotimi Fani-Kayode",
+        "author": "Autograph",
+        "year": "n/d",
+        "note": "Yoruba, Nigerian-British, gay photographer (1955-1989); co-founded Autograph (the Association of Black Photographers) in 1988.",
+        "url": "https://autograph.org.uk/blog/texts/introducing-the-studio-staging-desire/",
+        "urlLabel": "Read more"
+      },
+      {
+        "title": "Contract to Closet",
+        "author": "Dr Nathaniel Adam Tobias Coleman, TORCH (University of Oxford)",
+        "year": "2026",
+        "note": "Born in Birmingham. Forthcoming chapter 'Die of Ignorance' re-examines Section 28 through Black Queer activists' resistance to Thatcher-era attacks on anti-heterosexist and anti-apartheid education alike.",
+        "url": "https://www.torch.ox.ac.uk/event/contract-to-closet-nathaniel-adam-tobias-coleman-0",
+        "urlLabel": "Read more"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "estLower": 2000,
+    "estUpper": 3000,
+    "body": "Critical Frequency's own national dossier — the same demographic analysis behind every other door's figure — puts the West Midlands (Birmingham) estimate at 2,000-3,000 Black queer men, drawn from a UK-wide working estimate of 50,000-65,000, built from Census data, asylum statistics and age demographics. It's a regional figure, not a Birmingham-city-only one — Handsworth and Lozells hold the second-largest Black population of any UK city, but the estimate itself is counted at West Midlands scale.",
+    "history": "## 1948 — a company passing through\n\nIn 1948, Berto Pasuka's Les Ballets Nègres — Europe's first Black-led dance company, and the anchor of BLKOUT's own Westminster door — played Birmingham to reviews calling it 'vital and compelling'. A touring company passing through, not a resident — colour here, not the anchor.\n\n## 1968–1979 — Stuart Hall\n\nFrom 1968 to 1979, Professor Stuart Hall — Jamaican-British, one of the most consequential Black British intellectuals of the century — directed the University of Birmingham's Centre for Contemporary Cultural Studies, the founding institution of British Cultural Studies. Not a queer figure in this history, but a foundational one for how Black Britain has thought about representation ever since.\n\n## 1968–1992 — Handsworth's magazine\n\nHall's own thread leads to this door's strongest anchor. From 1978, a room above a Grove Lane terrace in Handsworth held Ten.8, a quarterly photography magazine. In 1987, Ten.8 published Rotimi Fani-Kayode's homoerotic portraits after a London magazine rejected them as 'too controversial' — and Fani-Kayode went on to co-found Autograph, which still champions Black photographers today. Ten.8's own final issue (1992) was co-edited by Stuart Hall. A Handsworth magazine gave a young Black queer photographer the platform London wouldn't.\n\n## 2016–2018 — BLKOUT's own record\n\nBLKOUT's own record starts in October 2016: Raurie 'Rawzilla' Williams — the 'First Gay Grime MC', viral in 2013 — was one of our writers, Birmingham-based. He wrote about Birmingham's Hurst Street: 'Where are my dark skin brothers?' Two years later, BLKOUT backed a different Birmingham member: Aaron Lambert's debut one-man show, Candid, at Canada Water Theatre, 9 November 2018. Rob designed the promotional images; asked where he was 'really' from, Aaron answered: 'Lol. My grandparents were born in Jamaica.' It played to a full house.\n\n## Today\n\nBy 2018, Suriya Roberts-Grey had founded UNMUTED, a QTIPOC group meeting monthly at Impact Hub Birmingham. A Black queer drag lineage took root too: Yshee Black mentored newcomer Black Peppa, who went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK. Today, Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend — real nights, running now.\n\n## What's still missing\n\nOne thing this door is still looking for: a figure who lived and organised here across a life, the way Ivor Cummings anchors Croydon. Ten.8's Handsworth moment is real, but Fani-Kayode lived and worked in London. The search continues — literally: Dr Nathaniel Adam Tobias Coleman, born in Birmingham, is writing a fresh history of Section 28 and the Black Queer activists who resisted it. His work sits exactly where this door does.\n\n» None of this happens without the people already building it — see who's here in Birmingham right now.",
+    "eraImages": {
+      "1968–1979 — Stuart Hall": {
+        "src": "../images/birmingham/history/bull-ring-1966.jpg",
+        "alt": "Black and white photograph of Birmingham's Bull Ring in the 1960s, crowds and market stalls",
+        "credit": "The Bull Ring, Birmingham, 1966 — John Ball, CC BY-SA 4.0, via Wikimedia Commons. General period texture, not a photograph of Hall or the CCCS specifically."
+      }
+    }
+  },
+  "neighbours": [],
+  "archive": {
+    "intro": "From the BLKOUT archive.",
+    "entries": [
+      {
+        "title": "I won't settle for Gary and his cats",
+        "when": "Oct 2016",
+        "url": "https://blkoutuk.com/stories/read-i-wont-settle-for-gary-and-his-cats"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Is BLKOUT based in Birmingham?",
+      "a": "No — BLKOUT is registered in Croydon, with doors in boroughs across London. This would be our first door outside London, and it's still a draft."
+    },
+    {
+      "q": "Where can I meet other Black queer men in Birmingham?",
+      "a": "Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend, checked 23 Sep 2026. Not yet confirmed by a direct message to the organisers."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Birmingham — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "birmingham-door",
+    "options": [
+      {
+        "value": "definitely",
+        "title": "I'm in",
+        "body": "Tell me everything happening in and around Birmingham."
+      },
+      {
+        "value": "if-organised",
+        "title": "If something's on locally",
+        "body": "I'd come along if something got going in the city."
+      },
+      {
+        "value": "keep-informed",
+        "title": "Just keep me posted",
+        "body": "Not sure yet — send me what's happening now and then."
+      }
+    ],
+    "holderLabel": "I could help hold something in Birmingham — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Birmingham, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This is our thinnest door's history yet, and it needs Birmingham's own record more than most. If you know UNMUTED, Fruit Punch, DLPlug's Birmingham nights, or a piece of this city's Black queer history we haven't found — tell us.",
+    "eventSlug": "birmingham-door-intel",
+    "placeholder": "There's a group you've missed... UNMUTED is/isn't still running... here's a name from before 2016...",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this would be the first outside London.",
+    "links": [
+      {
+        "label": "blkoutuk.com",
+        "url": "https://blkoutuk.com"
+      },
+      {
+        "label": "Events across the UK",
+        "url": "https://events.blkoutuk.com"
+      },
+      {
+        "label": "BLKOUTHUB",
+        "url": "https://blkouthub.com"
+      }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
