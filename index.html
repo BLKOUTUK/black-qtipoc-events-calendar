@@ -48,30 +48,57 @@
     </div>
 
     <!-- Static, crawlable estate footer. Real HTML the app leaves in place: every open borough door and the sister sites. -->
-    <footer id="estate-footer" style="background:#000;color:#fff;font-family:'Work Sans',system-ui,sans-serif;padding:2rem 1rem;border-top:1px solid #333">
-      <p style="margin:0 0 .75rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#FFD700">BLKOUT Local — a door in every borough</p>
-      <ul style="list-style:none;margin:0 0 1.25rem;padding:0;display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.9rem">
-        <li><a href="/brent/">Brent</a></li>
-        <li><a href="/camden/">Camden</a></li>
-        <li><a href="/croydon/">Croydon</a></li>
-        <li><a href="/enfield/">Enfield</a></li>
-        <li><a href="/hackney/">Hackney</a></li>
-        <li><a href="/haringey/">Haringey</a></li>
-        <li><a href="/lambeth/">Lambeth</a></li>
-        <li><a href="/lewisham/">Lewisham</a></li>
-        <li><a href="/newham/">Newham</a></li>
-        <li><a href="/southwark/">Southwark</a></li>
-        <li><a href="/waltham-forest/">Waltham Forest</a></li>
-        <li><a href="/westminster/">Westminster</a></li>
-      </ul>
-      <p style="margin:0;font-size:.85rem;color:#bbb">
-        <a href="https://blkoutuk.com" style="color:#FFD700">BLKOUT UK</a> ·
-        <a href="https://voices.blkoutuk.com" style="color:#FFD700">Voices</a> ·
-        <a href="https://news.blkoutuk.com" style="color:#FFD700">News</a> ·
-        <a href="https://blkoutuk.com/shop" style="color:#FFD700">Shop</a> ·
-        <a href="https://commons.blkoutuk.com" style="color:#FFD700">The Commons</a>
-      </p>
-    </footer>
+    <!-- constellation-nav:start (source: blkout/platform/packages/constellation-nav/fragment.html; sync with sync.mjs, don't edit in place) -->
+<footer id="constellation-nav" aria-label="The BLKOUT constellation">
+<style>
+#constellation-nav{background:#000;color:#fff;font-family:'Work Sans',system-ui,-apple-system,'Segoe UI',sans-serif;padding:2.25rem 1.25rem 1.75rem;border-top:1px solid #2c2c33;line-height:1.45;text-align:left}
+#constellation-nav *{box-sizing:border-box}
+#constellation-nav .cx-wrap{max-width:72rem;margin:0 auto}
+#constellation-nav .cx-kicker{margin:0 0 1rem;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#FFD700;font-weight:700}
+#constellation-nav .cx-sites{list-style:none;margin:0 0 1.75rem;padding:0;display:flex;flex-wrap:wrap;gap:.9rem 1.5rem}
+#constellation-nav .cx-sites li{flex:1 1 13rem;max-width:20rem}
+#constellation-nav .cx-sites a{color:#fff;text-decoration:none;font-weight:700;font-size:.98rem}
+#constellation-nav .cx-sites a:hover,#constellation-nav .cx-sites a:focus{color:#FFD700;text-decoration:underline}
+#constellation-nav .cx-sites span{display:block;color:#a3a0a8;font-size:.82rem;font-weight:400}
+#constellation-nav .cx-doors{list-style:none;margin:0 0 1.5rem;padding:0;display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;font-size:.88rem}
+#constellation-nav .cx-doors a{color:#D4AF37;text-decoration:none}
+#constellation-nav .cx-doors a:hover,#constellation-nav .cx-doors a:focus{color:#FFD700;text-decoration:underline}
+#constellation-nav .cx-legal{margin:0;padding-top:1rem;border-top:1px solid #2c2c33;font-size:.78rem;color:#a3a0a8}
+#constellation-nav .cx-legal a{color:#a3a0a8}
+</style>
+<div class="cx-wrap">
+<p class="cx-kicker">The BLKOUT constellation</p>
+<ul class="cx-sites">
+<li><a href="https://blkoutuk.com/">BLKOUT</a><span>Who we are, and how to join</span></li>
+<li><a href="https://events.blkoutuk.com/">Events</a><span>What's on, across the UK</span></li>
+<li><a href="https://voices.blkoutuk.com/">Voices</a><span>Essays and long reads</span></li>
+<li><a href="https://news.blkoutuk.com/">News</a><span>Community news</span></li>
+<li><a href="https://critical.blkoutuk.com/">Critical Frequency</a><span>Research and campaigns</span></li>
+<li><a href="https://compass.blkoutuk.com/">Ivor's Compass</a><span>Ivor Cummings' story, made personal</span></li>
+<li><a href="https://comms.blkoutuk.com/discover">Discover</a><span>Newsletters and campaigns</span></li>
+<li><a href="https://commons.blkoutuk.com/">The Commons</a><span>Tools and kits we share</span></li>
+<li><a href="https://oomf.blkoutuk.com/">BLKOUT Heroes</a><span>The OOMF origin</span></li>
+<li><a href="https://blkouthub.com/">BLKOUTHUB</a><span>The members' space</span></li>
+</ul>
+<p class="cx-kicker">BLKOUT Local: a door in every borough</p>
+<ul class="cx-doors">
+<li><a href="https://events.blkoutuk.com/brent/">Brent</a></li>
+<li><a href="https://events.blkoutuk.com/camden/">Camden</a></li>
+<li><a href="https://events.blkoutuk.com/croydon/">Croydon</a></li>
+<li><a href="https://events.blkoutuk.com/enfield/">Enfield</a></li>
+<li><a href="https://events.blkoutuk.com/hackney/">Hackney</a></li>
+<li><a href="https://events.blkoutuk.com/haringey/">Haringey</a></li>
+<li><a href="https://events.blkoutuk.com/lambeth/">Lambeth</a></li>
+<li><a href="https://events.blkoutuk.com/lewisham/">Lewisham</a></li>
+<li><a href="https://events.blkoutuk.com/newham/">Newham</a></li>
+<li><a href="https://events.blkoutuk.com/southwark/">Southwark</a></li>
+<li><a href="https://events.blkoutuk.com/waltham-forest/">Waltham Forest</a></li>
+<li><a href="https://events.blkoutuk.com/westminster/">Westminster</a></li>
+</ul>
+<p class="cx-legal">BLKOUT Creative Ltd, the Black Queer Men's Liberation Collective. A community benefit society, FCA register no. RS009639. <a href="https://blkoutuk.com/governance">Governance</a></p>
+</div>
+</footer>
+<!-- constellation-nav:end -->
     <script type="module" src="/src/main.tsx" onerror="window.__blkoutModuleError=true"></script>
     <script>
       // Smart recovery: detect module load failures and recover quickly.
