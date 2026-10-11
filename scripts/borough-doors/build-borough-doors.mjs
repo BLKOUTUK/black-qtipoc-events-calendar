@@ -49,6 +49,10 @@ const placesAll = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta
 const slugify = (b) => String(b ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const placesIn = (slug) => placesAll.filter((pl) => pl.published && slugify(pl.borough) === slug);
 const DATA = join(HERE, 'data');
+// The shared constellation footer (one source for every BLKOUT site). Read at build time
+// and emitted verbatim after the door's own footer; the markers let sync.py refresh it.
+const CONSTELLATION = readFileSync(join(HERE, '..', '..', '..', '..', 'packages', 'constellation-nav', 'fragment.html'), 'utf8').trim();
+if (CONSTELLATION.includes('`') || CONSTELLATION.includes('${')) throw new Error('constellation fragment must not contain backticks or ${');
 const OUT = join(HERE, '..', '..', 'public');
 
 
@@ -1271,6 +1275,7 @@ ${
 </footer>
 
 </div>
+${CONSTELLATION}
 <script>
 (function () {
   var SB_URL = ${JSON.stringify(d.supabase.url)};
