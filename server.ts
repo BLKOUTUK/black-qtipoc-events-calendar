@@ -135,6 +135,10 @@ async function startServer() {
   // shell at dist/shell.html. An extensionless GET gets its prerendered page if one exists,
   // otherwise the shell — never another route's prerendered content.
   const DIST = path.join(__dirname, 'dist');
+  // Paths the SPA renders — keep in step with the <Route path> list in src/. Anything else still
+  // gets the shell, but with a real 404 so search engines don't index made-up addresses
+  // (SEO plan K2, 11 Oct 2026). Borough doors are files in dist and are served above.
+  const SPA_ROUTES = new Set(['', 'add', 'gatherings', 'moderation', 'openings', 'openings/submit', 'places', 'quick-add', 'submit']);
   app.use((req, res) => {
     res.setHeader('Cache-Control', 'no-store, must-revalidate');
     res.setHeader('Pragma', 'no-cache');
@@ -144,7 +148,10 @@ async function startServer() {
     if (clean && prerendered.startsWith(DIST + path.sep) && !path.extname(clean) && fs.existsSync(prerendered)) {
       return res.sendFile(prerendered);
     }
-    res.sendFile(path.join(DIST, fs.existsSync(path.join(DIST, 'shell.html')) ? 'shell.html' : 'index.html'));
+    const route = clean.replace(/^\/+/, '');
+    const known = SPA_ROUTES.has(route);
+    if (!known && path.extname(clean)) return res.status(404).send('Not found');
+    res.status(known ? 200 : 404).sendFile(path.join(DIST, fs.existsSync(path.join(DIST, 'shell.html')) ? 'shell.html' : 'index.html'));
   });
 
   // Start server AFTER all routes are registered
