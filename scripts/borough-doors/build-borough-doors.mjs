@@ -650,6 +650,13 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
 <title>${esc(d.title)}</title>
 <meta name="description" content="${esc(d.metaDescription)}">
 <link rel="canonical" href="${esc(d.canonicalUrl)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BLKOUT">
+<meta property="og:title" content="${esc(d.title)}">
+<meta property="og:description" content="${esc(d.metaDescription)}">
+<meta property="og:url" content="${esc(d.canonicalUrl)}">
+<meta property="og:image" content="https://events.blkoutuk.com/images/foundation/${esc(groundsFor(d.slug).door[0])}">
+<meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
