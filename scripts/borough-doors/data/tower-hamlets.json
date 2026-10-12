@@ -1,0 +1,382 @@
+{
+  "slug": "tower-hamlets",
+  "brandForm": "BLKOUT in Tower Hamlets",
+  "title": "Black queer men in Tower Hamlets | BLKOUT in Tower Hamlets",
+  "metaDescription": "For Black queer men in and around Tower Hamlets — Bethnal Green, Whitechapel, Bow, Limehouse, Poplar, the Isle of Dogs: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/tower-hamlets/",
+  "landmark": {
+    "src": "../images/tower-hamlets/christ-church-spitalfields.png",
+    "alt": "Pencil sketch of Christ Church Spitalfields' white stone spire and portico at night, with the BLKOUT roundel set as a small moon in the sky above it"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Tower Hamlets'.",
+    "heading": "BLKOUT in Tower Hamlets",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Tower Hamlets is where one of the twentieth century's great Black queer writers worked as a journalist. In 1920 Claude McKay reported for Sylvia Pankhurst's Workers' Dreadnought from its office in Bow, and lived on the Bow Road. Around 22,700 Black residents live in the borough today. This door is for the Black queer men among them."
+  },
+  "lastChecked": "12 October 2026",
+  "quiz": {
+    "heading": "Know your Tower Hamlets?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "In 1920 the poet Claude McKay worked as a reporter for which East End paper?",
+        "options": [
+          {
+            "t": "The Workers' Dreadnought",
+            "correct": true
+          },
+          {
+            "t": "The East London Advertiser",
+            "correct": false
+          },
+          {
+            "t": "The Daily Herald",
+            "correct": false
+          }
+        ],
+        "reveal": "Sylvia Pankhurst's Workers' Dreadnought, published from Old Ford Road in Bow. When Scotland Yard raided the office in 1920, McKay walked out past a detective with the article they were looking for folded into his sock — then went home to the Bow Road and found another detective waiting for him."
+      },
+      {
+        "q": "In October 2018 BLKOUT backed B, Gerrard Martin's new work at Rich Mix on Bethnal Green Road. What was it?",
+        "options": [
+          {
+            "t": "A dance piece for two Black men, dancing together",
+            "correct": true
+          },
+          {
+            "t": "A photography exhibition",
+            "correct": false
+          },
+          {
+            "t": "A short film",
+            "correct": false
+          }
+        ],
+        "reveal": "A dance piece — Gerrard and Brandon on stage together, at the And What? Queer Arts Festival. It moved some of a capacity audience to tears, and with Monday-morning commutes looming, nobody wanted to go home after the post-show talk."
+      },
+      {
+        "q": "What share of Tower Hamlets residents told the 2021 Census they were Black, Black British, Caribbean or African?",
+        "options": [
+          {
+            "t": "7.3% — exactly the same as in 2011",
+            "correct": true
+          },
+          {
+            "t": "13.5%",
+            "correct": false
+          },
+          {
+            "t": "3.5%",
+            "correct": false
+          }
+        ],
+        "reveal": "7.3%, unchanged in ten years — around 22,700 people, among them Caribbean, Somali, Nigerian and Ghanaian communities. The London-wide figure is 13.5%. A smaller share than some boroughs, but still hundreds of Black queer men, living here right now."
+      }
+    ],
+    "scores": {
+      "three": "Tower Hamlets knows its own history. Now help us keep it current.",
+      "two": "Close. There's more of this than most people ever hear about.",
+      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Tower Hamlets",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
+    "entries": [
+      {
+        "name": "Black Meat Market",
+        "url": "https://www.blackmeatmarket.co.uk",
+        "note": "Erotic nightlife and private parties built for Black gay, bi and DL men. Their London nights keep coming back to the White Swan on Commercial Road, Limehouse: ROGUE in March 2026, UNCENSORED on carnival weekend in August. Adults only.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      },
+      {
+        "name": "AfroYanga — Itura Events",
+        "url": "https://www.eventbrite.com/e/category-isafroyanga-2026-black-history-month-x-halloween-special-tickets-1999202526574",
+        "note": "An annual celebration for LGBT Africans, asylum seekers and allies, with a lip-sync battle, at Poplar Union. This year's is Saturday 31 October 2026, a Black History Month x Halloween special. The free tickets have already gone, which says something.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ],
+    "recently": [
+      {
+        "when": "Sep 2026",
+        "what": "Black Queer Futures — The Love Tank at Fringe! Queer Film & Arts Fest, St Margaret's House, Bethnal Green"
+      },
+      {
+        "when": "Aug 2026",
+        "what": "The Kreole Kiki Ball — Bandana Edition, hosted by Eli Laveaux at Bethnal Green Working Men's Club"
+      },
+      {
+        "when": "Aug 2026",
+        "what": "Black Meat Market's UNCENSORED, carnival weekend, at the White Swan, Limehouse"
+      },
+      {
+        "when": "Jun 2026",
+        "what": "OUTpatients Community Conversations: Black & Brown Lesbian Women, Health & Healing, at The Common Press, Bethnal Green Road"
+      },
+      {
+        "when": "Dec 2025",
+        "what": "AfroYanga Christmas Potluck at Rich Mix"
+      },
+      {
+        "when": "Nov 2025",
+        "what": "Tender Roofs — a café-style gathering for Trans+ Black and Brown people, Pelican House, Bethnal Green"
+      }
+    ]
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Tower Hamlets. Use them — and tell them we sent you.",
+    "entries": [
+      {
+        "name": "Tower Hamlets LGBTQ+ Community Forum",
+        "url": "https://thlgbtvoices.wordpress.com/",
+        "note": "Run with elop, for LGBTQ+ people who live, work, study or socialise in the borough. Meetings on the last Wednesday of the month, twice a quarter, plus quarterly socials. Its 2026 directory is the best map of queer Tower Hamlets there is.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "The Love Tank and The Common Press",
+        "url": "https://www.thelovetank.info/",
+        "note": "A Bethnal Green community interest company working on the health of queer, trans and migrant communities, and the queer bookshop at 118 Bethnal Green Road where much of it happens. Second Tuesday Monologues runs there monthly; October's theme is Black Queer History.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Fringe! Queer Film & Arts Fest",
+        "url": "https://www.instagram.com/fringefilmfest/",
+        "note": "London's DIY queer film and arts festival, at home in Bethnal Green and Mile End. Its sixteenth edition ran 11–20 September 2026, with a Black Queer Futures session at St Margaret's House.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Black Queer Men Hangouts (30+)",
+        "url": "https://www.eventbrite.co.uk/e/black-queer-men-hangouts-book-discussion-games-30-tickets-2001078222832",
+        "note": "Strictly for Black queer men aged 30 and over: an intentional space outside nightlife, at the London LGBTQ+ Community Centre in Blackfriars. Next up, Sunday 25 October 2026: bell hooks' The Will to Change, plus games.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      },
+      {
+        "name": "DLPlug London",
+        "url": "https://www.dlplug.com",
+        "note": "A Black-centred, sex-positive party for gay, bi and DL men, on City Road, a short ride west of Bethnal Green. Seven years old this October.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement — and your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London. Order online, nothing to explain to anyone. Tower Hamlets takes part.",
+        "currencyChecked": true
+      },
+      {
+        "name": "All East — Ambrose King Centre",
+        "url": "https://www.alleast.nhs.uk",
+        "note": "The NHS sexual health service for east London, at the Royal London Hospital in Whitechapel: testing, treatment, PrEP and PEP. No GP referral needed.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Positive East",
+        "url": "https://www.positiveeast.org.uk/",
+        "note": "The HIV charity on Mile End Road. HIV and STI testing, peer and group support (LGBTQ+ groups included), counselling, and advice on benefits, housing and work.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service — Europe's largest, and long the home clinic of queer London.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Tower Hamlets' Black queer record starts with one man's memoir and a newspaper office in Bow. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "A Long Way from Home",
+        "author": "Claude McKay",
+        "year": "1937",
+        "note": "McKay's own account of 1919–20 London: reporting for the Workers' Dreadnought from its office on Old Ford Road, coming home to the Bow Road, the police raid and the article in his sock.",
+        "url": "https://www.gutenberg.org/ebooks/71744",
+        "urlLabel": "Read the memoir"
+      },
+      {
+        "title": "'The jobless should lead the attack': a radical Jamaican journalist in 1920s London",
+        "author": "Yvonne Singh, The Guardian",
+        "year": "2025",
+        "note": "The long read on McKay's London years, the Dreadnought's office in Bow, and a letter in which he reports what white men in Limehouse were telling him.",
+        "url": "https://www.theguardian.com/news/2025/oct/16/claude-mckay-radical-jamaican-journalist-in-1920s-london",
+        "urlLabel": "Read the piece"
+      },
+      {
+        "title": "\"A Black Man Replies\": Claude McKay's Challenge to the British Left",
+        "author": "Anne Donlon, Lateral",
+        "year": "2016",
+        "note": "On the letter McKay published in the Workers' Dreadnought on 24 April 1920, answering the paper's own allies.",
+        "url": "https://csalateral.org/issue/5-1/claude-mckay-british-left-donlon/",
+        "urlLabel": "Read the essay"
+      },
+      {
+        "title": "Tower Hamlets LGBTQ+ Directory 2026",
+        "author": "Tower Hamlets LGBTQ+ Community Forum",
+        "year": "2026",
+        "note": "The local curators' own map of health services, faith and community groups, venues and history in the borough.",
+        "url": "https://thlgbtvoices.wordpress.com/wp-content/uploads/2026/07/th-lgbtq-forum-directory-2026.pdf",
+        "urlLabel": "Download the directory"
+      },
+      {
+        "title": "How life has changed in Tower Hamlets: Census 2021",
+        "author": "Office for National Statistics",
+        "year": "2023",
+        "note": "The source for the 7.3% figure on this page, unchanged since 2011.",
+        "url": "https://www.ons.gov.uk/visualisations/censusareachanges/E09000030",
+        "urlLabel": "See the figures"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "estLower": 480,
+    "estUpper": 750,
+    "body": "The 2021 Census recorded 7.3% of Tower Hamlets' population — around 22,700 people — as Black, Black British, Black Welsh, Caribbean or African, exactly the same share as in 2011. Tower Hamlets doesn't rank among London's ten largest Black populations, so we don't have a dossier figure for it. Applying the estimate we use everywhere else, that's roughly 480 to 750 Black queer men living in the borough right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "In 1920, a Jamaican poet was living on the Bow Road.\n\nClaude McKay — later a defining voice of the Harlem Renaissance, and a bisexual man whose life his biographers have documented — spent 1919 and 1920 in London. Sylvia Pankhurst took him on at the Workers' Dreadnought, the radical weekly she published from Old Ford Road in Bow, in exchange for his room and board. He wrote from a little room on the top floor, covering a sawmill strike on the streets around the office and the docks beyond. When Scotland Yard raided the Dreadnought that year, McKay walked out past a detective with the article they were looking for folded into his sock, got rid of it, and went home to the Bow Road, where another detective was waiting. In a letter published that year he quotes what white men in Limehouse had been telling him about the summer to come. It is all in his own memoir, A Long Way from Home. He left for Harlem soon after, and the rest is literary history. Part of it was written here.\n\nBLKOUT has its own history on this ground. In October 2018 we backed Gerrard Martin's B at Rich Mix on Bethnal Green Road, part of the And What? Queer Arts Festival: two Black men, Gerrard and Brandon, dancing together on a British stage, something programmers had kept off it for too long. Some of a capacity audience were moved to tears. With Monday-morning commutes looming, nobody wanted to go home after the post-show talk. In November 2022 we called a Black and LGBTQ session of the Black Voices on Policing consultation at 118 Bethnal Green Road, the same address where The Common Press now hosts Second Tuesday Monologues on Black Queer History.\n\nToday, around 22,700 Black residents live in Tower Hamlets, among them Caribbean, Somali, Nigerian and Ghanaian communities. Black queer life is already happening here: Black Meat Market's nights at the White Swan in Limehouse, the Kreole Kiki Ball at Bethnal Green Working Men's Club, AfroYanga at Poplar Union. But the borough's own 2026 LGBTQ+ directory lists Bangladeshi, Muslim and Christian groups and no group that is Black-specific. That's the room this door is for."
+  },
+  "neighbours": [
+    {
+      "name": "Hackney",
+      "slug": "hackney"
+    },
+    {
+      "name": "Newham",
+      "slug": "newham"
+    },
+    {
+      "name": "City of London",
+      "slug": "city-of-london"
+    },
+    {
+      "name": "Southwark",
+      "slug": "southwark"
+    },
+    {
+      "name": "Lewisham",
+      "slug": "lewisham"
+    },
+    {
+      "name": "Greenwich",
+      "slug": "greenwich"
+    },
+    {
+      "name": "Croydon — the first door",
+      "slug": "croydon"
+    }
+  ],
+  "archive": {
+    "intro": "Tower Hamlets in our own words:",
+    "entries": [
+      {
+        "title": "It's time to B",
+        "when": "Oct 2018",
+        "url": "https://blkoutuk.com/stories/its-time-to-b"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Tower Hamlets?",
+      "a": "There's more here than you might think: Black Meat Market's nights at the White Swan in Limehouse, AfroYanga in Poplar, ballroom in Bethnal Green. There's no standing group yet, though. The door below is where that changes, and BLKOUT's national community is open to you today."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Tower Hamlets?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, no GP and no conversation required. All East runs the NHS clinic at the Royal London Hospital in Whitechapel, and Positive East on Mile End Road does HIV and STI testing too."
+    },
+    {
+      "q": "Is BLKOUT a Tower Hamlets organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK, with a door in every borough. We're registered in Croydon and we belong wherever our men are. We've stood on Tower Hamlets ground before, at Rich Mix in 2018 and on Bethnal Green Road in 2022. This door means we're staying."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are. Nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "We've checked it against the public record, starting with Claude McKay's own memoir, and dated it so you can see when we last looked. If we've got something wrong, or missed something you were part of, tell us in the panel at the bottom and the page will change."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Tower Hamlets — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.",
+    "eventSlug": "tower-hamlets-door",
+    "options": [
+      {
+        "value": "definitely",
+        "title": "I'm in",
+        "body": "Tell me everything happening in and around Tower Hamlets."
+      },
+      {
+        "value": "if-organised",
+        "title": "If something's on locally",
+        "body": "I'd come along if something got going in the borough."
+      },
+      {
+        "value": "keep-informed",
+        "title": "Just keep me posted",
+        "body": "Not sure yet — send me what's happening now and then."
+      }
+    ],
+    "holderLabel": "I could help hold something in Tower Hamlets — a meet-up, a table, an occasion.",
+    "successMessage": "You're in. We'll be in touch — and when something's on in Tower Hamlets, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list — we'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page leans on a memoir, a dance piece and a borough directory, and the people who live here know the rest. If a night has moved, a group has folded, or we've missed something you were part of, tell us. If you'd like credit for a correction, you'll get it.",
+    "eventSlug": "tower-hamlets-door-intel",
+    "placeholder": "That night moved venue… I was at B at Rich Mix… there's a group you've missed…",
+    "thanks": "Received — thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Tower Hamlets'.",
+    "links": [
+      {
+        "label": "blkoutuk.com",
+        "url": "https://blkoutuk.com"
+      },
+      {
+        "label": "Events across the UK",
+        "url": "https://events.blkoutuk.com"
+      },
+      {
+        "label": "BLKOUTHUB",
+        "url": "https://blkouthub.com"
+      }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
