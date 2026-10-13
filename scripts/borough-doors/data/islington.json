@@ -1,0 +1,320 @@
+{
+  "slug": "islington",
+  "brandForm": "BLKOUT in Islington",
+  "title": "Black queer men in Islington | BLKOUT in Islington",
+  "metaDescription": "For Black queer men in and around Islington — Angel, Highbury, Holloway, Finsbury Park, Archway: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "canonicalUrl": "https://events.blkoutuk.com/islington/",
+  "landmark": {
+    "src": "../images/islington/islington-union-chapel.png",
+    "alt": "Pencil sketch of Union Chapel on Compton Terrace, Islington, its tower and rose window, with the BLKOUT roundel set into a small moon above"
+  },
+  "hero": {
+    "kicker": "One community. Many doors. This one is Islington's.",
+    "heading": "BLKOUT in Islington",
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK. Islington is where Britain's first gay rights demonstration lit its torches, and where a Black queer church now meets every month.",
+    "standfirstMore": "Around 28,700 Black residents live in the borough. This door is for the Black queer men among them."
+  },
+  "lastChecked": "12 October 2026",
+  "quiz": {
+    "heading": "Know your Islington?",
+    "sub": "Three questions. No prizes except the stories.",
+    "questions": [
+      {
+        "q": "On 27 November 1970, Highbury Fields hosted a first for Britain. What was it?",
+        "options": [
+          { "t": "The first gay rights demonstration", "correct": true },
+          { "t": "The first Pride march", "correct": false },
+          { "t": "The first same-sex wedding", "correct": false }
+        ],
+        "reveal": "About 150 members of the newly formed Gay Liberation Front held a torchlight rally there against police harassment, after the arrest of the Young Liberal Louis Eakes. A plaque near Highbury Corner, put up by OutRage! in 2000, marks it. London's first Pride march came two years later."
+      },
+      {
+        "q": "House of Rainbow, the fellowship for LGBTQ+ people of faith that now meets monthly at Union Chapel, was founded in which city?",
+        "options": [
+          { "t": "Lagos", "correct": true },
+          { "t": "London", "correct": false },
+          { "t": "Accra", "correct": false }
+        ],
+        "reveal": "Lagos, in 2006. Rev Jide Macaulay was born in Islington, grew up in Nigeria and went back to found it. When a newspaper reported on the church in 2008 he left Nigeria, and he has built House of Rainbow from London since. On 6 September 2026 it marked twenty years at Union Chapel."
+      },
+      {
+        "q": "In November 2016 the King's Head Theatre on Upper Street revived Paul Boakye's Boy with Beer for its 25th anniversary. What is the play about?",
+        "options": [
+          { "t": "A love affair between two Black men", "correct": true },
+          { "t": "A Windrush family's first winter", "correct": false },
+          { "t": "A boxer's last fight", "correct": false }
+        ],
+        "reveal": "Karl, a photographer, and Donovan, a young raver with a girlfriend, taking the first steps towards love. It opened at the Man in the Moon Theatre in 1992. BLKOUT interviewed Boakye for the revival, and he told us the gay scene had \"changed out of all recognition\" since he wrote it."
+      }
+    ],
+    "scores": {
+      "three": "Islington knows its own history. Now help us write what's next.",
+      "two": "Close. The borough has more of our story in it than most people walking Upper Street would guess.",
+      "low": "All the more reason to walk through the door below. The history is the easy part to catch up on."
+    }
+  },
+  "here": {
+    "heading": "Here in Islington",
+    "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it. Help us find more.",
+    "entries": [
+      {
+        "name": "House of Rainbow",
+        "url": "https://www.houseofrainbow.org/",
+        "note": "A faith community and global network centring Black, African and Caribbean LGBTIQ+ people, founded by Islington-born Rev Jide Macaulay. Its in-person service meets at Union Chapel, Compton Terrace, on the third Sunday of each month at 4pm, and it celebrated its twentieth anniversary there on 6 September 2026.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      },
+      {
+        "name": "Black Meat Market",
+        "url": "https://www.blackmeatmarket.co.uk",
+        "note": "Erotic nightlife and private parties built for Black gay, bi and DL men. ROGUE comes to Bar Silver, 70 Upper Street, on Friday 23 October 2026. Adults only.",
+        "centres": "black-queer-men",
+        "currencyChecked": true
+      }
+    ],
+    "quietNote": "Checked 12 October 2026: we haven't found a standing space run by and for Black queer men in Islington. House of Rainbow is open to all Black LGBTQ+ people of faith. If a men's space exists, or you want to start one, the panel below is where that begins.",
+    "recently": [
+      {
+        "when": "Sep 2026",
+        "what": "Faithfully Me: documentary premiere for twenty years of House of Rainbow, Union Chapel"
+      },
+      {
+        "when": "Sep 2026",
+        "what": "Dean Atta in conversation with Keith Jarrett about Big Man, Waterstones Islington"
+      },
+      {
+        "when": "Dec 2025",
+        "what": "Melanated Queers Reading Collective book club, Housmans, Caledonian Road"
+      },
+      {
+        "when": "Nov 2025",
+        "what": "The Power of Black African Caribbean Archives, The London Archives, Clerkenwell"
+      }
+    ],
+    "recentlyNote": "From our own calendar's record. What has already happened here doesn't go stale: a borough's recent past is proof of life."
+  },
+  "besideUs": {
+    "heading": "Beside us in the borough",
+    "intro": "Neighbours doing good work in Islington. Use them, and tell them we sent you.",
+    "entries": [
+      {
+        "name": "London Friend",
+        "url": "https://www.londonfriend.org.uk",
+        "note": "One of the UK's oldest LGBT+ charities, at 86 Caledonian Road. Counselling, social groups, and Antidote, its LGBTQ+ drug and alcohol service.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "forum+",
+        "url": "https://forumplus.org.uk",
+        "note": "The LGBT+ equality charity for Camden and Islington. It runs social groups and events, supports LGBT+ victims of hate crime, and puts together the boroughs' joint LGBT History Month programme.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      },
+      {
+        "name": "Melanated Queers Reading Collective at Housmans",
+        "url": "https://housmans.com/book-groups",
+        "note": "A free book club for queer people of the Global Majority, reading queer authors of colour. It meets on the first Wednesday of the month at Housmans, the radical bookshop at 5 Caledonian Road.",
+        "centres": "lgbtq-general",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "worthTheJourney": {
+    "heading": "Worth the journey",
+    "intro": "Black queer men have never let a borough boundary decide where community happens. Here are places where you're centred, not just welcome:",
+    "entries": [
+      {
+        "name": "Melanin Vybz at the London LGBTQ+ Community Centre",
+        "url": "https://londonlgbtqcentre.org",
+        "note": "A free monthly meet-up for Black and brown LGBTQ+ elders aged 50 and over, at the Bankside centre. On 25 October 2026 it comes to Islington for a Black History Month afternoon at Union Chapel: a short film, a panel, patties and rum punch.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      },
+      {
+        "name": "Wise Thoughts",
+        "url": "https://wisethoughts.org",
+        "note": "A Global Majority and LGBTQI+ arts charity next door in Haringey, running since 1999. It runs the gayWISE drop-in and GFEST, its cross-arts festival, and has an autumn and winter 2026 workshop programme.",
+        "centres": "black-lgbtq",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "services": {
+    "heading": "Look after yourself",
+    "intro": "Free, confidential, no GP needed, no judgement. Your business stays yours.",
+    "entries": [
+      {
+        "name": "Sexual Health London (SHL)",
+        "url": "https://www.shl.uk",
+        "note": "Free, discreet home test kits and PrEP by post anywhere in London. Order online, with nothing to explain to anyone.",
+        "currencyChecked": true
+      },
+      {
+        "name": "The Archway Centre",
+        "url": "https://sexualhealth.cnwl.nhs.uk/clinic/archway-centre",
+        "note": "Islington's own NHS sexual health service, at 681–689 Holloway Road. PrEP, testing and treatment, with walk-in PEP within 72 hours of exposure.",
+        "currencyChecked": true
+      },
+      {
+        "name": "56 Dean Street",
+        "url": "https://www.dean.st",
+        "note": "Soho's LGBTQ+ specialist sexual health and HIV service, and Europe's largest.",
+        "currencyChecked": true
+      },
+      {
+        "name": "Find your nearest NHS clinic",
+        "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+        "note": "Every NHS sexual health service near you (testing, treatment, PrEP), searchable by postcode.",
+        "currencyChecked": true
+      }
+    ]
+  },
+  "bibliography": {
+    "intro": "Islington's record runs from a torchlit park in 1970 to a church anniversary last month. Start with these, and tell us what belongs on the shelf.",
+    "entries": [
+      {
+        "title": "Highbury Fields",
+        "author": "LGBT History UK",
+        "year": "1970",
+        "note": "The first gay rights demonstration in Britain: about 150 Gay Liberation Front members in a torchlight rally on 27 November 1970, marked by an OutRage! plaque since 2000.",
+        "url": "https://lgbthistoryuk.org/wiki/Highbury_Fields",
+        "urlLabel": "Read the entry"
+      },
+      {
+        "title": "Gay Liberation Front at 50",
+        "author": "Islington Life (Islington Council)",
+        "year": "2020",
+        "note": "The borough's own account of the Highbury Fields rally and what followed it.",
+        "url": "https://islingtonlife.london/discover-islington/local-history/gay-liberation-front-at-50/",
+        "urlLabel": "Read the history"
+      },
+      {
+        "title": "Boy with Beer",
+        "author": "Paul Boakye",
+        "year": "1992 (King's Head Theatre revival, 2016)",
+        "note": "A love story between two Black men, first staged at the Man in the Moon Theatre in 1992 and revived on Upper Street from 8 to 26 November 2016.",
+        "url": "https://blackplaysarchive.org.uk/productions/boy-with-beer",
+        "urlLabel": "See the Black Plays Archive record"
+      },
+      {
+        "title": "Ethnic minority gay men: Redefining community, restoring identity",
+        "author": "Peter Keogh, Laurie Henderson and Catherine Dodds, Sigma Research",
+        "year": "2004",
+        "note": "Research in which ethnic minority gay men in London described community in their own words. It was funded by Camden and Islington Health Authority."
+      },
+      {
+        "title": "Islington's Pride",
+        "author": "Islington Council, with the Heritage Fund",
+        "year": "2017–",
+        "note": "The council's archive of the borough's LGBT+ heritage, collecting community material from the mid-twentieth century to now. Black queer Islington belongs in it, so add yours.",
+        "url": "https://heritagefund.org.uk/news/islingtons-pride-archive-will-tell-story-boroughs-lgbt-history",
+        "urlLabel": "Read about the project"
+      }
+    ]
+  },
+  "numbers": {
+    "heading": "The numbers nobody counts",
+    "estLower": 600,
+    "estUpper": 960,
+    "body": "The 2021 Census recorded 13.3% of Islington's population, or 28,743 people, as Black, Black British, Black Welsh, Caribbean or African. Most of them are African (18,091), with 7,368 Caribbean. Islington isn't among London's ten largest Black populations, so we don't have a dossier figure for it. Applying the same estimate we use elsewhere gives roughly 600 to 960 Black queer men living in the borough right now. These are working estimates and we welcome correction. The point is the scale: we were never a niche. We were just never counted.",
+    "history": "Islington's Black queer history is carried by people born here who took it out into the world, and by places in the borough that have kept making room.\n\nRev Jide Macaulay was born in Islington and grew up in Nigeria from the age of four. In 2006 he went back to Lagos to found House of Rainbow, a church that welcomed lesbian, gay, bisexual, trans and intersex people in a country hostile to all of them. When a newspaper reported on it in 2008 he had to leave Nigeria, and he built House of Rainbow into a global network from London. He was ordained into the Church of England in 2013. Twenty years after Lagos, the fellowship meets in person every month at Union Chapel on Compton Terrace, and on 6 September 2026 it premiered its anniversary documentary, Faithfully Me, there.\n\nLloyd Young was born in Islington too, to parents who came from Jamaica in the early 1950s. At 21 he opened his own menswear shop, Classique For Men, on Tottenham High Road. In the summer of 1994 he helped organise SHEGUN — A Day For Us, an open-air party in south London run by Black gay men and women. As he told us in 2021, for many people it was \"a first Black Experience\", and the name stuck for the project he went on to found.\n\nVernal Scott worked from inside the Town Hall. From 2003 he was Islington Council's Head of Equality and Diversity, and he went on to lead equality work at Oxford University and Leicestershire Police.\n\nThe borough's wider queer story begins in a park. On 27 November 1970, about 150 members of the newly formed Gay Liberation Front held a torchlight rally on Highbury Fields against police harassment. It was the first gay rights demonstration in Britain, and a plaque near Highbury Corner has marked it since 2000. In 2004, Camden and Islington Health Authority funded Sigma Research's study Ethnic minority gay men: Redefining community, restoring identity, in which men like us described community in our own words.\n\nThe stage has kept room for us. In November 2016 the King's Head Theatre on Upper Street revived Paul Boakye's Boy with Beer, a love story between two Black men first staged in 1992, in a production billed as its 25th anniversary. BLKOUT went to talk to the playwright.\n\nToday the threads run through ordinary places. The Melanated Queers Reading Collective meets monthly at Housmans on Caledonian Road. The London Archives in Clerkenwell holds Black African and Caribbean records worth asking for. On 25 October 2026, Melanin Vybz brings Black LGBTQI+ elders to Union Chapel for a Black History Month afternoon.\n\nWe haven't found a space currently run by and for Black queer men in the borough. If you grew up here, or you're making something here now, the panel below is where you tell us, and the page changes."
+  },
+  "neighbours": [
+    { "name": "Camden", "slug": "camden" },
+    { "name": "Haringey", "slug": "haringey" },
+    { "name": "Hackney", "slug": "hackney" },
+    { "name": "City of London", "slug": "city-of-london" },
+    { "name": "Croydon — the first door", "slug": "croydon" }
+  ],
+  "archive": {
+    "intro": "Islington runs through our own writing: a revival on Upper Street, and two men born in the borough who built something wider.",
+    "entries": [
+      {
+        "title": "Read: Support Black Gay Theatre — An Interview with Playwright Paul Boakye",
+        "when": "Nov 2016",
+        "url": "https://blkoutuk.com/stories/read-support-black-gay-theatre-an-interview-with-playwright-paul-boakye"
+      },
+      {
+        "title": "#BlackGaySlay: Rev Jide Macaulay — The Price of Full Acceptance",
+        "when": "Oct 2017",
+        "url": "https://blkoutuk.com/stories/blackgayslay-rev-jide-macaulay-the-price-of-full-acceptance"
+      },
+      {
+        "title": "Watch This Space: Lloyd Young — The Black Experience",
+        "when": "Apr 2021",
+        "url": "https://blkoutuk.com/stories/watch-this-space-lloyd-young-the-black-experience"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Where can I meet other Black queer men in Islington?",
+      "a": "We haven't found a standing men's space in the borough yet. We've checked, and that's the honest answer. House of Rainbow meets monthly at Union Chapel for Black LGBTQ+ people of faith, and the Melanated Queers Reading Collective meets at Housmans. Start with the door on this page. If a few Islington men want a table, we'll help hold it."
+    },
+    {
+      "q": "Where can I get an STI test or PrEP in Islington?",
+      "a": "Sexual Health London posts free test kits and PrEP to any London address, with no GP and no conversation required. The Archway Centre on Holloway Road is Islington's NHS sexual health clinic, and 56 Dean Street in Soho is a short ride away."
+    },
+    {
+      "q": "Is BLKOUT an Islington organisation?",
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK, with a door in every borough. We're registered in Croydon. This is Islington's door, and it's only as good as what Islington men tell us."
+    },
+    {
+      "q": "I'm not out. Can I still come?",
+      "a": "Yes. Come as you are. Nobody at this door asks you to be anything first, and your business stays yours."
+    },
+    {
+      "q": "Is the history on this page accurate?",
+      "a": "It's checked against our own records and the public record, and dated so you can see when we last looked. Where we couldn't find something current, including a standing Black queer men's space in Islington today, we've said so rather than guessed. If we've got something wrong, the panel at the bottom is where you tell us, and the page changes."
+    }
+  ],
+  "door": {
+    "heading": "Be met",
+    "tender": "Come as you are. We answer.",
+    "intro": "Leave your name and we'll keep you posted about Islington: what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery and nothing sold on. Just a community that answers.",
+    "eventSlug": "islington-door",
+    "options": [
+      {
+        "value": "definitely",
+        "title": "I'm in",
+        "body": "Tell me everything happening in and around Islington."
+      },
+      {
+        "value": "if-organised",
+        "title": "If something's on locally",
+        "body": "I'd come along if something got going in the borough."
+      },
+      {
+        "value": "keep-informed",
+        "title": "Just keep me posted",
+        "body": "Not sure yet. Send me what's happening now and then."
+      }
+    ],
+    "holderLabel": "I could help hold something in Islington, like a meet-up, a table or an occasion.",
+    "successMessage": "You're in. We'll be in touch, and when something's on in Islington, you'll hear it here first.",
+    "duplicateMessage": "You're already on the list. We'll be in touch.",
+    "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
+  },
+  "truer": {
+    "heading": "Make it truer",
+    "intro": "This page was built from research, and the people who live here know better. If a group has moved or folded, or there's a story or a space we've missed, tell us. Corrections get credited, if you want the credit.",
+    "eventSlug": "islington-door-intel",
+    "placeholder": "There's a night on Holloway Road you've missed… I grew up in Highbury and remember… this group has moved…",
+    "thanks": "Received, thank you. The page gets truer because of exactly this.",
+    "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
+  },
+  "footer": {
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors, and this one is Islington's.",
+    "links": [
+      { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
+      { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
+      { "label": "BLKOUTHUB", "url": "https://blkouthub.com" }
+    ]
+  },
+  "retired": [],
+  "supabase": {
+    "url": "https://bgjengudzfickgomjqmz.supabase.co",
+    "anonKey": "sb_publishable_cpUwnfcJuvnjrJjmLdZpXw_jJIOa8aB"
+  }
+}
