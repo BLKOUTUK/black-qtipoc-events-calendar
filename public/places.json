@@ -1,7 +1,20 @@
 {
- "generated": "2026-09-01T22:16:14.904Z",
+ "generated": "2026-10-13T09:39:46.730Z",
  "source": "https://events.blkoutuk.com/places",
  "places": [
+  {
+   "id": "afroyanga-itura-events",
+   "name": "AfroYanga (Itura Events)",
+   "what": "Annual celebration for LGBT Africans, asylum seekers and allies, with a lip-sync battle.",
+   "where": "Poplar Union, Tower Hamlets, London",
+   "region": "london",
+   "borough": "Tower Hamlets",
+   "kind": "group",
+   "regular": "Annual",
+   "url": "https://www.instagram.com/itura_events/",
+   "instagram": "@itura_events",
+   "centres": "black-lgbtq"
+  },
   {
    "id": "ajamu-studios",
    "name": "Ajamu Studios",
@@ -27,6 +40,18 @@
    "centres": "qtipoc"
   },
   {
+   "id": "black-meat-market",
+   "name": "Black Meat Market",
+   "what": "Erotic nightlife and private parties built for Black gay, bi and DL men. Adults only.",
+   "where": "London — White Swan, Limehouse, and Bar Silver, Upper Street",
+   "region": "london",
+   "borough": "Tower Hamlets",
+   "kind": "club-night",
+   "url": "https://www.blackmeatmarket.co.uk",
+   "instagram": "@blackmeatmarketuk",
+   "centres": "black-queer-men"
+  },
+  {
    "id": "black-obsidian-sound-system",
    "name": "Black Obsidian Sound System (B.O.S.S)",
    "what": "London collective — club nights and sound system events centring Black queer and trans experiences.",
@@ -35,6 +60,17 @@
    "kind": "collective",
    "instagram": "@boss.london",
    "centres": "black-lgbtq"
+  },
+  {
+   "id": "black-queer-men-hangouts-30",
+   "name": "Black Queer Men Hangouts (30+)",
+   "what": "Strictly for Black queer men aged 30 and over: an intentional space outside nightlife, with book discussion and games.",
+   "where": "London — LGBTQ+ Community Centre, 60-62 Hopton Street",
+   "region": "london",
+   "borough": "Southwark",
+   "kind": "group",
+   "url": "https://www.eventbrite.co.uk/e/black-queer-men-hangouts-book-discussion-games-30-tickets-2001078222832",
+   "centres": "black-queer-men"
   },
   {
    "id": "black-thrive-lambeth-lgbtqia-programme",
@@ -120,10 +156,12 @@
   {
    "id": "house-of-rainbow",
    "name": "House of Rainbow",
-   "what": "Faith community and global network centring Black, African and Caribbean LGBTIQ+ people of faith.",
-   "where": "London",
+   "what": "Faith community and global network centring Black, African and Caribbean LGBTIQ+ people of faith, founded by Islington-born Rev Jide Macaulay. Meets in person at Union Chapel, Compton Terrace, on the third Sunday of each month at 4pm.",
+   "where": "Islington, London — Union Chapel, Compton Terrace",
    "region": "london",
+   "borough": "Islington",
    "kind": "organisation",
+   "regular": "Monthly, third Sunday 4pm",
    "url": "https://www.houseofrainbow.org/",
    "centres": "black-lgbtq"
   },
@@ -265,6 +303,17 @@
    "borough": "Newham",
    "kind": "organisation",
    "url": "https://www.ukblackpride.org.uk/",
+   "centres": "qtipoc"
+  },
+  {
+   "id": "wise-thoughts",
+   "name": "Wise Thoughts",
+   "what": "Global Majority and LGBTQI+ arts charity running since 1999: the gayWISE drop-in and GFEST, its cross-arts festival.",
+   "where": "Haringey, London",
+   "region": "london",
+   "borough": "Haringey",
+   "kind": "organisation",
+   "url": "https://wisethoughts.org",
    "centres": "qtipoc"
   },
   {
