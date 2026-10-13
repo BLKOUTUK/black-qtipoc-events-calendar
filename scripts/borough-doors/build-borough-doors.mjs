@@ -1578,3 +1578,7 @@ if (!targets.length && !buildAll) {
   process.exit(1);
 }
 for (const slug of buildAll ? allSlugs : targets) build(slug);
+
+// Doors as data for AIvor (public/doors.json), refreshed on every build.
+const { emitDoorsJson } = await import('./emit-doors-json.mjs');
+console.log(`doors.json: ${emitDoorsJson().length} doors`);
