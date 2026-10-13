@@ -117,6 +117,13 @@
         "note": "A free book club for queer people of the Global Majority, reading queer authors of colour. It meets on the first Wednesday of the month at Housmans, the radical bookshop at 5 Caledonian Road.",
         "centres": "lgbtq-general",
         "currencyChecked": true
+      },
+      {
+        "name": "Black Cultural Centre",
+        "url": "https://www.islington.gov.uk/about-the-council/equality-and-diversity/challenging-inequality/black-cultural-centre",
+        "note": "Islington Council's centre for residents of Black African and Caribbean heritage, at 16–18 Hornsey Road, N7, opened in November 2024. Community groups take it in turns to run programmes there: Black History Studies and the Sapphire Community Group ran the summer of 2026.",
+        "centres": "black-general",
+        "currencyChecked": true
       }
     ]
   },
