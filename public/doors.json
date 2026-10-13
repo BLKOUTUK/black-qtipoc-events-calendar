@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T09:42:54.355Z",
+ "generated": "2026-10-13T10:04:44.998Z",
  "source": "https://events.blkoutuk.com/",
  "doors": [
   {
@@ -121,6 +121,12 @@
      "name": "The Black Cap",
      "url": "https://blackcapcamden.co.uk",
      "note": "Camden Town's legendary drag cabaret pub, the \"Palladium of drag\" from the mid-1960s — Paul O'Grady debuted Lily Savage here in 1978. Closed 2015, reopened March 2026 after a decade-long campaign.",
+     "centres": "lgbtq-general"
+    },
+    {
+     "name": "forum+",
+     "url": "https://forumplus.org.uk",
+     "note": "The LGBTQ+ charity for Camden and Islington (formerly Camden LGBT Forum). It runs free wellbeing, social and cultural events, a hate-crime caseworker service, and curates the boroughs' LGBT History Month programme.",
      "centres": "lgbtq-general"
     }
    ],
@@ -675,6 +681,12 @@
      "url": "https://www.piehouse.co.uk",
      "note": "A Deptford railway arch venue, reopened in November 2024 after a community campaign to save it — home to the Rotten Crip Collective's residency and a genuine local win worth backing.",
      "centres": "lgbtq-general"
+    },
+    {
+     "name": "Lewisham LGBT+ Network",
+     "url": "https://www.lewishamlocal.com/lewisham-lgbt-network/",
+     "note": "Run since April 2026 by Lewisham Local with SE London Pride and Proud to Be ME CIC, it supports the borough's LGBT+ groups with training, mentoring and funding, and is relaunching Lewisham's LGBT+ forum, which closed in 2023.",
+     "centres": "lgbtq-general"
     }
    ],
    "worthTheJourney": [
@@ -1007,6 +1019,12 @@
      "name": "Westminster City Archives — LGBTQ+ heritage programme",
      "url": "https://www.westminster.gov.uk/libraries-and-archives/westminster-city-archives",
      "note": "The council archive's growing LGBTQ+ collections and public talks — including, in 2025, a Black, Queer & Young event platforming Black queer artists alongside the Westminster Youth Foundation.",
+     "centres": "lgbtq-general"
+    },
+    {
+     "name": "Westminster LGBT+ Forum",
+     "url": "https://www.westminsterlgbtforum.co.uk/",
+     "note": "A registered charity connecting LGBTQ+ people and allies who live, work or visit in Westminster: advocacy, signposting and cultural events such as its Creative Socials, with a summer afternoon in St Anne's Church Gardens, Soho. Free to join via its newsletter.",
      "centres": "lgbtq-general"
     }
    ],
