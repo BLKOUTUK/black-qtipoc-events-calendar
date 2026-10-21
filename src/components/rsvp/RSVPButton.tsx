@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Check, Users, Loader2, AlertCircle, X } from 'lucide-react';
+import { sessionAuthHeaders } from '../../lib/sessionAuth';
 
 const IVOR_API = import.meta.env.VITE_IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
 
@@ -56,7 +57,7 @@ export function RSVPButton({
     try {
       const [capacityRes, rsvpsRes] = await Promise.all([
         fetch(`${IVOR_API}/api/rsvp/${eventId}/capacity`),
-        userId ? fetch(`${IVOR_API}/api/rsvp/user/${userId}/rsvps`) : Promise.resolve(null)
+        userId ? fetch(`${IVOR_API}/api/rsvp/user/${userId}/rsvps`, { headers: await sessionAuthHeaders() }) : Promise.resolve(null)
       ]);
 
       const capacityData = await capacityRes.json();

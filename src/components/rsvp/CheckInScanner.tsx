@@ -7,6 +7,7 @@
 
 import { useState, useCallback } from 'react';
 import { QrCode, Check, X, Loader2, Users, AlertCircle, Search } from 'lucide-react';
+import { sessionAuthHeaders } from '../../lib/sessionAuth';
 
 const IVOR_API = import.meta.env.VITE_IVOR_API_URL || 'https://ivor.blkoutuk.cloud';
 
@@ -39,7 +40,7 @@ export function CheckInScanner({
   // Fetch check-in stats
   const fetchStats = useCallback(async () => {
     try {
-      const response = await fetch(`${IVOR_API}/api/rsvp/${eventId}/rsvps`);
+      const response = await fetch(`${IVOR_API}/api/rsvp/${eventId}/rsvps`, { headers: await sessionAuthHeaders() });
       const data = await response.json();
 
       if (data.success) {
@@ -66,7 +67,7 @@ export function CheckInScanner({
     try {
       const response = await fetch(`${IVOR_API}/api/rsvp/${eventId}/check-in`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...(await sessionAuthHeaders()) },
         body: JSON.stringify({ checkInCode: checkInCode.trim().toUpperCase() })
       });
 
