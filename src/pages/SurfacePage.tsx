@@ -1,6 +1,4 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { Event } from '../types';
-import { supabaseEventService } from '../services/supabaseEventService';
 import { googleSheetsService } from '../services/googleSheetsService';
 import { fetchGatherings, fetchOpenings, fetchPageNote } from '../services/surfaceService';
 import { Gathering, Opening, PageNote } from '../types/surface';
@@ -9,20 +7,10 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Surface } from '../components/surface/Surface';
 
-// Deferred — loaded on demand (modals, admin panels).
+// Deferred — loaded on demand (modals).
 const EventForm = lazy(() => import('../components/EventForm').then((m) => ({ default: m.EventForm })));
 const OpeningForm = lazy(() => import('../components/OpeningForm').then((m) => ({ default: m.OpeningForm })));
 const AuthModal = lazy(() => import('../components/AuthModal').then((m) => ({ default: m.AuthModal })));
-const ModerationQueue = lazy(() => import('../components/ModerationQueue').then((m) => ({ default: m.ModerationQueue })));
-const CommunityIntelligenceDashboard = lazy(() => import('../components/CommunityIntelligenceDashboard'));
-const CalendarSyncDashboard = lazy(() =>
-  import('../components/CalendarSyncDashboard').then((m) => ({ default: m.CalendarSyncDashboard }))
-);
-const FeaturedContentManager = lazy(() =>
-  import('../components/FeaturedContentManager').then((m) => ({ default: m.FeaturedContentManager }))
-);
-const AnalyticsDashboard = lazy(() => import('../components/analytics').then((m) => ({ default: m.AnalyticsDashboard })));
-const OrganizerDashboard = lazy(() => import('../components/organizer').then((m) => ({ default: m.OrganizerDashboard })));
 const InstallPrompt = lazy(() => import('../components/pwa').then((m) => ({ default: m.InstallPrompt })));
 const OfflineIndicator = lazy(() => import('../components/pwa').then((m) => ({ default: m.OfflineIndicator })));
 
@@ -48,19 +36,11 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
   const [note, setNote] = useState<PageNote | null>(null);
   const [noteError, setNoteError] = useState<string | null>(null);
 
-  const [events, setEvents] = useState<Event[]>([]); // admin-only: feeds Calendar Sync
-  const [user, setUser] = useState(null);
-  const [, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
+  const [, setUser] = useState(null);
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showOpeningForm, setShowOpeningForm] = useState(openOpeningForm);
-  const [showModerationQueue, setShowModerationQueue] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [showIntelligenceDashboard] = useState(false);
-  const [showCalendarSync, setShowCalendarSync] = useState(false);
-  const [showFeaturedManager, setShowFeaturedManager] = useState(false);
-  const [showAnalyticsDashboard, setShowAnalyticsDashboard] = useState(false);
-  const [showOrganizerDashboard, setShowOrganizerDashboard] = useState(false);
 
   const loadGatherings = async () => {
     const { data } = await fetchGatherings();
@@ -78,25 +58,6 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
     setNoteError(error);
   };
 
-  const loadEvents = async () => {
-    try {
-      const allEvents = await supabaseEventService.getPublishedEvents();
-      setEvents((allEvents || []).filter((e) => e && e.id));
-    } catch (error) {
-      console.error('Error loading events:', error);
-      setEvents([]);
-    }
-  };
-
-  const loadStats = async () => {
-    try {
-      const moderationStats = await supabaseEventService.getModerationStats();
-      setStats(moderationStats);
-    } catch (error) {
-      console.error('Error loading stats:', error);
-    }
-  };
-
   const checkUser = async () => {
     const currentUser = await googleSheetsService.getCurrentUser();
     setUser(currentUser);
@@ -104,7 +65,7 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
 
   useEffect(() => {
     (async () => {
-      await Promise.all([loadGatherings(), loadOpenings(), loadNote(), loadEvents()]);
+      await Promise.all([loadGatherings(), loadOpenings(), loadNote()]);
       setPageLoading(false);
     })();
     checkUser();
@@ -138,8 +99,7 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
 
   const handleEventSubmit = async () => {
     setShowEventForm(false);
-    await Promise.all([loadEvents(), loadGatherings()]);
-    if (user) await loadStats();
+    await loadGatherings();
   };
 
   const handleOpeningSubmit = () => {
@@ -150,7 +110,6 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
     const signedInUser = await googleSheetsService.signIn(email, password);
     setUser(signedInUser);
     setShowAuthModal(false);
-    await loadStats();
     const params = new URLSearchParams(window.location.search);
     const next = params.get('next');
     if (next && next.startsWith('/')) {
@@ -199,79 +158,6 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
           <OpeningForm onSubmit={handleOpeningSubmit} onCancel={() => setShowOpeningForm(false)} />
         )}
         {showAuthModal && <AuthModal onSignIn={handleSignIn} onClose={() => setShowAuthModal(false)} />}
-      </Suspense>
-
-      <Suspense fallback={null}>
-        {showModerationQueue && user && <ModerationQueue onClose={() => setShowModerationQueue(false)} />}
-        {/* CommunityIntelligenceDashboard takes no props (pre-existing — it had no working
-            close button in the original App.tsx either; out of scope to fix here). */}
-        {showIntelligenceDashboard && user && <CommunityIntelligenceDashboard />}
-        {showCalendarSync && user && (
-          <CalendarSyncDashboard events={events} onClose={() => setShowCalendarSync(false)} />
-        )}
-      </Suspense>
-
-      <Suspense fallback={null}>
-        {showFeaturedManager && user && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-purple-500/30">
-              <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-6 flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-white">Featured Content Manager</h2>
-                  <p className="text-sm text-gray-100">Manage hero carousel and featured images</p>
-                </div>
-                <button
-                  onClick={() => setShowFeaturedManager(false)}
-                  className="text-white hover:text-gray-200 transition-colors"
-                  aria-label="Close"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto p-6">
-                <FeaturedContentManager />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showAnalyticsDashboard && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-blue-500/30">
-              <div className="bg-gradient-to-r from-blue-600 to-indigo-500 p-4 flex items-center justify-between">
-                <h2 className="text-xl font-bold text-white">Analytics Dashboard</h2>
-                <button onClick={() => setShowAnalyticsDashboard(false)} className="text-white hover:text-gray-200">
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto p-6">
-                <AnalyticsDashboard isAdmin={!!user} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showOrganizerDashboard && user && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-900 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-orange-500/30">
-              <div className="bg-gradient-to-r from-orange-600 to-red-500 p-4 flex items-center justify-between">
-                <h2 className="text-xl font-bold text-white">Organizer Dashboard</h2>
-                <button onClick={() => setShowOrganizerDashboard(false)} className="text-white hover:text-gray-200">
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto p-6">
-                <OrganizerDashboard userId="demo-user" />
-              </div>
-            </div>
-          </div>
-        )}
       </Suspense>
 
       {/* PWA Components — lazy, non-blocking */}
