@@ -90,6 +90,9 @@ app.get(['/', '/gatherings'], async (req, res, next) => {
   }
 });
 
+// Moderation lives on the Comms dashboard (Rob, 24 Oct 2026); the old /moderation page is retired.
+app.get(['/moderation', '/moderation/'], (_req, res) => res.redirect(302, 'https://comms.blkoutuk.com/admin/events'));
+
 // Serve static files from the 'dist' directory
 // Hashed assets (JS/CSS) get long-term caching; HTML always revalidates
 app.use(express.static(path.join(__dirname, 'dist'), {

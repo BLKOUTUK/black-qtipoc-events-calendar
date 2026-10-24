@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { SurfacePage } from './pages/SurfacePage';
 
-const ModerationDashboardPage = lazy(() => import('./pages').then((m) => ({ default: m.ModerationDashboardPage })));
 const QuickAddEventPage = lazy(() => import('./pages/QuickAddEventPage').then((m) => ({ default: m.QuickAddEventPage })));
 
 function LazyFallback() {
@@ -11,6 +10,13 @@ function LazyFallback() {
       <div className="w-6 h-6 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
     </div>
   );
+}
+
+// Moderation lives on the Comms dashboard (Rob, 24 Oct 2026). server.ts redirects full page loads;
+// this covers in-app navigation.
+function CommsModerationRedirect() {
+  window.location.replace('https://comms.blkoutuk.com/admin/events');
+  return null;
 }
 
 function App() {
@@ -25,7 +31,7 @@ function App() {
         {/* Shareable event-submission links — SurfacePage itself detects these paths. */}
         <Route path="/submit" element={<SurfacePage />} />
         <Route path="/add" element={<SurfacePage />} />
-        <Route path="/moderation" element={<ModerationDashboardPage />} />
+        <Route path="/moderation" element={<CommsModerationRedirect />} />
         <Route path="/quick-add" element={<QuickAddEventPage />} />
       </Routes>
     </Suspense>

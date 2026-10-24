@@ -1,5 +1,4 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { Settings, LogOut, BarChart3, Calendar, Users } from 'lucide-react';
 import { Event } from '../types';
 import { supabaseEventService } from '../services/supabaseEventService';
 import { googleSheetsService } from '../services/googleSheetsService';
@@ -51,13 +50,13 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
 
   const [events, setEvents] = useState<Event[]>([]); // admin-only: feeds Calendar Sync
   const [user, setUser] = useState(null);
-  const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
+  const [, setStats] = useState({ pending: 0, approved: 0, rejected: 0, total: 0 });
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [showOpeningForm, setShowOpeningForm] = useState(openOpeningForm);
   const [showModerationQueue, setShowModerationQueue] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [showIntelligenceDashboard, setShowIntelligenceDashboard] = useState(false);
+  const [showIntelligenceDashboard] = useState(false);
   const [showCalendarSync, setShowCalendarSync] = useState(false);
   const [showFeaturedManager, setShowFeaturedManager] = useState(false);
   const [showAnalyticsDashboard, setShowAnalyticsDashboard] = useState(false);
@@ -163,27 +162,8 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
     }
   };
 
-  const handleSignOut = async () => {
-    await googleSheetsService.signOut();
-    setUser(null);
-    setStats({ pending: 0, approved: 0, rejected: 0, total: 0 });
-  };
 
-  const handleModerationClick = () => {
-    if (!user) {
-      setShowAuthModal(true);
-      return;
-    }
-    setShowModerationQueue(true);
-  };
 
-  const handleIntelligenceClick = () => {
-    if (!user) {
-      setShowAuthModal(true);
-      return;
-    }
-    setShowIntelligenceDashboard(true);
-  };
 
   const places = publishedPlaces();
   const placesHeld = heldPlacesCount();
@@ -192,76 +172,6 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
     <div className="min-h-screen bg-[#0a0a14] noise">
       <Header />
       <div className="h-16" />
-
-      {/* Admin Controls — authed only. Unchanged from the previous home surface. */}
-      {user && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-          <div className="bg-liberation-black-power rounded-xl p-6 mb-8 border-2 border-events">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="text-events">
-                <h3 className="text-lg font-bold">Admin Controls</h3>
-                <p className="text-sm text-gray-200">Manage liberation events and community content</p>
-              </div>
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={handleModerationClick}
-                  className="relative flex items-center px-4 py-2 bg-events text-liberation-black-power rounded-lg hover:bg-events/90 transition-colors duration-200 font-medium"
-                >
-                  <Settings className="w-4 h-4 mr-2" />
-                  Moderation
-                  {stats.pending > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {stats.pending}
-                    </span>
-                  )}
-                </button>
-                <button
-                  onClick={handleIntelligenceClick}
-                  className="flex items-center px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-600 transition-colors duration-200 font-medium"
-                >
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  Intelligence
-                </button>
-                <button
-                  onClick={() => setShowCalendarSync(true)}
-                  className="flex items-center px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-600 transition-colors duration-200 font-medium"
-                >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Calendar Sync
-                </button>
-                <button
-                  onClick={() => setShowFeaturedManager(true)}
-                  className="flex items-center px-4 py-2 bg-pink-700 text-white rounded-lg hover:bg-pink-600 transition-colors duration-200 font-medium"
-                >
-                  <Settings className="w-4 h-4 mr-2" />
-                  Featured Content
-                </button>
-                <button
-                  onClick={() => setShowAnalyticsDashboard(true)}
-                  className="flex items-center px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 font-medium"
-                >
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  Analytics
-                </button>
-                <button
-                  onClick={() => setShowOrganizerDashboard(true)}
-                  className="flex items-center px-4 py-2 bg-orange-700 text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 font-medium"
-                >
-                  <Users className="w-4 h-4 mr-2" />
-                  Organizer
-                </button>
-                <button
-                  onClick={handleSignOut}
-                  className="flex items-center px-4 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Sign Out
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {pageLoading ? (
         <div className="flex items-center justify-center py-32">
