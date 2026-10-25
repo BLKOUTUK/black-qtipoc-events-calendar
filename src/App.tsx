@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { SurfacePage } from './pages/SurfacePage';
+import { EventPage } from './pages/EventPage';
 
 const QuickAddEventPage = lazy(() => import('./pages/QuickAddEventPage').then((m) => ({ default: m.QuickAddEventPage })));
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/add" element={<SurfacePage />} />
         <Route path="/moderation" element={<CommsModerationRedirect />} />
         <Route path="/quick-add" element={<QuickAddEventPage />} />
+        <Route path="/e/:id/:slug?" element={<EventPage />} />
       </Routes>
     </Suspense>
   );

@@ -28,6 +28,18 @@ export async function fetchGatherings(): Promise<FetchResult<Gathering[]>> {
   return { data: (data as Gathering[]) ?? [], error: null };
 }
 
+/** One gathering for its event page. `data` is null when it isn't live (unapproved, incomplete or past). */
+export async function fetchGathering(id: string): Promise<FetchResult<Gathering | null>> {
+  const query = supabase.from('gatherings_live').select('*').eq('id', id) as any;
+  const { data, error } = await query.maybeSingle();
+
+  if (error) {
+    console.error('surfaceService: gathering fetch failed', error);
+    return { data: null, error: error.message };
+  }
+  return { data: (data as Gathering) ?? null, error: null };
+}
+
 export async function fetchOpenings(): Promise<FetchResult<Opening[]>> {
   const { data, error } = await (supabase
     .from('openings_live')

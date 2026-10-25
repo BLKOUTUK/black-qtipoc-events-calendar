@@ -1,4 +1,5 @@
 import { MapPin } from 'lucide-react';
+import { eventPath } from '../../lib/eventLink';
 import { Gathering } from '../../types/surface';
 
 interface GatheringCardProps {
@@ -67,10 +68,9 @@ export function GatheringCard({ gathering }: GatheringCardProps) {
           <span className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70">
             {formatCost(gathering.cost)}
           </span>
+          {/* Plain link, not a router link: Surface renders outside a router for design review (render-fixture.mjs) */}
           <a
-            href={gathering.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={eventPath(gathering)}
             className="font-meta text-xs uppercase tracking-wide text-events/100 hover:underline"
           >
             Details →
