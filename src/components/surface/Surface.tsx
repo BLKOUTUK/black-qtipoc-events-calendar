@@ -141,21 +141,35 @@ export function Surface({
             a short list you can trust beats a long one you can't. every listing here has been looked at by a
             person — and a quiet week is shown as a quiet week.
           </p>
-          <nav className="font-meta text-xs uppercase tracking-wide mt-8 flex flex-wrap gap-x-3 gap-y-2 text-[#f5f1e8]/60">
-            <a href="#gatherings" className="hover:text-events/100 transition-colors">
-              01 gatherings
-            </a>
-            <span aria-hidden>·</span>
-            <a href="#openings" className="hover:text-events/100 transition-colors">
-              02 openings
-            </a>
-            <span aria-hidden>·</span>
-            <a href="#places" className="hover:text-events/100 transition-colors">
-              03 places
-            </a>
-          </nav>
         </div>
       </div>
+
+      {/* Section bar (Rob, 25 Oct 2026): the page is long and the hero links scrolled away, so
+          the three sections, with how much is in each, stay in reach under the site header. */}
+      <nav
+        aria-label="Sections on this page"
+        className="sticky top-[81px] md:top-[113px] z-30 bg-[#0a0a14]/95 backdrop-blur-sm border-y border-events/30"
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-x-2.5 sm:gap-x-5 gap-y-1 overflow-x-auto whitespace-nowrap py-3 font-meta text-[11px] sm:text-xs uppercase sm:tracking-wide">
+          {[
+            { id: 'gatherings', label: 'Gatherings', count: gatherings.length },
+            { id: 'openings', label: 'Openings', count: openings.length },
+            { id: 'places', label: 'Places', count: places.length },
+          ].map((s, i) => (
+            <a key={s.id} href={`#${s.id}`} className="text-[#f5f1e8]/80 hover:text-events/100 transition-colors">
+              <span className="hidden sm:inline text-events/100">0{i + 1} </span>{s.label} <span className="text-[#f5f1e8]/50">({s.count})</span>
+            </a>
+          ))}
+          <button
+            type="button"
+            onClick={onOpenEventForm}
+            className="ml-auto text-events/100 hover:underline uppercase tracking-wide"
+          >
+            <span className="sm:hidden">+ Add</span>
+            <span className="hidden sm:inline">+ Add yours</span>
+          </button>
+        </div>
+      </nav>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-16">
         {/* Ask AIvor — the front door for "what's happening?" */}

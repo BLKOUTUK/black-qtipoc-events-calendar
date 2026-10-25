@@ -15,7 +15,7 @@ interface StreamHeaderProps {
 
 export function StreamHeader({ id, index, section, heading, tagline, chipLabel }: StreamHeaderProps) {
   return (
-    <div id={id} className="border-t-4 border-events/100 pt-6 scroll-mt-20">
+    <div id={id} className="border-t-4 border-events/100 pt-6 scroll-mt-[140px] md:scroll-mt-[172px]">
       <div className="flex items-baseline justify-between gap-4 flex-wrap">
         <p className="font-meta text-[13px] uppercase tracking-widest text-events/100">
           {index} — {section}
