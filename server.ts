@@ -383,6 +383,30 @@ function startScrapeScheduler() {
   }, msToNext);
 }
 
+// Event image finder (Rob, 25 Oct 2026): nightly at 03:00 UTC, looks for a picture on each
+// imageless event's own page and queues it for approval in Comms (api/image-finder.ts). Comms
+// also asks for a scan straight after it approves an event.
+function startImageFinderScheduler() {
+  const DAY = 24 * 60 * 60 * 1000;
+  const next = new Date();
+  next.setUTCHours(3, 0, 0, 0);
+  if (next.getTime() <= Date.now()) next.setUTCDate(next.getUTCDate() + 1);
+  const run = async () => {
+    try {
+      const { scanForEventImages } = await import('./api/image-finder.js');
+      const outcomes = await scanForEventImages();
+      const found = outcomes.filter((o) => o.result.startsWith('found')).length;
+      const failed = outcomes.filter((o) => o.result.startsWith('FAILED'));
+      console.log(`🖼️ Image finder: ${outcomes.length} checked, ${found} queued for approval, ${failed.length} failed`);
+      failed.forEach((o) => console.error(`🖼️ Image finder FAILED for ${o.title}: ${o.result}`));
+    } catch (error) {
+      console.error('🖼️ Image finder FAILED:', error);
+    }
+  };
+  console.log(`🖼️ Image finder scheduled: next run ${next.toUTCString()}`);
+  setTimeout(() => { run(); setInterval(run, DAY); }, next.getTime() - Date.now());
+}
+
 // Start the server
 startServer().catch(error => {
   console.error('Failed to start server:', error);
@@ -391,3 +415,4 @@ startServer().catch(error => {
 
 // Start the scraper scheduler after server is up
 startScrapeScheduler();
+startImageFinderScheduler();

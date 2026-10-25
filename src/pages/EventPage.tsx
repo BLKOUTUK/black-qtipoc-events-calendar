@@ -203,6 +203,9 @@ export function EventPage() {
             <img src={g.image_url} alt="" className="w-full h-full object-cover" />
           </div>
         )}
+        {g.image_url?.includes('/event-images/') && (
+          <p className="-mt-6 mb-8 text-xs text-[#f5f1e8]/50">Image: {g.organizer}</p>
+        )}
 
         <p className="font-meta uppercase text-xs tracking-wide text-events mb-3">
           {formatWhen(g)}
