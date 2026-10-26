@@ -44,6 +44,14 @@ export function GatheringCard({ gathering }: GatheringCardProps) {
 
   return (
     <div className="bg-[#14141f] border border-events/30 hover:border-events/80 hover:-translate-y-0.5 transition-all duration-200 rounded-sharp flex flex-col">
+      {/* The bold adults-only banner from the old cards, back by Rob's choice (26 Oct 2026). */}
+      {adultsOnly && (
+        <div className="bg-purple-600 border-b-2 border-purple-800 px-4 py-2 flex items-center justify-center gap-3">
+          <span className="text-white font-black text-sm tracking-widest">XXX</span>
+          <span className="text-white font-bold text-xs tracking-wide">SEX RATED</span>
+          <span className="text-white font-black text-sm tracking-widest">XXX</span>
+        </div>
+      )}
       {gathering.image_url && (
         <div className="aspect-video overflow-hidden">
           <img src={gathering.image_url} alt="" className="w-full h-full object-cover" />
@@ -52,11 +60,6 @@ export function GatheringCard({ gathering }: GatheringCardProps) {
       <div className="p-4">
         <p className="font-meta uppercase text-xs tracking-wide text-events/100 mb-2">
           {formatDateLine(gathering)}
-          {adultsOnly && (
-            <span className="font-meta text-xs uppercase tracking-wide border border-events/50 px-1.5 py-0.5 text-[#f5f1e8]/70 ml-2">
-              18+
-            </span>
-          )}
         </p>
         <h3 className="text-[18px] font-semibold text-[#f5f1e8] leading-snug line-clamp-2 mb-2">{gathering.title}</h3>
         <p className="text-[13px] text-[#f5f1e8]/60 mb-2">{gathering.organizer}</p>
