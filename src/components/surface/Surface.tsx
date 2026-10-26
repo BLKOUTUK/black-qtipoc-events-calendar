@@ -9,6 +9,7 @@
 import { useState } from 'react';
 import FoundationLayer from '../foundation/FoundationLayer';
 import { StreamHeader } from './StreamHeader';
+import { WhatsOnVideo } from './WhatsOnVideo';
 import { GatheringCard } from './GatheringCard';
 import { OpeningRow } from './OpeningRow';
 import { PlaceRow } from './PlaceRow';
@@ -185,6 +186,7 @@ export function Surface({
             tagline="fewer, and true. a real place, a real date, a named organiser, a working link — or it does not go up."
             chipLabel={gatheringsChip}
           />
+          <WhatsOnVideo />
 
           {gatherings.length === 0 ? (
             <div className="mt-8 max-w-[58ch]">
