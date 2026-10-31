@@ -91,8 +91,11 @@ const TRUSTED_SOURCES = [
   'Time Out London',
 ];
 
-function getStatusForSource(sourceName: string): string {
-  return TRUSTED_SOURCES.includes(sourceName) ? 'approved' : 'pending';
+// Everything scraped goes to the moderation queue (Rob, 31 Oct 2026: "pending"). Auto-approving
+// trusted sources put feed articles on the listing dated by their publish date, and the anon key
+// may only insert draft/pending anyway, so every 'approved' insert was being rejected.
+function getStatusForSource(_sourceName: string): string {
+  return 'pending';
 }
 
 // ================================================================
@@ -1090,7 +1093,10 @@ export default async function handler(req: Request, res: Response) {
     const authHeader = req.headers.authorization;
     const providedSecret = authHeader?.replace('Bearer ', '') || req.body?.secret;
 
-    if (SCRAPER_SECRET && providedSecret !== SCRAPER_SECRET) {
+    // Locked (31 Oct 2026): with no SCRAPER_SECRET set, anyone could start a scrape. Now a POST
+    // needs the secret, and with none set the manual trigger is off. The Sunday schedule calls
+    // runScraper directly and is unaffected.
+    if (!SCRAPER_SECRET || providedSecret !== SCRAPER_SECRET) {
       return res.status(401).json({ error: 'Unauthorized. Provide SCRAPER_SECRET.' });
     }
 
