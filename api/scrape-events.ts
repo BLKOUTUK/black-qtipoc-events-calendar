@@ -446,6 +446,7 @@ interface ScrapeResults {
   duplicatesSkipped: number;
   errors: Array<{ source: string; error: string }>;
   sourceBreakdown: Array<{ source: string; found: number; relevant: number }>;
+  failedToSave?: number;
   timestamp: string;
 }
 
@@ -854,13 +855,13 @@ function sortByDate(events: ScrapedEvent[]): ScrapedEvent[] {
 // Supabase submission
 // ================================================================
 
-async function submitEventsToSupabase(events: ScrapedEvent[]): Promise<{ success: number; skipped: number; failed: number }> {
+async function submitEventsToSupabase(events: ScrapedEvent[]): Promise<{ success: number; skipped: number; failed: number; firstError?: string }> {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     console.error('Supabase credentials not configured');
-    return { success: 0, skipped: 0, failed: 0 };
+    return { success: 0, skipped: 0, failed: events.length, firstError: 'Supabase credentials not set on the server' };
   }
 
-  const results = { success: 0, skipped: 0, failed: 0 };
+  const results: { success: number; skipped: number; failed: number; firstError?: string } = { success: 0, skipped: 0, failed: 0 };
   const HORIZON_DAYS = 366;
   const oneDayMs = 24 * 60 * 60 * 1000;
 
@@ -929,11 +930,13 @@ async function submitEventsToSupabase(events: ScrapedEvent[]): Promise<{ success
         const errorBody = await insertResponse.text();
         console.error(`  Failed to insert "${event.title}": ${insertResponse.status} ${errorBody}`);
         results.failed++;
+        results.firstError ??= `HTTP ${insertResponse.status} ${errorBody.slice(0, 160)}`;
       } else {
         results.success++;
       }
     } catch (error: any) {
       results.failed++;
+      results.firstError ??= errorText(error);
       console.error(`  Error submitting "${event.title}":`, error.message);
     }
   }
@@ -1054,7 +1057,13 @@ async function runScraper(): Promise<ScrapeResults> {
     const submission = await submitEventsToSupabase(allEvents);
     results.submittedToSupabase = submission.success;
     results.duplicatesSkipped = submission.skipped;
+    results.failedToSave = submission.failed;
     console.log(`  ✅ Submitted: ${submission.success}, Skipped duplicates: ${submission.skipped}, Failed: ${submission.failed}`);
+    // Saving is a "source" too: every insert rejected (as RLS did from June to October 2026) is a
+    // failure, reported and parked like a dead source. Parking it only flags it; saving still runs.
+    const rejected = submission.failed > 0 && submission.success === 0;
+    await recordHealth(health, 'events_save', 'Saving to the events table', submission.success + submission.skipped,
+      rejected ? `${submission.failed} of ${allEvents.length} rejected: ${submission.firstError}` : undefined);
   }
 
   return results;
