@@ -11,6 +11,66 @@ const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPA
 const EVENTBRITE_API_TOKEN = process.env.EVENTBRITE_API_TOKEN || '';
 const OUTSAVVY_API_KEY = process.env.OUTSAVVY_API_KEY || '';
 const SCRAPER_SECRET = process.env.SCRAPER_SECRET || '';
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+// ================================================================
+// Source health (31 Oct 2026). The fetchers below swallow their errors and return [], so a
+// blocked source looked like a quiet week: QX answered every run with 403 from June to October
+// and nobody knew. Each run now records what every source found and why it failed; after
+// PARK_AFTER failed runs in a row the source is parked (not tried again) and the comms-blkout
+// scraper-health workflow tells Rob on Telegram. A parked source comes back when someone clears
+// parked_at in scraper_source_health, i.e. once it is fixed.
+// ================================================================
+const PARK_AFTER = 2;
+const fetchErrors: Record<string, string> = {};
+const errorText = (error: any) => (error?.response?.status ? `HTTP ${error.response.status}` : String(error?.message || error));
+
+interface SourceHealth { source_id: string; consecutive_failures: number; parked_at: string | null }
+
+async function healthRest(path: string, init: RequestInit = {}) {
+  return fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...init,
+    headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}`, 'Content-Type': 'application/json', ...(init.headers || {}) },
+  });
+}
+
+async function loadHealth(): Promise<Record<string, SourceHealth>> {
+  if (!SERVICE_KEY) {
+    console.error('  ❌ FAILED: SUPABASE_SERVICE_ROLE_KEY not set, so source health is not recorded and dead sources will not be parked');
+    return {};
+  }
+  const r = await healthRest('scraper_source_health?select=source_id,consecutive_failures,parked_at');
+  if (!r.ok) {
+    console.error(`  ❌ FAILED: could not read scraper_source_health: HTTP ${r.status}`);
+    return {};
+  }
+  const rows = (await r.json()) as SourceHealth[];
+  return Object.fromEntries(rows.map((row) => [row.source_id, row]));
+}
+
+// A run fails when it errors or finds nothing at all (found, before the relevance filter).
+async function recordHealth(health: Record<string, SourceHealth>, id: string, name: string, found: number, error?: string) {
+  if (!SERVICE_KEY) return;
+  const now = new Date().toISOString();
+  const failed = Boolean(error) || found === 0;
+  const failures = failed ? (health[id]?.consecutive_failures || 0) + 1 : 0;
+  const reason = error || 'found nothing';
+  const row: Record<string, unknown> = {
+    source_id: id, source_name: name, last_run_at: now, last_found: found,
+    last_error: failed ? reason : null, consecutive_failures: failures,
+  };
+  if (!failed) row.last_ok_at = now;
+  if (failed && failures >= PARK_AFTER) {
+    row.parked_at = now;
+    row.parked_reason = `${failures} failed runs in a row: ${reason}`;
+    row.alerted_at = null; // the health workflow tells Rob, then stamps this
+    console.log(`  🅿️ ${name}: parked after ${failures} failed runs (${reason})`);
+  }
+  const r = await healthRest('scraper_source_health?on_conflict=source_id', {
+    method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(row),
+  });
+  if (!r.ok) console.error(`  ❌ FAILED: health for ${name} not saved: HTTP ${r.status} ${await r.text()}`);
+}
 
 // ================================================================
 // Source classification for moderation routing
@@ -482,6 +542,7 @@ async function scrapeJSONLDSource(source: ScrapingSource): Promise<ScrapedEvent[
       if (urls.length > 1) await delay(2000);
     } catch (error: any) {
       console.error(`  Error fetching ${url}:`, error.message);
+      fetchErrors[source.id] = errorText(error);
     }
   }
   return events;
@@ -532,6 +593,7 @@ async function scrapeRSSFeed(source: ScrapingSource): Promise<ScrapedEvent[]> {
     }
   } catch (error: any) {
     console.error(`Error scraping RSS ${source.name}:`, error.message);
+    fetchErrors[source.id] = errorText(error);
   }
   return events;
 }
@@ -586,6 +648,7 @@ async function scrapeICalSource(source: ScrapingSource): Promise<ScrapedEvent[]>
     }
   } catch (error: any) {
     console.error(`Error scraping iCal ${source.name}:`, error.message);
+    fetchErrors[source.id] = errorText(error);
   }
   return events;
 }
@@ -597,6 +660,7 @@ async function scrapeICalSource(source: ScrapingSource): Promise<ScrapedEvent[]>
 async function scrapeEventbriteAPI(): Promise<ScrapedEvent[]> {
   if (!EVENTBRITE_API_TOKEN) {
     console.log('  Eventbrite API token not configured, skipping API scraping');
+    fetchErrors['eventbrite_api'] = 'EVENTBRITE_API_TOKEN not set on the server';
     return [];
   }
 
@@ -680,6 +744,7 @@ async function scrapeEventbriteAPI(): Promise<ScrapedEvent[]> {
 async function scrapeOutsavvyAPI(): Promise<ScrapedEvent[]> {
   if (!OUTSAVVY_API_KEY) {
     console.log('  Outsavvy API key not configured, skipping');
+    fetchErrors['outsavvy_api'] = 'OUTSAVVY_API_KEY not set on the server';
     return [];
   }
 
@@ -896,9 +961,16 @@ async function runScraper(): Promise<ScrapeResults> {
   };
 
   let allEvents: ScrapedEvent[] = [];
+  const health = await loadHealth();
+  const parked = (id: string, name: string) => {
+    if (!health[id]?.parked_at) return false;
+    console.log(`🅿️ ${name}: parked since ${health[id].parked_at}, not tried (clear parked_at in scraper_source_health once fixed)`);
+    return true;
+  };
 
   // 1. Scrape scene-oriented periodicals and civil society sources
   for (const source of SCENE_SOURCES) {
+    if (parked(source.id, source.name)) continue;
     try {
       console.log(`📅 Scraping ${source.name}...`);
       let events: ScrapedEvent[] = [];
@@ -920,6 +992,7 @@ async function runScraper(): Promise<ScrapeResults> {
 
       results.sourceBreakdown.push({ source: source.name, found: events.length, relevant: relevant.length });
       allEvents.push(...relevant);
+      await recordHealth(health, source.id, source.name, events.length, fetchErrors[source.id]);
 
       if (relevant.length > 0) {
         results.successfulSources++;
@@ -933,11 +1006,12 @@ async function runScraper(): Promise<ScrapeResults> {
       results.failedSources++;
       results.errors.push({ source: source.name, error: error.message });
       console.error(`  ❌ ${source.name}: ${error.message}`);
+      await recordHealth(health, source.id, source.name, 0, errorText(error));
     }
   }
 
   // 2. Eventbrite API (known QTIPOC+ organizations)
-  try {
+  if (!parked('eventbrite_api', 'Eventbrite API')) try {
     console.log('📅 Scraping Eventbrite API (known organizations)...');
     const ebEvents = await scrapeEventbriteAPI();
     if (ebEvents.length > 0) {
@@ -945,12 +1019,14 @@ async function runScraper(): Promise<ScrapeResults> {
       results.successfulSources++;
       results.sourceBreakdown.push({ source: 'Eventbrite API', found: ebEvents.length, relevant: ebEvents.length });
     }
+    await recordHealth(health, 'eventbrite_api', 'Eventbrite API', ebEvents.length, fetchErrors['eventbrite_api']);
   } catch (error: any) {
     results.errors.push({ source: 'Eventbrite API', error: error.message });
+    await recordHealth(health, 'eventbrite_api', 'Eventbrite API', 0, errorText(error));
   }
 
   // 3. Outsavvy API
-  try {
+  if (!parked('outsavvy_api', 'Outsavvy API')) try {
     console.log('📅 Scraping Outsavvy API...');
     const osEvents = await scrapeOutsavvyAPI();
     const relevant = osEvents.filter(e => e.relevanceScore > 0.2);
@@ -959,8 +1035,10 @@ async function runScraper(): Promise<ScrapeResults> {
       results.successfulSources++;
       results.sourceBreakdown.push({ source: 'Outsavvy API', found: osEvents.length, relevant: relevant.length });
     }
+    await recordHealth(health, 'outsavvy_api', 'Outsavvy API', osEvents.length, fetchErrors['outsavvy_api']);
   } catch (error: any) {
     results.errors.push({ source: 'Outsavvy API', error: error.message });
+    await recordHealth(health, 'outsavvy_api', 'Outsavvy API', 0, errorText(error));
   }
 
   // Deduplicate and sort
