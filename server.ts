@@ -11,6 +11,30 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Page-visit log (1 Nov 2026): one row per page view in public.site_visits, read through
+// metrics.site_traffic, so we can see whether the weekly videos and newsletter send people.
+// Records page, utm tags and the referring site's domain only: no IP, no user agent.
+// Fire-and-forget; a logging failure never touches the page.
+function logVisits(site: string) {
+  const url = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '').replace(/\/$/, '');
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  return (req: express.Request, _res: express.Response, next: express.NextFunction) => {
+    next();
+    if (!url || !key || req.method !== 'GET' || req.path.startsWith('/api/') || /\.[a-z0-9]+$/i.test(req.path)) return;
+    if (!String(req.headers.accept || '').includes('text/html')) return;
+    const q = req.query as Record<string, string | undefined>;
+    let referrer_host: string | null = null;
+    try { referrer_host = req.headers.referer ? new URL(String(req.headers.referer)).hostname : null; } catch {}
+    const cut = (v: unknown) => (typeof v === 'string' && v ? v.slice(0, 120) : null);
+    fetch(`${url}/rest/v1/site_visits`, {
+      method: 'POST',
+      headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ site, path: req.path.slice(0, 300), utm_source: cut(q.utm_source), utm_medium: cut(q.utm_medium), utm_campaign: cut(q.utm_campaign), referrer_host }),
+    }).catch((e) => console.error('[visits] log failed:', e?.message || e));
+  };
+}
+app.use(logVisits('events'));
+
 // Canonical host (14 Sep 2026): events.blkoutuk.cloud answers this app too. Page requests on
 // the alias 301 to the canonical host; /api stays reachable on every host because other apps
 // call it there. GET/HEAD only — a 301 would turn a POST into a GET.
