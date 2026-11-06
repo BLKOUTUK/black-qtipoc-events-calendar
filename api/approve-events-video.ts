@@ -17,10 +17,34 @@ function page(res: Response, status: number, heading: string, body: string) {
 <h1 style="color:#FFD700;font-size:1.5rem">${heading}</h1>${body}</body>`);
 }
 
-const KINDS: Record<string, { table: string; sig: string; name: string; when: string }> = {
-  events: { table: 'aivor_event_digests', sig: 'events-video', name: "What's On", when: 'from 18:00 Thursday (or within the hour, if later)' },
-  news: { table: 'aivor_digests', sig: 'news-video', name: 'BLKOUT News', when: 'within the hour' },
+const KINDS: Record<string, { table: string; sig: string; name: string; when: string; workflow: string }> = {
+  events: { table: 'aivor_event_digests', sig: 'events-video', name: "What's On", when: 'from 18:00 Thursday (or within the hour, if later)', workflow: 'publish-events-video.yml' },
+  news: { table: 'aivor_digests', sig: 'news-video', name: 'BLKOUT News', when: 'within the hour', workflow: 'publish-news-video.yml' },
 };
+
+// Start the publish job straight away: GitHub's hourly schedule can go hours without firing
+// (Rob's W45 yes sat 5.5 hours, 6 Nov 2026). Never throws: the yes is already saved, and the
+// schedule still picks it up if this fails. Needs a token with Actions write on comms-blkout.
+async function startPublish(workflow: string, week: string): Promise<boolean> {
+  const token = process.env.GITHUB_ACTIONS_TOKEN;
+  if (!token) {
+    console.error('[approve-events-video] FAILED to start publish: GITHUB_ACTIONS_TOKEN not set');
+    return false;
+  }
+  try {
+    const r = await fetch(`https://api.github.com/repos/BLKOUTUK/comms-blkout/actions/workflows/${workflow}/dispatches`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: 'main', inputs: { week_label: week } }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (r.status === 204) return true;
+    console.error(`[approve-events-video] FAILED to start publish: HTTP ${r.status}`);
+  } catch (e) {
+    console.error(`[approve-events-video] FAILED to start publish: ${(e as Error).message}`);
+  }
+  return false;
+}
 const kindOf = (req: Request) => KINDS[String(req.query.kind || 'events')] || null;
 
 function verified(req: Request): string | null {
@@ -64,5 +88,6 @@ export default async function handler(req: Request, res: Response) {
   const upd = await rest(`${K.table}?week_tag=eq.${week}&approved_at=is.null`, { method: 'PATCH', body: JSON.stringify({ approved_at: new Date().toISOString() }) });
   if (!upd.ok) return page(res, 500, 'FAILED: the approval was not saved', '<p>Try the link again.</p>');
   console.log(`[approve-events-video] ${K.sig} ${week} approved`);
-  return page(res, 200, `Approved: ${K.name} ${week}`, `${watch}<p>It goes public ${K.when}.</p>`);
+  const started = await startPublish(K.workflow, week);
+  return page(res, 200, `Approved: ${K.name} ${week}`, `${watch}<p>It goes public ${started ? 'in a few minutes' : K.when}.</p>`);
 }
