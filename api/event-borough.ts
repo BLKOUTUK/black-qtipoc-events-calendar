@@ -141,16 +141,19 @@ export async function boroughFor(location: string | null, virtualLink?: string |
     // ("London Performance Studios" once matched Empire Performance Studios, Enfield).
     if (VENUE_TYPES.has(hit.addresstype) && !/^\d/.test(q)) {
       const ws = (t: string) => t.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter((w) => w.length > 1 && w !== 'the');
-      const asked = ws(q.split(',').find((part) => !/^\s*(london|uk|england)\s*$/i.test(part)) || q);
+      const asked = ws(q);
       const got = new Set(ws(hit.name));
-      const share = asked.filter((w) => got.has(w)).length / Math.max(1, asked.length);
+      // Best-matching part of "Birmingham, Crescent Theatre" is the venue, not the town.
+      const share = Math.max(...q.split(',').map((part) => { const a = ws(part); return a.filter((w) => got.has(w)).length / Math.max(1, a.length); }));
       const contained = got.size > 0 && [...got].every((w) => asked.includes(w));
       if (share < 0.75 && !contained) { reason = `map match is a different venue (${hit.name})`; continue; }
     }
     if (LONDONISH.test(loc) && d.region !== 'London') { reason = `map match outside London (${hit.name}, ${d.district})`; continue; }
     // Outside London a named town must agree ("Saint Peters House, Manchester" once landed in Stockport).
-    const town = !LONDONISH.test(loc) ? cleaned.split(',').slice(1).map((t) => t.trim()).filter((t) => /^[a-z][a-z .'-]{3,}$/i.test(t)).pop() : undefined;
-    if (town && !d.district.toLowerCase().includes(town.toLowerCase().replace(/^city of /, ''))) { reason = `map match not in ${town} (${hit.name}, ${d.district})`; continue; }
+    const parts = cleaned.split(',').map((t) => t.trim().toLowerCase()).filter((t) => /^[a-z][a-z .'-]{3,}$/.test(t));
+    const dl = d.district.toLowerCase().replace(/^city of /, '');
+    const named = parts.some((t) => dl.includes(t.replace(/^city of /, '')) || t.includes(dl));
+    if (!LONDONISH.test(loc) && d.region !== 'London' && parts.length > 1 && !named) { reason = `map match not in a place the listing names (${hit.name}, ${d.district})`; continue; }
     return { borough: d.district, reason: `map match ${hit.addresstype} "${hit.name}"` };
   }
   return { borough: null, reason };
