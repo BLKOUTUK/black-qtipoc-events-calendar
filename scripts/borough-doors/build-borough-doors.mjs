@@ -650,7 +650,7 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
 <title>${esc(d.title)}</title>
 <meta name="description" content="${esc(d.metaDescription)}">
 <link rel="canonical" href="${esc(d.canonicalUrl)}">
-<meta property="og:type" content="website">
+${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta property="og:type" content="website">
 <meta property="og:site_name" content="BLKOUT">
 <meta property="og:title" content="${esc(d.title)}">
 <meta property="og:description" content="${esc(d.metaDescription)}">
