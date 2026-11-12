@@ -57,7 +57,12 @@ const Header: React.FC = () => {
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
               <div className="border-l border-events/30 pl-3">
-                <h1 className="text-xl font-black text-events tracking-tight">BLKOUT</h1>
+                <h1
+                  className="text-xl font-black text-[#f5f1e8] tracking-tighter"
+                  style={{ fontFamily: "'Work Sans', system-ui, sans-serif" }}
+                >
+                  BLKOUT<span className="text-events">.</span>
+                </h1>
                 <p className="text-xs text-gray-400 italic font-disrupt">Events</p>
               </div>
             </div>
