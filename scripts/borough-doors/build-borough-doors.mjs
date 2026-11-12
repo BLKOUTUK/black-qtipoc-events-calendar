@@ -51,6 +51,18 @@ const placesIn = (slug) => placesAll.filter((pl) => pl.published && slugify(pl.b
 const DATA = join(HERE, 'data');
 // The shared constellation footer (one source for every BLKOUT site). Read at build time
 // and emitted verbatim after the door's own footer; the markers let sync.py refresh it.
+// "New on BLKOUT Local" (12 Nov 2026): one strip under every door's hero announcing the events-door
+// links and the Birmingham door. One copy for all doors; Birmingham gets its own last line. Remove
+// or rewrite here when it stops being new.
+function localNews(slug) {
+  const lead = 'Every gathering on our calendar now points to its own door, and gatherings that have happened keep their page.';
+  const tail =
+    slug === 'birmingham'
+      ? 'Birmingham is our first door outside London, and it grows with what you tell us. <a href="#s-truer">Tell us what we&rsquo;ve missed &rarr;</a>'
+      : 'And we&rsquo;ve opened our first door outside London: <a href="/birmingham/">Birmingham &rarr;</a>';
+  return `<aside class="local-news" aria-label="New on BLKOUT Local"><strong>New on BLKOUT Local.</strong> ${lead} ${tail}</aside>\n\n`;
+}
+
 const CONSTELLATION = readFileSync(join(HERE, '..', '..', '..', '..', 'packages', 'constellation-nav', 'fragment.html'), 'utf8').trim();
 if (CONSTELLATION.includes('`') || CONSTELLATION.includes('${')) throw new Error('constellation fragment must not contain backticks or ${');
 const OUT = join(HERE, '..', '..', 'public');
@@ -734,6 +746,10 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
      standfirst — 35 words and then a paragraph below to protect the image" — a
      long standfirst otherwise grows tall enough to fight the image regardless of
      the 56ch width cap. Optional — a door without it renders exactly as before. */
+  .local-news{max-width:46rem; margin:0 auto 2rem; padding:.9rem 1.1rem; border-left:3px solid var(--gold);
+    background:rgba(255,215,0,.06); font-family:'Work Sans',system-ui,sans-serif; font-size:.95rem; line-height:1.5; color:var(--dim)}
+  .local-news strong{color:var(--gold); font-weight:700}
+  .local-news a{color:var(--gold); text-underline-offset:3px}
   .standfirst-more{font-family:'Fraunces',Georgia,serif; font-style:italic;
     font-size:1.1rem; font-size:clamp(1rem,1.5vw,1.2rem); color:var(--dim); max-width:66ch;
     margin:0 0 3rem; padding-top:.5rem}
@@ -1259,7 +1275,7 @@ ${
   d.hero.standfirstMore
     ? `<p class="standfirst-more">${esc(d.hero.standfirstMore)}</p>\n\n`
     : ''
-}<nav class="index">
+}${localNews(slug)}<nav class="index">
 ${indexItems.map(([id, label]) => `  <a href="#${id}">${esc(label)}</a>`).join('\n')}
   <a class="home" href="https://blkoutuk.com" rel="noopener">BLKOUT home &rarr;</a>
 </nav>

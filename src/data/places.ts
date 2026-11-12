@@ -2442,7 +2442,7 @@ export const publishedPlaces = (): Place[] =>
   places.filter((p) => p.status === 'live' && !p.excludesMen && ['black-queer-men', 'black-lgbtq', 'qtipoc'].includes(p.centres));
 
 /** Borough doors that exist today (from scripts/borough-doors/data) — a Place with a matching borough links to its door. */
-export const doorSlugs: string[] = ["brent","camden","croydon","enfield","hackney","haringey","islington","lambeth","lewisham","newham","southwark","tower-hamlets","waltham-forest","westminster"];
+export const doorSlugs: string[] = ["birmingham","brent","camden","croydon","enfield","hackney","haringey","islington","lambeth","lewisham","newham","southwark","tower-hamlets","waltham-forest","westminster"];
 export const boroughSlug = (b: string): string => b.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 /** Entries in the file that are not shown — the Note reports this count. */

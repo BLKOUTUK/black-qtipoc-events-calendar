@@ -77,6 +77,10 @@
      standfirst — 35 words and then a paragraph below to protect the image" — a
      long standfirst otherwise grows tall enough to fight the image regardless of
      the 56ch width cap. Optional — a door without it renders exactly as before. */
+  .local-news{max-width:46rem; margin:0 auto 2rem; padding:.9rem 1.1rem; border-left:3px solid var(--gold);
+    background:rgba(255,215,0,.06); font-family:'Work Sans',system-ui,sans-serif; font-size:.95rem; line-height:1.5; color:var(--dim)}
+  .local-news strong{color:var(--gold); font-weight:700}
+  .local-news a{color:var(--gold); text-underline-offset:3px}
   .standfirst-more{font-family:'Fraunces',Georgia,serif; font-style:italic;
     font-size:1.1rem; font-size:clamp(1rem,1.5vw,1.2rem); color:var(--dim); max-width:66ch;
     margin:0 0 3rem; padding-top:.5rem}
@@ -594,6 +598,8 @@
   <p class="standfirst">BLKOUT is a community-owned co-operative for Black queer men across the UK — and Tower Hamlets is where one of the twentieth century's great Black queer writers worked as a journalist. In 1920 Claude McKay reported for Sylvia Pankhurst's Workers' Dreadnought from its office in Bow, and lived on the Bow Road. Around 22,700 Black residents live in the borough today. This door is for the Black queer men among them.</p>
 </header>
 
+<aside class="local-news" aria-label="New on BLKOUT Local"><strong>New on BLKOUT Local.</strong> Every gathering on our calendar now points to its own door, and gatherings that have happened keep their page. And we&rsquo;ve opened our first door outside London: <a href="/birmingham/">Birmingham &rarr;</a></aside>
+
 <nav class="index">
   <a href="#the-count">The count</a>
   <a href="#the-record">The record</a>
@@ -917,7 +923,7 @@
       <span class="numeral">(11)</span>
       <span class="kicker">The door</span>
     </div>
-    <h2 class="display">Be met</h2>
+    <h2 class="display">Come in</h2>
     <p class="subtitle">The first step, if you want one.</p>
     <p class="tender">Come as you are. We answer.</p>
     <p>Leave your name and we'll keep you posted about Tower Hamlets — what's on, what's starting, and how to be part of it. This goes to BLKOUT, a co-operative owned by its members. No engagement machinery, nothing sold onward — just a community that answers.</p>
@@ -1049,6 +1055,7 @@
 </ul>
 <p class="cx-kicker">BLKOUT Local: a door in every borough</p>
 <ul class="cx-doors">
+<li><a href="https://events.blkoutuk.com/birmingham/">Birmingham</a></li>
 <li><a href="https://events.blkoutuk.com/brent/">Brent</a></li>
 <li><a href="https://events.blkoutuk.com/camden/">Camden</a></li>
 <li><a href="https://events.blkoutuk.com/croydon/">Croydon</a></li>

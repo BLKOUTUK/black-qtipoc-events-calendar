@@ -1,7 +1,62 @@
 {
- "generated": "2026-10-13T11:01:51.439Z",
+ "generated": "2026-11-12T18:00:35.304Z",
  "source": "https://events.blkoutuk.com/",
  "doors": [
+  {
+   "slug": "birmingham",
+   "borough": "Birmingham",
+   "url": "https://events.blkoutuk.com/birmingham/",
+   "lastChecked": "12 November 2026",
+   "history": "## 1948 — a company passing through\n\nIn 1948, Berto Pasuka's Les Ballets Nègres — Europe's first Black-led dance company, and the anchor of BLKOUT's own Westminster door — played Birmingham to reviews calling it 'vital and compelling'. A touring company passing through, not a resident — colour here, not the anchor.\n\n## 1968–1979 — Stuart Hall\n\nFrom 1968 to 1979, Professor Stuart Hall — Jamaican-British, one of the most consequential Black British intellectuals of the century — directed the University of Birmingham's Centre for Contemporary Cultural Studies, the founding institution of British Cultural Studies. Not a queer figure in this history, but a foundational one for how Black Britain has thought about representation ever since.\n\n## 1968–1992 — Handsworth's magazine\n\nHall's own thread leads to this door's strongest anchor. From 1978, a room above a Grove Lane terrace in Handsworth held Ten.8, a quarterly photography magazine. In 1987, Ten.8 published Rotimi Fani-Kayode's homoerotic portraits after a London magazine rejected them as 'too controversial' — and Fani-Kayode went on to co-found Autograph, which still champions Black photographers today. Ten.8's own final issue (1992) was co-edited by Stuart Hall. A Handsworth magazine gave a young Black queer photographer the platform London wouldn't.\n\n## 2016–2018 — BLKOUT's own record\n\nBLKOUT's own record starts in October 2016: Raurie 'Rawzilla' Williams — the 'First Gay Grime MC', viral in 2013 — was one of our writers, Birmingham-based. He wrote about Birmingham's Hurst Street: 'Where are my dark skin brothers?' Two years later, BLKOUT backed a different Birmingham member: Aaron Lambert's debut one-man show, Candid, at Canada Water Theatre, 9 November 2018. Rob designed the promotional images; asked where he was 'really' from, Aaron answered: 'Lol. My grandparents were born in Jamaica.' It played to a full house.\n\n## Today\n\nBy 2018, Suriya Roberts-Grey had founded UNMUTED, a QTIPOC group meeting monthly at Impact Hub Birmingham. A Black queer drag lineage took root too: Yshee Black mentored newcomer Black Peppa, who went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK. Today, Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend — real nights, running now.\n\n## What's still missing\n\nOne thing this door is still looking for: a figure who lived and organised here across a life, the way Ivor Cummings anchors Croydon. Ten.8's Handsworth moment is real, but Fani-Kayode lived and worked in London. The search continues — literally: Dr Nathaniel Adam Tobias Coleman, born in Birmingham, is writing a fresh history of Section 28 and the Black Queer activists who resisted it. His work sits exactly where this door does.\n\n» None of this happens without the people already building it — see who's here in Birmingham right now.",
+   "here": [
+    {
+     "name": "Fruit Punch",
+     "url": "https://www.instagram.com/fruitpunchbrum",
+     "note": "Black & POC Queer-led collective — monthly Black and POC LGBTQIA+ Social, lately at The Night Owl, Deritend (check their listings: the venue has moved over the years). Also PULP, a queer sober social, and Limelight, an open mic.",
+     "centres": "black-lgbtq"
+    }
+   ],
+   "besideUs": [
+    {
+     "name": "Birmingham LGBT",
+     "url": "https://blgbt.org",
+     "note": "The city's main LGBTQ+ centre — runs sexual health clinics, a community directory (via BVSC), and general support services.",
+     "centres": "lgbtq-general"
+    },
+    {
+     "name": "CineQ / SHOUT Festival",
+     "url": "https://shoutfestival.co.uk",
+     "note": "SHOUT is Birmingham's queer arts festival (~15 years running); CineQ, founded by Rico Johnson-Sinclair, is its QTIPOC-focused film strand — its 'Black Magic' shorts programme is specifically about Black queer experience.",
+     "centres": "lgbtq-general"
+    }
+   ],
+   "worthTheJourney": [
+    {
+     "name": "Black Beetle Health",
+     "url": "https://www.blackbeetlehealth.co.uk",
+     "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
+     "centres": "black-lgbtq"
+    }
+   ],
+   "services": [
+    {
+     "name": "Birmingham LGBT Centre Sexual Health Services",
+     "url": "https://blgbt.org",
+     "note": "LGBT sexual health clinics Wed/Thu 9am-5pm — rapid HIV testing, assisted testing, free STI kits."
+    },
+    {
+     "name": "Umbrella Health Birmingham",
+     "url": "https://umbrellahealth.co.uk",
+     "note": "NHS sexual health services, run in partnership with Birmingham LGBT Centre."
+    },
+    {
+     "name": "Find your nearest NHS clinic",
+     "url": "https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/",
+     "note": "Every NHS sexual health service near you — testing, treatment, PrEP — searchable by postcode."
+    }
+   ],
+   "quietNote": "Checked 23 September 2026 (open-source only, not yet confirmed by a direct message to the organisers) — Fruit Punch looks current and real. DLPlug's Stripped Birmingham is not listed here: checked directly against dlplug.com's own Birmingham page, which shows 'no events at the moment' and still names Just For You Sauna, 40 Summer Hill Rd — a venue that has since closed (the same team opened Yumbo, Hockley Hill, 14 Aug 2026, in its place). DLPlug itself is very much live nationally (Shoreditch, elsewhere); its Birmingham chapter is quiet right now, not gone — worth a direct check before ruling it out for good."
+  },
   {
    "slug": "brent",
    "borough": "Brent",

@@ -293,6 +293,9 @@ app.get(['/e/:id', '/e/:id/:slug'], async (req, res, next) => {
   }
 });
 
+// The Birmingham door opened as an unlisted draft at /wqoa7sumcx/ (Sep 2026); published at /birmingham/ 12 Nov 2026.
+app.get(['/wqoa7sumcx', '/wqoa7sumcx/'], (_req, res) => res.redirect(301, '/birmingham/'));
+
 // Moderation lives on the Comms dashboard (Rob, 24 Oct 2026); the old /moderation page is retired.
 app.get(['/moderation', '/moderation/'], (_req, res) => res.redirect(302, 'https://comms.blkoutuk.com/admin/events'));
 
