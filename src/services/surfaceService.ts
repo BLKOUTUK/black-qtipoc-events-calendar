@@ -28,9 +28,9 @@ export async function fetchGatherings(): Promise<FetchResult<Gathering[]>> {
   return { data: (data as Gathering[]) ?? [], error: null };
 }
 
-/** One gathering for its event page. `data` is null when it isn't live (unapproved, incomplete or past). */
+/** One gathering for its event page. `data` is null when it isn't listed (unapproved or incomplete); past gatherings still load (gatherings_page). */
 export async function fetchGathering(id: string): Promise<FetchResult<Gathering | null>> {
-  const query = supabase.from('gatherings_live').select('*').eq('id', id) as any;
+  const query = supabase.from('gatherings_page').select('*').eq('id', id) as any;
   const { data, error } = await query.maybeSingle();
 
   if (error) {

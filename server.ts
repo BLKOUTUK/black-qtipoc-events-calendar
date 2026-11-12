@@ -116,8 +116,9 @@ app.get(['/', '/gatherings'], async (req, res, next) => {
 
 // Event pages (events redesign spec 02, Part A, 25 Oct 2026): /e/<id>/<slug> is the SPA's
 // EventPage, served here with the event's own title, link preview and Event schema so a shared
-// link and a search engine see the event, not the site's front door. Only gatherings_live rows
-// get a page; anything else is a real 404. The slug is cosmetic: a stale one 301s to the current.
+// link and a search engine see the event, not the site's front door. Only gatherings_page rows
+// (the live gate without the date filter, so past gatherings keep their page) get one; anything
+// else is a real 404. The slug is cosmetic: a stale one 301s to the current.
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const EVENT_COLUMNS = 'id, title, description, date, start_time, end_time, end_date, location, virtual_link, organizer, cost, url, image_url';
 type LiveEvent = { id: string; title: string; description: string | null; date: string; start_time: string | null; end_time: string | null; end_date: string | null; location: string; virtual_link: string | null; organizer: string; cost: string | null; url: string; image_url: string | null };
@@ -133,7 +134,7 @@ function eventPagePath(e: { id: string; title: string }): string {
 }
 async function liveEvent(id: string): Promise<LiveEvent | null> {
   if (!UUID_RE.test(id)) return null;
-  const { data, error } = await eventsDb.from('gatherings_live').select(EVENT_COLUMNS).eq('id', id).maybeSingle();
+  const { data, error } = await eventsDb.from('gatherings_page').select(EVENT_COLUMNS).eq('id', id).maybeSingle();
   if (error) throw error;
   return (data as LiveEvent) || null;
 }

@@ -314,7 +314,7 @@ function build(slug) {
             ? `\n      <div class="recently">
         <h3>Recently in the borough</h3>
         <ul>
-${d.here.recently.map((r) => `          <li><span class="when">${esc(r.when)}</span> ${esc(r.what)}</li>`).join('\n')}
+${d.here.recently.map((r) => `          <li><span class="when">${esc(r.when)}</span> ${r.eventId ? `<a href="/e/${esc(r.eventId)}">${esc(r.what)}</a>` : esc(r.what)}</li>`).join('\n')}
         </ul>
 ${d.here.recentlyNote ? `        <p class="recently-note">${esc(d.here.recentlyNote)}</p>` : ''}
       </div>`
@@ -1199,6 +1199,8 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
   .recently li{color:var(--dim); padding:.35rem 0; font-size:.95rem}
   .recently .when{color:var(--gold-deep); text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; margin-right:.6rem}
   .recently-note{font-size:.88rem; margin-top:.8rem !important}
+  .recently li a{color:inherit; text-decoration:underline; text-decoration-color:var(--gold-deep); text-underline-offset:3px}
+  .recently li a:hover, .recently li a:focus{color:var(--gold)}
   .table-wrap{overflow-x:auto; margin:1.8rem 0}
   table.census{border-collapse:collapse; width:100%; min-width:30rem; font-size:.92rem}
   table.census caption{text-align:left; color:var(--dim); font-size:.82rem; padding-bottom:.7rem}

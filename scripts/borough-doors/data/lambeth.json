@@ -73,10 +73,10 @@
       }
     ],
     "recently": [
-      { "when": "Nov 2025", "what": "The Congregation — an evening of conversation, film and audio at the Ritzy, Brixton" },
-      { "when": "Nov 2025", "what": "We Look Back, We Live On at the Royal Vauxhall Tavern" },
-      { "when": "Nov 2025", "what": "B8TS gathering for National Men's Circles Day, Minet Road, Brixton" },
-      { "when": "Nov 2025", "what": "A Breath of Fresh Air — spotlight on environmental racism, Brixton Library" },
+      { "when": "Nov 2025", "what": "The Congregation — an evening of conversation, film and audio at the Ritzy, Brixton", "eventId": "300756c9-7a27-4ca4-a501-353dd161a73c" },
+      { "when": "Nov 2025", "what": "We Look Back, We Live On at the Royal Vauxhall Tavern", "eventId": "9f675b5a-c9d4-491f-89dd-1afe90556d58" },
+      { "when": "Nov 2025", "what": "B8TS gathering for National Men's Circles Day, Minet Road, Brixton", "eventId": "0fe7caab-778c-417c-9ff1-66abf3dfdb5f" },
+      { "when": "Nov 2025", "what": "A Breath of Fresh Air — spotlight on environmental racism, Brixton Library", "eventId": "842a95bc-7f7e-423b-a5d3-b265e6940e93" },
       { "when": "Sep 2021", "what": "Pearl's Return — BLKOUT's Black queer men's homecoming festival, named for Pearl Alcock, across Brixton Market" }
     ],
     "recentlyNote": "From our own calendar's record. What has already happened here doesn't go stale — a borough's recent past is proof of life."

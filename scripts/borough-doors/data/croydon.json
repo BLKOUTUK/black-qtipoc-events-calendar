@@ -69,8 +69,8 @@
       { "when": "Aug 2026", "what": "Croydon Pride, back in the borough at BoxPark" },
       { "when": "Jun 2026", "what": "Seasoned SZN, a Black queer night at Boxpark Croydon" },
       { "when": "Feb 2026", "what": "Croydon Pride's LGBT+ History Month talk with Bisi Alimi" },
-      { "when": "Feb 2026", "what": "Queer Frequencies community collaging workshop at Stanley Arts" },
-      { "when": "Dec 2025", "what": "Silver Pride Christmas social, Thornton Heath" },
+      { "when": "Feb 2026", "what": "Queer Frequencies community collaging workshop at Stanley Arts", "eventId": "ac2b0468-8632-48d7-a123-4e430f94d803" },
+      { "when": "Dec 2025", "what": "Silver Pride Christmas social, Thornton Heath", "eventId": "aa9dff3d-ade2-42f9-a58a-d297dea66596" },
       { "when": "Sep–Oct 2025", "what": "Queer Croydon's meet-up and workshop strand at Stanley Arts, and the BITE club night" },
       { "when": "Jul 2019", "what": "Croydon Pride — BLKOUT on the main stage with David McAlmont, and our flag flying over the park" }
     ],

@@ -182,6 +182,9 @@ export function EventPage() {
   const tags = (g.tags || []).filter((t) => !t.startsWith('confidence:') && !ADULTS_ONLY_TAGS.includes(t.toLowerCase()));
   const host = hostOf(g.url);
   // Some listings carry 'Zoom (online)' as the location with no virtual_link (KIN Town Hall, 25 Oct).
+  // Past gatherings keep their page so borough doors can link to them (gatherings_page, 12 Nov 2026).
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/London' });
+  const past = (g.end_date || g.date) < today;
   const online = Boolean(g.virtual_link) || /^(zoom|online|virtual)\b/i.test(g.location.trim());
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(g.location)}`;
   const mapSrc = point
@@ -215,6 +218,11 @@ export function EventPage() {
         </p>
         <h1 className="text-3xl md:text-4xl font-semibold text-[#f5f1e8] leading-tight mb-3">{g.title}</h1>
         <p className="text-[#f5f1e8]/70 mb-8">{g.organizer}</p>
+        {past && (
+          <p className="border-l-2 border-events pl-3 text-[#f5f1e8]/80 mb-8">
+            This happened. <Link to="/gatherings" className="text-events hover:underline">See what’s on next →</Link>
+          </p>
+        )}
 
         {/* The action, cost and the small tools, together so nobody hunts for them */}
         <section className="border border-events/30 bg-[#14141f] rounded-sharp p-5 mb-10">
@@ -227,12 +235,12 @@ export function EventPage() {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full bg-events text-[#0a0a14] font-semibold py-3 rounded-sharp hover:opacity-90 transition-opacity"
           >
-            Book or find out more <ExternalLink size={16} />
+            {past ? 'The organiser’s page' : 'Book or find out more'} <ExternalLink size={16} />
           </a>
           {host && <p className="text-center text-xs text-[#f5f1e8]/50 mt-2">on {host}, the organiser’s page</p>}
 
           <div className="flex flex-wrap gap-3 mt-5">
-            <div className="relative">
+            {!past && <div className="relative">
               <button
                 onClick={() => setCalendarOpen(!calendarOpen)}
                 className="inline-flex items-center gap-2 border border-[#f5f1e8]/20 text-[#f5f1e8] px-3 py-2 text-sm rounded-sharp hover:border-events"
@@ -249,7 +257,7 @@ export function EventPage() {
                   </a>
                 </div>
               )}
-            </div>
+            </div>}
             <button
               onClick={share}
               className="inline-flex items-center gap-2 border border-[#f5f1e8]/20 text-[#f5f1e8] px-3 py-2 text-sm rounded-sharp hover:border-events"
