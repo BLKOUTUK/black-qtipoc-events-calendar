@@ -432,6 +432,25 @@ function startImageFinderScheduler() {
   setTimeout(() => { run(); setInterval(run, DAY); }, next.getTime() - Date.now());
 }
 
+// Event borough (events-door links spec C, 12 Nov 2026): hourly, places approved events not yet
+// checked in their local authority (api/event-borough.ts), so cards and pages can link to the
+// borough's door. Catches new and newly approved events whichever app approves them.
+function startBoroughScheduler() {
+  const HOUR = 60 * 60 * 1000;
+  const run = async () => {
+    try {
+      const { fillEventBoroughs } = await import('./api/event-borough.js');
+      const { checked, placed, failed } = await fillEventBoroughs();
+      if (checked) console.log(`📍 Event boroughs: ${checked} checked, ${placed} placed, ${failed.length} FAILED`);
+      failed.forEach((f) => console.error(`📍 Event borough FAILED: ${f}`));
+    } catch (error) {
+      console.error('📍 Event boroughs FAILED:', error);
+    }
+  };
+  setTimeout(() => { run(); setInterval(run, HOUR); }, 5 * 60 * 1000);
+}
+startBoroughScheduler();
+
 // Start the server
 startServer().catch(error => {
   console.error('Failed to start server:', error);

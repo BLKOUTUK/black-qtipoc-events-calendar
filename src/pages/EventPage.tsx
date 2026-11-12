@@ -13,6 +13,7 @@ import { ArrowLeft, CalendarPlus, ExternalLink, MapPin, Navigation, Share2, Vide
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { fetchGathering } from '../services/surfaceService';
+import { doorPath } from '../lib/eventLink';
 import { Gathering } from '../types/surface';
 
 // Same markers as GatheringCard: intent, never subject matter.
@@ -185,6 +186,7 @@ export function EventPage() {
   // Past gatherings keep their page so borough doors can link to them (gatherings_page, 12 Nov 2026).
   const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/London' });
   const past = (g.end_date || g.date) < today;
+  const door = doorPath(g.borough);
   const online = Boolean(g.virtual_link) || /^(zoom|online|virtual)\b/i.test(g.location.trim());
   const directions = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(g.location)}`;
   const mapSrc = point
@@ -296,6 +298,11 @@ export function EventPage() {
               <a href={directions} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-meta text-xs uppercase tracking-wide text-events hover:underline">
                 <Navigation size={14} /> Directions
               </a>
+              {door && (
+                <a href={door} className="ml-5 inline-flex items-center gap-2 font-meta text-xs uppercase tracking-wide text-events hover:underline">
+                  More in {g.borough} →
+                </a>
+              )}
             </>
           )}
         </section>

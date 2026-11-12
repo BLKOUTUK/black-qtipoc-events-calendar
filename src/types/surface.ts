@@ -22,6 +22,7 @@ export interface Gathering {
   url: string;
   tags: string[] | null;
   image_url: string | null;
+  borough: string | null; // local authority, from api/event-borough.ts; null online or unplaced
 }
 
 export type OpeningKind =

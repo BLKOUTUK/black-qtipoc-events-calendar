@@ -1,5 +1,5 @@
 import { MapPin } from 'lucide-react';
-import { eventPath } from '../../lib/eventLink';
+import { doorPath, eventPath } from '../../lib/eventLink';
 import { Gathering } from '../../types/surface';
 
 interface GatheringCardProps {
@@ -41,6 +41,7 @@ function formatCost(cost: string | null): string {
 
 export function GatheringCard({ gathering }: GatheringCardProps) {
   const adultsOnly = isAdultsOnly(gathering.tags);
+  const door = doorPath(gathering.borough);
 
   return (
     <div className="bg-[#14141f] border border-events/30 hover:border-events/80 hover:-translate-y-0.5 transition-all duration-200 rounded-sharp flex flex-col">
@@ -67,6 +68,11 @@ export function GatheringCard({ gathering }: GatheringCardProps) {
           <MapPin size={14} className="inline-block -mt-0.5 mr-1 text-events/100" />
           {gathering.location}
         </p>
+        {door && (
+          <a href={door} className="inline-block font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70 hover:text-events hover:underline mb-2">
+            More in {gathering.borough} →
+          </a>
+        )}
         <div className="pt-2 flex items-center justify-between gap-2">
           <span className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70">
             {formatCost(gathering.cost)}
