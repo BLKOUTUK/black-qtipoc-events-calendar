@@ -31,7 +31,7 @@ const VideoHero: React.FC<VideoHeroProps> = ({
   className,
   children,
   showLogo = true,
-  logoSrc = "/Branding and logos/BLKOUT25INV.png"
+  logoSrc = "/Branding and logos/blkoutlogo_wht_transparent.png"
 }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
