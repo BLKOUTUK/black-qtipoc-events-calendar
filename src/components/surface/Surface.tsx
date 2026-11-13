@@ -192,20 +192,30 @@ export function Surface({
             id="gatherings"
             index="01"
             section="Gatherings"
-            heading="Things to go to"
+            heading={boroughName ? `Things to go to in ${boroughName}` : 'Things to go to'}
             tagline="fewer, and true. a real place, a real date, a named organiser, a working link — or it does not go up."
             chipLabel={gatheringsChip}
           />
-          <WhatsOnVideo />
-
-          {boroughName && (
-            <p className="mt-8 font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70">
-              Showing <span className="text-events/100">{boroughName}</span> ·{' '}
-              <a href="/gatherings" className="text-events/100 hover:underline">
-                see everything
-              </a>{' '}
-              · <a href={`/${borough}/`} className="text-events/100 hover:underline">BLKOUT in {boroughName}</a>
-            </p>
+          {/* Spec D: when filtered, say so straight under the header, and drop the London-wide
+              What's On video (it promotes other boroughs' events). */}
+          {boroughName ? (
+            <div className="mt-6 inline-flex flex-col sm:flex-row sm:items-center gap-x-4 border border-events/60 px-4 font-meta text-[13px] uppercase tracking-wide text-[#f5f1e8]/70">
+              <span className="py-2.5 sm:py-0">
+                Showing <span className="text-[#f5f1e8]">{boroughName}</span>
+              </span>
+              <span aria-hidden="true" className="hidden sm:block self-stretch my-2.5 mx-1 w-px bg-events/40" />
+              <span className="flex flex-col sm:flex-row sm:items-center sm:gap-x-4 border-t border-events/30 sm:border-t-0">
+                <a href="/gatherings" className="text-events/100 hover:underline inline-flex items-center min-h-[44px]">
+                  See everything
+                </a>
+                <span aria-hidden="true" className="hidden sm:block self-stretch my-2.5 w-px bg-events/40" />
+                <a href={`/${borough}/`} className="text-events/100 hover:underline inline-flex items-center min-h-[44px] whitespace-nowrap">
+                  BLKOUT in {boroughName} →
+                </a>
+              </span>
+            </div>
+          ) : (
+            <WhatsOnVideo />
           )}
 
           {gatherings.length === 0 && boroughName ? (
@@ -213,20 +223,14 @@ export function Surface({
               <p className="font-disrupt italic text-[#f5f1e8] text-xl">
                 nothing on in {boroughName} yet — and we checked. know of something? add it.
               </p>
-              <div className="flex flex-wrap gap-x-6">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-5">
                 <button
                   type="button"
                   onClick={onOpenEventForm}
-                  className="appearance-none font-meta text-xs uppercase tracking-wide text-events/100 hover:underline mt-3 inline-flex items-center min-h-[44px]"
+                  className="bg-events/100 text-[#0a0a14] font-signature font-black uppercase tracking-tight px-6 py-3 min-h-[44px] rounded-sharp hover:bg-events/90 transition-colors"
                 >
-                  Add a gathering →
+                  Add a gathering
                 </button>
-                <a
-                  href="/gatherings"
-                  className="font-meta text-xs uppercase tracking-wide text-events/100 hover:underline mt-3 inline-flex items-center min-h-[44px]"
-                >
-                  See everything on →
-                </a>
               </div>
             </div>
           ) : gatherings.length === 0 ? (
