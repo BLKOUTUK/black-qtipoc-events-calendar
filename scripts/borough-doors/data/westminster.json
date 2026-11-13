@@ -2,16 +2,16 @@
   "slug": "westminster",
   "brandForm": "BLKOUT in Westminster",
   "title": "Black queer men in Westminster | BLKOUT in Westminster",
-  "metaDescription": "For Black queer men in and around Westminster — Soho, Pimlico, Marylebone, Victoria: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Westminster — Soho, Pimlico, Marylebone, Victoria: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/westminster/",
   "landmark": {
     "src": "../images/westminster/westminster-elizabeth-tower.png",
     "alt": "Pencil sketch of the Elizabeth Tower with the BLKOUT roundel set into its clock face"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Westminster's.",
+    "kicker": "One community. Many local pages. This one is Westminster's.",
     "heading": "BLKOUT in Westminster",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster held Black queer life long before this door existed. In 1940, Ken 'Snakehips' Johnson — Britain's most popular Black bandleader — lived in Belgravia with his partner Gerald Hamilton, and led his orchestra nightly at the Café de Paris until the night in 1941 it was bombed mid-performance. Nearly eighty years later, on 15 February 2019, we presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery, and in 2018 Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT. Around 16,500 Black residents live in the borough. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Westminster held Black queer life long before this page existed. In 1940, Ken 'Snakehips' Johnson — Britain's most popular Black bandleader — lived in Belgravia with his partner Gerald Hamilton, and led his orchestra nightly at the Café de Paris until the night in 1941 it was bombed mid-performance. Nearly eighty years later, on 15 February 2019, we presented the inaugural Berto Pasuka Lecture at the National Portrait Gallery, and in 2018 Let's Talk: Black Boy Joy ran at Ku Bar in Soho in association with BLKOUT. Around 16,500 Black residents live in the borough. This page is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -49,13 +49,13 @@
     "scores": {
       "three": "Westminster knows its own Soho. Now help us keep it current.",
       "two": "Close. There's more here than the tourist map shows.",
-      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+      "low": "All the more reason to sign up below — the history is the easy part to catch up on."
     }
   },
   "here": {
     "heading": "Here in Westminster",
     "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
-    "quietNote": "Nothing is listed in Westminster right now beyond the directory below — checked 31 August 2026. That's a report, not a silence. The door below is always open.",
+    "quietNote": "Nothing is listed in Westminster right now beyond the directory below — checked 31 August 2026. That's a report, not a silence. The sign-up below is always open.",
     "entries": []
   },
   "besideUs": {
@@ -170,7 +170,7 @@
     { "name": "Kensington and Chelsea", "slug": "kensington-and-chelsea" },
     { "name": "Lambeth", "slug": "lambeth" },
     { "name": "Wandsworth", "slug": "wandsworth" },
-    { "name": "Croydon — the first door", "slug": "croydon" }
+    { "name": "Croydon — the first local page", "slug": "croydon" }
   ],
   "archive": {
     "intro": "Westminster runs through our own writing and our own nights out — Let's Talk: Black Boy Joy at Ku Bar in 2018, and a ballroom-scene profile carrying a Soho vigil. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
@@ -179,7 +179,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Westminster?",
-      "a": "Start with the door on this page — you'll hear about everything as it happens. COVEN's new Soho headquarters is in the directory below, and BLKOUT's national community is open to you today. If a few Westminster men want a table in the borough, we'll help hold it."
+      "a": "Start with the sign-up on this page — you'll hear about everything as it happens. COVEN's new Soho headquarters is in the directory below, and BLKOUT's national community is open to you today. If a few Westminster men want a table in the borough, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Westminster?",
@@ -187,11 +187,11 @@
     },
     {
       "q": "Is BLKOUT a Westminster organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. We were part of a night in Soho back in 2018, before this page existed."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are. We were part of a night in Soho back in 2018, before this page existed."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -222,7 +222,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Westminster's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Westminster's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },

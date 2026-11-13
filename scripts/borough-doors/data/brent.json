@@ -2,16 +2,16 @@
   "slug": "brent",
   "brandForm": "BLKOUT in Brent",
   "title": "Black queer men in Brent | BLKOUT in Brent",
-  "metaDescription": "For Black queer men in and around Brent — Wembley, Kilburn, Willesden, Harlesden: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Brent — Wembley, Kilburn, Willesden, Harlesden: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/brent/",
   "landmark": {
     "src": "../images/brent/wembley-stadium-arch.png",
     "alt": "Pencil sketch of Wembley Stadium's arch against a night sky, with the BLKOUT roundel set as a small distant moon above it"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Brent's.",
+    "kicker": "One community. Many local pages. This one is Brent's.",
     "heading": "BLKOUT in Brent",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Brent doesn't yet have a chapter of our own history to point to here, so we're saying that plainly rather than inventing one. What's real: around 62,500 Black residents live in Brent, one of London's largest Black populations, and in 2026 Brent Council started mapping the borough's own queer networks for the first time, working with the charity LGBT HERO, because nobody yet has a clear picture of who's here. This door is for the Black queer men among that number, counted or not."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Brent doesn't yet have a chapter of our own history to point to here, so we're saying that plainly rather than inventing one. What's real: around 62,500 Black residents live in Brent, one of London's largest Black populations, and in 2026 Brent Council started mapping the borough's own queer networks for the first time, working with the charity LGBT HERO, because nobody yet has a clear picture of who's here. This page is for the Black queer men among that number, counted or not."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -43,19 +43,19 @@
           { "t": "Opening a permanent LGBTQ+ community centre", "correct": false },
           { "t": "Funding a Black Pride event", "correct": false }
         ],
-        "reveal": "Mapping the borough's queer networks and surveying residents' experiences — because even the council doesn't yet have a full picture of who's here or where they meet. That's exactly the gap this door exists to help close."
+        "reveal": "Mapping the borough's queer networks and surveying residents' experiences — because even the council doesn't yet have a full picture of who's here or where they meet. That's exactly the gap this page exists to help close."
       }
     ],
     "scores": {
       "three": "Brent knows more than it's usually given credit for. Now help us build a Black queer chapter of it.",
       "two": "Close. Brent's queer record is real, if scattered.",
-      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+      "low": "All the more reason to sign up below — the history is the easy part to catch up on."
     }
   },
   "here": {
     "heading": "Here in Brent",
     "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more.",
-    "quietNote": "Checked 31 August 2026 — nothing organised specifically for Black queer men or Black LGBTQ+ people in Brent turned up in our own project records, the events and story archives, or a direct search. Brent Council is only now starting to map the borough's own queer networks (2026, with LGBT HERO) — which tells you this isn't a gap in our search, it's a gap the borough itself is trying to close. That's a report, not a silence. The door below is always open.",
+    "quietNote": "Checked 31 August 2026 — nothing organised specifically for Black queer men or Black LGBTQ+ people in Brent turned up in our own project records, the events and story archives, or a direct search. Brent Council is only now starting to map the borough's own queer networks (2026, with LGBT HERO) — which tells you this isn't a gap in our search, it's a gap the borough itself is trying to close. That's a report, not a silence. The sign-up below is always open.",
     "entries": []
   },
   "besideUs": {
@@ -198,7 +198,7 @@
     { "name": "Hammersmith and Fulham", "slug": "hammersmith-and-fulham" },
     { "name": "Kensington and Chelsea", "slug": "kensington-and-chelsea" },
     { "name": "Camden", "slug": "camden" },
-    { "name": "Croydon — the first door", "slug": "croydon" }
+    { "name": "Croydon — the first local page", "slug": "croydon" }
   ],
   "archive": {
     "intro": "Brent doesn't yet have a piece in our published story archive — nothing in our own records ties BLKOUT to the borough yet. If that's wrong, or you were part of something we've missed, tell us below and this box gets its first entry.",
@@ -207,7 +207,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Brent?",
-      "a": "We don't have one to point you to yet — genuinely, and we've checked. Start with the door on this page: BLKOUT's national community is open to you today, and Wembley Park Pride (the borough's only Pride) and North West London LGBT's weekly meet-up are real, general LGBTQ+ spaces worth knowing about while we build something more specific together. If a few Brent men want a table, we'll help hold it."
+      "a": "We don't have one to point you to yet — genuinely, and we've checked. Start with the sign-up on this page: BLKOUT's national community is open to you today, and Wembley Park Pride (the borough's only Pride) and North West London LGBT's weekly meet-up are real, general LGBTQ+ spaces worth knowing about while we build something more specific together. If a few Brent men want a table, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Brent?",
@@ -215,11 +215,11 @@
     },
     {
       "q": "Is BLKOUT a Brent organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are, including here, even before we had a Brent history of our own to tell."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are, including here, even before we had a Brent history of our own to tell."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -250,7 +250,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Brent's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Brent's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },

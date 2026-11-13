@@ -2,16 +2,16 @@
   "slug": "southwark",
   "brandForm": "BLKOUT in Southwark",
   "title": "Black queer men in Southwark | BLKOUT in Southwark",
-  "metaDescription": "For Black queer men in and around Southwark — Peckham, Camberwell, Bermondsey, Elephant and Castle: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Southwark — Peckham, Camberwell, Bermondsey, Elephant and Castle: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/southwark/",
   "landmark": {
     "src": "../images/southwark/southwark-newington-causeway.png",
     "alt": "Pencil sketch of the Newington Causeway building where Dr Cecil Belfield Clarke practised, with the BLKOUT roundel as a moon above it"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Southwark's.",
+    "kicker": "One community. Many local pages. This one is Southwark's.",
     "heading": "BLKOUT in Southwark",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Southwark holds one of our history's clearest through-lines. Dr Cecil Belfield Clarke, a gay Barbadian doctor, ran his surgery on Newington Causeway for 45 years and helped found the League of Coloured Peoples. In 1992 the Black Lesbian and Gay Centre found its permanent home in a Peckham railway arch. And in November 2020, our own Assembly series asked Southwark directly: a Black queer hero — erased? Around 80,100 Black residents live in the borough. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Southwark holds one of our history's clearest through-lines. Dr Cecil Belfield Clarke, a gay Barbadian doctor, ran his surgery on Newington Causeway for 45 years and helped found the League of Coloured Peoples. In 1992 the Black Lesbian and Gay Centre found its permanent home in a Peckham railway arch. And in November 2020, our own Assembly series asked Southwark directly: a Black queer hero — erased? Around 80,100 Black residents live in the borough. This page is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -49,13 +49,13 @@
     "scores": {
       "three": "Southwark knows its own record. Now help us keep it current.",
       "two": "Close. This borough has more buried history than most.",
-      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+      "low": "All the more reason to sign up below — the history is the easy part to catch up on."
     }
   },
   "here": {
     "heading": "Here in Southwark",
     "intro": "What's organised in the borough for Black queer men and Black LGBTQ+ people, as we find it — and help us find more. Southwark's own scene is unusually strong; more of it is in the directory below.",
-    "quietNote": "Beyond the directory below, nothing further is listed in Southwark right now — checked 31 August 2026. That's a report, not a silence. The door below is always open.",
+    "quietNote": "Beyond the directory below, nothing further is listed in Southwark right now — checked 31 August 2026. That's a report, not a silence. The sign-up below is always open.",
     "entries": [
       {
         "name": "Black, Queer & Thriving — Black Thrive",
@@ -211,7 +211,7 @@
     { "name": "Lewisham", "slug": "lewisham" },
     { "name": "Greenwich", "slug": "greenwich" },
     { "name": "Tower Hamlets", "slug": "tower-hamlets" },
-    { "name": "Croydon — the first door", "slug": "croydon" }
+    { "name": "Croydon — the first local page", "slug": "croydon" }
   ],
   "archive": {
     "intro": "Southwark runs through our own writing and our own Sundays — the 2020 Assembly session on Dr Cecil Belfield Clarke among them. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
@@ -220,7 +220,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Southwark?",
-      "a": "Start with the door on this page — you'll hear about everything as it happens. Southwark's own scene, in the directory below, is stronger than most boroughs', and BLKOUT's national community is open to you today."
+      "a": "Start with the sign-up on this page — you'll hear about everything as it happens. Southwark's own scene, in the directory below, is stronger than most boroughs', and BLKOUT's national community is open to you today."
     },
     {
       "q": "Where can I get an STI test or PrEP in Southwark?",
@@ -228,11 +228,11 @@
     },
     {
       "q": "Is BLKOUT a Southwark organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. We held our own Assembly session on Southwark's history in 2020."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are. We held our own Assembly session on Southwark's history in 2020."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -263,7 +263,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Southwark's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Southwark's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },

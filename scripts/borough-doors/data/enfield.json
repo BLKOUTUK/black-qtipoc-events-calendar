@@ -2,16 +2,16 @@
   "slug": "enfield",
   "brandForm": "BLKOUT in Enfield",
   "title": "Black queer men in Enfield | BLKOUT in Enfield",
-  "metaDescription": "For Black queer men in and around Enfield — Edmonton, Enfield Town, Palmers Green: what exists, what's worth the journey, and a community-owned door into BLKOUT, the UK's co-operative for Black queer men.",
+  "metaDescription": "For Black queer men in and around Enfield — Edmonton, Enfield Town, Palmers Green: what exists, what's worth the journey, and a community-owned way into BLKOUT, the UK's co-operative for Black queer men.",
   "canonicalUrl": "https://events.blkoutuk.com/enfield/",
   "landmark": {
     "src": "../images/enfield/enfield-dugdale.png",
     "alt": "Pencil sketch of the Dugdale Arts Centre in Enfield Town with the BLKOUT roundel as a full moon above it"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Enfield's.",
+    "kicker": "One community. Many local pages. This one is Enfield's.",
     "heading": "BLKOUT in Enfield",
-    "standfirst": "As far as we can find, nothing has ever been organised specifically for Black queer men in Enfield — and around fifty-eight thousand Black residents call the borough home. So this page starts it. You're not waiting for a community. It's been waiting for a door."
+    "standfirst": "As far as we can find, nothing has ever been organised specifically for Black queer men in Enfield — and around fifty-eight thousand Black residents call the borough home. So this page starts it. You're not waiting for a community. It's been waiting for a page like this."
   },
   "lastChecked": "27 August 2026",
   "quiz": {
@@ -34,19 +34,19 @@
           { "t": "Three", "correct": false },
           { "t": "Twelve", "correct": false }
         ],
-        "reveal": "Zero — a sourced fact, not a vibe. Between 1,300 and 1,800 Black queer men, and nothing built for them. That's not a gap. That's your opening — and the door below is where it starts."
+        "reveal": "Zero — a sourced fact, not a vibe. Between 1,300 and 1,800 Black queer men, and nothing built for them. That's not a gap. That's your opening — and the sign-up below is where it starts."
       }
     ],
     "scores": {
       "three": "Enfield scholarship. Now help write the rest of it.",
       "two": "Nearly there — the history's still being written, partly by you.",
-      "low": "All the more reason to walk through the door below."
+      "low": "All the more reason to sign up below."
     }
   },
   "here": {
     "heading": "Here in Enfield",
     "intro": "What's organised for Black queer men in the borough, as we find it — and help us find it.",
-    "quietNote": "We searched two ways and found nothing organised specifically for Black queer men in Enfield — checked 27 August 2026. That's a report, not a verdict: if we're wrong, the panel at the bottom of this page is where you tell us, and this page changes. Meanwhile, the door below is open.",
+    "quietNote": "We searched two ways and found nothing organised specifically for Black queer men in Enfield — checked 27 August 2026. That's a report, not a verdict: if we're wrong, the panel at the bottom of this page is where you tell us, and this page changes. Meanwhile, the sign-up below is open.",
     "entries": []
   },
   "besideUs": {
@@ -139,7 +139,7 @@
     { "name": "Haringey", "slug": "haringey" },
     { "name": "Barnet", "slug": "barnet" },
     { "name": "Waltham Forest", "slug": "waltham-forest" },
-    { "name": "Croydon — the first door", "slug": "croydon" }
+    { "name": "Croydon — the first local page", "slug": "croydon" }
   ],
   "archive": {
     "intro": "Ten years of stories, 282,000 messages — and Enfield's chapter is still to be written. When the borough starts, the archive will be watching.",
@@ -148,7 +148,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Enfield?",
-      "a": "Honestly: nothing borough-based exists yet — the door below is where that changes. BLKOUT's national community is open to you today, and when a few Enfield men want a table in the borough, we'll help hold it."
+      "a": "Honestly: nothing borough-based exists yet — the sign-up below is where that changes. BLKOUT's national community is open to you today, and when a few Enfield men want a table in the borough, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Enfield?",
@@ -156,11 +156,11 @@
     },
     {
       "q": "Is BLKOUT an Enfield organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. Enfield included, as of today."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are. Enfield included, as of today."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     }
   ],
   "door": {
@@ -174,7 +174,7 @@
       { "value": "keep-informed", "title": "Just keep me posted", "body": "Not sure yet — send me what's happening now and then." }
     ],
     "holderLabel": "I could help hold something in Enfield — a meet-up, a table, an occasion.",
-    "successMessage": "You're in — one of the first through this door. When something starts in Enfield, you'll hear it here first.",
+    "successMessage": "You're in — one of the first through this page. When something starts in Enfield, you'll hear it here first.",
     "duplicateMessage": "You're already on the list — we'll be in touch.",
     "errorMessage": "Couldn't save right now. Try again, or email rob@blkoutuk.com and we'll add you ourselves."
   },
@@ -187,7 +187,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Enfield's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Enfield's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },

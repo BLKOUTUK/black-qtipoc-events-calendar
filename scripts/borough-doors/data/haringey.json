@@ -2,16 +2,16 @@
   "slug": "haringey",
   "brandForm": "BLKOUT in Haringey",
   "title": "Black queer men in Haringey | BLKOUT in Haringey",
-  "metaDescription": "For Black queer men in and around Haringey — Tottenham, Wood Green, Harringay, Seven Sisters: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Haringey — Tottenham, Wood Green, Harringay, Seven Sisters: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/haringey/",
   "landmark": {
     "src": "../images/haringey/haringey-alexandra-palace.png",
     "alt": "Pencil sketch of Alexandra Palace with the BLKOUT roundel set into its rose window"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Haringey's.",
+    "kicker": "One community. Many local pages. This one is Haringey's.",
     "heading": "BLKOUT in Haringey",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and in Haringey we are arriving somewhere that was already doing this. The borough ran the country's first council lesbian and gay unit. The Black Lesbian and Gay Centre was founded here. In 1987 it put three and a half thousand people on the street for Black lesbians and gay men. Around 52,400 Black residents live here now. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and in Haringey we are arriving somewhere that was already doing this. The borough ran the country's first council lesbian and gay unit. The Black Lesbian and Gay Centre was founded here. In 1987 it put three and a half thousand people on the street for Black lesbians and gay men. Around 52,400 Black residents live here now. This page is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -76,7 +76,7 @@
     "scores": {
       "three": "Haringey knows its own history. Now help us keep it current.",
       "two": "Close. The borough has more history than most boroughs have streets.",
-      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+      "low": "All the more reason to sign up below — the history is the easy part to catch up on."
     }
   },
   "here": {
@@ -225,7 +225,7 @@
       "slug": "barnet"
     },
     {
-      "name": "Croydon — the first door",
+      "name": "Croydon — the first local page",
       "slug": "croydon"
     }
   ],
@@ -257,7 +257,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Haringey?",
-      "a": "Start with the door on this page — you'll hear about everything as it happens. Wise Thoughts runs a regular LGBTQI+ drop-in at Wood Green, and BLKOUT's national community is open to you today. If a few Haringey men want a table in the borough, we'll help hold it."
+      "a": "Start with the sign-up on this page — you'll hear about everything as it happens. Wise Thoughts runs a regular LGBTQI+ drop-in at Wood Green, and BLKOUT's national community is open to you today. If a few Haringey men want a table in the borough, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Haringey?",
@@ -265,11 +265,11 @@
     },
     {
       "q": "Is BLKOUT a Haringey organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. Haringey has two of our directors living in it."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are. Haringey has two of our directors living in it."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -312,7 +312,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Haringey's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Haringey's.",
     "links": [
       {
         "label": "blkoutuk.com",

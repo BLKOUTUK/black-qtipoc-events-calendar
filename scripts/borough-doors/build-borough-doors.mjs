@@ -112,7 +112,7 @@ const boroughMap = (d, openSlugs) => {
       const hasDoor = openSlugs.has(sl);
       const cls = ['b', isSelf ? 'self' : '', isNb ? 'nb' : '', hasDoor && !isSelf ? 'door' : ''].filter(Boolean).join(' ');
       const shape = `<path class="${cls}" style="--i:${i}" d="${path}"><title>${esc(name)}${
-        isSelf ? ' — you are here' : hasDoor ? ' — door open' : ''
+        isSelf ? ' — you are here' : hasDoor ? ' — page live' : ''
       }</title></path>`;
       return hasDoor && !isSelf ? `<a href="../${esc(sl)}/">${shape}</a>` : shape;
     })
@@ -322,6 +322,13 @@ function build(slug) {
           (hereSplit.kept.length
             ? ringList(hereSplit.kept)
             : `<p class="quiet">${esc(d.here.quietNote ?? '')}</p>`) +
+          // Spec E (13 Nov 2026): this borough's next gatherings, filled on load from gatherings_live.
+          // Hidden until a fetch succeeds, so no-JS or a failed call shows nothing, never a broken box.
+          `\n      <div class="recently coming-up" id="coming-up" data-borough="${esc(boroughWordOf(d))}" hidden>
+        <h3>Coming up in ${esc(boroughWordOf(d))}</h3>
+        <ul></ul>
+        <p class="recently-note" data-empty hidden>Nothing listed yet. Know of something? <a href="https://events.blkoutuk.com/?submit=1&utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">Add it to the calendar</a>.</p>
+      </div>` +
           // Past events are rot-proof: what already happened here never goes stale.
           (d.here.recently?.length
             ? `\n      <div class="recently">
@@ -485,7 +492,7 @@ ${d.bibliography.entries
 ${ground(...groundsFor(d.slug).door)}
     <div class="plate-head">
       <span class="numeral">(##)</span>
-      <span class="kicker">The door</span>
+      <span class="kicker">Join in</span>
     </div>
     <h2 class="display">${esc(d.door.heading)}</h2>
     <p class="subtitle">The first step, if you want one.</p>
@@ -513,15 +520,15 @@ ${d.door.options
   // These were missing from the first draft of this template and restored from v1;
   // a section dropped here is a section that silently vanishes from every door.
   const nextDoor = d.neighbours?.length
-    ? plate(++n, 'The other doors', 'Next door', 'Every door that\'s open so far, and the one next to this.',
-        `<p>The doors are opening borough by borough. Step through, or help us open the next one.</p>
+    ? plate(++n, 'The other local pages', 'Next door', 'Every local page so far, and the boroughs next to this one.',
+        `<p>The pages are opening borough by borough. Step through, or help us open the next one.</p>
 ${boroughMap(d, existingSlugs)}
       <div class="pills">
 ${d.neighbours
   .map((nb) =>
     existingSlugs.has(nb.slug)
       ? `        <a class="pill open" href="../${esc(nb.slug)}/">${esc(nb.name)}</a>`
-      : `        <span class="pill closed">${esc(nb.name)} — no door yet</span>`
+      : `        <span class="pill closed">${esc(nb.name)} — no page yet</span>`
   )
   .join('\n')}
       </div>`, '', 'next-door')
@@ -534,7 +541,7 @@ ${d.neighbours
       <span class="kicker">The members' room</span>
     </div>
     <h2 class="display reveal">Step inside</h2>
-    <p class="subtitle reveal">Step inside: BLKOUTHUB, the room behind this door.</p>
+    <p class="subtitle reveal">BLKOUTHUB, the room behind this page.</p>
     <div class="plate-body reveal">
       <p class="tender">The door is how we find each other. BLKOUTHUB is where we live.</p>
       <p>The members' room: Black queer men across the UK, owned by the men in it. Why knock:</p>
@@ -566,7 +573,7 @@ ${d.neighbours
     <h2 class="display reveal">If you work here</h2>
     <p class="subtitle reveal">For NHS, council and community-sector partners.</p>
     <div class="plate-body reveal">
-      <p>This page is for Black queer men first. But if you serve this borough — NHS, social prescribing, council, community sector, creative health, or you run a room — there's a door for you too.</p>
+      <p>This page is for Black queer men first. But if you serve this borough — NHS, social prescribing, council, community sector, creative health, or you run a room — there's a way in for you too.</p>
       <ul class="reasons">
         <li><strong>Refer.</strong> Supporting a Black queer man who could use his people? Send him this page — that is a referral, and every knock gets answered by a human.</li>
         <li><strong>Commission or partner.</strong> Working on Black queer men's health, culture or connection in ${esc(boroughWord)}? We're the community-owned, by-and-for partner — and the evidence base is already on this page. Write to <a href="mailto:rob@blkoutuk.com">rob@blkoutuk.com</a>.</li>
@@ -651,7 +658,7 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
     ['the-count', 'The count'],
     ['the-record', 'The record'],
     ...(hereSplit.kept.length || d.here?.quietNote ? [['in-the-borough', 'In the borough']] : []),
-    ['s-door', 'The door'],
+    ['s-door', 'Join in'],
     ['join', 'BLKOUTHUB'],
     ['working-with-us', 'If you work here'],
   ];
@@ -786,7 +793,7 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
   /* Sized up, 24 Sep 2026 — Rob: "you went smaller, i thought bigger would be
      better". Now clearly bigger than the lede paragraph below it (1.2rem),
      reading as a real sub-heading tier rather than a quiet caption. */
-  .plate p.subtitle{font-size:1.5rem; font-size:clamp(1.2rem,2.6vw,1.7rem);
+  .plate p.subtitle{text-wrap:balance; font-size:1.5rem; font-size:clamp(1.2rem,2.6vw,1.7rem);
     font-weight:600; line-height:1.25; margin:-.4rem 0 1.8rem; max-width:34ch; color:var(--gold)}
   .plate.invert p.subtitle{color:#6b5300}
   .plate.gold p.subtitle{color:#000}
@@ -1214,6 +1221,7 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
   .calendar-card h3{margin:0 0 .4rem; font-size:1.05rem}
   .calendar-card p{margin:0; font-size:.92rem}
   .recently{border-top:1px solid var(--line); margin-top:1.8rem; padding-top:1.2rem}
+  .coming-up .recently-note{font-size:.95rem; color:var(--dim)}
   .recently h3{font-family:'Work Sans',system-ui,sans-serif; text-transform:uppercase;
     letter-spacing:.14em; font-size:.72rem; color:var(--gold); margin:0 0 .8rem}
   .recently ul{list-style:none; padding:0; margin:0}
@@ -1450,6 +1458,41 @@ ${CONSTELLATION}
       for (var c = 0; c < eraCards.length; c++) eraIo.observe(eraCards[c]);
     }
   }
+
+  // ---- coming up (Spec E, 13 Nov 2026) ----
+  // Next gatherings in this borough from the same gatherings_live view the calendar reads.
+  // Fails quiet: any error leaves the block hidden. Slug logic mirrors src/lib/eventLink.ts.
+  try {
+    var cu = document.getElementById('coming-up');
+    if (cu && window.fetch) {
+      var slugOf = function (t) {
+        return String(t).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+          .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60).replace(/-+$/g, '');
+      };
+      var whenOf = function (d, t) {
+        var day = new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+        if (!t) return day;
+        var hm = t.split(':'), h = +hm[0], m = hm[1];
+        return day + ' · ' + ((h % 12) || 12) + (m !== '00' ? '.' + m : '') + (h < 12 ? 'am' : 'pm');
+      };
+      fetch(SB_URL + '/rest/v1/gatherings_live?select=id,title,date,start_time&borough=eq.' +
+        encodeURIComponent(cu.getAttribute('data-borough')) + '&order=date.asc,start_time.asc&limit=5',
+        { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } })
+        .then(function (r) { if (!r.ok) throw new Error('coming-up ' + r.status); return r.json(); })
+        .then(function (rows) {
+          var ul = cu.querySelector('ul');
+          for (var i = 0; i < rows.length; i++) {
+            var ev = rows[i], li = document.createElement('li'), w = document.createElement('span'), a = document.createElement('a');
+            w.className = 'when'; w.textContent = whenOf(ev.date, ev.start_time);
+            var sl = slugOf(ev.title); a.href = '/e/' + ev.id + (sl ? '/' + sl : ''); a.textContent = ev.title;
+            li.appendChild(w); li.appendChild(document.createTextNode(' ')); li.appendChild(a); ul.appendChild(li);
+          }
+          if (!rows.length) cu.querySelector('[data-empty]').hidden = false;
+          cu.hidden = false;
+        })
+        .catch(function () { /* stays hidden */ });
+    }
+  } catch (err) { /* stays hidden */ }
 
   // ---- reveals ----
   // Plain index loops throughout: NodeList.prototype.forEach does not exist in

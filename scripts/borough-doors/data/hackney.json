@@ -2,16 +2,16 @@
   "slug": "hackney",
   "brandForm": "BLKOUT in Hackney",
   "title": "Black queer men in Hackney | BLKOUT in Hackney",
-  "metaDescription": "For Black queer men in and around Hackney — Dalston, Hackney Wick, Stoke Newington, Homerton: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Hackney — Dalston, Hackney Wick, Stoke Newington, Homerton: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/hackney/",
   "landmark": {
     "src": "../images/hackney/hackney-empire.png",
     "alt": "Pencil sketch of the Hackney Empire's ornate rooftop cupolas with the BLKOUT roundel set as a moon above them"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Hackney's.",
+    "kicker": "One community. Many local pages. This one is Hackney's.",
     "heading": "BLKOUT in Hackney",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Hackney is a borough we've already stood in. In 2018 BLKOUT backed Faggamuffin Bloc Party, believed to be the first sound system run by and for queer people of colour, when it staked a claim on Hackney Carnival's stage after 23 years without one. That same year Hackney Museum partnered with us to start collecting the borough's QTIPOC oral histories. Around 59,300 Black residents live here now. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Hackney is a borough we've already stood in. In 2018 BLKOUT backed Faggamuffin Bloc Party, believed to be the first sound system run by and for queer people of colour, when it staked a claim on Hackney Carnival's stage after 23 years without one. That same year Hackney Museum partnered with us to start collecting the borough's QTIPOC oral histories. Around 59,300 Black residents live here now. This page is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -49,7 +49,7 @@
     "scores": {
       "three": "Hackney knows its own history. Now help us keep it current.",
       "two": "Close. There's more of this than most people ever hear about.",
-      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+      "low": "All the more reason to sign up below — the history is the easy part to catch up on."
     }
   },
   "here": {
@@ -202,7 +202,7 @@
     { "name": "Tower Hamlets", "slug": "tower-hamlets" },
     { "name": "Waltham Forest", "slug": "waltham-forest" },
     { "name": "Newham", "slug": "newham" },
-    { "name": "Croydon — the first door", "slug": "croydon" }
+    { "name": "Croydon — the first local page", "slug": "croydon" }
   ],
   "archive": {
     "intro": "Hackney runs through our own writing since 2018 — backing Faggamuffin Bloc Party's first year at Carnival, and the Hackney Museum oral history partnership we helped start. Those pieces are in the story archive and being brought back online; when they are, they'll be listed here.",
@@ -211,7 +211,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Hackney?",
-      "a": "Start with the door on this page — you'll hear about everything as it happens. Faggamuffin Bloc Party runs its stage at Hackney Carnival every year, and BLKOUT's national community is open to you today. If a few Hackney men want a table in the borough, we'll help hold it."
+      "a": "Start with the sign-up on this page — you'll hear about everything as it happens. Faggamuffin Bloc Party runs its stage at Hackney Carnival every year, and BLKOUT's national community is open to you today. If a few Hackney men want a table in the borough, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Hackney?",
@@ -219,11 +219,11 @@
     },
     {
       "q": "Is BLKOUT a Hackney organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. One of our directors lives in Hackney, and we've been showing up here since 2018."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are. One of our directors lives in Hackney, and we've been showing up here since 2018."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -254,7 +254,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Hackney's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Hackney's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },

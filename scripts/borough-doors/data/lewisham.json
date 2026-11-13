@@ -2,16 +2,16 @@
   "slug": "lewisham",
   "brandForm": "BLKOUT in Lewisham",
   "title": "Black queer men in Lewisham | BLKOUT in Lewisham",
-  "metaDescription": "For Black queer men in and around Lewisham — Deptford, Catford, New Cross, Brockley: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Lewisham — Deptford, Catford, New Cross, Brockley: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/lewisham/",
   "landmark": {
     "src": "../images/lewisham/lewisham-albany.png",
     "alt": "Pencil sketch of The Albany, Deptford, with the BLKOUT roundel as a moon above it"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Lewisham's.",
+    "kicker": "One community. Many local pages. This one is Lewisham's.",
     "heading": "BLKOUT in Lewisham",
-    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Lewisham has already given British music one of its most successful openly gay Black men. MNEK — born in Lewisham, raised in Bellingham — has written and produced for Beyoncé, Madonna and Stormzy, and won an ASCAP Vanguard Award, all while being open about who he is. The Albany in Deptford has hosted our own event series, a play we supported, and a Black Gay Ink writers' event we spoke at. In April 2023 we put out a direct call-out — #StrongerTogether — to Black bi, gay and/or trans men across the borough. Around 81,900 Black residents live here. This door is for the Black queer men among them."
+    "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Lewisham has already given British music one of its most successful openly gay Black men. MNEK — born in Lewisham, raised in Bellingham — has written and produced for Beyoncé, Madonna and Stormzy, and won an ASCAP Vanguard Award, all while being open about who he is. The Albany in Deptford has hosted our own event series, a play we supported, and a Black Gay Ink writers' event we spoke at. In April 2023 we put out a direct call-out — #StrongerTogether — to Black bi, gay and/or trans men across the borough. Around 81,900 Black residents live here. This page is for the Black queer men among them."
   },
   "lastChecked": "31 August 2026",
   "quiz": {
@@ -49,13 +49,13 @@
     "scores": {
       "three": "Lewisham knows its own record. Now help us build the rest of it.",
       "two": "Close. There's a quieter history here than most boroughs get credit for.",
-      "low": "All the more reason to walk through the door below — the history is the easy part to catch up on."
+      "low": "All the more reason to sign up below — the history is the easy part to catch up on."
     }
   },
   "here": {
     "heading": "Here in Lewisham",
     "intro": "In April 2023 we put out a direct call-out to Black bi, gay and/or trans men in Lewisham to co-create a peer support project together. We don't have a public record of what came of it — help us find out, or help us restart it.",
-    "quietNote": "Nothing else is listed in Lewisham right now beyond the directory below — checked 31 August 2026. That's a report, not a silence. The door below is always open.",
+    "quietNote": "Nothing else is listed in Lewisham right now beyond the directory below — checked 31 August 2026. That's a report, not a silence. The sign-up below is always open.",
     "entries": []
   },
   "besideUs": {
@@ -170,7 +170,7 @@
     { "name": "Southwark", "slug": "southwark" },
     { "name": "Greenwich", "slug": "greenwich" },
     { "name": "Bromley", "slug": "bromley" },
-    { "name": "Croydon — the first door", "slug": "croydon" },
+    { "name": "Croydon — the first local page", "slug": "croydon" },
     { "name": "Lambeth", "slug": "lambeth" }
   ],
   "archive": {
@@ -180,7 +180,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Lewisham?",
-      "a": "We called for one to form in April 2023, and we're honest that we don't have a public record of what came of it — start with the door on this page, and BLKOUT's national community is open to you today. If a few Lewisham men want a table in the borough, we'll help hold it."
+      "a": "We called for one to form in April 2023, and we're honest that we don't have a public record of what came of it — start with the sign-up on this page, and BLKOUT's national community is open to you today. If a few Lewisham men want a table in the borough, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Lewisham?",
@@ -188,11 +188,11 @@
     },
     {
       "q": "Is BLKOUT a Lewisham organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with a door in every borough. We're registered in Croydon and we belong wherever our men are. We ran events in Lewisham a decade before this page existed."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK — with local pages opening borough by borough. We're registered in Croydon and we belong wherever our men are. We ran events in Lewisham a decade before this page existed."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are — nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are — nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -223,7 +223,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors — this one is Lewisham's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages — this one is Lewisham's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },

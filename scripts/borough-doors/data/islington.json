@@ -2,17 +2,17 @@
   "slug": "islington",
   "brandForm": "BLKOUT in Islington",
   "title": "Black queer men in Islington | BLKOUT in Islington",
-  "metaDescription": "For Black queer men in and around Islington — Angel, Highbury, Holloway, Finsbury Park, Archway: what's here, what's beside us, what's worth the journey, and a community-owned door into BLKOUT.",
+  "metaDescription": "For Black queer men in and around Islington — Angel, Highbury, Holloway, Finsbury Park, Archway: what's here, what's beside us, what's worth the journey, and a community-owned way into BLKOUT.",
   "canonicalUrl": "https://events.blkoutuk.com/islington/",
   "landmark": {
     "src": "../images/islington/islington-union-chapel.png",
     "alt": "Pencil sketch of Union Chapel on Compton Terrace, Islington, its tower and rose window, with the BLKOUT roundel set into a small moon above"
   },
   "hero": {
-    "kicker": "One community. Many doors. This one is Islington's.",
+    "kicker": "One community. Many local pages. This one is Islington's.",
     "heading": "BLKOUT in Islington",
     "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK. Islington is where Britain's first gay rights demonstration lit its torches, and where a Black queer church now meets every month.",
-    "standfirstMore": "Around 28,700 Black residents live in the borough. This door is for the Black queer men among them."
+    "standfirstMore": "Around 28,700 Black residents live in the borough. This page is for the Black queer men among them."
   },
   "lastChecked": "12 October 2026",
   "quiz": {
@@ -50,7 +50,7 @@
     "scores": {
       "three": "Islington knows its own history. Now help us write what's next.",
       "two": "Close. The borough has more of our story in it than most people walking Upper Street would guess.",
-      "low": "All the more reason to walk through the door below. The history is the easy part to catch up on."
+      "low": "All the more reason to sign up below. The history is the easy part to catch up on."
     }
   },
   "here": {
@@ -232,7 +232,7 @@
     { "name": "Haringey", "slug": "haringey" },
     { "name": "Hackney", "slug": "hackney" },
     { "name": "City of London", "slug": "city-of-london" },
-    { "name": "Croydon — the first door", "slug": "croydon" }
+    { "name": "Croydon — the first local page", "slug": "croydon" }
   ],
   "archive": {
     "intro": "Islington runs through our own writing: a revival on Upper Street, and two men born in the borough who built something wider.",
@@ -257,7 +257,7 @@
   "faq": [
     {
       "q": "Where can I meet other Black queer men in Islington?",
-      "a": "We haven't found a standing men's space in the borough yet. We've checked, and that's the honest answer. House of Rainbow meets monthly at Union Chapel for Black LGBTQ+ people of faith, and the Melanated Queers Reading Collective meets at Housmans. Start with the door on this page. If a few Islington men want a table, we'll help hold it."
+      "a": "We haven't found a standing men's space in the borough yet. We've checked, and that's the honest answer. House of Rainbow meets monthly at Union Chapel for Black LGBTQ+ people of faith, and the Melanated Queers Reading Collective meets at Housmans. Start with the sign-up on this page. If a few Islington men want a table, we'll help hold it."
     },
     {
       "q": "Where can I get an STI test or PrEP in Islington?",
@@ -265,11 +265,11 @@
     },
     {
       "q": "Is BLKOUT an Islington organisation?",
-      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK, with a door in every borough. We're registered in Croydon. This is Islington's door, and it's only as good as what Islington men tell us."
+      "a": "BLKOUT is one community-owned co-operative for Black queer men across the UK, with local pages opening borough by borough. We're registered in Croydon. This is Islington's page, and it's only as good as what Islington men tell us."
     },
     {
       "q": "I'm not out. Can I still come?",
-      "a": "Yes. Come as you are. Nobody at this door asks you to be anything first, and your business stays yours."
+      "a": "Yes. Come as you are. Nobody here asks you to be anything first, and your business stays yours."
     },
     {
       "q": "Is the history on this page accurate?",
@@ -312,7 +312,7 @@
     "error": "Couldn't save right now. Email rob@blkoutuk.com and we'll take it that way."
   },
   "footer": {
-    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many doors, and this one is Islington's.",
+    "line": "BLKOUT is a member-owned Community Benefit Society for Black queer men in the UK. One platform, many local pages, and this one is Islington's.",
     "links": [
       { "label": "blkoutuk.com", "url": "https://blkoutuk.com" },
       { "label": "Events across the UK", "url": "https://events.blkoutuk.com" },
