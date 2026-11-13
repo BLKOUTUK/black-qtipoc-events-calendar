@@ -140,13 +140,7 @@
     "heading": "Worth the journey",
     "intro": "Black queer men have never let a borough boundary decide where community happens. Where you're centred, not just welcome:",
     "entries": [
-      {
-        "name": "Black Beetle Health",
-        "url": "https://www.blackbeetlehealth.co.uk",
-        "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
-        "centres": "black-lgbtq",
-        "currencyChecked": true
-      },
+      
       {
         "name": "Melanin Vybz — London LGBTQ+ Community Centre",
         "url": "https://londonlgbtqcentre.org",
@@ -168,7 +162,7 @@
       },
       {
         "name": "Mortimer Market Centre",
-        "url": "https://www.cnwl.nhs.uk/services/sexual-health-services/mortimer-market-centre",
+        "url": "https://www.sexualhealth.cnwl.nhs.uk/clinic/mortimer-market-centre-including-margaret-pyke-centre",
         "note": "Camden's own NHS sexual health and HIV clinic, on Mortimer Market off Tottenham Court Road — walk-in and booked appointments, PrEP, testing and treatment.",
         "currencyChecked": true
       },

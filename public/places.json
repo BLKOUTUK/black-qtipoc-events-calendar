@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T09:39:46.730Z",
+ "generated": "2026-11-13T11:21:42.807Z",
  "source": "https://events.blkoutuk.com/places",
  "places": [
   {
@@ -290,7 +290,7 @@
    "region": "london",
    "borough": "Lewisham",
    "kind": "collective",
-   "url": "https://www.thecookoutparty.com",
+   "url": "https://www.instagram.com/thecookoutuk/",
    "instagram": "@thecookoutuk",
    "centres": "black-lgbtq"
   },
@@ -398,17 +398,6 @@
    "kind": "collective",
    "url": "https://www.shoutfestival.co.uk",
    "instagram": "@shoutfestbirmingham",
-   "centres": "qtipoc"
-  },
-  {
-   "id": "unmuted-birmingham",
-   "name": "UNMUTED",
-   "what": "Meetups, book club and advocacy network for LGBTQI people of colour in Birmingham and the West Midlands.",
-   "where": "Birmingham & West Midlands",
-   "region": "midlands",
-   "kind": "group",
-   "regular": "Monthly meetups (per directory)",
-   "url": "https://www.unmutedbrum.com/",
    "centres": "qtipoc"
   },
   {

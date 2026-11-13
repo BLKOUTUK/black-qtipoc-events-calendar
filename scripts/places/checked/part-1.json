@@ -68,8 +68,8 @@
     "url": "https://www.unmutedbrum.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "Rob, 28 Aug 2026",
-    "status": "live"
+    "evidence": "Rob, 28 Aug 2026; Rob, 13 Nov 2026: no longer running (unmutedbrum.com no longer resolves)",
+    "status": "closed"
   },
   {
     "id": "colours-youth-network",
@@ -81,8 +81,8 @@
     "url": "https://coloursyouthnetwork.com/",
     "centres": "qtipoc",
     "checked": "2026-08",
-    "evidence": "coloursyouthnetwork.com blocked direct fetch (403); Eventbrite organiser page (eventbrite.co.uk/o/colours-youth-network-28774520493) shows 'Nothing planned right now' with no past events surfaced; web search found only historical/generic festival mentions, no dated 2026 activity. No dated activity confirmed either way.",
-    "status": "unclear"
+    "evidence": "Rob, 13 Nov 2026: defunct (closed 2024). Earlier: coloursyouthnetwork.com blocked direct fetch (403); Eventbrite organiser page (eventbrite.co.uk/o/colours-youth-network-28774520493) shows 'Nothing planned right now' with no past events surfaced; web search found only historical/generic festival mentions, no dated 2026 activity. No dated activity confirmed either way.",
+    "status": "closed"
   },
   {
     "id": "lgbt-youth-scotland",

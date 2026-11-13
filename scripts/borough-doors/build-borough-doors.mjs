@@ -60,7 +60,8 @@ function localNews(slug) {
     slug === 'birmingham'
       ? 'Birmingham is our first local page outside London, and it grows with what you tell us. <a href="#s-truer">Tell us what we&rsquo;ve missed &rarr;</a>'
       : 'And we&rsquo;ve opened our first local page outside London: <a href="/birmingham/">Birmingham &rarr;</a>';
-  return `<aside class="local-news" aria-label="New on BLKOUT Local"><strong>New on BLKOUT Local.</strong> ${lead} ${tail}</aside>\n\n`;
+  const why = '<span class="why">Why we&rsquo;re building these pages: <a href="https://voices.blkoutuk.com/articles/the-advantage-of-being-everywhere" rel="noopener">The advantage of being&nbsp;everywhere</a>.</span>';
+  return `<aside class="local-news" aria-label="New on BLKOUT Local"><strong>New on BLKOUT Local.</strong> ${lead} ${tail} ${why}</aside>\n\n`;
 }
 
 const CONSTELLATION = readFileSync(join(HERE, '..', '..', '..', '..', 'packages', 'constellation-nav', 'fragment.html'), 'utf8').trim();
@@ -364,7 +365,7 @@ ${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" re
   }
   if (d.services?.entries?.length) {
     servicesRing =
-      plate(++n, 'Health', d.services.heading, 'Sexual health services, NHS and community-run.', `<p>${esc(d.services.intro)}</p>` + ringList(d.services.entries), 'invert');
+      plate(++n, 'Health', d.services.heading, 'Sexual health services, NHS and community-run.', `<p>${esc(d.services.intro)}</p>` + ringList(d.services.entries) + `\n      <p class="directory-note">For mental health, BLKOUT's own page starts with connection, and the evidence we're gathering: <a href="https://blkoutuk.com/mental-health" rel="noopener">mental health and Black queer men</a>.</p>`, 'invert');
   }
 
   const rollcall = `  <section class="plate rollcall invert" id="the-count">
@@ -398,7 +399,7 @@ ${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" re
 ${census.rows.map((r) => `          <tr${r.borough === boroughWord ? ' class="self"' : ''}><td>${esc(r.borough)}</td><td>${esc(r.blackResidents)}</td><td>${esc(r.estBqm)}</td></tr>`).join('\n')}
         </tbody>
       </table></div>
-      <p class="census-source">${esc(census.source)}</p>
+      <p class="census-source">${esc(census.source).replace('Critical Frequency', '<a href="https://critical.blkoutuk.com/#demographics" rel="noopener">Critical&nbsp;Frequency</a>')}</p>
       <p class="rollcall-note">Nobody keeps this number. Not the council, not the NHS, not the people who commission work in this borough. The estimate is ours, built from the 2021 Census, because a population nobody counts is a population nobody plans for.</p>
       ${d.numbers?.body ? `<p class="aside">${esc(d.numbers.body)}</p>` : ''}
     </div>
@@ -541,7 +542,7 @@ ${d.neighbours
         <li><strong>Real connection.</strong> Nearly four in five members say they came to find it — and found it.</li>
         <li><strong>No algorithm, no ads, nothing sold onward.</strong> A room that doesn't monetise you. Your attention is yours; we're after your company.</li>
         <li><strong>Where things actually start.</strong> Occasions, groups, and the knowledge that never gets written down — passed man to man, the way it always has been.</li>
-        <li><strong>Owned by us.</strong> A co-operative with an asset lock: what we build together stays ours, and passes to the men who come after.</li>
+        <li><strong>Owned by us.</strong> <a href="https://blkoutuk.com/membership?utm_source=borough-door" rel="noopener">A co-operative</a> with an asset lock: what we build together stays ours, and passes to the men who come after.</li>
       </ul>
       <a class="ghost" href="https://blkouthub.com/?utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">Join BLKOUTHUB</a>
       <div class="aivor">
@@ -747,6 +748,7 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
      standfirst — 35 words and then a paragraph below to protect the image" — a
      long standfirst otherwise grows tall enough to fight the image regardless of
      the 56ch width cap. Optional — a door without it renders exactly as before. */
+  .local-news .why{display:block; margin-top:.4em}
   .local-news{max-width:46rem; margin:0 auto 2rem; padding:.9rem 1.1rem; border-left:3px solid var(--gold);
     background:rgba(255,215,0,.06); font-family:'Work Sans',system-ui,sans-serif; font-size:.95rem; line-height:1.5; color:var(--dim)}
   .local-news strong{color:var(--gold); font-weight:700}

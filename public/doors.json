@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T03:41:04.116Z",
+ "generated": "2026-11-13T11:27:59.900Z",
  "source": "https://events.blkoutuk.com/",
  "doors": [
   {
@@ -7,7 +7,7 @@
    "borough": "Birmingham",
    "url": "https://events.blkoutuk.com/birmingham/",
    "lastChecked": "12 November 2026",
-   "history": "## 1948 — a company passing through\n\nIn 1948, Berto Pasuka's Les Ballets Nègres — Europe's first Black-led dance company, and the anchor of BLKOUT's own Westminster door — played Birmingham to reviews calling it 'vital and compelling'. A touring company passing through, not a resident — colour here, not the anchor.\n\n## 1968–1979 — Stuart Hall\n\nFrom 1968 to 1979, Professor Stuart Hall — Jamaican-British, one of the most consequential Black British intellectuals of the century — directed the University of Birmingham's Centre for Contemporary Cultural Studies, the founding institution of British Cultural Studies. Not a queer figure in this history, but a foundational one for how Black Britain has thought about representation ever since.\n\n## 1968–1992 — Handsworth's magazine\n\nHall's own thread leads to this door's strongest anchor. From 1978, a room above a Grove Lane terrace in Handsworth held Ten.8, a quarterly photography magazine. In 1987, Ten.8 published Rotimi Fani-Kayode's homoerotic portraits after a London magazine rejected them as 'too controversial' — and Fani-Kayode went on to co-found Autograph, which still champions Black photographers today. Ten.8's own final issue (1992) was co-edited by Stuart Hall. A Handsworth magazine gave a young Black queer photographer the platform London wouldn't.\n\n## 2016–2018 — BLKOUT's own record\n\nBLKOUT's own record starts in October 2016: Raurie 'Rawzilla' Williams — the 'First Gay Grime MC', viral in 2013 — was one of our writers, Birmingham-based. He wrote about Birmingham's Hurst Street: 'Where are my dark skin brothers?' Two years later, BLKOUT backed a different Birmingham member: Aaron Lambert's debut one-man show, Candid, at Canada Water Theatre, 9 November 2018. Rob designed the promotional images; asked where he was 'really' from, Aaron answered: 'Lol. My grandparents were born in Jamaica.' It played to a full house.\n\n## Today\n\nBy 2018, Suriya Roberts-Grey had founded UNMUTED, a QTIPOC group meeting monthly at Impact Hub Birmingham. A Black queer drag lineage took root too: Yshee Black mentored newcomer Black Peppa, who went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK. Today, Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend — real nights, running now.\n\n## What's still missing\n\nOne thing this door is still looking for: a figure who lived and organised here across a life, the way Ivor Cummings anchors Croydon. Ten.8's Handsworth moment is real, but Fani-Kayode lived and worked in London. The search continues — literally: Dr Nathaniel Adam Tobias Coleman, born in Birmingham, is writing a fresh history of Section 28 and the Black Queer activists who resisted it. His work sits exactly where this door does.\n\n» None of this happens without the people already building it — see who's here in Birmingham right now.",
+   "history": "## 1948 — a company passing through\n\nIn 1948, Berto Pasuka's Les Ballets Nègres — Europe's first Black-led dance company, and the anchor of BLKOUT's own Westminster door — played Birmingham to reviews calling it 'vital and compelling'. A touring company passing through, not a resident — colour here, not the anchor.\n\n## 1968–1979 — Stuart Hall\n\nFrom 1968 to 1979, Professor Stuart Hall — Jamaican-British, one of the most consequential Black British intellectuals of the century — directed the University of Birmingham's Centre for Contemporary Cultural Studies, the founding institution of British Cultural Studies. Not a queer figure in this history, but a foundational one for how Black Britain has thought about representation ever since.\n\n## 1968–1992 — Handsworth's magazine\n\nHall's own thread leads to this door's strongest anchor. From 1978, a room above a Grove Lane terrace in Handsworth held Ten.8, a quarterly photography magazine. In 1987, Ten.8 published Rotimi Fani-Kayode's homoerotic portraits after a London magazine rejected them as 'too controversial' — and Fani-Kayode went on to co-found Autograph, which still champions Black photographers today. Ten.8's own final issue (1992) was co-edited by Stuart Hall. A Handsworth magazine gave a young Black queer photographer the platform London wouldn't.\n\n## 2016–2018 — BLKOUT's own record\n\nBLKOUT's own record starts in October 2016: Raurie 'Rawzilla' Williams — the 'First Gay Grime MC', viral in 2013 — was one of our writers, Birmingham-based. He wrote about Birmingham's Hurst Street: 'Where are my dark skin brothers?' Two years later, BLKOUT backed a different Birmingham member: Aaron Lambert's debut one-man show, Candid, at Canada Water Theatre, 9 November 2018. Rob designed the promotional images; asked where he was 'really' from, Aaron answered: 'Lol. My grandparents were born in Jamaica.' It played to a full house.\n\n## 2018–2020\n\nIn 2018, Suriya Roberts-Grey founded UNMUTED, a QTIPOC group that met monthly at Impact Hub Birmingham. A Black queer drag lineage took root too: Yshee Black mentored newcomer Black Peppa, who went on to win EuroDrag England (2020) and compete on RuPaul's Drag Race UK.\n\n## Today\n\nToday, Fruit Punch runs a monthly Black and POC social at The Night Owl, Deritend — real nights, running now.\n\n## What's still missing\n\nOne thing this door is still looking for: a figure who lived and organised here across a life, the way Ivor Cummings anchors Croydon. Ten.8's Handsworth moment is real, but Fani-Kayode lived and worked in London. The search continues — literally: Dr Nathaniel Adam Tobias Coleman, born in Birmingham, is writing a fresh history of Section 28 and the Black Queer activists who resisted it. His work sits exactly where this door does.\n\n» None of this happens without the people already building it — see who's here in Birmingham right now.",
    "here": [
     {
      "name": "Fruit Punch",
@@ -36,14 +36,7 @@
      "centres": "lgbtq-general"
     }
    ],
-   "worthTheJourney": [
-    {
-     "name": "Black Beetle Health",
-     "url": "https://www.blackbeetlehealth.co.uk",
-     "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
-     "centres": "black-lgbtq"
-    }
-   ],
+   "worthTheJourney": [],
    "services": [
     {
      "name": "Birmingham LGBT Centre Sexual Health Services",
@@ -193,12 +186,6 @@
    ],
    "worthTheJourney": [
     {
-     "name": "Black Beetle Health",
-     "url": "https://www.blackbeetlehealth.co.uk",
-     "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
-     "centres": "black-lgbtq"
-    },
-    {
      "name": "Melanin Vybz — London LGBTQ+ Community Centre",
      "url": "https://londonlgbtqcentre.org",
      "note": "Bankside's community centre runs Melanin Vybz, a social space for Black and POC LGBTQ+ people — a short ride down the Northern line.",
@@ -213,7 +200,7 @@
     },
     {
      "name": "Mortimer Market Centre",
-     "url": "https://www.cnwl.nhs.uk/services/sexual-health-services/mortimer-market-centre",
+     "url": "https://www.sexualhealth.cnwl.nhs.uk/clinic/mortimer-market-centre-including-margaret-pyke-centre",
      "note": "Camden's own NHS sexual health and HIV clinic, on Mortimer Market off Tottenham Court Road — walk-in and booked appointments, PrEP, testing and treatment."
     },
     {
@@ -640,7 +627,7 @@
     },
     {
      "name": "Two Brewers",
-     "url": "https://www.thetwobrewers.com",
+     "url": "https://www.timeout.com/london/nightlife/the-two-brewers",
      "note": "Clapham High Street's dancefloor-and-cabaret institution.",
      "centres": "lgbtq-general"
     },
@@ -732,14 +719,8 @@
      "centres": "lgbtq-general"
     },
     {
-     "name": "Triangle LGBTQ+ Cultural Centre",
-     "url": "https://www.trianglecentre.org",
-     "note": "Deptford's LGBTQ+ gallery, cinema, studios and social club, running since 2021.",
-     "centres": "lgbtq-general"
-    },
-    {
      "name": "Piehouse Co-op",
-     "url": "https://www.piehouse.co.uk",
+     "url": "https://www.wearelewisham.com/organisations/piehouseworkerscoopcic/",
      "note": "A Deptford railway arch venue, reopened in November 2024 after a community campaign to save it — home to the Rotten Crip Collective's residency and a genuine local win worth backing.",
      "centres": "lgbtq-general"
     },
@@ -1078,7 +1059,7 @@
    "besideUs": [
     {
      "name": "Westminster City Archives — LGBTQ+ heritage programme",
-     "url": "https://www.westminster.gov.uk/libraries-and-archives/westminster-city-archives",
+     "url": "https://www.westminster.gov.uk/leisure-libraries-and-community/westminster-archives",
      "note": "The council archive's growing LGBTQ+ collections and public talks — including, in 2025, a Black, Queer & Young event platforming Black queer artists alongside the Westminster Youth Foundation.",
      "centres": "lgbtq-general"
     },
@@ -1089,14 +1070,7 @@
      "centres": "lgbtq-general"
     }
    ],
-   "worthTheJourney": [
-    {
-     "name": "Black Beetle Health",
-     "url": "https://www.blackbeetlehealth.co.uk",
-     "note": "The UK's only public health charity focused specifically on health inequalities for LGBTQ+ Black people and people of colour — resources, research and signposting, reachable from anywhere.",
-     "centres": "black-lgbtq"
-    }
-   ],
+   "worthTheJourney": [],
    "services": [
     {
      "name": "Sexual Health London (SHL)",
