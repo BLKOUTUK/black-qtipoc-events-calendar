@@ -6,7 +6,7 @@
   "canonicalUrl": "https://events.blkoutuk.com/westminster/",
   "landmark": {
     "src": "../images/westminster/westminster-elizabeth-tower.png",
-    "alt": "Pencil sketch of the Elizabeth Tower with the BLKOUT roundel set into its clock face"
+    "alt": "Pencil sketch of the Elizabeth Tower with the BLKOUT roundel set into its clock face", "pad": {"top": 0.011, "bottom": 0.045}, "lift": 1.9
   },
   "hero": {
     "kicker": "One community. Many local pages. This one is Westminster's.",

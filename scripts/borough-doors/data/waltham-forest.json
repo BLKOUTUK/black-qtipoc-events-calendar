@@ -6,7 +6,7 @@
   "canonicalUrl": "https://events.blkoutuk.com/waltham-forest/",
   "landmark": {
     "src": "../images/waltham-forest/waltham-forest-william-morris-gallery.png",
-    "alt": "Pencil sketch of the William Morris Gallery's Georgian façade in Lloyd Park with the BLKOUT roundel set into a small moon above the roofline"
+    "alt": "Pencil sketch of the William Morris Gallery's Georgian façade in Lloyd Park with the BLKOUT roundel set into a small moon above the roofline", "pad": {"top": 0.085, "bottom": 0.142}
   },
   "hero": {
     "kicker": "One community. Many local pages. This one is Waltham Forest's.",

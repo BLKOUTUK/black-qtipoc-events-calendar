@@ -6,7 +6,7 @@
   "canonicalUrl": "https://events.blkoutuk.com/islington/",
   "landmark": {
     "src": "../images/islington/islington-union-chapel.png",
-    "alt": "Pencil sketch of Union Chapel on Compton Terrace, Islington, its tower and rose window, with the BLKOUT roundel set into a small moon above"
+    "alt": "Pencil sketch of Union Chapel on Compton Terrace, Islington, its tower and rose window, with the BLKOUT roundel set into a small moon above", "pad": {"top": 0.038, "bottom": 0.034}
   },
   "hero": {
     "kicker": "One community. Many local pages. This one is Islington's.",

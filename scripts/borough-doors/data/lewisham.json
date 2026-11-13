@@ -6,7 +6,7 @@
   "canonicalUrl": "https://events.blkoutuk.com/lewisham/",
   "landmark": {
     "src": "../images/lewisham/lewisham-albany.png",
-    "alt": "Pencil sketch of The Albany, Deptford, with the BLKOUT roundel as a moon above it"
+    "alt": "Pencil sketch of The Albany, Deptford, with the BLKOUT roundel as a moon above it", "pad": {"top": 0.089, "bottom": 0.075}
   },
   "hero": {
     "kicker": "One community. Many local pages. This one is Lewisham's.",

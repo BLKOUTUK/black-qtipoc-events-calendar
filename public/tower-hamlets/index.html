@@ -583,6 +583,103 @@
     .reveal.armed{opacity:1; filter:none; transform:none}
     .grain{animation:none}
   }
+  /* ==== Lit from within (Rob, 13 Nov 2026: "these should not be dour spaces") ====
+     The mental-health page's tokens with the Events lemon accent: obsidian ground, cream
+     text, lemon accent, Purple Deep as glow only. Design advice + renders:
+     ~/blkout/projects/32-boroughs/design-advice-2026-11-13/ADVICE.md (option 1).
+     Deliberately NOT done yet: lifting the background photos to full colour. power-09
+     looks AI-photoreal and joy-09 centres a woman; lift .ground only once they are
+     real BLKOUT photographs of Black queer men. */
+  :root{--bg:#0a0a14; --ink:#f5f1e8; --dim:#ddd6c8; --line:#24223a; --shell:#14141f; --bone:#f5f1e8; --gold:#FFE600; --gold-deep:#d4af37}
+  a{color:#FFE600; border-bottom-color:rgba(255,230,0,.4)} a:hover{color:#f5f1e8}
+  .plate p.subtitle, .eyebrow, h1.mega .of, .numeral{color:#FFE600}
+  .boroughmap path.b.door{fill:#FFE600}
+  /* dark plates run edge to edge and carry the glow, alternating corners */
+  .plate:not(.invert):not(.gold):not(.has-bg){margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw;
+    background-image:radial-gradient(ellipse 45vw 60% at 85% 0%, rgba(74,25,66,.55), transparent 70%)}
+  .plate:not(.invert):not(.gold):not(.has-bg):nth-of-type(even){background-image:radial-gradient(ellipse 45vw 60% at 10% 100%, rgba(74,25,66,.5), transparent 70%)}
+  .plate:not(.gold):not(.invert):not(.has-bg) > h2.display{background-image:linear-gradient(180deg, rgba(10,10,20,.92) 62%, rgba(10,10,20,0) 100%)}
+  .plate:not(.gold):not(.invert):not(.has-bg) > div.plate-head{background-color:rgba(10,10,20,.92)}
+  .plate.has-bg{margin-left:-50vw; margin-right:-50vw; padding-left:50vw; padding-right:50vw}
+  /* cream plates: flat cream, obsidian type, lemon rule on top (no khaki, no parchment fade) */
+  .plate.invert{background-image:none; background-color:#f5f1e8; border-top:6px solid #FFE600}
+  .plate.invert > div.plate-head, .plate.invert > h2.display{background-color:#f5f1e8; background-image:none}
+  .plate.invert p.subtitle, .plate.invert .numeral, .plate.invert .stamp, .plate.invert a, .plate.invert .guess-read output, .plate.invert .ring-name:hover{color:#0a0a14}
+  .plate.invert a{border-bottom:2px solid #FFE600}
+  /* quiz plate: flat lemon */
+  .plate.gold{background-image:none; background-color:#FFE600}
+  .plate.gold > div.plate-head, .plate.gold > h2.display{background-color:#FFE600; background-image:none}
+
+  /* ---- the local landmark: its own space, never behind type (Rob, 13 Nov) ----
+     Desktop: the drawing takes the right 40% of the hero; headline and standfirst keep
+     the left 56%, so nothing overlaps and no scrim is needed. Phone: the drawing sits
+     in the flow between the headline and the standfirst, at full strength. */
+  header.hero::after{background-image:none}
+  header.hero .standfirst{max-width:56%}
+  img.landmark{left:60%; right:auto; top:2.5rem; bottom:auto; width:40%; height:calc(100% - 5rem);
+    object-fit:contain; object-position:center bottom; opacity:1}
+  @media (max-width:760px){
+    header.hero{min-height:0}
+    header.hero .standfirst{max-width:100%; margin-top:1.6rem}
+    img.landmark{position:static; display:block; width:min(78%, 20rem); height:auto; margin:1.8rem 0 0; opacity:1}
+  }
+
+  /* ---- Lit from within, round 2 fixes (design loop) ---- */
+  html{background:#0a0a14}  /* body's glow now paints on the body box, not the first screen only (phone seam) */
+  body{background:radial-gradient(ellipse 75vw 950px at 85% 0, rgba(74,25,66,.8), transparent 70%) no-repeat,
+    radial-gradient(ellipse 60vw 700px at 0 900px, rgba(74,25,66,.35), transparent 70%) no-repeat, #0a0a14}
+  @media (min-width:761px){ h1.mega{font-size:calc(5.5rem * var(--fit, 1)); font-size:calc(clamp(2.6rem,10vw,7.5rem) * var(--fit, 1))} }
+  h1.mega .of{font-size:max(.24em, .8rem)}
+  header.hero .standfirst{margin-top:3.5rem}
+  .plate.invert .guess input[type=range]::-webkit-slider-thumb{box-shadow:0 0 0 2px #0a0a14}
+  .plate.invert .guess input[type=range]::-moz-range-thumb{box-shadow:0 0 0 2px #0a0a14}
+  .plate.gold .q-options button{border:2px solid rgba(10,10,20,.6)}
+
+  /* ---- Lit from within, round 3 fixes (design loop) ---- */
+  .local-news{background:#14141f}
+  .plate.invert p, .plate.invert li{color:#0a0a14}
+  p.census-caption{text-align:left; font-size:.82rem; margin:0 0 .7rem}
+  .plate.invert .kicker, .plate.invert .stamp, p.census-caption{color:rgba(10,10,20,.72)}
+  .plate.invert.rollcall table.census caption, .plate.invert.rollcall table.census th, .plate.invert.rollcall table.census td{color:rgba(10,10,20,.78)}
+  .plate.invert.rollcall table.census tr.self td{color:#0a0a14; background:none; font-weight:700; border-top:2px solid #FFE600}
+  .plate.invert.rollcall .mark.guessed{background:#0a0a14}
+  .plate.invert .mark{background:rgba(10,10,20,.82)}
+  @media (max-width:760px){
+    /* names fill the phone column: ~0.68em per Work Sans 900 cap, 90vw of column, capped */
+    h1.mega{font-size:min(calc(132vw / var(--len, 8)), 4.4rem)}
+    img.landmark{width:min(100%, 22rem); margin:.4rem 0 -1.6rem}
+    table.census{font-size:.78rem; min-width:0}
+    table.census th, table.census td{padding:.45rem .3rem .45rem 0}
+    table.census th{letter-spacing:.04em; font-size:.62rem}
+  }
+
+  /* ---- Lit from within, round 4 fixes (design loop) ---- */
+  h1.mega .of{font-size:calc(clamp(2.6rem,10vw,7.5rem) * .24)}   /* kicker no longer shrinks with long names */
+  .plate.invert #count-figure.masked{color:#0a0a14}
+  .plate.invert .aside{border-left-color:#0a0a14}
+  .plate.invert h2.display, .plate.invert .plate-body > p:first-child, .plate.invert p.bridge,
+  .plate.invert .ring-name, .plate.invert .reasons li strong, .plate.invert a:hover, .plate.invert .guess-q{color:#0a0a14}
+  .plate.gold, .plate.gold h2.display, .plate.gold p, .plate.gold li, .plate.gold .kicker, .plate.gold .numeral,
+  .plate.gold a, .plate.gold .q-options button, .plate.gold .q-score, .plate.gold .q-n{color:#0a0a14}
+  .plate.gold .q-options button.right, .plate.gold .q-reveal{border-color:#0a0a14}
+  .plate.gold .q-q, .plate.gold .tender, .plate.gold .q-reveal, .plate.gold .q-score, .plate.gold .q-n{color:#0a0a14 !important}
+  .plate.invert .q-q, .plate.invert .tender, .plate.invert .q-reveal, .plate.invert .guess-result, .plate.gold .guess-result{color:#0a0a14 !important}
+  @media (max-width:760px){
+    h1.mega .of{font-size:.85rem}
+    header.hero .standfirst{margin-top:1.6rem}
+    /* even space above and below the drawing: subtract each image's measured empty padding (data landmark.pad) */
+    img.landmark{margin:calc(1.6rem - var(--lpt) * min(100vw - 40px, 22rem) * 1.2408) 0 calc(0rem - var(--lpb) * min(100vw - 40px, 22rem) * 1.2408)}
+  }
+
+  /* ---- Lit from within, round 5 fixes (design loop) ---- */
+  button.submit{color:#0a0a14} button.submit:hover{background:#f5f1e8}
+  .plate.gold p.subtitle{color:#0a0a14}
+  .plate.invert a{border-bottom:2px solid rgba(10,10,20,.7)}          /* lemon underline vanished on cream */
+  .plate.invert .ring-name{border-bottom-color:rgba(10,10,20,.6)}
+  @media (max-width:760px){
+    h1.mega .of{font-size:1.05rem}
+    header.hero .standfirst{margin-top:.6rem}   /* faded foot of each drawing reads as space: tighten below */
+  }
 </style>
 <!-- Plausible (cookieless, same as every BLKOUT page). The doors had none until 11 Oct 2026, so their visits were never counted. -->
 <script defer data-domain="events.blkoutuk.com" src="https://analytics.blkoutuk.cloud/js/script.js"></script>
@@ -595,9 +692,9 @@
   <div class="hero-row">
     <div class="hero-type">
       <p class="eyebrow">One community. Many local pages. This one is Tower Hamlets'.</p>
-      <h1 class="mega"><span class="of">BLKOUT in</span> Tower Hamlets</h1>
+      <h1 class="mega" style="--len:7"><span class="of">BLKOUT in</span> Tower Hamlets</h1>
     </div>
-    <img class="landmark" src="../images/tower-hamlets/christ-church-spitalfields.png" alt="Pencil sketch of Christ Church Spitalfields' white stone spire and portico at night, with the BLKOUT roundel set as a small moon in the sky above it" width="760" height="943">
+    <img class="landmark" src="../images/tower-hamlets/christ-church-spitalfields.png" alt="Pencil sketch of Christ Church Spitalfields' white stone spire and portico at night, with the BLKOUT roundel set as a small moon in the sky above it" width="760" height="943" style="--lpt:0.04; --lpb:0.019">
   </div>
   <p class="standfirst">BLKOUT is a community-owned co-operative for Black queer men across the UK — and Tower Hamlets is where one of the twentieth century's great Black queer writers worked as a journalist. In 1920 Claude McKay reported for Sylvia Pankhurst's Workers' Dreadnought from its office in Bow, and lived on the Bow Road. Around 22,700 Black residents live in the borough today. This page is for the Black queer men among them.</p>
 </header>
@@ -635,8 +732,8 @@
       <p class="guess-result" id="guess-result" hidden></p>
       <p class="rollcall-lede" id="count-lede">One dot for every Black queer man the census estimate puts in Tower Hamlets — between 480 and 750 of us.</p>
       <div class="field" id="rollfield" data-total="750"></div>
+      <p class="census-caption">The ten London boroughs with the largest Black populations, with our working estimates of Black queer men in each. These are estimates and we welcome correction — the point is the scale nobody counts.</p>
       <div class="table-wrap"><table class="census">
-        <caption>The ten London boroughs with the largest Black populations, with our working estimates of Black queer men in each. These are estimates and we welcome correction — the point is the scale nobody counts.</caption>
         <thead><tr><th>Borough</th><th>Black residents (2021)</th><th>Black queer men (est.)</th></tr></thead>
         <tbody>
           <tr><td>Croydon</td><td>88,500</td><td>2,000–2,800</td></tr>

@@ -6,7 +6,7 @@
   "canonicalUrl": "https://events.blkoutuk.com/tower-hamlets/",
   "landmark": {
     "src": "../images/tower-hamlets/christ-church-spitalfields.png",
-    "alt": "Pencil sketch of Christ Church Spitalfields' white stone spire and portico at night, with the BLKOUT roundel set as a small moon in the sky above it"
+    "alt": "Pencil sketch of Christ Church Spitalfields' white stone spire and portico at night, with the BLKOUT roundel set as a small moon in the sky above it", "pad": {"top": 0.04, "bottom": 0.019}
   },
   "hero": {
     "kicker": "One community. Many local pages. This one is Tower Hamlets'.",

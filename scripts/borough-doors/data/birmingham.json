@@ -6,7 +6,7 @@
   "canonicalUrl": "https://events.blkoutuk.com/birmingham/",
   "landmark": {
     "src": "../images/birmingham/birmingham-bullring-bull.png",
-    "alt": "Pencil sketch of the Bullring Bull statue outside Birmingham's Bullring shopping centre, with the BLKOUT roundel set into a full moon above"
+    "alt": "Pencil sketch of the Bullring Bull statue outside Birmingham's Bullring shopping centre, with the BLKOUT roundel set into a full moon above", "pad": {"top": 0.11, "bottom": 0.113}, "lift": 1.9
   },
   "hero": {
     "kicker": "One community. Many local pages. This is BLKOUT's first outside London: new, and growing.",
