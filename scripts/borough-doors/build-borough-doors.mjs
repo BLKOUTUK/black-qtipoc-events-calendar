@@ -1304,6 +1304,7 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
 
   /* ---- Lit from within, round 2 fixes (design loop) ---- */
   html{background:#0a0a14}  /* body's glow now paints on the body box, not the first screen only (phone seam) */
+  html{overflow-x:clip}  /* full-bleed plates (-50vw margins) must never widen the page: no sideways scroll, no phone zoom-out */
   body{background:radial-gradient(ellipse 75vw 950px at 85% 0, rgba(74,25,66,.8), transparent 70%) no-repeat,
     radial-gradient(ellipse 60vw 700px at 0 900px, rgba(74,25,66,.35), transparent 70%) no-repeat, #0a0a14}
   @media (min-width:761px){ h1.mega{font-size:calc(5.5rem * var(--fit, 1)); font-size:calc(clamp(2.6rem,10vw,7.5rem) * var(--fit, 1))} }
