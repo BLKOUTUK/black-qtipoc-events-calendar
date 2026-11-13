@@ -147,7 +147,7 @@ function eventPageHtml(shell: string, e: LiveEvent): string {
   const summary = plainText(e.description).slice(0, 200) || `${e.organizer} · ${e.location}`;
   const description = `${day} · ${e.location}. ${summary}`.slice(0, 280);
   const title = `${e.title} · BLKOUT Events`;
-  const image = e.image_url || `https://${CANONICAL_HOST}/pwa-512x512.png`;
+  const image = e.image_url || `https://${CANONICAL_HOST}/og-blkout.jpg`;
   const start = `${e.date}${e.start_time ? `T${e.start_time.slice(0, 8)}` : ''}`;
   const end = e.end_date || e.end_time ? `${e.end_date || e.date}${e.end_time ? `T${e.end_time.slice(0, 8)}` : ''}` : undefined;
   const isVirtual = !!e.virtual_link || /^(zoom|online|virtual)\b/i.test(e.location.trim());
