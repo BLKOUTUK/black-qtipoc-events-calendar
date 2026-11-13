@@ -55,11 +55,11 @@ const DATA = join(HERE, 'data');
 // links and the Birmingham door. One copy for all doors; Birmingham gets its own last line. Remove
 // or rewrite here when it stops being new.
 function localNews(slug) {
-  const lead = 'Every gathering on our calendar now points to its own door, and gatherings that have happened keep their page.';
+  const lead = 'Every gathering on our calendar now links to the local page for where it&rsquo;s happening, and gatherings that have happened keep their page.';
   const tail =
     slug === 'birmingham'
-      ? 'Birmingham is our first door outside London, and it grows with what you tell us. <a href="#s-truer">Tell us what we&rsquo;ve missed &rarr;</a>'
-      : 'And we&rsquo;ve opened our first door outside London: <a href="/birmingham/">Birmingham &rarr;</a>';
+      ? 'Birmingham is our first local page outside London, and it grows with what you tell us. <a href="#s-truer">Tell us what we&rsquo;ve missed &rarr;</a>'
+      : 'And we&rsquo;ve opened our first local page outside London: <a href="/birmingham/">Birmingham &rarr;</a>';
   return `<aside class="local-news" aria-label="New on BLKOUT Local"><strong>New on BLKOUT Local.</strong> ${lead} ${tail}</aside>\n\n`;
 }
 
@@ -341,8 +341,8 @@ ${pls.map((pl) => `          <li><strong>${pl.url ? `<a href="${esc(pl.url)}" re
       </div>`
             : '')(placesIn(d.slug)) +
           `\n      <div class="calendar-card">
-        <h3><a href="https://events.blkoutuk.com/?utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">Gatherings across London — the BLKOUT events calendar</a></h3>
-        <p>Fewer and truer: what's actually on for Black queer London, checked by people, never padded.</p>
+        <h3><a href="https://events.blkoutuk.com/gatherings?borough=${esc(d.slug)}&utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">What's on in ${esc(boroughWordOf(d))} — the BLKOUT events calendar</a></h3>
+        <p>Fewer and truer: what's actually on, checked by people, never padded. <a href="https://events.blkoutuk.com/?utm_source=borough-door&utm_campaign=${esc(d.slug)}" rel="noopener">Or see everything on the calendar</a>.</p>
       </div>`,
         '',
         'in-the-borough'

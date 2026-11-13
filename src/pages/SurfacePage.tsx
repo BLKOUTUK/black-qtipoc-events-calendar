@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { googleSheetsService } from '../services/googleSheetsService';
 import { fetchGatherings, fetchOpenings, fetchPageNote } from '../services/surfaceService';
+import { doorSlugs } from '../data/places';
 import { Gathering, Opening, PageNote } from '../types/surface';
 import { publishedPlaces, heldPlacesCount } from '../data/places';
 import Header from '../components/Header';
@@ -30,6 +31,12 @@ interface SurfacePageProps {
 }
 
 export function SurfacePage({ initialSection, openOpeningForm = false }: SurfacePageProps) {
+  // Borough filter (events-door links spec D, 13 Nov 2026): ?borough=<door slug> narrows the
+  // gatherings list. Only boroughs with a door count; anything else shows the full list.
+  const [borough] = useState<string | null>(() => {
+    const b = new URLSearchParams(window.location.search).get('borough');
+    return b && doorSlugs.includes(b) ? b : null;
+  });
   const [pageLoading, setPageLoading] = useState(true);
   const [gatherings, setGatherings] = useState<Gathering[]>([]);
   const [openings, setOpenings] = useState<Opening[]>([]);
@@ -93,9 +100,10 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
 
   // Scroll to the section this route names, once the surface has rendered.
   useEffect(() => {
-    if (!initialSection || pageLoading) return;
-    document.getElementById(initialSection)?.scrollIntoView({ block: 'start' });
-  }, [initialSection, pageLoading]);
+    const target = initialSection ?? (borough ? 'gatherings' : null);
+    if (!target || pageLoading) return;
+    document.getElementById(target)?.scrollIntoView({ block: 'start' });
+  }, [initialSection, borough, pageLoading]);
 
   const handleEventSubmit = async () => {
     setShowEventForm(false);
@@ -139,6 +147,7 @@ export function SurfacePage({ initialSection, openOpeningForm = false }: Surface
       ) : (
         <Surface
           gatherings={gatherings}
+          borough={borough}
           openings={openings}
           places={places}
           placesHeld={placesHeld}

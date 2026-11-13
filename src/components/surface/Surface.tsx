@@ -17,9 +17,12 @@ import { TheNote } from './TheNote';
 import { FeedThePage } from './FeedThePage';
 import { AskAIvor } from './AskAIvor';
 import { Gathering, Opening, Place, PageNote, OpeningBeat, PlaceRegion } from '../../types/surface';
+import { boroughSlug } from '../../data/places';
 
 export interface SurfaceProps {
   gatherings: Gathering[];
+  /** Door slug from ?borough= (already checked against doorSlugs), or null for everything. */
+  borough?: string | null;
   openings: Opening[];
   places: Place[];
   placesHeld: number;
@@ -89,7 +92,8 @@ function checkedLabel(places: Place[]): string {
 }
 
 export function Surface({
-  gatherings,
+  gatherings: allGatherings,
+  borough = null,
   openings,
   places,
   placesHeld,
@@ -99,6 +103,12 @@ export function Surface({
   onOpenOpeningForm,
 }: SurfaceProps) {
   const [activeBeat, setActiveBeat] = useState<OpeningBeat | 'all'>('all');
+
+  // Spec D: a door's calendar link narrows the list to its borough (events.borough, filled hourly).
+  const boroughName = borough ? borough.split('-').map((w) => w[0].toUpperCase() + w.slice(1)).join(' ') : null;
+  const gatherings = borough
+    ? allGatherings.filter((g) => g.borough && boroughSlug(g.borough) === borough)
+    : allGatherings;
 
   const sortedOpenings = sortOpenings(openings);
   const filteredOpenings =
@@ -188,7 +198,38 @@ export function Surface({
           />
           <WhatsOnVideo />
 
-          {gatherings.length === 0 ? (
+          {boroughName && (
+            <p className="mt-8 font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/70">
+              Showing <span className="text-events/100">{boroughName}</span> ·{' '}
+              <a href="/gatherings" className="text-events/100 hover:underline">
+                see everything
+              </a>{' '}
+              · <a href={`/${borough}/`} className="text-events/100 hover:underline">BLKOUT in {boroughName}</a>
+            </p>
+          )}
+
+          {gatherings.length === 0 && boroughName ? (
+            <div className="mt-8 max-w-[58ch]">
+              <p className="font-disrupt italic text-[#f5f1e8] text-xl">
+                nothing on in {boroughName} yet — and we checked. know of something? add it.
+              </p>
+              <div className="flex flex-wrap gap-x-6">
+                <button
+                  type="button"
+                  onClick={onOpenEventForm}
+                  className="appearance-none font-meta text-xs uppercase tracking-wide text-events/100 hover:underline mt-3 inline-flex items-center min-h-[44px]"
+                >
+                  Add a gathering →
+                </button>
+                <a
+                  href="/gatherings"
+                  className="font-meta text-xs uppercase tracking-wide text-events/100 hover:underline mt-3 inline-flex items-center min-h-[44px]"
+                >
+                  See everything on →
+                </a>
+              </div>
+            </div>
+          ) : gatherings.length === 0 ? (
             <div className="mt-8 max-w-[58ch]">
               <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">This month</p>
               <p className="font-disrupt italic text-[#f5f1e8] text-xl">
