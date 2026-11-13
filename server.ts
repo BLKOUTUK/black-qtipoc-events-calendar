@@ -454,6 +454,24 @@ function startBoroughScheduler() {
 }
 startBoroughScheduler();
 
+// Newsletter opt-in (13 Nov 2026): every 15 min, adds borough-door sign-ups who ticked the
+// separate monthly-letter box to SendFox list 631882 (api/newsletter-sync.ts).
+function startNewsletterSyncScheduler() {
+  const EVERY = 15 * 60 * 1000;
+  const run = async () => {
+    try {
+      const { syncNewsletterOptIns } = await import('./api/newsletter-sync.js');
+      const { checked, added, failed } = await syncNewsletterOptIns();
+      if (checked) console.log(`✉️ Newsletter opt-ins: ${checked} checked, ${added} added, ${failed.length} FAILED`);
+      failed.forEach((f) => console.error(`✉️ Newsletter opt-in FAILED: ${f}`));
+    } catch (error) {
+      console.error('✉️ Newsletter opt-ins FAILED:', error);
+    }
+  };
+  setTimeout(() => { run(); setInterval(run, EVERY); }, 2 * 60 * 1000);
+}
+startNewsletterSyncScheduler();
+
 // Start the server
 startServer().catch(error => {
   console.error('Failed to start server:', error);

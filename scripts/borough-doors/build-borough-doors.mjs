@@ -503,6 +503,7 @@ ${d.door.options
       <label class="field-l" for="f-email">Your email</label>
       <input id="f-email" type="email" autocomplete="email" required>
       <label class="holder"><input id="f-holder" type="checkbox"> ${esc(d.door.holderLabel)}</label>
+      <label class="holder"><input id="f-news" type="checkbox"> Send me BLKOUT's monthly letter too. A separate choice: SendFox will email you to confirm, and you can leave any time.</label>
       <button class="submit" type="submit">Walk through</button>
       <p class="msg" id="door-msg"></p>
     </form>
@@ -1503,6 +1504,7 @@ ${CONSTELLATION}
         email: document.getElementById('f-email').value.trim().toLowerCase(),
         interest_level: doorForm.querySelector('input[name=interest]:checked').value,
         could_help_organise: document.getElementById('f-holder').checked,
+        newsletter_opt_in: document.getElementById('f-news').checked,
         notes: null,
       }, utm),
       doorForm, document.getElementById('door-msg'),
