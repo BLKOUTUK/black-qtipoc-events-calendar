@@ -51,7 +51,7 @@ const Header: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <img
-                src="/Branding and logos/BLKOUT25INV.png"
+                src="/Branding and logos/blkoutlogo_wht_transparent.png"
                 alt="BLKOUT"
                 className="h-8 w-auto"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
