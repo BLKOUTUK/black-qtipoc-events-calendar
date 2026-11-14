@@ -54,6 +54,22 @@ const DATA = join(HERE, 'data');
 // "New on BLKOUT Local" (12 Nov 2026): one strip under every door's hero announcing the events-door
 // links and the Birmingham door. One copy for all doors; Birmingham gets its own last line. Remove
 // or rewrite here when it stops being new.
+// Subtle colourways (Rob, 13 Nov 2026: "so much more welcoming"): each local page names one in its
+// data file; neighbours never share one (assignment in ~/blkout/projects/32-boroughs/design-advice-2026-11-13/
+// ADVICE.md, "Colourways, subtle"). Lemon stays for everything clickable; the colourway is "where".
+const COLOURWAYS = {
+  // glowRgb: dimmed warm hues go brown on obsidian, so apricot and rose glow in a more saturated coral/pink than their text accent
+  apricot: { cw: '#FFB380', rgb: '255,179,128', glowRgb: '255,179,138', tint: '#FCE7D8', glow: 0.8, row: 0.5, glowW: '55vw', glowH: '700px', glowEnd: '46%' }, // small bright core: dimmed apricot browns
+  jade:    { cw: '#7DDBB5', rgb: '125,219,181', tint: '#DFF4EA', glow: 0.30 },
+  rose:    { cw: '#FF9FA8', rgb: '255,159,168', glowRgb: '255,110,150', tint: '#FBE3E5', glow: 0.52, row: 0.45 },
+  lilac:   { cw: '#C3A6FF', rgb: '195,166,255', tint: '#ECE4FC', glow: 0.30 },
+};
+function cwStyle(d) {
+  const c = COLOURWAYS[d.colourway];
+  if (!c) return '';
+  return ` style="--cw:${c.cw}; --cw-rgb:${c.rgb}; --cw-glow-rgb:${c.glowRgb ?? c.rgb}; --cw-tint:${c.tint}; --cw-glow:${c.glow}; --cw-row:${c.row ?? 0.28}${c.glowW ? `; --cw-glow-w:${c.glowW}; --cw-glow-h:${c.glowH}` : ''}${c.glowEnd ? `; --cw-glow-end:${c.glowEnd}` : ''}"`;
+}
+
 function localNews(slug) {
   const lead = 'Every gathering on our calendar now links to the local page for where it&rsquo;s happening, and gatherings that have happened keep their page.';
   const tail =
@@ -74,17 +90,18 @@ const OUT = join(HERE, '..', '..', 'public');
 // eyes-first). Chosen per borough so no two doors wear the same pictures:
 // a "power" frame under the history, a "joy" frame at the door.
 const GROUNDS = {
-  haringey: { history: ['power-09.jpg', '50% 25%'], door: ['joy-09.jpg', '50% 30%'] }, // MAKE SPACE FOR US · BLKOUT fan
+  haringey: { history: ['power-06.jpg', '50% 30%'], door: ['joy-05.jpg', '50% 30%'] }, // BLKOUT fan · Black Boy Joy tee (13 Nov: power-09 was AI-generated; joy-09 centred a woman)
   croydon:  { history: ['power-05.jpg', '50% 35%'], door: ['joy-07.jpg', '50% 30%'] }, // flag onstage · 3 men laughing
   lambeth:  { history: ['power-01.jpg', 'center'],  door: ['joy-08.jpg', '50% 30%'] }, // picket signs · selfie at Pride
-  enfield:  { history: ['power-10.jpg', '50% 25%'], door: ['joy-01.jpg', '50% 35%'] }, // 3 men in forest · 2 conversing
+  enfield:  { history: ['power-04.jpg', '50% 30%'], door: ['joy-01.jpg', '50% 35%'] }, // two men with the Baldwin portrait (13 Nov: power-10 was AI-generated) · 2 conversing
 };
 // A new borough with no entry still gets a distinct pair rather than a repeat.
-const POWER = ['power-09.jpg','power-05.jpg','power-01.jpg','power-10.jpg','power-03.jpg','power-06.jpg','power-02.jpg'];
-const JOY   = ['joy-09.jpg','joy-07.jpg','joy-08.jpg','joy-01.jpg','joy-04.jpg','joy-10.jpg','joy-03.jpg'];
+// power-09 and power-10 removed 13 Nov 2026: AI-generated photoreal people ("illustrate, never fake").
+const POWER = ['power-06.jpg','power-05.jpg','power-01.jpg','power-04.jpg','power-03.jpg','power-06.jpg','power-02.jpg'];
+const JOY   = ['joy-05.jpg','joy-07.jpg','joy-08.jpg','joy-01.jpg','joy-04.jpg','joy-10.jpg','joy-03.jpg'];
 const ANCHOR = { 'power-01.jpg':'center','power-02.jpg':'50% 30%','power-03.jpg':'50% 25%','power-05.jpg':'50% 35%',
-  'power-06.jpg':'50% 30%','power-09.jpg':'50% 25%','power-10.jpg':'50% 25%',
-  'joy-01.jpg':'50% 35%','joy-03.jpg':'50% 25%','joy-04.jpg':'50% 30%','joy-07.jpg':'50% 30%',
+  'power-04.jpg':'50% 30%','power-06.jpg':'50% 30%',
+  'joy-01.jpg':'50% 35%','joy-05.jpg':'50% 30%','joy-03.jpg':'50% 25%','joy-04.jpg':'50% 30%','joy-07.jpg':'50% 30%',
   'joy-08.jpg':'50% 30%','joy-09.jpg':'50% 30%','joy-10.jpg':'50% 40%' };
 const groundsFor = (slug) => {
   if (GROUNDS[slug]) return GROUNDS[slug];
@@ -664,7 +681,7 @@ ${d.gallery.images.map((g) => `        <figure><img src="${esc(g.src)}" alt="${e
   ];
 
   const html = `<!doctype html>
-<html lang="en-GB">
+<html lang="en-GB"${cwStyle(d)}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1325,7 +1342,7 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
   .plate.invert .mark{background:rgba(10,10,20,.82)}
   @media (max-width:760px){
     /* names fill the phone column: ~0.68em per Work Sans 900 cap, 90vw of column, capped */
-    h1.mega{font-size:min(calc(132vw / var(--len, 8)), 4.4rem)}
+    h1.mega{font-size:min(calc(118vw / var(--len, 8)), 4.4rem)}
     img.landmark{width:min(100%, 22rem); margin:.4rem 0 -1.6rem}
     table.census{font-size:.78rem; min-width:0}
     table.census th, table.census td{padding:.45rem .3rem .45rem 0}
@@ -1359,6 +1376,28 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
     h1.mega .of{font-size:1.05rem}
     header.hero .standfirst{margin-top:.6rem}   /* faded foot of each drawing reads as space: tighten below */
   }
+
+  /* ---- Subtle colourways (13 Nov 2026): colour at the top, the dark-section subtitles, one pale-tint section ---- */
+  body{background:radial-gradient(ellipse var(--cw-glow-w, 75vw) var(--cw-glow-h, 950px) at 85% 0, rgba(var(--cw-glow-rgb, 74,25,66), var(--cw-glow, .8)), transparent var(--cw-glow-end, 70%)) no-repeat,
+    radial-gradient(ellipse 60vw 700px at 0 900px, rgba(74,25,66,.35), transparent 70%) no-repeat, #0a0a14}
+  .eyebrow, h1.mega .of{color:var(--cw, #FFE600)}
+  .plate:not(.invert):not(.gold) p.subtitle{color:var(--cw, #FFE600)}
+  #the-count.plate.invert{background-color:var(--cw-tint, #f5f1e8); border-top-color:var(--cw, #FFE600)}
+  #the-count > div.plate-head, #the-count > h2.display{background-color:var(--cw-tint, #f5f1e8)}
+  #the-count .guess{background:rgba(245,241,232,.55)}
+  .plate.invert.rollcall table.census tr.self td{border-top-color:var(--cw, #FFE600); background:rgba(var(--cw-rgb, 255,230,0), var(--cw-row, .28))}
+  .boroughmap path.b.self{fill:var(--cw, #FFE600)}
+
+
+  /* Full-colour photo layout HELD (13 Nov 2026): design loop round 4 found photo detail behind text
+     on desktop and baked-in black bars in power-05; spec in ~/blkout/projects/32-boroughs/SPEC-photo-layout.md.
+     Photos keep the faint treatment above until that lands. */
+  /* form controls on dark sections: borders ≥3:1 (was #24223a, ~1.2:1) */
+  .plate:not(.invert) .option, .plate:not(.invert) input[type=text], .plate:not(.invert) input[type=email], .plate:not(.invert) textarea{border-color:rgba(245,241,232,.45)}
+
+  /* map chips for boroughs with no page yet: border ≥3:1 (was #24223a, 1.28:1) */
+  .pill.closed{opacity:1; color:rgba(221,214,200,.72); border-color:rgba(245,241,232,.4)}
+  @media (max-width:760px){ html[style]{--cw-glow-w:130vw !important} }  /* phone: broad glow, not a narrow shaft */
 </style>
 <!-- Plausible (cookieless, same as every BLKOUT page). The doors had none until 11 Oct 2026, so their visits were never counted. -->
 <script defer data-domain="events.blkoutuk.com" src="https://analytics.blkoutuk.cloud/js/script.js"></script>
