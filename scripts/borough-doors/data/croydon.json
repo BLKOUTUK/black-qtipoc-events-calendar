@@ -13,6 +13,49 @@
     "heading": "BLKOUT in Croydon",
     "standfirst": "BLKOUT is a community-owned co-operative for Black queer men across the UK — and Croydon is our home borough. If you're a Black queer man in or near Croydon, you're not waiting for a community to arrive. You're already part of one. This page is the way in."
   },
+  "feature": {
+    "kicker": "Here in Croydon · Mon 28 Dec",
+    "heading": "A Day in the Life",
+    "sub": "Joseph Beam Day 2026",
+    "lede": "The Choose Joy crew, Black queer men in Croydon, are hosting our first Joseph Beam Day at The Event Rooms in central Croydon. You're invited.",
+    "rooms": [
+      {
+        "time": "1pm",
+        "name": "Ivor's Table",
+        "body": "A sit-down lunch, named for Ivor Cummings."
+      },
+      {
+        "time": "From 3pm",
+        "name": "The Play Parlour",
+        "body": "Black men at play: make art, join the games, put yourself on the cover of BLKOUT Review."
+      },
+      {
+        "time": "From 6pm",
+        "name": "Club Frolic",
+        "body": "Our White Party, with the crew's Kings' Speech and dancing to see the year out."
+      }
+    ],
+    "note": "Lower prices and pay what you can for every part of the day. Money never closes the door.",
+    "primary": {
+      "label": "Book your place",
+      "url": "https://www.zeffy.com/en-GB/ticketing/a-day-in-the-life-joseph-beam-day--2026?utm_source=croydon-door&utm_medium=web&utm_campaign=beam-day"
+    },
+    "secondary": {
+      "label": "Set a place for someone",
+      "url": "https://commons.blkoutuk.com/set-a-place?utm_source=croydon-door&utm_medium=web&utm_campaign=beam-day"
+    },
+    "more": {
+      "label": "The whole day",
+      "url": "https://commons.blkoutuk.com/beam-day?utm_source=croydon-door&utm_medium=web&utm_campaign=beam-day"
+    },
+    "image": {
+      "src": "https://commons.blkoutuk.com/set-a-place-assets/beam-day-email-table.jpg",
+      "alt": "Illustration: Black queer men of every age round a festive table",
+      "w": 1080,
+      "h": 864
+    },
+    "until": "2026-12-29"
+  },
   "lastChecked": "5 September 2026",
   "quiz": {
     "heading": "Know your Croydon?",
@@ -71,7 +114,7 @@
       { "when": "Feb 2026", "what": "Croydon Pride's LGBT+ History Month talk with Bisi Alimi" },
       { "when": "Feb 2026", "what": "Queer Frequencies community collaging workshop at Stanley Arts", "eventId": "ac2b0468-8632-48d7-a123-4e430f94d803" },
       { "when": "Dec 2025", "what": "Silver Pride Christmas social, Thornton Heath", "eventId": "aa9dff3d-ade2-42f9-a58a-d297dea66596" },
-      { "when": "Sep–Oct 2025", "what": "Queer Croydon's meet-up and workshop strand at Stanley Arts, and the BITE club night" },
+      { "when": "2025–2026", "what": "Queer Croydon's year-round programme of creative wellness workshops, trans youth mentoring, community socials, LGBT+ swimming and Their Majesties cabaret, delivered in partnership with local cultural and community organisations" },
       { "when": "Jul 2019", "what": "Croydon Pride — BLKOUT on the main stage with David McAlmont, and our flag flying over the park" }
     ],
     "recentlyNote": "From our own calendar's record. What has already happened here doesn't go stale — a borough's recent past is proof of life."
@@ -97,7 +140,7 @@
       {
         "name": "Queer Croydon",
         "url": "https://queercroydon.com",
-        "note": "Croydon's LGBT+ community forum, carrying on where the old Croydon LGBT Forum left off: free wellness sessions, creative programmes and campaigning for LGBT+ adults across Croydon, with autumn 2026 events at Croydon Town Hall and local libraries.",
+        "note": "Queer Croydon is a trans and non-binary-led LGBT+ community organisation operating as a project of Queer Communities CIC. Supporting communities across Croydon and neighbouring South London, we deliver free and accessible programmes focused on reducing isolation, improving wellbeing and creating meaningful connections. Our activities include monthly Creative Wellness workshops, Trans Youth Support & Mentoring, community socials, LGBT+ swimming, counselling support and Their Majesties, a free monthly queer performance and community space. We also operate a nationwide RADAR Key Scheme supporting trans and gender-diverse individuals.",
         "centres": "lgbtq-general",
         "currencyChecked": true
       },

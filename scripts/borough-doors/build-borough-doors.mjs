@@ -80,6 +80,32 @@ function localNews(slug) {
   return `<aside class="local-news" aria-label="New on BLKOUT Local"><strong>New on BLKOUT Local.</strong> ${lead} ${tail} ${why}</aside>\n\n`;
 }
 
+// Featured event (Rob, 21 Nov 2026: "our event should be v prominent" on the Croydon page).
+// Optional d.feature in a door's data file; rendered straight under the hero. Dropped at build
+// time once d.feature.until has passed (a static page: rebuild to remove it).
+function featureBlock(d) {
+  const f = d.feature;
+  if (!f || (f.until && new Date() > new Date(f.until))) return '';
+  const rooms = f.rooms.map((r) => `      <li><span class="ft-time">${esc(r.time)}</span><span><strong>${esc(r.name)}</strong> ${esc(r.body)}</span></li>`).join('\n');
+  return `<section class="feature" aria-labelledby="ft-h">
+  <div class="ft-head">
+    <p class="ft-kicker">${esc(f.kicker)}</p>
+    <h2 id="ft-h" class="ft-h">${esc(f.heading)}<span class="ft-sub">${esc(f.sub)}</span></h2>
+  </div>
+  <div class="ft-text">
+    <p class="ft-lede">${esc(f.lede)}</p>
+    <ul class="ft-rooms">
+${rooms}
+    </ul>
+    <div class="ft-ctas"><a class="ft-btn" href="${esc(f.primary.url)}" rel="noopener">${esc(f.primary.label)} &rarr;</a><a class="ft-btn ghost" href="${esc(f.secondary.url)}" rel="noopener">${esc(f.secondary.label)}</a></div>
+    <p class="ft-note">${esc(f.note)} <a href="${esc(f.more.url)}" rel="noopener">${esc(f.more.label)} &rarr;</a></p>
+  </div>
+  <img class="ft-img" src="${esc(f.image.src)}" alt="${esc(f.image.alt)}" width="${Number(f.image.w)}" height="${Number(f.image.h)}" loading="eager">
+</section>
+
+`;
+}
+
 const CONSTELLATION = readFileSync(join(HERE, '..', '..', '..', '..', 'packages', 'constellation-nav', 'fragment.html'), 'utf8').trim();
 if (CONSTELLATION.includes('`') || CONSTELLATION.includes('${')) throw new Error('constellation fragment must not contain backticks or ${');
 const OUT = join(HERE, '..', '..', 'public');
@@ -772,6 +798,33 @@ ${d.noindex ? '<meta name="robots" content="noindex,nofollow">\n' : ''}<meta pro
      standfirst — 35 words and then a paragraph below to protect the image" — a
      long standfirst otherwise grows tall enough to fight the image regardless of
      the 56ch width cap. Optional — a door without it renders exactly as before. */
+  /* featured event (21 Nov 2026) */
+  .feature{display:grid; grid-template-columns:1fr 1fr; column-gap:2.5rem; row-gap:1.4rem; align-items:start;
+    margin:0 0 3rem; padding:2.4rem; background:#0a0a14; border:2px solid var(--gold); position:relative; z-index:1}
+  .ft-kicker{font-family:'Work Sans',system-ui,sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.14em;
+    font-size:.85rem; color:var(--gold); margin:0 0 .8rem}
+  .ft-h{font-family:'Work Sans',system-ui,sans-serif; font-weight:900; text-transform:uppercase; line-height:.95;
+    font-size:clamp(2.4rem,6vw,4.6rem); margin:0 0 1rem; color:var(--ink)}
+  .ft-sub{display:block; font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; text-transform:none;
+    font-size:clamp(1.3rem,2.6vw,1.9rem); color:var(--gold); margin-top:.5rem; line-height:1.2}
+  .ft-lede{font-size:1.1rem; color:var(--bone); margin:0 0 1.2rem}
+  .ft-rooms{list-style:none; padding:0; margin:0 0 1.6rem; border-top:1px solid var(--line)}
+  .ft-rooms li{display:grid; grid-template-columns:6.2rem 1fr; gap:.6rem; padding:.7rem 0; border-bottom:1px solid var(--line); color:var(--dim); line-height:1.5}
+  .ft-rooms strong{color:var(--ink); font-weight:700; margin-right:.3rem}
+  .ft-time{padding-top:.15rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; font-size:.85rem; color:var(--gold)}
+  .ft-ctas{display:flex; flex-wrap:wrap; align-items:stretch; gap:.8rem; margin-bottom:1rem}
+  .ft-ctas a{border-bottom-width:2px; line-height:1.2; display:inline-flex; align-items:center; min-height:3.4rem; box-sizing:border-box}
+  .ft-btn{display:inline-block; background:var(--gold); color:#0a0a14; border:2px solid var(--gold); padding:.85rem 1.6rem;
+    font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:1rem}
+  .ft-btn:hover{background:#fff; border-color:#fff; color:#0a0a14}
+  .ft-btn.ghost{background:transparent; color:var(--gold)}
+  .ft-btn.ghost:hover{background:var(--gold); color:#0a0a14; border-color:var(--gold)}
+  .ft-note{font-size:.95rem; color:var(--dim); margin:0}
+  .ft-head{grid-column:1 / -1}
+  .ft-h{margin-bottom:0}
+  .ft-img{width:100%; height:auto; display:block}
+  header.hero:has(+ .feature){min-height:0; padding-bottom:2rem}
+  @media (max-width:860px){ .feature{grid-template-columns:1fr; padding:1.4rem; row-gap:1.2rem} .ft-img{order:-1} .ft-rooms li{grid-template-columns:1fr; gap:.1rem} }
   .local-news .why{display:block; margin-top:.4em}
   .local-news{max-width:46rem; margin:0 auto 2rem; padding:.9rem 1.1rem; border-left:3px solid var(--gold);
     background:rgba(255,215,0,.06); font-family:'Work Sans',system-ui,sans-serif; font-size:.95rem; line-height:1.5; color:var(--dim)}
@@ -1421,7 +1474,7 @@ ${
   <p class="standfirst">${esc(d.hero.standfirst)}</p>
 </header>
 
-${
+${featureBlock(d)}${
   d.hero.standfirstMore
     ? `<p class="standfirst-more">${esc(d.hero.standfirstMore)}</p>\n\n`
     : ''
