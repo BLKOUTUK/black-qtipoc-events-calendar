@@ -10,6 +10,7 @@ import { useState } from 'react';
 import FoundationLayer from '../foundation/FoundationLayer';
 import { StreamHeader } from './StreamHeader';
 import { WhatsOnVideo } from './WhatsOnVideo';
+import { FeaturedGathering } from './FeaturedGathering';
 import { GatheringCard } from './GatheringCard';
 import { OpeningRow } from './OpeningRow';
 import { PlaceRow } from './PlaceRow';
@@ -196,6 +197,8 @@ export function Surface({
             tagline="fewer, and true. a real place, a real date, a named organiser, a working link — or it does not go up."
             chipLabel={gatheringsChip}
           />
+          {/* Featured slot (21 Nov 2026): this week's weekly_featured_content row, London-wide view only. */}
+          {!boroughName && <FeaturedGathering />}
           {/* Spec D: when filtered, say so straight under the header, and drop the London-wide
               What's On video (it promotes other boroughs' events). */}
           {boroughName ? (
