@@ -1,4 +1,6 @@
-name: Deploy to Production
+name: Build check
+
+# Checks the app installs and builds. Production is deployed by Coolify from the Dockerfile, not by this workflow.
 
 on:
   push:
@@ -14,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
       
       - name: Install dependencies
@@ -25,12 +27,3 @@ jobs:
         env:
           VITE_GOOGLE_SHEET_ID: ${{ secrets.VITE_GOOGLE_SHEET_ID }}
           VITE_GOOGLE_API_KEY: ${{ secrets.VITE_GOOGLE_API_KEY }}
-
-  # Optional: Automated event scraping
-  scrape-events:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'schedule'
-    steps:
-      - name: Trigger Event Scraping
-        run: |
-          curl -X POST ${{ secrets.NETLIFY_SITE_URL }}/.netlify/functions/scrape-all-sources
