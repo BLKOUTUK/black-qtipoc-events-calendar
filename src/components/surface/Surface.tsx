@@ -78,10 +78,16 @@ function sortOpenings(openings: Opening[]): Opening[] {
   });
 }
 
-function monthLabel(dateStr: string): string {
-  const now = new Date();
-  const d = new Date(`${dateStr}T00:00:00`);
-  return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() ? 'this-month' : 'later';
+// Month headings above each month's listings (Roland Nedd's suggestion, 19 Nov 2026).
+// The year shows only when it isn't this year.
+function monthKey(dateStr: string): string {
+  return dateStr.slice(0, 7);
+}
+
+function monthHeading(key: string): string {
+  const [y, m] = key.split('-').map(Number);
+  const d = new Date(y, m - 1, 1);
+  return d.toLocaleDateString('en-GB', y === new Date().getFullYear() ? { month: 'long' } : { month: 'long', year: 'numeric' });
 }
 
 function checkedLabel(places: Place[]): string {
@@ -125,9 +131,13 @@ export function Surface({
     openings.length === 0 ? 'All quiet' : `${openings.length} open${checkedDate ? ` · checked ${checkedDate}` : ''}`;
   const placesChip = places.length === 0 ? 'All quiet' : `${places.length} places`;
 
-  const thisMonth = gatherings.filter((g) => monthLabel(g.date) === 'this-month');
-  const later = gatherings.filter((g) => monthLabel(g.date) === 'later');
-  const showGroupLabels = thisMonth.length > 0 && later.length > 0;
+  const byMonth: { key: string; items: Gathering[] }[] = [];
+  for (const g of gatherings) {
+    const key = monthKey(g.date);
+    const last = byMonth[byMonth.length - 1];
+    if (last && last.key === key) last.items.push(g);
+    else byMonth.push({ key, items: [g] });
+  }
 
   const placesByRegion = REGION_ORDER.map((region) => ({
     region,
@@ -252,33 +262,18 @@ export function Surface({
             </div>
           ) : (
             <div className="mt-8 space-y-8">
-              {showGroupLabels && thisMonth.length > 0 && (
-                <div>
-                  <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">This month</p>
+              {byMonth.map(({ key, items }) => (
+                <div key={key}>
+                  <h3 className="font-signature font-black uppercase tracking-tight text-[#f5f1e8] text-xl mb-3 border-b border-events/30 pb-2">
+                    {monthHeading(key)}
+                  </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {thisMonth.map((g) => (
+                    {items.map((g) => (
                       <GatheringCard key={g.id} gathering={g} />
                     ))}
                   </div>
                 </div>
-              )}
-              {showGroupLabels && later.length > 0 && (
-                <div>
-                  <p className="font-meta text-xs uppercase tracking-wide text-[#f5f1e8]/50 mb-3">Later</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {later.map((g) => (
-                      <GatheringCard key={g.id} gathering={g} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              {!showGroupLabels && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {gatherings.map((g) => (
-                    <GatheringCard key={g.id} gathering={g} />
-                  ))}
-                </div>
-              )}
+              ))}
               <a
                 href="/api/calendar"
                 className="font-meta text-xs uppercase tracking-wide text-events/100 hover:underline inline-block"

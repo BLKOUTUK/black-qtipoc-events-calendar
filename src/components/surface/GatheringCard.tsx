@@ -25,6 +25,13 @@ function formatTime(time: string): string {
   return mStr === '00' ? `${h}${period}` : `${h}.${mStr}${period}`;
 }
 
+// What the event is (club night, talk, workshop…), from a `type:` tag. Roland Nedd's
+// suggestion, 19 Nov 2026: say what the event actually is on the first face of the card.
+export function eventType(tags: string[] | null): string | null {
+  const t = (tags || []).find((x) => x.toLowerCase().startsWith('type:'));
+  return t ? t.slice(5).trim() || null : null;
+}
+
 function formatDateLine(gathering: Gathering): string {
   const date = new Date(`${gathering.date}T00:00:00`);
   const dateStr = date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
@@ -42,6 +49,7 @@ function formatCost(cost: string | null): string {
 export function GatheringCard({ gathering }: GatheringCardProps) {
   const adultsOnly = isAdultsOnly(gathering.tags);
   const door = doorPath(gathering.borough);
+  const type = eventType(gathering.tags);
 
   return (
     <div className="bg-[#14141f] border border-events/30 hover:border-events/80 hover:-translate-y-0.5 transition-all duration-200 rounded-sharp flex flex-col">
@@ -60,6 +68,7 @@ export function GatheringCard({ gathering }: GatheringCardProps) {
       )}
       <div className="p-4">
         <p className="font-meta uppercase text-xs tracking-wide text-events/100 mb-2">
+          {type && <span className="text-[#f5f1e8]">{type} · </span>}
           {formatDateLine(gathering)}
         </p>
         <h3 className="text-[18px] font-semibold text-[#f5f1e8] leading-snug line-clamp-2 mb-2">{gathering.title}</h3>

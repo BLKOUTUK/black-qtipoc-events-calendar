@@ -317,7 +317,7 @@ export function EventPage() {
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-10">
             {tags.map((t) => (
-              <span key={t} className="font-meta text-[11px] uppercase tracking-widest border border-events/50 text-events px-2 py-[2px]">{t}</span>
+              <span key={t} className="font-meta text-[11px] uppercase tracking-widest border border-events/50 text-events px-2 py-[2px]">{t.replace(/^type:/i, '')}</span>
             ))}
           </div>
         )}
